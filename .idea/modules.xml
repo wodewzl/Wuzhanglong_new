@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\Administrator\StudioProjects\Wuzhanglong_new\Wuzhanglong.iml" filepath="C:\Users\Administrator\StudioProjects\Wuzhanglong_new\Wuzhanglong.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Wuzhanglong_new.iml" filepath="$PROJECT_DIR$/.idea/Wuzhanglong_new.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Administrator\StudioProjects\Wuzhanglong_new\app\app.iml" filepath="C:\Users\Administrator\StudioProjects\Wuzhanglong_new\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/wzllibrary/wzllibrary.iml" filepath="$PROJECT_DIR$/wzllibrary/wzllibrary.iml" />
-      <module fileurl="file://C:\Users\Administrator\StudioProjects\Wuzhanglong_new\wzllibrary\wzllibrary.iml" filepath="C:\Users\Administrator\StudioProjects\Wuzhanglong_new\wzllibrary\wzllibrary.iml" />
     </modules>
   </component>
 </project>

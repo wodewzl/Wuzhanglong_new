@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.cpoopc.scrollablelayoutlib.ScrollableLayout
+        android:id="@+id/scrollable_Layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.youth.banner.Banner
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:indicator_drawable_selected="@drawable/selected_radius"
+                    app:indicator_drawable_unselected="@drawable/unselected_radius"
+                    app:indicator_height="8dp"
+                    app:indicator_margin="4dp"
+                    app:indicator_width="8dp" />
+
+                <LinearLayout
+                    android:id="@+id/title_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:background="#00000000"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/back_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:drawableLeft="@drawable/base_ic_head_back"
+                        android:drawablePadding="5dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:textColor="@color/C1"
+                        android:textSize="18dp" />
+
+                    <EditText
+                        android:id="@+id/search_et"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/corners_bantouming"
+                        android:drawableRight="@drawable/search_icon"
+                        android:hint="请输入地点"
+                        android:imeOptions="actionSearch"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:textColorHint="@color/C6"
+                        android:textSize="@dimen/sp_12" />
+
+                </LinearLayout>
+            </FrameLayout>
+
+            <LinearLayout
+                style="@style/padding_15_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/C1"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/type_01_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@drawable/ic_launcher"
+                    android:gravity="center"
+                    android:text="手机话费" />
+
+                <TextView
+                    android:id="@+id/type_02_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@drawable/ic_launcher"
+                    android:gravity="center"
+                    android:text="电费" />
+
+                <TextView
+                    android:id="@+id/type_03_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@drawable/ic_launcher"
+                    android:gravity="center"
+                    android:text="水费" />
+
+                <TextView
+                    android:id="@+id/type_04_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@drawable/ic_launcher"
+                    android:gravity="center"
+                    android:text="网费" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/C1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/options1_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/options_normal_icon"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="房东语种"
+                android:textSize="13sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/C3" />
+
+            <TextView
+                android:id="@+id/options2_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/options_normal_icon"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="所在区域"
+                android:textSize="13sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/C3" />
+
+            <TextView
+                android:id="@+id/options3_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/options_normal_icon"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="付款方式"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/C3_1"/>
+
+        <com.github.jdsjlzx.recyclerview.LuRecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/C1"/>
+
+    </com.cpoopc.scrollablelayoutlib.ScrollableLayout>
+
+
+</LinearLayout>

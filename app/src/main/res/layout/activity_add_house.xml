@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wuzhanglong.library.view.ReboundScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/C3"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.wzl.feifubao.activity.HouseAddActivity">
+
+        <LinearLayout
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="房屋名称："
+                android:textColor="@color/C5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="金太阳城" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="租赁方式："
+                android:textColor="@color/C5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="金太阳城" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="租金："
+                android:textColor="@color/C5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="金太阳城" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="户型："
+                android:textColor="@color/C5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="金太阳城" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="面积："
+                android:textColor="@color/C5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="金太阳城" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="房源类型："
+                android:textColor="@color/C5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="金太阳城" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="房屋朝向："
+                android:textColor="@color/C5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="金太阳城" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="楼层："
+                android:textColor="@color/C5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="金太阳城" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="装修类型："
+                android:textColor="@color/C5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="金太阳城" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="上传房源照片"
+            android:textColor="@color/C5" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/C1"
+            android:orientation="vertical">
+
+            <cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout
+                android:id="@+id/phone_layout"
+                style="@style/MatchMatch"
+                android:background="@color/C1"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                app:bga_snpl_deleteDrawable="@mipmap/bga_pp_ic_delete"
+                app:bga_snpl_deleteDrawableOverlapQuarter="false"
+                app:bga_snpl_editable="true"
+                app:bga_snpl_itemCornerRadius="0dp"
+                app:bga_snpl_itemSpanCount="3"
+                app:bga_snpl_itemWhiteSpacing="15dp"
+                app:bga_snpl_itemWidth="0dp"
+                app:bga_snpl_maxItemCount="3"
+                app:bga_snpl_otherWhiteSpacing="0dp"
+                app:bga_snpl_placeholderDrawable="@mipmap/bga_pp_ic_holder_dark"
+                app:bga_snpl_plusDrawable="@mipmap/bga_pp_ic_plus"
+                app:bga_snpl_plusEnable="true"
+                app:bga_snpl_sortable="true" />
+        </LinearLayout>
+
+
+        <EditText
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/C1"
+            android:gravity="top"
+            android:hint="房源详细描述" />
+    </LinearLayout>
+</com.wuzhanglong.library.view.ReboundScrollView>

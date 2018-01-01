@@ -42,8 +42,8 @@ public class MainActivity extends HomeFragmentActivity implements PostCallback {
 
         mBottomNavigationBar
                 .setActiveColor(R.color.C1)
-                .setInActiveColor(R.color.XJColor1)
-                .setBarBackgroundColor(R.color.XJColor2);
+                .setInActiveColor(R.color.FUBColor1)
+                .setBarBackgroundColor(R.color.FUBColor2);
 //                .setActiveColor(R.color.XJColor2)
 //                .setInActiveColor(R.color.XJColor8)
 //                .setBarBackgroundColor(R.color.C1);
@@ -71,19 +71,6 @@ public class MainActivity extends HomeFragmentActivity implements PostCallback {
     protected void onActivityResult(int arg0, int arg1, Intent arg2) {
         super.onActivityResult(arg0, arg1, arg2);
         UMShareAPI.get(this).onActivityResult(arg0, arg1, arg2);
-        if (arg2 == null)
-            return;
-        if (mFragmentList.get(3) != null && mFragmentList.get(3).getUserVisibleHint()) {
-            /* 然后在碎片中调用重写的onActivityResult方法 */
-            //头像处理
-            mFragmentList.get(3).onActivityResult(arg0, arg1, arg2);
-        }
-
-        if (mFragmentList.get(1) != null && mFragmentList.get(1).getUserVisibleHint()) {
-            /* 然后在碎片中调用重写的onActivityResult方法 */
-            //头像处理
-            mFragmentList.get(1).onActivityResult(arg0, arg1, arg2);
-        }
     }
 
     @Override

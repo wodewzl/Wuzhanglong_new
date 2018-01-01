@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="XJColor1">#3F51B5</color>
-    <color name="XJColor2">#DF3435</color>
+    <color name="colorPrimary">#1C68EF</color>
+    <color name="colorPrimaryDark">#1C68EF</color>
+    <color name="colorAccent">#1C68EF</color>
+    <color name="FUBColor1">#3F51B5</color>
+    <color name="FUBColor2">#DF3435</color>
+    <color name="FUBColor3">#FC6038</color>
+    <color name="FUBColor4">#ededed</color>
+    <color name="FUBColor5">#ebf6fc</color>
+    <color name="FUBColor6">#ffcc49</color>
+    <color name="FUBColor7">#fd9400</color>
 </resources>

@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@color/C1"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/C1"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp"
-        >
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,8 +24,7 @@
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/ic_launcher"
                 android:gravity="center"
-                android:text="附近商家"
-                android:textColor="@color/C5"/>
+                android:text="手机话费" />
 
             <TextView
                 android:id="@+id/type_02_tv"
@@ -36,8 +34,7 @@
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/ic_launcher"
                 android:gravity="center"
-                android:text="鲸喜购"
-                android:textColor="@color/C5"/>
+                android:text="电费" />
 
             <TextView
                 android:id="@+id/type_03_tv"
@@ -47,8 +44,7 @@
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/ic_launcher"
                 android:gravity="center"
-                android:text="活动"
-                android:textColor="@color/C5"/>
+                android:text="水费" />
 
             <TextView
                 android:id="@+id/type_04_tv"
@@ -58,8 +54,7 @@
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/ic_launcher"
                 android:gravity="center"
-                android:text="游戏"
-                android:textColor="@color/C5"/>
+                android:text="网费" />
         </LinearLayout>
 
         <LinearLayout
@@ -76,8 +71,7 @@
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/ic_launcher"
                 android:gravity="center"
-                android:text="商城"
-                android:textColor="@color/C5"/>
+                android:text="房屋出租" />
 
             <TextView
                 android:id="@+id/type_06_tv"
@@ -86,8 +80,7 @@
                 android:layout_weight="1"
                 android:drawableTop="@drawable/ic_launcher"
                 android:gravity="center"
-                android:text="鲸币"
-                android:textColor="@color/C5"/>
+                android:text="招聘" />
 
             <TextView
                 android:id="@+id/type_07_tv"
@@ -97,8 +90,7 @@
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/ic_launcher"
                 android:gravity="center"
-                android:text="签到"
-                android:textColor="@color/C5"/>
+                android:text="飞机票" />
 
             <TextView
                 android:id="@+id/type_08_tv"
@@ -108,8 +100,7 @@
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/ic_launcher"
                 android:gravity="center"
-                android:text="足迹"
-                android:textColor="@color/C5"/>
+                android:text="黄页" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

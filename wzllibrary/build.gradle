@@ -7,7 +7,7 @@ android {
     defaultConfig {
 
 //        applicationId "com.wuzhanglong.baselibrary"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -40,7 +40,7 @@ dependencies {
 
     // -------------------- 九宫格图片选择显示 ----------------------------
 
-    //    compile 'cn.bingoogolapple:bga-photopicker:1.2.6'
+        compile 'cn.bingoogolapple:bga-photopicker:1.2.6'
     compile 'cn.bingoogolapple:bga-baseadapter:1.2.7'
 
     // -------------------- 九宫格图片选择显示----------------------------

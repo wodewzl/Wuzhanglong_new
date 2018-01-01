@@ -29,6 +29,7 @@ public class LogoActivity extends BaseLogoActivity {
         TabOneFragment one = new TabOneFragment();
         TabTwoFragment two = new TabTwoFragment();
         TabThreeFragment three = new TabThreeFragment();
+
         list.add(one);
         list.add(two);
         list.add(three);
@@ -41,6 +42,17 @@ public class LogoActivity extends BaseLogoActivity {
             Intent intent = new Intent();
             intent.putExtra("fragment_list", (Serializable) list);
             intent.setClass(this, MainActivity.class);
+            startActivity(intent);
+            this.finish();
+
+//            Intent intent = new Intent();
+//            intent.setClass(this, HouseListActivity.class);//房源列表
+//            intent.setClass(this, HouseDetailActivity.class);//房源详情
+//            intent.setClass(this, RegistActivity.class);//用户注册
+//            intent.setClass(this, LoginActivity.class);//用户登陆
+//                        intent.setClass(this, AddressAddActivity.class);//添加收获地址
+//            intent.setClass(this, AddressActivity.class);//添加收获地址
+//            intent.setClass(this, JobOffersActivity.class);//招聘信息
             startActivity(intent);
             this.finish();
         }

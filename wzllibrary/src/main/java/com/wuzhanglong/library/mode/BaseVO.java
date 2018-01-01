@@ -7,6 +7,7 @@ public class BaseVO implements Serializable {
     public String desc;
     public String code;
     public String date_time;
+    public String message;
 
 
 
@@ -31,7 +32,16 @@ public class BaseVO implements Serializable {
         return date_time;
     }
 
+
     public void setDate_time(String date_time) {
         this.date_time = date_time;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

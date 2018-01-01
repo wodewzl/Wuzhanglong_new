@@ -15,8 +15,10 @@ import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
 /**
  * Created by Administrator on 2017/3/13.
  */
-// CommonAdapter RecyclerView.Adapter
-//    BGARecyclerViewAdapter
+/*
+* 造假数据只需要重写getItemCount() 与 getItemViewType（）
+*
+* */
 public abstract class RecyclerBaseAdapter<M> extends BGARecyclerViewAdapter {
     public BaseActivity mActivity;
     public boolean mIsEmpty = true;

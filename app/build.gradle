@@ -1,12 +1,19 @@
 apply plugin: 'com.android.application'
 
 android {
-
+    signingConfigs {
+        realse {
+            keyAlias 'wzl'
+            keyPassword 'wuzhanglong'
+            storeFile file('D:/studio_project/Wuzhanglong_new/wzllibrary/wodewzl.jks')
+            storePassword 'wuzhanglong'
+        }
+    }
     compileSdkVersion 27
     buildToolsVersion "27.0.1"
     defaultConfig {
         applicationId "com.wuzhanglong.conveyor"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -19,10 +26,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 //            signingConfig signingConfigs.relase
             debuggable true
+            signingConfig signingConfigs.realse
         }
         debug {
 //            signingConfig signingConfigs.debug
             debuggable true
+            signingConfig signingConfigs.realse
         }
     }
     productFlavors {

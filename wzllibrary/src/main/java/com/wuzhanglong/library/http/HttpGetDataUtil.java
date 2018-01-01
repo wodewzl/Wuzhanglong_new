@@ -12,6 +12,7 @@ import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.cache.ACache;
 import com.wuzhanglong.library.constant.BaseConstant;
 import com.wuzhanglong.library.interfaces.PostCallback;
+import com.wuzhanglong.library.interfaces.UpdateCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 
@@ -34,7 +35,7 @@ import rx.schedulers.Schedulers;
  */
 
 public class HttpGetDataUtil {
-    public static <T> void get(final BaseActivity activity, final String url, final Map<String, Object> params, final Class<T> className) {
+    public static <T> void get(final BaseActivity activity, final UpdateCallback callback, final String url, final Map<String, Object> params, final Class<T> className) {
         final Gson gson = new Gson();
         final String allUrl = BaseConstant.DOMAIN_NAME + url;
         final String cacheStr = ACache.get(activity).getAsString(allUrl + params.toString());
@@ -49,7 +50,7 @@ public class HttpGetDataUtil {
                 }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<BaseVO>() {
                     @Override
                     public void call(BaseVO baseVO) {
-                        activity.baseHasData(vo);
+                        callback.baseHasData(vo);
                     }
                 });
 
@@ -59,13 +60,19 @@ public class HttpGetDataUtil {
             }
         }
 
-        Log.i("get_url", BaseConstant.DOMAIN_NAME + url + BaseCommonUtils.getUrl((HashMap<String, Object>) params));
+        if (params == null || params.size() == 0) {
+            Log.i("get_url", BaseConstant.DOMAIN_NAME + url);
+
+        } else {
+            Log.i("get_url", BaseConstant.DOMAIN_NAME + url + BaseCommonUtils.getUrl((HashMap<String, Object>) params));
+
+        }
 
         new Novate.Builder(activity)
                 .baseUrl(BaseConstant.DOMAIN_NAME)
                 .addCache(false)
                 .build()
-                .rxGet(url, params, new RxStringCallback() {
+                .rxGet(BaseConstant.DOMAIN_NAME+url, params, new RxStringCallback() {
                     @Override
                     public void onNext(Object o, String s) {
 
@@ -75,16 +82,16 @@ public class HttpGetDataUtil {
                         }
                         BaseVO baseVO = (BaseVO) gson.fromJson(s, className);
                         if ("200".equals(baseVO.getCode())) {
-                            activity.baseHasData(baseVO);
+                            callback.baseHasData(baseVO);
                             if (!TextUtils.isEmpty(s)) {
                                 ACache.get(activity).put(allUrl + params.toString(), s, 60 * 60 * 24);
                             }
                         } else if ("400".equals(baseVO.getCode())) {
-                            activity.baseNoData(baseVO);
+                            callback.baseNoData(baseVO);
                         } else if ("600".equals(baseVO.getCode())) {
-                            activity.baseNoNet();
+                            callback.baseNoNet();
                         } else if ("300".equals(baseVO.getCode())) {
-                            activity.baseHasData(baseVO);
+                            callback.baseHasData(baseVO);
                         }
                     }
 
@@ -177,7 +184,7 @@ public class HttpGetDataUtil {
     }
 
     //提交文件
-    public static <T> void post(final BaseActivity activity, final String url, RequestBody params,final Class<T> className, final PostCallback postCallback) {
+    public static <T> void post(final BaseActivity activity, final String url, RequestBody params, final Class<T> className, final PostCallback postCallback) {
 
         final Gson gson = new Gson();
 //        final String allUrl = BaseConstant.DOMAIN_NAME + url;

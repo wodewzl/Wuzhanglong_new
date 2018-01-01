@@ -17,5 +17,16 @@
         <item name="android:windowBackground">@drawable/logo</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+    <style name="FUBCheckBox1">
+        <item name="cbd_width">32dp</item>
+        <item name="cbd_height">32dp</item>
+        <item name="cbd_boxSize">15dp</item>
+        <item name="cbd_cornerRadius">100dp</item>
+        <item name="cbd_strokeSize">2dp</item> <!--边框-->
+        <item name="cbd_strokeColor">@color/colorAccent</item>
+
+        <!--<item name="cbd_tickColor">@color/C9</item>选择勾的颜色-->
+        <item name="cbd_animDuration">@android:integer/config_mediumAnimTime</item>
+    </style>
 
 </resources>

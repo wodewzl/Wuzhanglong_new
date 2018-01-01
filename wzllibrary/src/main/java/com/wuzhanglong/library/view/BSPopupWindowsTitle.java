@@ -25,6 +25,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.wuzhanglong.library.R;
+import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.adapter.PopupListAdapter;
 import com.wuzhanglong.library.mode.TreeVO;
 import com.wuzhanglong.library.pickdate.PickTimeView;
@@ -82,6 +83,23 @@ public class BSPopupWindowsTitle extends PopupWindow {
             this.dismiss();
         }
     }
+
+    @Override
+    public void showAsDropDown(View anchor) {
+        if (Build.VERSION.SDK_INT >= 26) {
+            Rect rect = new Rect();
+            anchor.getGlobalVisibleRect(rect);
+            int h = anchor.getResources().getDisplayMetrics().heightPixels - rect.bottom;
+        }else if(Build.VERSION.SDK_INT >= 24){
+            int[] a = new int[2];
+            anchor.getLocationInWindow(a);
+            this.showAtLocation(((BaseActivity)mContext).getWindow().getDecorView(), Gravity.NO_GRAVITY, 0, anchor.getHeight()+a[1]);
+            this.update();
+        }else {
+            super.showAsDropDown(anchor);
+        }
+    }
+
 
 
     // 单级

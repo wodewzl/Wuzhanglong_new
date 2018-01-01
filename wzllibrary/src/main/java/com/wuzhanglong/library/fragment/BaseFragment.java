@@ -100,6 +100,7 @@ public abstract class BaseFragment extends Fragment implements UpdateCallback, S
         setContentView();
         initView(view);
         bindViewsListener();
+        getData();
     }
 
     protected <VT extends View> VT getViewById(@IdRes int id) {
@@ -175,7 +176,7 @@ public abstract class BaseFragment extends Fragment implements UpdateCallback, S
 //    }
 
     public void baseHasData(BaseVO vo) {
-//        mActivity.dismissProgressDialog();
+        mActivity.dismissProgressDialog();
         mBaseContentLayout.setVisibility(View.VISIBLE);
         mNoContentTv.setVisibility(View.GONE);
         mNoNetTv.setVisibility(View.GONE);
@@ -183,7 +184,7 @@ public abstract class BaseFragment extends Fragment implements UpdateCallback, S
     }
 
     public void baseNoData(BaseVO vo) {
-//        mActivity.dismissProgressDialog();
+        mActivity.dismissProgressDialog();
         mBaseContentLayout.setVisibility(View.GONE);
         mNoContentTv.setVisibility(View.VISIBLE);
         mNoNetTv.setVisibility(View.GONE);
@@ -204,7 +205,7 @@ public abstract class BaseFragment extends Fragment implements UpdateCallback, S
     }
 
     public void showView() {
-//        mActivity.dismissProgressDialog();
+        mActivity.dismissProgressDialog();
         mBaseContentLayout.setVisibility(View.VISIBLE);
     }
 
