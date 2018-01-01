@@ -170,8 +170,12 @@ dependencies {
 
     //沉浸式状态栏
     compile 'com.jaeger.statusbarutil:library:1.4.0'
-    compile 'com.dou361.dialogui:jjdxm-dialogui:1.0.3'
-
+    compile ('com.dou361.dialogui:jjdxm-dialogui:1.0.2'){
+// exclude group: 'com.android.support', module: 'support-v7'
+// exclude group: 'com.android.support', module: 'design'
+    }
+//    compile 'com.dou361.dialogui:jjdxm-dialogui:x.x.x'
     //多样式Dialog
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+
 }

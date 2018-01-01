@@ -131,7 +131,6 @@ public class HttpGetDataUtil {
             public void onNext(Object o, String s) {
 
                 BaseVO vo = (BaseVO) gson.fromJson(s, className);
-                postCallback.success(vo);
                 if ("200".equals(vo.getCode())) {
                     postCallback.success(vo);
                 } else {
