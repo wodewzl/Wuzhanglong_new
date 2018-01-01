@@ -42,7 +42,11 @@
         <activity android:name=".activity.JobOffersDetailActivity" />
         <activity android:name=".activity.OrderSureActivity" />
         <activity android:name=".activity.PayElectricityActivity" />
-        <activity android:name=".activity.ExchangeRateQueryActivity"></activity>
+        <activity android:name=".activity.RateQueryActivity" />
+        <activity android:name=".activity.RateExchageActivity" />
+        <activity android:name=".activity.PhoneChargeActivity" />
+        <activity android:name=".activity.ShopDetailActivity" />
+        <activity android:name=".activity.ShopCartActivity"></activity>
     </application>
 
 </manifest>

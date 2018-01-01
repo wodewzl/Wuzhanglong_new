@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.wzl.feifubao.activity.ExchangeRateQueryActivity">
+        tools:context="com.wzl.feifubao.activity.RateQueryActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

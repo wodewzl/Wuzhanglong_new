@@ -2,8 +2,6 @@ package com.wzl.feifubao.fragment;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +21,9 @@ import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import com.wzl.feifubao.R;
-import com.wzl.feifubao.activity.ExchangeRateQueryActivity;
+import com.wzl.feifubao.activity.PhoneChargeActivity;
+import com.wzl.feifubao.activity.RateExchageActivity;
+import com.wzl.feifubao.activity.RateQueryActivity;
 import com.wzl.feifubao.activity.HouseListActivity;
 import com.wzl.feifubao.activity.JobOffersActivity;
 import com.wzl.feifubao.activity.JobOffersDetailActivity;
@@ -203,6 +203,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.type_01_tv:
+                mActivity.openActivity(PhoneChargeActivity.class);
                 break;
             case R.id.type_02_tv:
                 mActivity.openActivity(PayElectricityActivity.class);
@@ -210,7 +211,8 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
             case R.id.type_03_tv:
                 break;
             case R.id.type_04_tv:
-                mActivity.openActivity(ExchangeRateQueryActivity.class);
+                mActivity.openActivity(RateQueryActivity.class);
+                mActivity.openActivity(RateExchageActivity.class);
                 break;
             case R.id.type_05_tv:
                 mActivity.openActivity(HouseListActivity.class);
