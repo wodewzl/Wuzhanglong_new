@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:fillViewport="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <include
         android:id="@+id/type1_layout"
@@ -37,7 +41,10 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="@color/C3"/>
+
     <include
-        android:id="@+id/type7_layout"
-        layout="@layout/home_adapter_type5" />
-</LinearLayout>
+        android:id="@+id/type6_layout"
+        layout="@layout/home_adapter_type6" />
+
+    </LinearLayout>
+</ScrollView>

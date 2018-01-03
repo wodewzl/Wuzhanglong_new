@@ -272,7 +272,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/login_pwd"
+                    android:drawableLeft="@drawable/house_5"
                     android:drawablePadding="5dp"
                     android:text="请求帮助"
                     android:textColor="@color/C1"/>
@@ -288,7 +288,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/login_pwd"
+                    android:drawableLeft="@drawable/house_6"
                     android:drawablePadding="5dp"
                     android:text="呼叫房东"
                     android:textColor="@color/C1"/>

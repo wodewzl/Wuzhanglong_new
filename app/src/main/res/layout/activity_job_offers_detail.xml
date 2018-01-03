@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/C1"
-                android:drawableLeft="@drawable/login_pwd"
+                android:drawableLeft="@drawable/job_2"
                 android:drawablePadding="5dp"
                 android:text="职位描述" />
 
@@ -92,7 +92,7 @@
                     android:id="@+id/company_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/login_pwd"
+                    android:drawableLeft="@drawable/job_3"
                     android:drawablePadding="5dp"
                     android:text="襄阳北盛网络科技有限公司" />
 
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/C1"
-                android:drawableLeft="@drawable/login_pwd"
+                android:drawableLeft="@drawable/job_4"
                 android:drawablePadding="5dp"
                 android:text="襄阳北盛网络科技有限公司" />
 
@@ -134,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/C1"
-                android:drawableLeft="@drawable/login_pwd"
+                android:drawableLeft="@drawable/job_5"
                 android:drawablePadding="5dp"
                 android:drawableRight="@drawable/my_go"
                 android:text="改公司其他职位" />

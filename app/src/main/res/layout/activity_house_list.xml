@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawablePadding="5dp"
-                    android:drawableTop="@drawable/ic_launcher"
+                    android:drawableTop="@drawable/house_1"
                     android:gravity="center"
                     android:text="手机话费" />
 
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawablePadding="5dp"
-                    android:drawableTop="@drawable/ic_launcher"
+                    android:drawableTop="@drawable/house_2"
                     android:gravity="center"
                     android:text="电费" />
 
@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawablePadding="5dp"
-                    android:drawableTop="@drawable/ic_launcher"
+                    android:drawableTop="@drawable/house_3"
                     android:gravity="center"
                     android:text="水费" />
 
@@ -117,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawablePadding="5dp"
-                    android:drawableTop="@drawable/ic_launcher"
+                    android:drawableTop="@drawable/house_4"
                     android:gravity="center"
                     android:text="网费" />
 

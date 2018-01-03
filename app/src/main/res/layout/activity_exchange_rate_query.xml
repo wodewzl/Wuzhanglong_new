@@ -54,9 +54,9 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@color/colorAccent" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/rate_1" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -98,9 +98,9 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@color/colorAccent" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/rate_2" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -142,9 +142,9 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@color/colorAccent" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/rate_3" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -186,9 +186,9 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@color/colorAccent" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/rate_4" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -230,9 +230,9 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@color/colorAccent" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/rate_5" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -274,9 +274,9 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@color/colorAccent" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/rate_6" />
 
             <TextView
                 android:layout_width="wrap_content"

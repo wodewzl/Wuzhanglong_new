@@ -42,7 +42,7 @@ import com.youth.banner.loader.ImageLoader;
 import java.util.HashMap;
 
 public class TabOneFragment extends BaseFragment implements View.OnClickListener {
-    private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
+
     private LuRecyclerView mRecyclerView;
     private HomeAdapter mAdapter;
     private LuRecyclerViewAdapter mLuAdapter;
@@ -63,8 +63,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mActivity.mBaseHeadLayout.setVisibility(View.VISIBLE);
         mActivity.mBaseTitleTv.setText("菲付宝");
 
-        mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
-        mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
+
         mRecyclerView = getViewById(R.id.recycler_view);
         DividerDecoration divider = DividerUtil.linnerDivider(mActivity, R.dimen.dp_1, R.color.C3);
         mRecyclerView.addItemDecoration(divider);
@@ -170,7 +169,8 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     }
 
     public View initHeadView() {
-        View header = LayoutInflater.from(mActivity).inflate(R.layout.home_head_layout, (ViewGroup) mActivity.findViewById(android.R.id.content), false);
+//        View header = LayoutInflater.from(mActivity).inflate(R.layout.home_head_layout, (ViewGroup) mActivity.findViewById(android.R.id.content), false);
+        View header = View.inflate(mActivity,R.layout.home_head_layout,null);
         mType1Tv01 = header.findViewById(R.id.type_01_tv);
         mType1Tv02 = header.findViewById(R.id.type_02_tv);
         mType1Tv03 = header.findViewById(R.id.type_03_tv);
