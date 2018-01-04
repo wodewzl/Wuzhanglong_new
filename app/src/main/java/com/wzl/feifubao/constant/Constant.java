@@ -23,4 +23,5 @@ public class Constant {
     public static final String RATE_EXCHANGE_URL = "api/Rate/changeMoney";//汇率换算
     public static final String SHOP_LIST_ULR = "api/Good/getGoodsList";//商城除首页其他的界面界面接口
     public static final String SHOP_DETAIL_ULR = "api/Good/getGoodsDetail";//商品详情
+    public static final String JOBOFFER_URL = "api/Recruit/getRecruitLists";//招聘列表
 }

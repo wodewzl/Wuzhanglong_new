@@ -219,7 +219,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
                 break;
             case R.id.type_06_tv:
                 mActivity.openActivity(JobOffersActivity.class);
-                mActivity.openActivity(JobOffersDetailActivity.class);
+//                mActivity.openActivity(JobOffersDetailActivity.class);
                 break;
             case R.id.type_07_tv:
                 mActivity.openActivity(OrderSureActivity.class);
