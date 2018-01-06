@@ -19,7 +19,7 @@ import com.wzl.feifubao.mode.UserInfoVO;
 
 import java.util.HashMap;
 
-public class RegistActivity extends BaseActivity implements View.OnClickListener,PostCallback {
+public class RegistActivity extends BaseActivity implements View.OnClickListener, PostCallback {
     private EditText mEt01, mEt02, mEt03, mEt04;
     private TextView mOkTv;
 
@@ -37,7 +37,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         mEt03 = getViewById(R.id.et_03);
         mEt04 = getViewById(R.id.et_04);
         mOkTv = getViewById(R.id.ok_tv);
-        mOkTv.setBackground(BaseCommonUtils.setBackgroundShap(this,5,R.color.colorAccent,R.color.colorAccent));
+        mOkTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.colorAccent, R.color.colorAccent));
     }
 
     @Override
@@ -69,25 +69,25 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ok_tv:
-                if(TextUtils.isEmpty(mEt01.getText().toString())){
+                if (TextUtils.isEmpty(mEt01.getText().toString())) {
                     showCustomToast("请输入用户名");
                     return;
                 }
-                if(TextUtils.isEmpty(mEt02.getText().toString())){
+                if (TextUtils.isEmpty(mEt02.getText().toString())) {
                     showCustomToast("请输入手机号");
                     return;
                 }
-                if(TextUtils.isEmpty(mEt03.getText().toString())){
+                if (TextUtils.isEmpty(mEt03.getText().toString())) {
                     showCustomToast("请输入密码");
                     return;
                 }
 
-                if(TextUtils.isEmpty(mEt04.getText().toString())){
+                if (TextUtils.isEmpty(mEt04.getText().toString())) {
                     showCustomToast("请输入确认密码");
                     return;
                 }
 
-                if(!mEt03.getText().toString().equals(mEt04.getText().toString())){
+                if (!mEt03.getText().toString().equals(mEt04.getText().toString())) {
                     showCustomToast("两次密码一样");
                     return;
                 }
@@ -105,11 +105,12 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         map.put("username", mEt01.getText().toString());
         map.put("phone", mEt02.getText().toString());
         map.put("password", mEt03.getText().toString());
-        HttpGetDataUtil.post(this, Constant.REGIST_URL, map, UserInfoVO.class,this);
+        HttpGetDataUtil.post(this, Constant.REGIST_URL, map, UserInfoVO.class, this);
     }
 
     @Override
     public void success(BaseVO vo) {
-
+        showCustomToast("注册成功");
+        this.finish();
     }
 }

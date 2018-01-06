@@ -10,15 +10,23 @@ import android.widget.TextView;
 
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.wuzhanglong.library.activity.BaseActivity;
+import com.wuzhanglong.library.http.HttpGetDataUtil;
+import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
+import com.wzl.feifubao.application.AppApplication;
+import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.AddressVO;
 import com.wzl.feifubao.mode.CityVO;
 
-import java.util.ArrayList;
+import org.greenrobot.eventbus.EventBus;
 
-public class AddressEditActivity extends BaseActivity implements View.OnClickListener {
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class AddressEditActivity extends BaseActivity implements View.OnClickListener,PostCallback{
     private EditText mEt01, mEt02, mEt04;
     private TextView mTv03;
     private CityVO mCityVO;
@@ -47,12 +55,12 @@ public class AddressEditActivity extends BaseActivity implements View.OnClickLis
         mAddBt.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.C7, R.color.C7));
 
         Intent intent = this.getIntent();
-        AddressVO vo = (AddressVO) intent.getSerializableExtra("address");
-        mEt01.setText(vo.getTrue_name());
-        mEt02.setText(vo.getMob_phone());
-        mTv03.setText(vo.getArea_info());
+        AddressVO.DataBean vo = ( AddressVO.DataBean) intent.getSerializableExtra("address");
+        mEt01.setText(vo.getConsigner());
+        mEt02.setText(vo.getPhone());
+        mTv03.setText(vo.getAddress_info());
         mEt04.setText(vo.getAddress());
-        mAddressId = vo.getAddress_id();
+        mAddressId = vo.getId();
         mIsDefault = vo.getIs_default();
     }
 
@@ -64,9 +72,8 @@ public class AddressEditActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void getData() {
-//        RequestParams paramsMap = new RequestParams();
-//        String mUrl = Constant.GET_CITY_URL;
-//        HttpClientUtil.get(mActivity, mThreadUtil, mUrl, paramsMap, CityVO.class);
+        HashMap<String, Object> map = new HashMap<>();
+        HttpGetDataUtil.get(mActivity, this, Constant.CITY_URL, map, CityVO.class);
     }
 
     @Override
@@ -97,7 +104,6 @@ public class AddressEditActivity extends BaseActivity implements View.OnClickLis
             options2Items.add(CityList);
             options3Items.add(Province_AreaList);
         }
-
 
     }
 
@@ -136,24 +142,29 @@ public class AddressEditActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.add_bt:
                 showProgressDialog();
-//                RequestParams paramsMap = new RequestParams();
-//                String mUrl = Constant.EDIT_ADDRESS_URL;
-//                if (AppApplication.getInstance().getUserInfoVO() != null)
-//                    paramsMap.put("key", AppApplication.getInstance().getUserInfoVO().getKey());
-//                paramsMap.put("address_id", mAddressId);
-//                paramsMap.put("true_name", mEt01.getText().toString());
-//                paramsMap.put("mob_phone", mEt02.getText().toString());
-//                paramsMap.put("province_id", mProvinceId);
-//                paramsMap.put("city_id", mCityId);
-//                paramsMap.put("area_id", mAreaId);
-//                paramsMap.put("area_info", mTv03.getText().toString());
-//                paramsMap.put("address", mEt04.getText().toString());
-//                paramsMap.put("is_default", mIsDefault);
-//                HttpClientUtil.post(mActivity, this, mUrl, paramsMap, null, "2");
+                HashMap<String, Object> map = new HashMap<>();
+                String mUrl = Constant.ADDRESS_ADD_URL;
+                map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
+                map.put("consigner", mEt01.getText().toString());
+                map.put("phone", mEt02.getText().toString());
+                map.put("mobile", mEt02.getText().toString());
+                map.put("province", mProvinceId);
+                map.put("city", mCityId);
+                map.put("district", mAreaId);
+//                map.put("area_info", mTv03.getText().toString());
+                map.put("address", mEt04.getText().toString());
+                HttpGetDataUtil.post(mActivity,  Constant.ADDRESS_SET_URL, map, this);
                 break;
             default:
                 break;
         }
 
+    }
+
+    @Override
+    public void success(BaseVO vo) {
+        showCustomToast("编辑成功");
+        EBMessageVO ebMessageVO=new EBMessageVO("address_edit","");
+        EventBus.getDefault().post(ebMessageVO);
     }
 }

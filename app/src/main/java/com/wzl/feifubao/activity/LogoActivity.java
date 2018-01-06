@@ -1,11 +1,13 @@
 package com.wzl.feifubao.activity;
 
+import android.Manifest;
 import android.content.Intent;
 
 import com.wuzhanglong.library.activity.BaseLogoActivity;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wzl.feifubao.R;
+import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.fragment.TabOneFragment;
 import com.wzl.feifubao.fragment.TabThreeFragment;
 import com.wzl.feifubao.fragment.TabTwoFragment;
@@ -17,9 +19,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LogoActivity extends BaseLogoActivity {
-    public List<BaseFragment> list = new ArrayList<>();
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
+public class LogoActivity extends BaseLogoActivity implements EasyPermissions.PermissionCallbacks {
+    private static final int REQUEST_PERMISSIONS = 1;
+    public List<BaseFragment> list = new ArrayList<>();
+    private boolean mFlag = false;
     @Override
     public void initLogo() {
         EventBus.getDefault().register(this);
@@ -29,7 +35,6 @@ public class LogoActivity extends BaseLogoActivity {
         TabOneFragment one = new TabOneFragment();
         TabTwoFragment two = new TabTwoFragment();
         TabThreeFragment three = new TabThreeFragment();
-
         list.add(one);
         list.add(two);
         list.add(three);
@@ -39,11 +44,13 @@ public class LogoActivity extends BaseLogoActivity {
     @Subscribe
     public void onEventMainThread(EBMessageVO event) {
         if ("guide".equals(event.getMessage())) {
-            Intent intent = new Intent();
-            intent.putExtra("fragment_list", (Serializable) list);
-            intent.setClass(this, MainActivity.class);
-            startActivity(intent);
-            this.finish();
+            reuestPerm();
+
+//            Intent intent = new Intent();
+//            intent.putExtra("fragment_list", (Serializable) list);
+//            intent.setClass(this, MainActivity.class);
+//            startActivity(intent);
+//            this.finish();
 
 //            Intent intent = new Intent();
 //            intent.setClass(this, HouseListActivity.class);//房源列表
@@ -53,8 +60,8 @@ public class LogoActivity extends BaseLogoActivity {
 //                        intent.setClass(this, AddressAddActivity.class);//添加收获地址
 //            intent.setClass(this, AddressActivity.class);//添加收获地址
 //            intent.setClass(this, JobOffersActivity.class);//招聘信息
-            startActivity(intent);
-            this.finish();
+//            startActivity(intent);
+//            this.finish();
         }
     }
 
@@ -65,4 +72,32 @@ public class LogoActivity extends BaseLogoActivity {
 
     }
 
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+
+    }
+
+    @AfterPermissionGranted(REQUEST_PERMISSIONS)
+    private void reuestPerm() {
+        String[] perms = {android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            Intent intent = new Intent();
+            if (AppApplication.getInstance().getUserInfoVO() != null) {
+                intent.putExtra("fragment_list", (Serializable) list);
+                intent.setClass(this, MainActivity.class);
+            } else {
+                intent.setClass(this, LoginActivity.class);
+            }
+
+            startActivity(intent);
+            this.finish();
+        } else {
+            EasyPermissions.requestPermissions(this, "", REQUEST_PERMISSIONS, perms);
+        }
+    }
 }

@@ -7,9 +7,15 @@ import android.view.ViewGroup;
 
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
+import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wzl.feifubao.R;
+import com.wzl.feifubao.activity.AddressActivity;
 import com.wzl.feifubao.activity.AddressEditActivity;
+import com.wzl.feifubao.application.AppApplication;
+import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.AddressVO;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.Serializable;
 
@@ -21,8 +27,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * Created by Administrator on 2017/2/13.
  */
 
-public class AddressRAdapter extends RecyclerBaseAdapter<AddressVO> {
-    private AddressVO mDefalutVO;
+public class AddressRAdapter extends RecyclerBaseAdapter<AddressVO.DataBean> {
+    private AddressVO.DataBean mDefalutVO;
+
 
     public AddressRAdapter(RecyclerView recyclerView) {
         super(recyclerView, R.layout.address_adapter);
@@ -30,10 +37,10 @@ public class AddressRAdapter extends RecyclerBaseAdapter<AddressVO> {
 
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
-        AddressVO vo = (AddressVO) model;
-        helper.setText(R.id.name_tv, vo.getTrue_name());
-        helper.setText(R.id.phone_tv, vo.getMob_phone());
-        helper.setText(R.id.address_tv, vo.getArea_info() + vo.getAddress());
+        AddressVO.DataBean vo = (AddressVO.DataBean) model;
+        helper.setText(R.id.name_tv, vo.getConsigner());
+        helper.setText(R.id.phone_tv, vo.getPhone());
+        helper.setText(R.id.address_tv, vo.getAddress_info() + vo.getAddress());
         if ("1".equals(vo.getIs_default())) {
             helper.setImageResource(R.id.check_img, R.drawable.check_select);
             mDefalutVO = vo;
@@ -47,7 +54,7 @@ public class AddressRAdapter extends RecyclerBaseAdapter<AddressVO> {
         helper.setOnItemChildClickListener(new BGAOnItemChildClickListener() {
             @Override
             public void onItemChildClick(ViewGroup viewGroup, View v, final int i) {
-                final AddressVO vo = (AddressVO) mData.get(i);
+                final AddressVO.DataBean vo = (AddressVO.DataBean) mData.get(i);
                 switch (v.getId()) {
                     case R.id.delete_tv:
 
@@ -61,7 +68,8 @@ public class AddressRAdapter extends RecyclerBaseAdapter<AddressVO> {
                                     @Override
                                     public void onClick(SweetAlertDialog sDialog) {
                                         sDialog.dismissWithAnimation();//直接消失
-//                                        delete(vo.getAddress_id());
+                                        EBMessageVO ebMessageVO = new EBMessageVO("address_delete", vo.getId());
+                                        EventBus.getDefault().post(ebMessageVO);
                                         mData.remove(i);
                                         AddressRAdapter.this.notifyDataSetChanged();
                                     }
@@ -79,11 +87,27 @@ public class AddressRAdapter extends RecyclerBaseAdapter<AddressVO> {
                     case R.id.check_img:
                         if ("1".equals(vo.getIs_default()))
                             return;
-//                        setAddressDefault(vo.getAddress_id());
-                        vo.setIs_default("1");
-                        if (mDefalutVO != null)
-                            mDefalutVO.setIs_default("0");
-                        notifyDataSetChanged();
+
+                        new SweetAlertDialog(mContext, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("确定设为默认地址吗?")
+                                .setConfirmText("确定")
+                                .setCancelText("取消")
+
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        sDialog.dismissWithAnimation();//直接消失
+                                        EBMessageVO ebMessageVO = new EBMessageVO("address_defalut", vo.getId());
+                                        EventBus.getDefault().post(ebMessageVO);
+                                        vo.setIs_default("1");
+                                        if (mDefalutVO != null)
+                                            mDefalutVO.setIs_default("0");
+                                        notifyDataSetChanged();
+                                    }
+                                })
+                                .show();
+
+
                         break;
                     default:
                         break;
@@ -93,34 +117,4 @@ public class AddressRAdapter extends RecyclerBaseAdapter<AddressVO> {
 
     }
 
-//    public void delete(final String addressId) {
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                BaseActivity activity = (BaseActivity) mContext;
-//                RequestParams paramsMap = new RequestParams();
-//                String mUrl = Constant.DELETE_ADDRESS_URL;
-//                if (AppApplication.getInstance().getUserInfoVO() != null)
-//                    paramsMap.put("key", AppApplication.getInstance().getUserInfoVO().getKey());
-//                paramsMap.put("address_id", addressId);
-//                HttpClientUtil.getRequest(activity, activity, mUrl, paramsMap, null);
-//            }
-//        }.start();
-//    }
-//
-//    public void setAddressDefault(final String addressId) {
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                BaseActivity activity = (BaseActivity) mContext;
-//                RequestParams paramsMap = new RequestParams();
-//                String mUrl = Constant.DEFALULT_ADDRESS_URL;
-//                if (AppApplication.getInstance().getUserInfoVO() != null)
-//                    paramsMap.put("key", AppApplication.getInstance().getUserInfoVO().getKey());
-//                paramsMap.put("address_id", addressId);
-//                HttpClientUtil.getRequest(activity, activity, mUrl, paramsMap, null);
-//            }
-//        }.start();
-//
-//    }
 }

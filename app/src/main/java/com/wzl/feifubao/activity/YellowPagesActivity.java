@@ -1,34 +1,51 @@
 package com.wzl.feifubao.activity;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
+import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.adapter.JobOffersAdapter;
 import com.wzl.feifubao.adapter.YellowPagesAdapter;
+import com.wzl.feifubao.constant.Constant;
+import com.wzl.feifubao.mode.JobOffersVO;
 import com.wzl.feifubao.mode.YellowPagesVO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGADivider;
+import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 
-public class YellowPagesActivity extends BaseActivity {
+public class YellowPagesActivity extends BaseActivity implements BGAOnRVItemClickListener, OnLoadMoreListener,SwipeRefreshLayout.OnRefreshListener,android.widget.TextView.OnEditorActionListener, TextWatcher {
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private LuRecyclerView mRecyclerView;
     private YellowPagesAdapter mAdapter;
     private EditText mSearchEt;
-
+    private String mKeyword = "";
+    private int mCurrentPage = 1;
+    private boolean isLoadMore = true;
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.activity_yellow_pages);
@@ -58,16 +75,45 @@ public class YellowPagesActivity extends BaseActivity {
 
     @Override
     public void bindViewsListener() {
-
+        mRecyclerView.setOnLoadMoreListener(this);
+        mAutoSwipeRefreshLayout.setOnRefreshListener(this);
+        mSearchEt.setOnEditorActionListener(this);
+        mSearchEt.addTextChangedListener(this);
+        mAdapter.setOnRVItemClickListener(this);
     }
 
     @Override
     public void getData() {
-        showView();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("page", mCurrentPage+"");
+        map.put("pagesize", "10");
+        map.put("keyword", mKeyword);
+        HttpGetDataUtil.get(mActivity, this, Constant.YELLOW_PAGE_LIST_URL, map, YellowPagesVO.class);
     }
 
     @Override
     public void hasData(BaseVO vo) {
+        YellowPagesVO yellowPagesVO = (YellowPagesVO) vo;
+        if (BaseCommonUtils.parseInt(yellowPagesVO.getData().getPage_count()) == 1) {
+            mRecyclerView.setLoadMoreEnabled(false);
+        }
+        if (mCurrentPage == BaseCommonUtils.parseInt(yellowPagesVO.getData().getPage_count())) {
+            mRecyclerView.setNoMore(true);
+        } else {
+            mRecyclerView.setNoMore(false);
+        }
+
+        List<YellowPagesVO.DataBeanX.DataBean> list = yellowPagesVO.getData().getData();
+        if (isLoadMore) {
+            mAdapter.updateDataLast(list);
+            isLoadMore = false;
+            mCurrentPage++;
+        } else {
+            mCurrentPage++;
+            mAdapter.updateData(list);
+        }
+        mAutoSwipeRefreshLayout.setRefreshing(false);
+        mAdapter.notifyDataSetChanged();
 
     }
 
@@ -78,6 +124,56 @@ public class YellowPagesActivity extends BaseActivity {
 
     @Override
     public void noNet() {
+
+    }
+
+    @Override
+    public void onRefresh() {
+        mCurrentPage = 1;
+        mKeyword = "";
+        getData();
+    }
+
+    @Override
+    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+        if(mAdapter.getData().size()==0)
+            return;
+//        YellowPagesVO.DataBeanX.DataBean vo=mAdapter.getItem(position);
+//        Bundle bundle=new Bundle();
+//        bundle.putString("id",vo.getId());
+//        open(JobOffersDetailActivity.class,bundle,0);
+    }
+
+
+    @Override
+    public void onLoadMore() {
+        isLoadMore = true;
+        getData();
+    }
+
+    @Override
+    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+        mKeyword = textView.getText().toString();
+        getData();
+        return false;
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+        if ("".equals(s.toString())) {
+            mKeyword = "";
+            mCurrentPage=1;
+            mAutoSwipeRefreshLayout.autoRefresh();
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
 
     }
 }

@@ -21,6 +21,7 @@ import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import com.wzl.feifubao.R;
+import com.wzl.feifubao.activity.LifeActivity;
 import com.wzl.feifubao.activity.PhoneChargeActivity;
 import com.wzl.feifubao.activity.RateExchageActivity;
 import com.wzl.feifubao.activity.RateQueryActivity;
@@ -209,10 +210,10 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
                 mActivity.openActivity(PayElectricityActivity.class);
                 break;
             case R.id.type_03_tv:
+                mActivity.openActivity(LifeActivity.class);
                 break;
             case R.id.type_04_tv:
-                mActivity.openActivity(RateQueryActivity.class);
-                mActivity.openActivity(RateExchageActivity.class);
+                mActivity.openActivity(OrderSureActivity.class);
                 break;
             case R.id.type_05_tv:
                 mActivity.openActivity(HouseListActivity.class);
@@ -222,7 +223,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 //                mActivity.openActivity(JobOffersDetailActivity.class);
                 break;
             case R.id.type_07_tv:
-                mActivity.openActivity(OrderSureActivity.class);
+                mActivity.openActivity(RateQueryActivity.class);
                 break;
             case R.id.type_08_tv:
                 mActivity.openActivity(YellowPagesActivity.class);

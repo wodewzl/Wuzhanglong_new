@@ -5,7 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/C1"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="?android:attr/selectableItemBackgroundBorderless">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -69,4 +75,5 @@
         android:textColor="@color/C5"
         android:textSize="11sp"
         tools:text="wocoocococo" />
+    </LinearLayout>
 </LinearLayout>

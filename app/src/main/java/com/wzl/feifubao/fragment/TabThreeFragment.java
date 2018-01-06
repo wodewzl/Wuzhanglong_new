@@ -8,10 +8,14 @@ import android.widget.TextView;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wzl.feifubao.R;
+import com.wzl.feifubao.activity.AddressActivity;
+import com.wzl.feifubao.activity.MyHouseActivity;
+import com.wzl.feifubao.activity.MyOverActivity;
+import com.wzl.feifubao.activity.PaymentRecordsActivity;
 
 public class TabThreeFragment extends BaseFragment implements View.OnClickListener {
     private TextView mOrderTv01, mOrderTv02, mOrderTv03, mOrderTv04, mOrderTv05;
-    private LinearLayout mPhoneLayout,mDianLayout,mWangLayout,mHouseLayout,mLogoutLayout;
+    private LinearLayout mPhoneLayout, mDianLayout, mWangLayout, mHouseLayout, mLogoutLayout, mOverLayout,mAddressLayout;
 
 
     @Override
@@ -27,11 +31,14 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
         mOrderTv03 = getViewById(R.id.order_tv_03);
         mOrderTv04 = getViewById(R.id.order_tv_04);
         mOrderTv05 = getViewById(R.id.order_tv_05);
-        mPhoneLayout=getViewById(R.id.phone_layout);
-        mDianLayout=getViewById(R.id.dian_layout);
-        mWangLayout=getViewById(R.id.wang_layout);
-        mHouseLayout=getViewById(R.id.house_layout);
-        mLogoutLayout=getViewById(R.id.logout_layout);
+        mOverLayout = getViewById(R.id.over_layout);
+        mPhoneLayout = getViewById(R.id.phone_layout);
+        mDianLayout = getViewById(R.id.dian_layout);
+        mWangLayout = getViewById(R.id.wang_layout);
+        mHouseLayout = getViewById(R.id.house_layout);
+        mLogoutLayout = getViewById(R.id.logout_layout);
+        mAddressLayout=getViewById(R.id.address_layout);
+
     }
 
     @Override
@@ -41,6 +48,12 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
         mOrderTv03.setOnClickListener(this);
         mOrderTv04.setOnClickListener(this);
         mOrderTv05.setOnClickListener(this);
+        mOverLayout.setOnClickListener(this);
+        mPhoneLayout.setOnClickListener(this);
+        mDianLayout.setOnClickListener(this);
+        mWangLayout.setOnClickListener(this);
+        mHouseLayout.setOnClickListener(this);
+        mAddressLayout.setOnClickListener(this);
     }
 
     @Override
@@ -86,6 +99,25 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
             case R.id.order_tv_05:
 //                bundle.putString("type", "3");
 //                mActivity.open(OrderActivity.class, bundle, 0);
+                break;
+
+            case R.id.over_layout:
+                mActivity.openActivity(MyOverActivity.class);
+                break;
+            case R.id.phone_layout:
+                mActivity.openActivity(PaymentRecordsActivity.class);
+                break;
+            case R.id.dian_layout:
+                mActivity.openActivity(PaymentRecordsActivity.class);
+                break;
+            case R.id.wang_layout:
+                mActivity.openActivity(PaymentRecordsActivity.class);
+                break;
+            case R.id.house_layout:
+                mActivity.openActivity(MyHouseActivity.class);
+                break;
+            case R.id.address_layout:
+                mActivity.openActivity(AddressActivity.class);
                 break;
             default:
                 break;

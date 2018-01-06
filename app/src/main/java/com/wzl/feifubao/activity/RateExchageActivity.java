@@ -31,6 +31,7 @@ public class RateExchageActivity extends BaseActivity implements View.OnClickLis
     private EditText mMoneyEt;
     private TextView mMoneyTv, mOkTv;
     private String mTag = "CNY";
+    private TextView mTypeTv;
 
     @Override
     public void baseSetContentView() {
@@ -39,11 +40,13 @@ public class RateExchageActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void initView() {
+        mBaseTitleTv.setText("汇率计算");
         mChageLayout = getViewById(R.id.change_layout);
         mMoneyEt = getViewById(R.id.money_et);
         mMoneyTv = getViewById(R.id.money_tv);
         mOkTv = getViewById(R.id.ok_tv);
-        mOkTv.setBackground(BaseCommonUtils.setBackgroundShap(this,30,R.color.colorAccent,R.color.colorAccent));
+        mOkTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 30, R.color.colorAccent, R.color.colorAccent));
+        mTypeTv = getViewById(R.id.type_tv);
     }
 
     @Override
@@ -90,6 +93,7 @@ public class RateExchageActivity extends BaseActivity implements View.OnClickLis
                         String str = (String) text;
                         String[] array = str.split(" ");
                         mTag = array[1];
+                        mTypeTv.setText(array[0]);
                     }
                 });
                 buildBean.mAdapter = adapter;
@@ -107,6 +111,7 @@ public class RateExchageActivity extends BaseActivity implements View.OnClickLis
                 map.put("tag", mTag);
                 HttpGetDataUtil.post(mActivity, Constant.RATE_EXCHANGE_URL, map, RateQueryVO.class, this);
                 break;
+//            mActivity.openActivity(RateExchageActivity.class);
             default:
                 break;
         }

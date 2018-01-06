@@ -92,19 +92,6 @@ public class OrderFragment extends BaseFragment implements OnLoadMoreListener, S
             list.add(mOrderVO.getOrder_list().get(i));
         }
 
-//        if (vo.getHasmore() != null && "1".equals(vo.getHasmore())) {
-//            mRecyclerView.setNoMore(false);
-//        } else {
-//            mRecyclerView.setNoMore(true);
-//        }
-//        if (isLoadMore) {
-//            mAdapter.updateDataLast(list);
-//            isLoadMore = false;
-//            mCurrentPage++;
-//        } else {
-//            mCurrentPage++;
-//            mAdapter.updateData(list);
-//        }
         mAutoSwipeRefreshLayout.setRefreshing(false);
 
     }

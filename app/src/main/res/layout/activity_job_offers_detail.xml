@@ -31,6 +31,7 @@
                     android:text="产品经理" />
 
                 <TextView
+                    android:id="@+id/money_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -40,6 +41,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/position_require_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/position_tv"
@@ -71,10 +73,10 @@
                 android:textSize="11sp" />
 
             <TextView
+                android:id="@+id/position_desc_tv"
                 style="@style/padding_15_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
                 android:background="@color/C1"
                 android:lineSpacingExtra="8dp"
                 android:text="武大郎的经历放假啊劳动纠纷；的风景啊；的房价大幅；加阿凡达减肥的风景啊；附近的；发酵粉；啊大江流放假啊；法律界"
@@ -107,7 +109,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/company_dec_tv"
+
                 style="@style/padding_15_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -115,9 +117,11 @@
                 android:background="@color/C1"
                 android:drawableLeft="@drawable/job_4"
                 android:drawablePadding="5dp"
-                android:text="襄阳北盛网络科技有限公司" />
+                android:text="企业介绍"
+            />
 
             <TextView
+                android:id="@+id/company_dec_tv"
                 style="@style/padding_15_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -126,7 +130,8 @@
                 android:lineSpacingExtra="8dp"
                 android:paddingLeft="20dp"
                 android:text="武大郎的经历放假啊劳动纠纷；的风景啊；的房价大幅；加阿凡达减肥的风景啊；附近的；发酵粉；啊大江流放假啊；法律界"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                android:textColor="@color/C5"/>
 
             <TextView
                 style="@style/padding_15_13"
@@ -152,6 +157,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/name_tv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -170,6 +176,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tel_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="0.5dp"

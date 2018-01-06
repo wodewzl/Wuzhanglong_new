@@ -15,6 +15,8 @@ import java.util.HashMap;
 
 public class RateQueryActivity extends BaseActivity implements View.OnClickListener {
     private TextView mTitle1, mTitle2, mCnyTv, mUsdTv, mJpyTv, mHkdTv, mEurTv, mGbpTv;
+    private RateQueryVO.DataBean mTodayBean, mYestadyBean;
+    private String mTag = "";
 
     @Override
     public void baseSetContentView() {
@@ -32,26 +34,36 @@ public class RateQueryActivity extends BaseActivity implements View.OnClickListe
         mHkdTv = getViewById(R.id.hkd_tv);
         mEurTv = getViewById(R.id.eur_tv);
         mGbpTv = getViewById(R.id.gbp_tv);
-
+        mBaseOkTv.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.login_pwd,0);
     }
 
     @Override
     public void bindViewsListener() {
         mTitle1.setOnClickListener(this);
         mTitle2.setOnClickListener(this);
-
+        mBaseOkTv.setOnClickListener(this);
     }
 
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
+        map.put("tag", mTag);
         HttpGetDataUtil.get(mActivity, this, Constant.RATE_URL, map, RateQueryVO.class);
     }
 
     @Override
     public void hasData(BaseVO vo) {
-        RateQueryVO rateQueryVO= (RateQueryVO) vo;
-        RateQueryVO.DataBean dataBean=rateQueryVO.getData();
+        RateQueryVO rateQueryVO = (RateQueryVO) vo;
+        RateQueryVO.DataBean dataBean = rateQueryVO.getData();
+        update(dataBean);
+        if ("old".equals(mTag)) {
+            mYestadyBean = dataBean;
+        } else {
+            mTodayBean = dataBean;
+        }
+    }
+
+    public void update(RateQueryVO.DataBean dataBean) {
         mCnyTv.setText(dataBean.getCNY());
         mUsdTv.setText(dataBean.getUSD());
         mJpyTv.setText(dataBean.getJPY());
@@ -76,15 +88,25 @@ public class RateQueryActivity extends BaseActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.title1:
                 mTitle1.setBackgroundResource(R.drawable.corners_tab_left_select);
-                mTitle1.setTextColor(ContextCompat.getColor(this,R.color.C1));
+                mTitle1.setTextColor(ContextCompat.getColor(this, R.color.C1));
                 mTitle2.setBackgroundResource(R.drawable.corners_tab_right_normal);
-                mTitle2.setTextColor(ContextCompat.getColor(this,R.color.colorAccent));
+                mTitle2.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+                if (mYestadyBean == null) {
+                    mTag = "old";
+                    getData();
+                } else {
+                    update(mYestadyBean);
+                }
                 break;
             case R.id.title2:
                 mTitle2.setBackgroundResource(R.drawable.corners_tab_right_select);
-                mTitle2.setTextColor(ContextCompat.getColor(this,R.color.C1));
+                mTitle2.setTextColor(ContextCompat.getColor(this, R.color.C1));
                 mTitle1.setBackgroundResource(R.drawable.corners_tab_left_normal);
-                mTitle1.setTextColor(ContextCompat.getColor(this,R.color.colorAccent));
+                mTitle1.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+                update(mTodayBean);
+                break;
+            case R.id.base_ok_tv:
+                openActivity(RateExchageActivity.class);
                 break;
             default:
                 break;

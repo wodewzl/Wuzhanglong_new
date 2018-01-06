@@ -17,11 +17,16 @@ public class Constant {
     public static final String REGIST_URL = "api/Member/register";//注册
     public static final String LOGIN_URL = "api/Member/login";//登陆
     public static final String ADDRESS_LIST_URL = "api/Member/getMemberExpressAddress";//收货地址列表
-    public static final String ADDRESS_ADD_URL = "api/Member/setDefaultExpressAddress";//添加收货地址列表
-    public static final String CITY_URL = "api/member/getArea";//添加收货地址列表
+    public static final String ADDRESS_ADD_URL = "api/Member/addMemberExpressAddress";//添加收货地址
+    public static final String ADDRESS_SET_URL = "api/Member/setDefaultExpressAddress";//设置默认收货地址
+    public static final String ADDRESS_DELETE_URL = "api/Member/memberAddressDelete";//删除地址
+    public static final String CITY_URL = "api/member/getArea";//城市
     public static final String RATE_URL = "api/Rate";//汇率列表
     public static final String RATE_EXCHANGE_URL = "api/Rate/changeMoney";//汇率换算
     public static final String SHOP_LIST_ULR = "api/Good/getGoodsList";//商城除首页其他的界面界面接口
     public static final String SHOP_DETAIL_ULR = "api/Good/getGoodsDetail";//商品详情
     public static final String JOBOFFER_URL = "api/Recruit/getRecruitLists";//招聘列表
+    public static final String JOBOFFER_DETAIL_URL = "api/Recruit/getRecruitDetail";//招聘详情
+    public static final String LIFE_LIST_URL = "api/news/lists";//生活列表
+    public static final String YELLOW_PAGE_LIST_URL = "api/Recruit/getYellowPages";//企业黄页
 }

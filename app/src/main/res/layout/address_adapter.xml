@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@color/C3">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/C3">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="李小姐"
-            android:textSize="@dimen/sp_14"/>
+            android:textSize="@dimen/sp_13" />
 
         <TextView
             android:id="@+id/phone_tv"
@@ -24,7 +24,7 @@
             android:layout_marginLeft="30dp"
             android:layout_toRightOf="@id/name_tv"
             android:text="18602727134"
-            android:textSize="@dimen/sp_14"/>
+            android:textSize="@dimen/sp_13" />
 
         <TextView
             android:id="@+id/address_tv"
@@ -33,26 +33,17 @@
             android:layout_below="@id/name_tv"
             android:layout_marginTop="5dp"
             android:text="湖北省枣阳市鹿头镇简庄村一组"
-            android:textColor="@color/C5"/>
+            android:textColor="@color/C5"
+            android:textSize="11sp" />
 
         <View
             android:id="@+id/divier"
             android:layout_width="match_parent"
             android:layout_height="0.8dp"
             android:layout_below="@id/address_tv"
-            android:layout_marginTop="5dp"
-            android:background="@color/C3"/>
+            android:layout_marginTop="10dp"
+            android:background="@color/C3" />
 
-        <!--<com.rey.material.widget.CheckBox-->
-        <!--android:id="@+id/default_cb"-->
-        <!--style="@style/WZLCheckBox"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/divier"-->
-        <!--android:gravity="center"-->
-        <!--android:textColor="@color/C5"-->
-        <!--android:text="设为默认"-->
-        <!--/>-->
 
         <ImageView
             android:id="@+id/check_img"
@@ -62,33 +53,48 @@
             android:layout_below="@id/divier"
             android:layout_marginTop="7dp"
             android:padding="3dp"
-            android:src="@drawable/check_normal"/>
+            android:src="@drawable/check_normal" />
+
 
         <TextView
             android:id="@+id/delete_tv"
-            style="@style/Material.Drawable.Ripple.Wave.Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/divier"
             android:layout_marginTop="10dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
             android:drawableLeft="@drawable/address_delete"
             android:drawablePadding="5dp"
             android:text="删除"
-            android:textColor="@color/C5"/>
+            android:textColor="@color/C5"
+            android:textSize="11sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/delete_tv"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/check_img"
+            android:text="设为默认地址"
+            android:textColor="@color/C5"
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/edit_text"
-            style="@style/Material.Drawable.Ripple.Wave.Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/delete_tv"
             android:layout_marginRight="15dp"
             android:layout_toLeftOf="@id/delete_tv"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
             android:drawableLeft="@drawable/address_edit"
             android:drawablePadding="5dp"
             android:text="编辑"
-            android:textColor="@color/C5"/>
+            android:textColor="@color/C5"
+            android:textSize="11sp" />
 
     </RelativeLayout>
 

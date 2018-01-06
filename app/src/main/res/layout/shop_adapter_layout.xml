@@ -11,9 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/C1"
-        style="@style/padding_15_10"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp">
+        style="@style/padding_15_10">
 
         <ImageView
             android:id="@+id/img"

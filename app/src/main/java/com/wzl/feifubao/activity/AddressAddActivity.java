@@ -1,5 +1,6 @@
 package com.wzl.feifubao.activity;
 
+import android.app.Application;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.view.View;
@@ -135,18 +136,16 @@ public class AddressAddActivity extends BaseActivity implements View.OnClickList
                 showProgressDialog();
                 HashMap<String, Object> map = new HashMap<>();
                 String mUrl = Constant.ADDRESS_ADD_URL;
-//                if (AppApplication.getInstance().getUserInfoVO() != null)
-//                    map.put("uid", AppApplication.getInstance().getUserInfoVO().getKey());
-
-                    map.put("uid", "39");
+                map.put("uid",AppApplication.getInstance().getUserInfoVO().getData().getUid());
                 map.put("consigner", mEt01.getText().toString());
                 map.put("phone", mEt02.getText().toString());
+                map.put("mobile", mEt02.getText().toString());
                 map.put("province", mProvinceId);
                 map.put("city", mCityId);
                 map.put("district", mAreaId);
-                map.put("area_info", mTv03.getText().toString());
+//                map.put("area_info", mTv03.getText().toString());
                 map.put("address", mEt04.getText().toString());
-                map.put("is_default", "0");
+                map.put("is_default", "1");
                 HttpGetDataUtil.post(mActivity,  Constant.ADDRESS_ADD_URL, map, this);
                 break;
             default:

@@ -3,6 +3,7 @@
     package="com.wzl.feifubao">
 
     <application
+        android:name=".application.AppApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -46,7 +47,15 @@
         <activity android:name=".activity.RateExchageActivity" />
         <activity android:name=".activity.PhoneChargeActivity" />
         <activity android:name=".activity.ShopDetailActivity" />
-        <activity android:name=".activity.ShopCartActivity"></activity>
+        <activity android:name=".activity.ShopCartActivity" />
+        <activity android:name=".activity.MessageActivity" />
+        <activity android:name=".activity.MyOverActivity" />
+        <activity android:name=".activity.PaymentRecordsActivity" />
+        <activity android:name=".activity.WithdrawActivity" />
+        <activity android:name=".activity.LifeActivity" />
+        <activity android:name=".activity.MyHouseActivity"></activity>
+
+        <activity android:name=".activity.AddressEditActivity" />
     </application>
 
 </manifest>

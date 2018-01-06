@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         android:src="@drawable/login_logo"/>
 
 
@@ -66,14 +66,19 @@
             android:id="@+id/regist_tv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
             android:gravity="center"
             android:text="免费注册"
             android:textColor="@color/colorAccent"
             android:visibility="visible"
-            android:layout_alignParentLeft="true"/>
+            android:layout_alignParentLeft="true"
+            />
 
         <TextView
             android:id="@+id/forget_tv"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -94,5 +99,6 @@
         android:gravity="center"
         android:text="登 录"
         android:textColor="@color/C1"
-        android:textSize="16dp"/>
+        android:textSize="16dp"
+        />
 </LinearLayout>

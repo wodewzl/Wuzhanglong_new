@@ -45,7 +45,7 @@
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/home_menu_3"
                 android:gravity="center"
-                android:text="水费" />
+                android:text="生活服务" />
 
             <TextView
                 android:id="@+id/type_04_tv"
@@ -91,7 +91,7 @@
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/home_menu_7"
                 android:gravity="center"
-                android:text="飞机票" />
+                android:text="汇率" />
 
             <TextView
                 android:id="@+id/type_08_tv"

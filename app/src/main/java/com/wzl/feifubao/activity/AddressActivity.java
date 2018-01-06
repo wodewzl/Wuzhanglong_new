@@ -10,7 +10,9 @@ import android.widget.Button;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
+import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
 import com.wzl.feifubao.R;
@@ -20,10 +22,14 @@ import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.AddressVO;
 import com.wzl.feifubao.mode.HouseListVO;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.HashMap;
 
 
-public class AddressActivity extends BaseActivity implements View.OnClickListener {
+public class AddressActivity extends BaseActivity implements View.OnClickListener, PostCallback {
     private RecyclerView mRecyclerView;
     private AddressRAdapter mAdapter;
     private Button mAddBt;
@@ -44,20 +50,21 @@ public class AddressActivity extends BaseActivity implements View.OnClickListene
         DividerDecoration divider = DividerUtil.linnerDivider(this, R.dimen.dp_10, R.color.C3);
         mRecyclerView.addItemDecoration(divider);
         mAddBt = getViewById(R.id.add_bt);
-        mAddBt.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.C7, R.color.C7));
+        mAddBt.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.colorAccent, R.color.colorAccent));
         //什么搞的啊啊
     }
 
     @Override
     public void bindViewsListener() {
         mAddBt.setOnClickListener(this);
+        EventBus.getDefault().register(this);
     }
 
     @Override
     public void getData() {
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("uid","39");
+        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
         HttpGetDataUtil.get(mActivity, this, Constant.ADDRESS_LIST_URL, map, AddressVO.class);
 
     }
@@ -65,7 +72,7 @@ public class AddressActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void hasData(BaseVO vo) {
         AddressVO addressVO = (AddressVO) vo;
-        mAdapter.updateData(addressVO.getDatas().getAddress_list());
+        mAdapter.updateData(addressVO.getData());
     }
 
     @Override
@@ -88,5 +95,33 @@ public class AddressActivity extends BaseActivity implements View.OnClickListene
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EBMessageVO event) {
+        if ("address_delete".equals(event.getMessage())) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
+            map.put("id", event.getMsg());
+            HttpGetDataUtil.post(this, Constant.ADDRESS_DELETE_URL, map, this);
+        } else if ("address_edit".equals(event.getMessage())) {
+            getData();
+        }else if("address_defalut".equals(event.getMessage())) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
+            map.put("id", event.getMsg());
+            HttpGetDataUtil.post(this, Constant.ADDRESS_SET_URL, map, this);
+        }
+    }
+
+    @Override
+    public void success(BaseVO vo) {
+
     }
 }

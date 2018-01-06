@@ -12,13 +12,15 @@ import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
+import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.UserInfoVO;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener,PostCallback {
-    private TextView mPhoneTv, mPasswordTv, mOkTv;
+    private TextView mPhoneTv, mPasswordTv, mOkTv,mRegistTv,mForgetTv;
 
 
     @Override
@@ -32,17 +34,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         mPhoneTv = getViewById(R.id.phone_tv);
         mPasswordTv = getViewById(R.id.password_tv);
         mOkTv = getViewById(R.id.ok_tv);
-        mOkTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.colorAccent, R.color.colorAccent));
+        mOkTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 30, R.color.colorAccent, R.color.colorAccent));
+        mRegistTv=getViewById(R.id.regist_tv);
+        mForgetTv=getViewById(R.id.forget_tv);
     }
 
     @Override
     public void bindViewsListener() {
         mOkTv.setOnClickListener(this);
+        mRegistTv.setOnClickListener(this);
+        mForgetTv.setOnClickListener(this);
     }
 
     @Override
     public void getData() {
-
+        showView();
     }
 
     @Override
@@ -76,6 +82,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
                 commit();
                 break;
+
+            case R.id.regist_tv:
+                openActivity(RegistActivity.class);
+                break;
+            case R.id.forget_tv:
+                break;
             default:
                 break;
         }
@@ -91,6 +103,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void success(BaseVO vo) {
+        UserInfoVO userInfoVO = (UserInfoVO) vo;
+        if(userInfoVO.getData()!=null){
+//            JPushInterface.setAlias(LoginActivity.this, userInfoVO.getData().getJpalias(), new TagAliasCallback() {
+//                @Override
+//                public void gotResult(int i, String s, Set<String> set) {
+//                }
+//            });
 
+            AppApplication.getInstance().saveUserInfoVO(userInfoVO);
+            openActivity(MainActivity.class);
+            this.finish();
+        }
     }
 }
