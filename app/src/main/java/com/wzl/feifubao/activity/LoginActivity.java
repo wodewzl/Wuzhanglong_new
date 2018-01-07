@@ -1,5 +1,6 @@
 package com.wzl.feifubao.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.wuzhanglong.library.activity.BaseActivity;
+import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
@@ -14,9 +16,15 @@ import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
+import com.wzl.feifubao.fragment.TabOneFragment;
+import com.wzl.feifubao.fragment.TabThreeFragment;
+import com.wzl.feifubao.fragment.TabTwoFragment;
 import com.wzl.feifubao.mode.UserInfoVO;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener,PostCallback {
@@ -112,7 +120,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 //            });
 
             AppApplication.getInstance().saveUserInfoVO(userInfoVO);
-            openActivity(MainActivity.class);
+
+            List<BaseFragment> list  = new ArrayList<>();
+            TabOneFragment one = new TabOneFragment();
+            TabTwoFragment two = new TabTwoFragment();
+            TabThreeFragment three = new TabThreeFragment();
+            list.add(one);
+            list.add(two);
+            list.add(three);
+            Intent intent = new Intent();
+            intent.putExtra("fragment_list", (Serializable) list);
+            intent.setClass(this, MainActivity.class);
+            startActivity(intent);
             this.finish();
         }
     }

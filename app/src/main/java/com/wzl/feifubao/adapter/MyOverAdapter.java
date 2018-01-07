@@ -16,7 +16,7 @@ import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
  * Created by Administrator on 2017/2/13.
  */
 
-public class MyOverAdapter extends RecyclerBaseAdapter<MyoverVO> {
+public class MyOverAdapter extends RecyclerBaseAdapter<MyoverVO.DataBeanX.DataBean> {
 
     public MyOverAdapter(RecyclerView recyclerView) {
         super(recyclerView, R.layout.my_over_adapter_type1);
@@ -24,18 +24,11 @@ public class MyOverAdapter extends RecyclerBaseAdapter<MyoverVO> {
 
     @Override
     public void initData(final BGAViewHolderHelper helper, int position, Object model) {
-        final MoneyVO vo = (MoneyVO) model;
-
+        final MyoverVO.DataBeanX.DataBean vo = (MyoverVO.DataBeanX.DataBean) model;
+        helper.setText(R.id.type_tv,vo.getText());
+        helper.setText(R.id.desc_tv,vo.getCreate_time());
+        helper.setText(R.id.money_tv,vo.getNumber());
+        helper.setText(R.id.over_tv,"余额："+vo.getNumber());
     }
 
-
-    @Override
-    public int getItemCount() {
-        return 20;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return R.layout.my_over_adapter_type1;
-    }
 }

@@ -1,25 +1,45 @@
 package com.wzl.feifubao.activity;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
+import android.view.ViewGroup;
 
+import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
+import com.wuzhanglong.library.http.HttpGetDataUtil;
+import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.adapter.MessageAdapter;
 import com.wzl.feifubao.adapter.MyHouseAdapter;
+import com.wzl.feifubao.constant.Constant;
+import com.wzl.feifubao.mode.JobOffersVO;
+import com.wzl.feifubao.mode.LifeVO;
+import com.wzl.feifubao.mode.MyHouseVO;
 
-public class MyHouseActivity extends BaseActivity {
+import java.util.HashMap;
+import java.util.List;
+
+import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
+import retrofit2.http.POST;
+
+public class MyHouseActivity extends BaseActivity implements BGAOnRVItemClickListener, OnLoadMoreListener,
+        SwipeRefreshLayout.OnRefreshListener ,PostCallback{
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private LuRecyclerView mRecyclerView;
     private MyHouseAdapter mAdapter;
+    private int mCurrentPage = 1;
+    private boolean isLoadMore = true;
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.activity_my_house);
@@ -44,16 +64,43 @@ public class MyHouseActivity extends BaseActivity {
 
     @Override
     public void bindViewsListener() {
-
+        mRecyclerView.setOnLoadMoreListener(this);
+        mAutoSwipeRefreshLayout.setOnRefreshListener(this);
     }
 
     @Override
     public void getData() {
-
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("page", mCurrentPage+"");
+        map.put("pagesize", "10");
+        map.put("uid", "39");
+        HttpGetDataUtil.get(mActivity, this, Constant.MY_HOUSE_LIST_URL, map, MyHouseVO.class);
     }
 
     @Override
     public void hasData(BaseVO vo) {
+        MyHouseVO myHouseVO = (MyHouseVO) vo;
+
+        if (BaseCommonUtils.parseInt(myHouseVO.getData().getPage_count())==1 ) {
+            mRecyclerView.setLoadMoreEnabled(false);
+        }
+        if (mCurrentPage == BaseCommonUtils.parseInt(myHouseVO.getData().getPage_count())) {
+            mRecyclerView.setNoMore(true);
+        } else {
+            mRecyclerView.setNoMore(false);
+        }
+
+        List<MyHouseVO.DataBean.HouseBean> list = myHouseVO.getData().getHouse();
+        if (isLoadMore) {
+            mAdapter.updateDataLast(list);
+            isLoadMore = false;
+            mCurrentPage++;
+        } else {
+            mCurrentPage++;
+            mAdapter.updateData(list);
+        }
+        mAutoSwipeRefreshLayout.setRefreshing(false);
+        mAdapter.notifyDataSetChanged();
 
     }
 
@@ -65,5 +112,29 @@ public class MyHouseActivity extends BaseActivity {
     @Override
     public void noNet() {
 
+    }
+
+    @Override
+    public void onRefresh() {
+        mCurrentPage = 1;
+        getData();
+    }
+
+    @Override
+    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+
+    }
+
+    @Override
+    public void onLoadMore() {
+        isLoadMore = true;
+        getData();
+    }
+
+
+    @Override
+    public void success(BaseVO vo) {
+        showCustomToast("删除成功");
+       mAutoSwipeRefreshLayout.autoRefresh();
     }
 }

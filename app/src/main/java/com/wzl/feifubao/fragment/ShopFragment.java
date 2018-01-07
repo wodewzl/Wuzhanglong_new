@@ -78,13 +78,7 @@ public class ShopFragment extends BaseFragment implements BGAOnRVItemClickListen
         mRecyclerView = getViewById(R.id.recycler_view);
         GridLayoutManager layoutManager=  new GridLayoutManager(mActivity,2);
         mRecyclerView.setLayoutManager(layoutManager);
-
-//        GridItemDecoration divider = DividerUtil.gridDivider(mActivity, 2,2, R.color.C3);
-//        SpacesItemDecoration divider = DividerUtil.gridDividerSpc(mActivity, 2,2,2, R.color.C3);
         BGAGridDivider divider =DividerUtil.bgaGridDivider(R.dimen.dp_2);
-//        DividerDecoration divider = DividerUtil.linnerDivider(mActivity, R.dimen.dp_4, R.color.C3);
-//        mRecyclerView.addItemDecoration(new GridDivider(getActivity(), 4, this.getResources().getColor(R.color.colorAccent)));
-
         mRecyclerView.addItemDecoration(divider);
         mAdapter = new ShopAdapter(mRecyclerView);
         LuRecyclerViewAdapter adapter = new LuRecyclerViewAdapter(mAdapter);

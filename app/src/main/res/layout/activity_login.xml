@@ -66,8 +66,7 @@
             android:id="@+id/regist_tv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
+
             android:gravity="center"
             android:text="免费注册"
             android:textColor="@color/colorAccent"
@@ -77,8 +76,7 @@
 
         <TextView
             android:id="@+id/forget_tv"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
+
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
