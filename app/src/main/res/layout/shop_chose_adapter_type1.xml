@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="@style/padding_15_10"
-    android:background="@color/C1">
+    android:background="@color/C1"
+    android:layout_marginLeft="15dp">
     <TextView
+        android:id="@+id/title_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="屏幕颜色"/>
