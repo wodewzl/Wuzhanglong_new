@@ -2,17 +2,83 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/C1">
+    android:background="@color/C15"
+    android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    </android.support.v7.widget.RecyclerView>
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="wodjdldlldldldldlddl"/>-->
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:background="@color/C1">
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="70dp">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/ok_tv"
+                style="@style/padding_15_13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/FUBColor3"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="@color/C1"
+                android:textSize="15sp" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/C15"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp">
+
+            <ImageView
+                android:id="@+id/shop_img"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@color/FUBColor3" />
+
+            <TextView
+                android:id="@+id/money_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/shop_img"
+                android:text="1000"
+                android:textColor="@color/FUBColor3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/money_tv"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:text="请选择颜色尺码"
+                android:textSize="11sp"
+                android:textColor="@color/C5" />
+            <ImageView
+                android:id="@+id/colse_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/bga_pp_ic_delete"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"/>
+        </RelativeLayout>
+    </FrameLayout>
 </LinearLayout>

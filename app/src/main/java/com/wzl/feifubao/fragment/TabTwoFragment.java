@@ -11,11 +11,15 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.TextView;
 
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
+import com.wzl.feifubao.activity.LoginActivity;
+import com.wzl.feifubao.activity.ShopCartActivity;
+import com.wzl.feifubao.application.AppApplication;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -30,10 +34,11 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.Simple
 
 import java.util.ArrayList;
 
-public class TabTwoFragment extends BaseFragment {
+public class TabTwoFragment extends BaseFragment implements View.OnClickListener{
     private String[] mTitleDataList = {"首页", "手机", "电脑", "家电", "美装", "家居", "数码"};
     private ViewPager mViewPager;
     private ArrayList<Fragment> mFragmentList;
+    private TextView mCartTv;
 
     @Override
     public void setContentView() {
@@ -45,15 +50,12 @@ public class TabTwoFragment extends BaseFragment {
         mViewPager = getViewById(R.id.view_pager);
         mViewPager.setOffscreenPageLimit(mTitleDataList.length);
         initMagicIndicator();
-
-//        Intent intent = this.getIntent();
-//        String type = intent.getStringExtra("type");
-//        mViewPager.setCurrentItem(BaseCommonUtils.parseInt(type));
+        mCartTv=getViewById(R.id.cart_tv);
     }
 
     @Override
     public void bindViewsListener() {
-
+        mCartTv.setOnClickListener(this);
     }
 
     @Override
@@ -159,5 +161,20 @@ public class TabTwoFragment extends BaseFragment {
             }
         });
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.cart_tv:
+                if(AppApplication.getInstance().getUserInfoVO()==null){
+                    mActivity.openActivity(LoginActivity.class);
+                    return;
+                }
+                mActivity.openActivity(ShopCartActivity.class);
+                break;
+            default:
+                break;
+        }
     }
 }

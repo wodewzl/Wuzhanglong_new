@@ -33,4 +33,6 @@ public class Constant {
     public static final String MY_HOUSE_LIST_URL = "api/House/myHouse";//我的房源列表接口
     public static final String MY_OVER_LIST_URL = "api/Member/balanceList";//我的房源列表接口
     public static final String DELETE_HOUSE_URL = "api/House/deleteHouse";//我的房源列表接口
+    public static final String SHOP_ADD_CART_URL = "api/Order/addCart";//添加到购物车
+    public static final String SHOP_CART_LIST_URL = "api/Order/getCart";//获取购物车列表
 }

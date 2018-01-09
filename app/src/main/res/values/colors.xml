@@ -14,4 +14,5 @@
     <color name="FUBColor9">#666666</color>
     <color name="FUBColor10">#EA2526</color>
     <color name="FUBColor11">#769342</color>
+    <color name="divider">#999</color>
 </resources>

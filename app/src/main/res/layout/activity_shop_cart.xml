@@ -2,16 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <com.wuzhanglong.library.view.AutoSwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        />
+        android:layout_weight="1">
+
+        <com.github.jdsjlzx.recyclerview.LuRecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/C3" />
+
+    </com.wuzhanglong.library.view.AutoSwipeRefreshLayout>
 
     <LinearLayout
         android:id="@+id/bottom_layout"
@@ -36,12 +42,12 @@
                 android:paddingBottom="15dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="15dp"
-                android:paddingTop="15dp"/>
+                android:paddingTop="15dp" />
 
             <View
                 android:id="@+id/view_check"
                 android:layout_width="65dp"
-                android:layout_height="65dp"/>
+                android:layout_height="65dp" />
         </FrameLayout>
 
 
@@ -51,7 +57,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="13sp"/>
+            android:textSize="13sp" />
 
         <com.rey.material.widget.TextView
             android:id="@+id/commit_tv"
@@ -62,6 +68,6 @@
             android:gravity="center"
             android:text="确认信息"
             android:textColor="@color/C1"
-            android:textSize="13sp"/>
+            android:textSize="13sp" />
     </LinearLayout>
 </LinearLayout>

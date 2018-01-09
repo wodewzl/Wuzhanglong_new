@@ -17,5 +17,5 @@
         android:text="64G"
         android:textSize="11sp"
         android:textColor="@color/C5"
-        android:background="@color/FUBColor3"/>
+        android:background="@drawable/frame_kong_gray"/>
 </LinearLayout>

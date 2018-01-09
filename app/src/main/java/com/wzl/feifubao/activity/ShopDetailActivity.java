@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.rey.material.widget.CheckBox;
 import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
+import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.FileUtil;
@@ -36,18 +38,22 @@ import com.wzl.feifubao.mode.RateQueryVO;
 import com.wzl.feifubao.mode.ShopDetailVO;
 import com.wzl.feifubao.mode.ShopHomeVO;
 import com.wzl.feifubao.mode.ShopVO;
+import com.wzl.feifubao.mode.UserInfoVO;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
+import q.rorbin.badgeview.QBadgeView;
 
-public class ShopDetailActivity extends BaseActivity implements View.OnClickListener {
+public class ShopDetailActivity extends BaseActivity implements View.OnClickListener, PostCallback {
     private BottomSheetDialog mDialog;
     private Banner mBanner;
     private TextView mNameTv, mPriceTv, mCommentTv, mCommentCountTv;
@@ -55,6 +61,10 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
     private WebView mWebView;
     private List<ShopDetailVO.DataBean.SpecListBean.ValueBean> mList = new ArrayList<>();
     private TextView mAddCartTv, mBuyTv;
+    private ShopDetailVO.DataBean mDataBean;
+    private String mType;
+    private TextView mShopTypeTv;
+    private String mGoodName, mGoodsId, mGoodPrice, mShopType,mCount;
 
     @Override
     public void baseSetContentView() {
@@ -75,6 +85,7 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
         mCommentCountTv = getViewById(R.id.comment_count_tv);
         mAddCartTv = getViewById(R.id.add_cart_tv);
         mBuyTv = getViewById(R.id.buy_tv);
+        mShopTypeTv = getViewById(R.id.shop_type_tv);
     }
 
     @Override
@@ -97,6 +108,7 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
     public void hasData(BaseVO vo) {
         ShopDetailVO shopDetailVO = (ShopDetailVO) vo;
         ShopDetailVO.DataBean dataBean = shopDetailVO.getData();
+        mDataBean = dataBean;
         if (dataBean.getImg_list() != null && dataBean.getImg_list().size() > 0) {
             mBanner.setImages(dataBean.getImg_list());
 
@@ -125,6 +137,7 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
             mList.add(valueBean);
             for (int j = 0; j < dataBean.getSpec_list().get(i).getValue().size(); j++) {
                 mList.add(dataBean.getSpec_list().get(i).getValue().get(j));
+
             }
         }
     }
@@ -143,22 +156,67 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
         View dialogView = View.inflate(this, R.layout.shop_chose_dialog, null);
 
         mDialog = new BottomSheetDialog(mActivity);
-            RecyclerView recyclerView = dialogView.findViewById(R.id.recycler_view);
-            GridLayoutManager layoutManager=new GridLayoutManager(this,5);
-            recyclerView.setLayoutManager(layoutManager);
-            final ShopChoseAdapter adapter = new ShopChoseAdapter(recyclerView);
+        RecyclerView recyclerView = dialogView.findViewById(R.id.recycler_view);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 5);
+        recyclerView.setLayoutManager(layoutManager);
+        final ShopChoseAdapter adapter = new ShopChoseAdapter(recyclerView);
         recyclerView.setAdapter(adapter);
-            adapter.updateData(mList);
+        adapter.updateData(mList);
+
+        TextView moneTv = dialogView.findViewById(R.id.money_tv);
+        ImageView shopImg = dialogView.findViewById(R.id.shop_img);
+        ImageView colseIm = dialogView.findViewById(R.id.colse_img);
+        TextView okTv = dialogView.findViewById(R.id.ok_tv);
+        moneTv.setText(mDataBean.getPrice());
+        Picasso.with(this).load(mDataBean.getImg_list().get(0)).into(shopImg);
+
 
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                ShopDetailVO.DataBean.SpecListBean.ValueBean vo= (ShopDetailVO.DataBean.SpecListBean.ValueBean) adapter.getData().get(position);
-                if(TextUtils.isEmpty(vo.getSpec_value_name())){
+                ShopDetailVO.DataBean.SpecListBean.ValueBean vo = (ShopDetailVO.DataBean.SpecListBean.ValueBean) adapter.getData().get(position);
+                if (TextUtils.isEmpty(vo.getSpec_value_name())) {
                     return 5;
-                }else {
+                } else {
                     return 1;
                 }
+            }
+        });
+
+        colseIm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDialog.dismiss();
+            }
+        });
+        okTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StringBuffer sb = new StringBuffer();
+                ComparatorObj comparator=new ComparatorObj();
+                List<ShopDetailVO.DataBean.SpecListBean.ValueBean>list=new ArrayList<>();
+                list.addAll(adapter.getData());
+                Collections.sort(list, comparator);
+                for (int i = 0; i < list.size(); i++) {
+                    ShopDetailVO.DataBean.SpecListBean.ValueBean vo = (ShopDetailVO.DataBean.SpecListBean.ValueBean)list.get(i);
+                    if ("1".equals(vo.getSelect())) {
+                        sb.append(vo.getSpec_id()).append(":").append(vo.getSpec_value_id()).append(";");
+                    }
+                }
+
+                String str = sb.toString().substring(0, sb.toString().length() - 1);
+                for (int i = 0; i < mDataBean.getSku_list().size(); i++) {
+                    if (str.equals(mDataBean.getSku_list().get(i).getAttr_value_items())) {
+                        mShopTypeTv.setText(mDataBean.getSku_list().get(i).getSku_name());
+                        mGoodName = mDataBean.getGoods_name();
+                        mGoodsId = mDataBean.getSku_list().get(i).getGoods_id();
+                        mGoodPrice = mDataBean.getSku_list().get(i).getPrice();
+                        mShopType = mDataBean.getSku_list().get(i).getSku_id() + ":" + mDataBean.getSku_list().get(i).getSku_name();
+                        break;
+                    }
+                }
+
+                addCart();
             }
         });
         mDialog.contentView(dialogView)
@@ -173,10 +231,53 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_cart_tv:
+                if (AppApplication.getInstance().getUserInfoVO() == null) {
+                    openActivity(LoginActivity.class);
+                    return;
+                }
+                mType = "1";
+                choseShop();
+                break;
+            case R.id.buy_tv:
+                if (AppApplication.getInstance().getUserInfoVO() == null) {
+                    openActivity(LoginActivity.class);
+                    return;
+                }
+                mType = "2";
                 choseShop();
                 break;
             default:
                 break;
         }
+    }
+
+    class ComparatorObj implements Comparator {
+
+        public int compare(Object obj0, Object obj1) {
+            ShopDetailVO.DataBean.SpecListBean.ValueBean value1 = (ShopDetailVO.DataBean.SpecListBean.ValueBean) obj0;
+            ShopDetailVO.DataBean.SpecListBean.ValueBean value2 = (ShopDetailVO.DataBean.SpecListBean.ValueBean) obj1;
+
+            //首先比较年龄，如果年龄相同，则比较名字
+
+            return value1.getSpec_id().compareTo(value2.getSpec_id());
+        }
+    }
+
+    public void addCart() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
+        map.put("goods_id", mGoodsId);
+        map.put("goods_name", mGoodName);
+        map.put("count", "1");
+        map.put("list", mShopType + ":" + "1");
+        map.put("price", mGoodPrice);
+        HttpGetDataUtil.post(this, Constant.SHOP_ADD_CART_URL, map,this);
+    }
+
+    @Override
+    public void success(BaseVO vo) {
+        mDialog.dismiss();
+            QBadgeView qbadgeView = (QBadgeView) new QBadgeView(mActivity).bindTarget(mAddCartTv).setBadgeGravity(Gravity.END | Gravity
+                .TOP).setShowShadow(true).setBadgeTextSize(10,true).setBadgeNumber(1);
     }
 }

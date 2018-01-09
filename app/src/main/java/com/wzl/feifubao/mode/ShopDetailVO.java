@@ -309,6 +309,15 @@ public class ShopDetailVO extends BaseVO {
                 private String spec_show_type;
                 private String spec_value_data;
                 private String picture;
+                private String select;
+
+                public String getSelect() {
+                    return select;
+                }
+
+                public void setSelect(String select) {
+                    this.select = select;
+                }
 
                 public String getSpec_value_name() {
                     return spec_value_name;
