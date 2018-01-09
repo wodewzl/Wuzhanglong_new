@@ -36,11 +36,13 @@ public class DividerUtil {
         return divider;
     }
 
+
+    //cout 为gridmanger 一行的cout
     public static SpacesItemDecoration gridDividerSpc(Context context, int v, int h, int count, int color) {
-        return SpacesItemDecoration.newInstance(spacing, spacing, count, ContextCompat.getColor(context, color));
+        return SpacesItemDecoration.newInstance(v, h, count, ContextCompat.getColor(context, color));
     }
 
-    public static GridItemDecoration gridDivider(Context context, int v, int h, int count, int color) {
+    public static GridItemDecoration gridDivider(Context context, int v, int h, int color) {
         GridItemDecoration divider = new GridItemDecoration.Builder(context)
                 .setHorizontal(h)
                 .setVertical(v)
@@ -69,6 +71,7 @@ public class DividerUtil {
     }
 
     public static BGAGridDivider bgaGridDivider(@DimenRes int spc){
+//        BGADivider
         return  BGAGridDivider.newInstanceWithSpaceRes(spc);
     }
 }

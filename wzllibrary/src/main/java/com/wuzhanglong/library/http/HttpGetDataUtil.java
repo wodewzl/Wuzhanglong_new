@@ -72,7 +72,7 @@ public class HttpGetDataUtil {
                 .baseUrl(BaseConstant.DOMAIN_NAME)
                 .addCache(false)
                 .build()
-                .rxGet(BaseConstant.DOMAIN_NAME+url, params, new RxStringCallback() {
+                .rxGet(BaseConstant.DOMAIN_NAME + url, params, new RxStringCallback() {
                     @Override
                     public void onNext(Object o, String s) {
 
@@ -168,12 +168,6 @@ public class HttpGetDataUtil {
                 final BaseVO vo = (BaseVO) gson.fromJson(s, BaseVO.class);
                 if ("200".equals(vo.getCode())) {
                     postCallback.success(vo);
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            activity.showCustomToast(vo.getDesc());
-                        }
-                    });
                 } else {
                     activity.showCustomToast(vo.getDesc());
                 }
