@@ -74,7 +74,16 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
 
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
+        Intent intent = new Intent();
+        if (AppApplication.getInstance().getUserInfoVO() != null) {
+            intent.putExtra("fragment_list", (Serializable) list);
+            intent.setClass(this, MainActivity.class);
+        } else {
+            intent.setClass(this, LoginActivity.class);
+        }
 
+        startActivity(intent);
+        this.finish();
     }
 
     @Override

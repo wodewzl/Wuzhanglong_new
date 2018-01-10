@@ -1,26 +1,17 @@
 package com.wzl.feifubao.activity;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
-import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.rey.material.app.BottomSheetDialog;
-import com.rey.material.widget.Button;
-import com.rey.material.widget.CheckBox;
 import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
@@ -30,19 +21,14 @@ import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.FileUtil;
 import com.wuzhanglong.library.utils.WebviewUtil;
 import com.wzl.feifubao.R;
-import com.wzl.feifubao.adapter.LifeAdapter;
 import com.wzl.feifubao.adapter.ShopChoseAdapter;
 import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
-import com.wzl.feifubao.mode.RateQueryVO;
 import com.wzl.feifubao.mode.ShopDetailVO;
-import com.wzl.feifubao.mode.ShopHomeVO;
-import com.wzl.feifubao.mode.ShopVO;
-import com.wzl.feifubao.mode.UserInfoVO;
+import com.wzl.feifubao.view.NumberButton;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
-
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -167,6 +153,7 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
         ImageView shopImg = dialogView.findViewById(R.id.shop_img);
         ImageView colseIm = dialogView.findViewById(R.id.colse_img);
         TextView okTv = dialogView.findViewById(R.id.ok_tv);
+        NumberButton countTv=dialogView.findViewById(R.id.number_bt);
         moneTv.setText(mDataBean.getPrice());
         Picasso.with(this).load(mDataBean.getImg_list().get(0)).into(shopImg);
 
