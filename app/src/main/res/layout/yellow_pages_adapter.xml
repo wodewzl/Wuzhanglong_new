@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
                 android:background="@color/FUBColor7"
-                android:drawableLeft="@drawable/login_pwd"
+                android:drawableLeft="@drawable/tel"
                 android:drawablePadding="5dp"
                 android:paddingBottom="2dp"
                 android:paddingLeft="6dp"

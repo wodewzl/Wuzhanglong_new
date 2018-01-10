@@ -1,6 +1,7 @@
 package com.wzl.feifubao.activity;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rey.material.app.BottomSheetDialog;
@@ -50,7 +52,9 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
     private ShopDetailVO.DataBean mDataBean;
     private String mType;
     private TextView mShopTypeTv;
-    private String mGoodName, mGoodsId, mGoodPrice, mShopType,mCount;
+    private String mGoodName, mGoodsId, mGoodPrice, mShopType;
+    private int mCount;
+    private LinearLayout mCartLayout;
 
     @Override
     public void baseSetContentView() {
@@ -72,11 +76,13 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
         mAddCartTv = getViewById(R.id.add_cart_tv);
         mBuyTv = getViewById(R.id.buy_tv);
         mShopTypeTv = getViewById(R.id.shop_type_tv);
+        mCartLayout=getViewById(R.id.add_cart_layout);
     }
 
     @Override
     public void bindViewsListener() {
         mAddCartTv.setOnClickListener(this);
+        mBuyTv.setOnClickListener(this);
     }
 
     @Override
@@ -153,7 +159,14 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
         ImageView shopImg = dialogView.findViewById(R.id.shop_img);
         ImageView colseIm = dialogView.findViewById(R.id.colse_img);
         TextView okTv = dialogView.findViewById(R.id.ok_tv);
-        NumberButton countTv=dialogView.findViewById(R.id.number_bt);
+        NumberButton numberBt=dialogView.findViewById(R.id.number_bt);
+        numberBt.setmOnTextChangeListener(new NumberButton.OnTextChangeListener() {
+            @Override
+            public void onTextChange(int count) {
+                mCount=count;
+            }
+        });
+       numberBt.setBuyMax(99).setCurrentNumber(1);
         moneTv.setText(mDataBean.getPrice());
         Picasso.with(this).load(mDataBean.getImg_list().get(0)).into(shopImg);
 
@@ -202,8 +215,14 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
                         break;
                     }
                 }
+                if("1".equals(mType)){
+                    addCart();
+                }else {
+                    Bundle bundle =new Bundle();
+                    bundle.putString("sku_list",mShopType.split(":")[0]+":"+mCount);
+                    mActivity.open(OrderSureActivity.class,bundle,0);
+                }
 
-                addCart();
             }
         });
         mDialog.contentView(dialogView)
@@ -255,8 +274,8 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
         map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
         map.put("goods_id", mGoodsId);
         map.put("goods_name", mGoodName);
-        map.put("count", "1");
-        map.put("list", mShopType + ":" + "1");
+        map.put("count", mCount);
+        map.put("list", mShopType + ":" + mCount);
         map.put("price", mGoodPrice);
         HttpGetDataUtil.post(this, Constant.SHOP_ADD_CART_URL, map,this);
     }
@@ -264,7 +283,7 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
     @Override
     public void success(BaseVO vo) {
         mDialog.dismiss();
-            QBadgeView qbadgeView = (QBadgeView) new QBadgeView(mActivity).bindTarget(mAddCartTv).setBadgeGravity(Gravity.END | Gravity
-                .TOP).setShowShadow(true).setBadgeTextSize(10,true).setBadgeNumber(1);
+            QBadgeView qbadgeView = (QBadgeView) new QBadgeView(mActivity).bindTarget(mCartLayout).setBadgeGravity(Gravity.END | Gravity
+                .TOP).setShowShadow(true).setBadgeTextSize(10,true).setBadgeNumber(mCount);
     }
 }

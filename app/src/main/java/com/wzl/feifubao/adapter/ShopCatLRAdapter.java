@@ -35,7 +35,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * Created by Administrator on 2017/2/13.
  */
 
-public class ShopCatLRAdapter extends RecyclerBaseAdapter<ShopCatVO.DataBean> {
+public class ShopCatLRAdapter extends RecyclerBaseAdapter<ShopCatVO> {
     private OnMoneyChageListener moneyChageListener;
 
 
@@ -53,8 +53,37 @@ public class ShopCatLRAdapter extends RecyclerBaseAdapter<ShopCatVO.DataBean> {
     }
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
-        ShopCatVO.DataBean dataBean= (ShopCatVO.DataBean) model;
-        helper.setText(R.id.name_tv,dataBean.getGoods_name());
-        helper.setText(R.id.price_tv,dataBean.getPrice());
+
+        ShopCatVO dataBean= (ShopCatVO) model;
+        int type = BaseCommonUtils.parseInt(dataBean.getType());
+        if(type==1){
+            helper.setText(R.id.name_tv,dataBean.getGoods_name());
+            helper.setText(R.id.price_tv,dataBean.getPrice());
+        }else  if(type==2){
+
+        }else if(type==3){
+
+        }else {
+
+        }
+
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(this.getData().size()==0){
+            return super.getItemViewType(position);
+        }
+        ShopCatVO catVO = (ShopCatVO) mData.get(position);
+        int type = BaseCommonUtils.parseInt(catVO.getType());
+        if(type==1){
+            return R.layout.shop_cat_adapter_type2;
+        }else  if(type==2){
+            return R.layout.shop_cat_adapter_type3;
+        }else if(type==3){
+            return R.layout.shop_cat_adapter_type4;
+        }else {
+            return R.layout.shop_cat_adapter_type5;
+        }
     }
 }

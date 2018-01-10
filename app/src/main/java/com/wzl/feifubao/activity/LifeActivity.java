@@ -65,6 +65,8 @@ public class LifeActivity extends BaseActivity implements BGAOnRVItemClickListen
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
+        map.put("page", mCurrentPage+"");
+        map.put("pagesize", "10");
         HttpGetDataUtil.get(mActivity, this, Constant.LIFE_LIST_URL, map, LifeVO.class);
     }
 

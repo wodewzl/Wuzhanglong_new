@@ -85,7 +85,7 @@
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="1dp"
-                        android:text="官方标配"
+
                         android:textColor="@color/FUBColor3"
                         android:textSize="11sp" />
 
@@ -100,7 +100,7 @@
                         android:text="官方标配"
                         android:textColor="@color/FUBColor3"
                         android:textSize="11sp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -109,6 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:background="@color/C1"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
@@ -126,7 +127,6 @@
                         android:layout_width="75dp"
                         android:layout_height="15dp"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginTop="5dp"
                         android:rating="2"
                         app:mrb_progressTint="@color/FUBColor3" />
 
@@ -139,15 +139,16 @@
                         android:gravity="right"
                         android:text="125人评价"
                         android:textColor="@color/C5"
-                        android:textSize="11sp" />
+                        android:textSize="11sp"
+                        android:visibility="gone"/>
                 </LinearLayout>
 
                 <WebView
                     android:id="@+id/webView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_marginBottom="50dp">
+                    android:layout_marginBottom="50dp"
+                    android:layout_weight="1">
 
                 </WebView>
 
@@ -155,6 +156,7 @@
         </com.wuzhanglong.library.view.ReboundScrollView>
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="bottom"
@@ -163,6 +165,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/add_cart_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

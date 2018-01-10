@@ -1,5 +1,7 @@
 package com.wzl.feifubao.adapter;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
@@ -14,22 +16,38 @@ import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
  */
 
 
-public class PaymentRecordAdapter extends RecyclerBaseAdapter<PaymentRecordsVO> {
+public class PaymentRecordAdapter extends RecyclerBaseAdapter<PaymentRecordsVO.DataBeanX.DataBean> {
     public PaymentRecordAdapter(RecyclerView recyclerView) {
         super(recyclerView, R.layout.payment_record_adapter_type2);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
-    }
-
-    @Override
-    public int getItemCount() {
-        return 20;
+        PaymentRecordsVO.DataBeanX.DataBean vo = (PaymentRecordsVO.DataBeanX.DataBean) model;
+        PaymentRecordsVO.DataBeanX.DataBean dataBean = (PaymentRecordsVO.DataBeanX.DataBean) this.getData().get(position);
+        if ("1".equals(dataBean.getTypeView())) {
+            helper.setText(R.id.title_tv, vo.getCreate_time().split("-")[2]+"月");
+        } else {
+            helper.setText(R.id.title_tv, vo.getSku_name());
+            helper.setText(R.id.time_tv, vo.getCreate_time());
+            helper.setText(R.id.money_tv, vo.getPrice() + "P");
+        }
+//        helper.setText(R.id.title_tv, vo.getSku_name());
+//        helper.setText(R.id.time_tv, vo.getCreate_time());
+//        helper.setText(R.id.money_tv, vo.getPrice() + "P");
     }
 
     @Override
     public int getItemViewType(int position) {
-        return R.layout.payment_record_adapter_type2;
+        if(this.getData().size()==0){
+            return super.getItemViewType(position);
+        }
+        PaymentRecordsVO.DataBeanX.DataBean dataBean = (PaymentRecordsVO.DataBeanX.DataBean) this.getData().get(position);
+        if ("1".equals(dataBean.getTypeView())) {
+            return R.layout.payment_record_adapter_type1;
+        } else {
+            return R.layout.payment_record_adapter_type2;
+        }
     }
 }

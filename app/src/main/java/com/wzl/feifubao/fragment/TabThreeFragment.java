@@ -1,6 +1,7 @@
 package com.wzl.feifubao.fragment;
 
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,7 +16,7 @@ import com.wzl.feifubao.activity.PaymentRecordsActivity;
 
 public class TabThreeFragment extends BaseFragment implements View.OnClickListener {
     private TextView mOrderTv01, mOrderTv02, mOrderTv03, mOrderTv04, mOrderTv05;
-    private LinearLayout mPhoneLayout, mDianLayout, mWangLayout, mHouseLayout, mLogoutLayout, mOverLayout,mAddressLayout;
+    private LinearLayout mPhoneLayout, mDianLayout, mWangLayout, mHouseLayout, mLogoutLayout, mOverLayout, mAddressLayout;
 
 
     @Override
@@ -37,7 +38,7 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
         mWangLayout = getViewById(R.id.wang_layout);
         mHouseLayout = getViewById(R.id.house_layout);
         mLogoutLayout = getViewById(R.id.logout_layout);
-        mAddressLayout=getViewById(R.id.address_layout);
+        mAddressLayout = getViewById(R.id.address_layout);
 
     }
 
@@ -78,6 +79,7 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+        Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.order_tv_01:
 //                bundle.putString("type", "1");
@@ -105,13 +107,16 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
                 mActivity.openActivity(MyOverActivity.class);
                 break;
             case R.id.phone_layout:
-                mActivity.openActivity(PaymentRecordsActivity.class);
+                bundle.putString("type", "3");
+                mActivity.open(PaymentRecordsActivity.class, bundle, 0);
                 break;
             case R.id.dian_layout:
-                mActivity.openActivity(PaymentRecordsActivity.class);
+                bundle.putString("type", "1");
+                mActivity.open(PaymentRecordsActivity.class, bundle, 0);
                 break;
             case R.id.wang_layout:
-                mActivity.openActivity(PaymentRecordsActivity.class);
+                bundle.putString("type", "2");
+                mActivity.open(PaymentRecordsActivity.class, bundle, 0);
                 break;
             case R.id.house_layout:
                 mActivity.openActivity(MyHouseActivity.class);

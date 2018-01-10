@@ -35,4 +35,8 @@ public class Constant {
     public static final String DELETE_HOUSE_URL = "api/House/deleteHouse";//我的房源列表接口
     public static final String SHOP_ADD_CART_URL = "api/Order/addCart";//添加到购物车
     public static final String SHOP_CART_LIST_URL = "api/Order/getCart";//获取购物车列表
+    public static final String PAYMENT_RECORDS_URL = "api/Order/virtualOrderList";//缴费记录
+    public static final String MESSAGE_LIST_URL = "api/Member/jpushLists";//极光推送
+    public static final String COMMIT_ORDER_URL = "api/Order/orderInfo";//提交订单
+
 }

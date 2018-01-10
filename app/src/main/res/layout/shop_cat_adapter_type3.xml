@@ -9,17 +9,8 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/C1"
         android:orientation="horizontal"
         style="@style/padding_15_10">
-
-        <View
-            android:id="@+id/check_img"
-            android:layout_width="4dp"
-            android:layout_height="match_parent"
-            android:background="@color/FUBColor2"
-            android:gravity="center"
-            />
 
         <TextView
             android:id="@+id/name_tv"
@@ -29,13 +20,7 @@
             android:gravity="center_vertical"
             android:text="热门推荐"
             android:layout_marginLeft="10dp"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:textColor="@color/C5"/>
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/C3"
-        android:gravity="center"
-        />
 </LinearLayout>
