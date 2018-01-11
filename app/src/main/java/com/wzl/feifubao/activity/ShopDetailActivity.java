@@ -189,6 +189,7 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
                 mDialog.dismiss();
             }
         });
+        int count=0;
         okTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -197,13 +198,18 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
                 List<ShopDetailVO.DataBean.SpecListBean.ValueBean>list=new ArrayList<>();
                 list.addAll(adapter.getData());
                 Collections.sort(list, comparator);
+
                 for (int i = 0; i < list.size(); i++) {
                     ShopDetailVO.DataBean.SpecListBean.ValueBean vo = (ShopDetailVO.DataBean.SpecListBean.ValueBean)list.get(i);
                     if ("1".equals(vo.getSelect())) {
                         sb.append(vo.getSpec_id()).append(":").append(vo.getSpec_value_id()).append(";");
+
                     }
                 }
-
+                if(sb.length()==0|| sb.toString().split(";").length!=mDataBean.getSpec_list().size()){
+                    showCustomToast("请选择商品");
+                return;
+            }
                 String str = sb.toString().substring(0, sb.toString().length() - 1);
                 for (int i = 0; i < mDataBean.getSku_list().size(); i++) {
                     if (str.equals(mDataBean.getSku_list().get(i).getAttr_value_items())) {

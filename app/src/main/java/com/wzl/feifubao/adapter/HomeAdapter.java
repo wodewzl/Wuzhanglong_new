@@ -34,8 +34,8 @@ public class HomeAdapter extends RecyclerBaseAdapter<HomeVO.DataBean.HouseBean> 
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
         final HomeVO.DataBean.HouseBean houseBean = (HomeVO.DataBean.HouseBean) model;
         ImageView horseImg = helper.getImageView(R.id.house_img);
-        if (TextUtils.isEmpty(houseBean.getHouse_pic()))
-        Picasso.with(mContext).load(houseBean.getHouse_pic()).into(horseImg);
+        if (!TextUtils.isEmpty(houseBean.getHouse_pic()))
+            Picasso.with(mContext).load(houseBean.getHouse_pic()).into(horseImg);
         helper.setText(R.id.title_tv, houseBean.getHouse_title());
         helper.setText(R.id.desc_tv, houseBean.getApartment() + " | " + houseBean.getHouse_area() + "㎡" + " | " + houseBean.getProvince() + houseBean.getCity());
         TextView priceTv = helper.getTextView(R.id.money_tv);

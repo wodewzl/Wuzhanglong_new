@@ -23,7 +23,7 @@
                 android:id="@+id/img"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:background="@color/FUBColor3" />
+                android:background="@color/C1" />
 
             <LinearLayout
                 android:layout_width="match_parent"

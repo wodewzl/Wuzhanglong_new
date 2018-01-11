@@ -1,6 +1,7 @@
 package com.wzl.feifubao.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -24,7 +25,8 @@ public class YellowPagesAdapter extends RecyclerBaseAdapter<YellowPagesVO.DataBe
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
         YellowPagesVO.DataBeanX.DataBean vo = (YellowPagesVO.DataBeanX.DataBean) model;
-        Picasso.with(mActivity).load(vo.getPic()).into(helper.getImageView(R.id.img));
+        if (!TextUtils.isEmpty(vo.getPic()))
+            Picasso.with(mActivity).load(vo.getPic()).into(helper.getImageView(R.id.img));
         helper.setText(R.id.title_tv, vo.getSupplier_name());
         helper.setText(R.id.type_tv, vo.getName());
         helper.setText(R.id.desc_tv, "主营业务：" + vo.getDescX());

@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/C3"
-
     android:orientation="vertical"
  >
 
@@ -12,9 +11,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/C1"
-        style="@style/padding_15_10"
+        android:padding="10dp"
         android:gravity="center_horizontal"
-        android:layout_marginRight="3dp">
+        android:layout_marginRight="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp">
 
     <ImageView
         android:id="@+id/type6_img"
@@ -45,7 +47,7 @@
             android:background="@drawable/frame_shixin_c1"
             android:paddingLeft="3dp"
             android:paddingRight="3dp"
-            android:textSize="11sp"
+            android:textSize="10sp"
             android:text="特价"
             android:textColor="@color/FUBColor3" />
 

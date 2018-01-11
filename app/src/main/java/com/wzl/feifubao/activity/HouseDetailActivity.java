@@ -74,7 +74,7 @@ public class HouseDetailActivity extends BaseActivity {
                 @Override
                 public void displayImage(Context context, Object o, ImageView imageView) {
                     final String bannerVO = (String) o;
-                    if (TextUtils.isEmpty(bannerVO))
+                    if (!TextUtils.isEmpty(bannerVO))
                     Picasso.with(context).load(bannerVO).into(imageView);
                 }
             });

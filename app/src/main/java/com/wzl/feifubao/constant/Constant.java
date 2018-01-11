@@ -38,5 +38,6 @@ public class Constant {
     public static final String PAYMENT_RECORDS_URL = "api/Order/virtualOrderList";//缴费记录
     public static final String MESSAGE_LIST_URL = "api/Member/jpushLists";//极光推送
     public static final String COMMIT_ORDER_URL = "api/Order/orderInfo";//提交订单
-
+    public static final String ADD_SHOP_COUNT = "api/Order/changeCartNum";//购物车添加
+    public static final String DELETE_SHOP_COUNT = "api/Order/cartDelete";//购物车删除
 }

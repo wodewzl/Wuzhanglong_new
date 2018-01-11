@@ -185,7 +185,7 @@ public class OrderRAdapter extends RecyclerBaseAdapter<OrderVO> {
             });
 
         } else {
-            if (TextUtils.isEmpty(vo.getGoods_image_url()))
+            if (!TextUtils.isEmpty(vo.getGoods_image_url()))
             Picasso.with(mContext).load(vo.getGoods_image_url()).placeholder(R.drawable.base_no_content).into(helper.getImageView(R.id.img));
             helper.setText(R.id.name_tv, vo.getGoods_name());
             helper.setText(R.id.price_tv, "￥" + vo.getGoods_price());

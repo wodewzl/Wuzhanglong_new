@@ -25,8 +25,8 @@ public class LifeAdapter extends RecyclerBaseAdapter<LifeVO.DataBean.NewsBean> {
         LifeVO.DataBean.NewsBean vo = (LifeVO.DataBean.NewsBean) model;
         helper.setText(R.id.time_tv, vo.getCreate_time());
         helper.setText(R.id.title_tv, vo.getTitle());
-        if (TextUtils.isEmpty(vo.getImage()))
-        Picasso.with(mActivity).load(vo.getImage()).into(helper.getImageView(R.id.img));
+        if (!TextUtils.isEmpty(vo.getImage()))
+            Picasso.with(mActivity).load(vo.getImage()).into(helper.getImageView(R.id.img));
         helper.setText(R.id.desc_tv, vo.getShort_title());
     }
 

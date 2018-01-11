@@ -108,7 +108,7 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
                 @Override
                 public void displayImage(Context context, Object o, ImageView imageView) {
                     final HouseListVO.DataBean.AdvsBean bannerVO = (HouseListVO.DataBean.AdvsBean) o;
-                    if (TextUtils.isEmpty(bannerVO.getAdv_image()))
+                    if (!TextUtils.isEmpty(bannerVO.getAdv_image()))
                     Picasso.with(context).load(bannerVO.getAdv_image()).into(imageView);
                 }
             });

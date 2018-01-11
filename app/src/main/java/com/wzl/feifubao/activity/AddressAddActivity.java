@@ -15,6 +15,7 @@ import com.wuzhanglong.library.constant.BaseConstant;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.application.AppApplication;
@@ -22,6 +23,8 @@ import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.CityVO;
 import com.wzl.feifubao.mode.HouseListVO;
 import com.wzl.feifubao.mode.UserInfoVO;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -157,7 +160,7 @@ public class AddressAddActivity extends BaseActivity implements View.OnClickList
     @Override
     public void success(BaseVO vo) {
         if(BaseConstant.RESULT_SUCCESS_CODE.equals(vo.getCode())){
-
+            EventBus.getDefault().post(new EBMessageVO("refresh"));
             showCustomToast("提交成功");
             mBaseHeadLayout.postDelayed(new Runnable() {
                 @Override

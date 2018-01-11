@@ -25,7 +25,7 @@ public class HouseListAdapter extends RecyclerBaseAdapter<HouseListVO.DataBean.H
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
         HouseListVO.DataBean.HouseBean bean = (HouseListVO.DataBean.HouseBean) model;
         ImageView houseImg = helper.getImageView(R.id.house_img);
-        if (TextUtils.isEmpty(bean.getHouse_pic()))
+        if (!TextUtils.isEmpty(bean.getHouse_pic()))
             Picasso.with(mContext).load(bean.getHouse_pic()).into(houseImg);
         helper.setText(R.id.title_tv, bean.getRenting_style() + "·" + bean.getHouse_title());
         helper.setText(R.id.desc_tv, bean.getHouse_name() + "/" + bean.getApartment() + "/" + bean.getHouse_area() + "㎡" + "/" + bean.getHouse_face());

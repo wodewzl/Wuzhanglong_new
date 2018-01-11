@@ -24,7 +24,7 @@ public class ShopAdapter  extends RecyclerBaseAdapter<ShopVO.DataBean.GoodsBean>
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
         ShopVO.DataBean.GoodsBean bean= (ShopVO.DataBean.GoodsBean) model;
         ImageView goodsImg=helper.getImageView(R.id.img);
-        if (TextUtils.isEmpty(bean.getPic_cover_small()))
+        if (!TextUtils.isEmpty(bean.getPic_cover_small()))
         Picasso.with(mContext).load(bean.getPic_cover_small()).into(goodsImg);
 
         helper.setText(R.id.name_tv,bean.getGoods_name());

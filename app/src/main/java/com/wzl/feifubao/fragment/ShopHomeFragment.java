@@ -1,5 +1,6 @@
 package com.wzl.feifubao.fragment;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 
@@ -8,6 +9,7 @@ import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.adapter.ShopHomeAdapter;
 import com.wzl.feifubao.constant.Constant;
@@ -21,11 +23,11 @@ import java.util.List;
  * Created by wuzhanglong on 2018/1/1.
  */
 
-public class ShopHomeFragment extends BaseFragment {
+public class ShopHomeFragment extends BaseFragment implements  SwipeRefreshLayout.OnRefreshListener {
     private LuRecyclerView mRecyclerView;
     private ShopHomeAdapter mAdapter;
     private LuRecyclerViewAdapter mLuAdapter;
-
+    private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     public static BaseFragment newInstance() {
         BaseFragment fragment = new ShopHomeFragment();
         return fragment;
@@ -38,6 +40,8 @@ public class ShopHomeFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
+        mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
+        mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
         mRecyclerView = getViewById(R.id.recycler_view);
         GridLayoutManager layoutManager = new GridLayoutManager(mActivity, 6);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -64,7 +68,7 @@ public class ShopHomeFragment extends BaseFragment {
 
     @Override
     public void bindViewsListener() {
-
+        mAutoSwipeRefreshLayout.setOnRefreshListener(this);
     }
 
     @Override
@@ -130,7 +134,7 @@ public class ShopHomeFragment extends BaseFragment {
                 list.add(tuijianVO);
             }
         }
-
+        mAutoSwipeRefreshLayout.setRefreshing(false);
         mAdapter.updateData(list);
     }
 
@@ -142,5 +146,10 @@ public class ShopHomeFragment extends BaseFragment {
     @Override
     public void noNet() {
 
+    }
+
+    @Override
+    public void onRefresh() {
+        getData();
     }
 }

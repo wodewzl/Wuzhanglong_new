@@ -26,7 +26,7 @@ public class PayElectricityActivity extends BaseActivity {
 
     @Override
     public void getData() {
-
+        showView();
     }
 
     @Override

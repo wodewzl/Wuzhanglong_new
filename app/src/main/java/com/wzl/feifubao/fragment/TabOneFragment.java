@@ -3,6 +3,7 @@ package com.wzl.feifubao.fragment;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -137,8 +138,10 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         if (mDataBean.getHuo() == null || mDataBean.getHuo().size() == 0) {
             mType4Layout.setVisibility(View.GONE);
         } else {
-            Picasso.with(mActivity).load(mDataBean.getHuo().get(0).getAdv_image()).into(mType4Img01);
-            Picasso.with(mActivity).load(mDataBean.getHuo().get(1).getAdv_image()).into(mType4Img02);
+            if (!TextUtils.isEmpty(mDataBean.getHuo().get(0).getAdv_image()))
+                Picasso.with(mActivity).load(mDataBean.getHuo().get(0).getAdv_image()).into(mType4Img01);
+            if (!TextUtils.isEmpty(mDataBean.getHuo().get(1).getAdv_image()))
+                Picasso.with(mActivity).load(mDataBean.getHuo().get(1).getAdv_image()).into(mType4Img02);
 
         }
 
@@ -147,7 +150,8 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         } else {
             mType5TitleTv.setText(mDataBean.getGoods().get(0).getGoods_name());
             mType5DescTv.setText(mDataBean.getGoods().get(0).getDescription());
-            Picasso.with(mActivity).load(mDataBean.getGoods().get(0).getPic_cover_small()).into(mType5GoodsImg);
+            if (!TextUtils.isEmpty(mDataBean.getGoods().get(0).getPic_cover_small()))
+                Picasso.with(mActivity).load(mDataBean.getGoods().get(0).getPic_cover_small()).into(mType5GoodsImg);
             mType5BuyTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, BaseCommonUtils.dip2px(mActivity, 30), R.color.colorAccent, R.color.FUBColor5));
             mType5BuyTv.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -171,7 +175,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
     public View initHeadView() {
 //        View header = LayoutInflater.from(mActivity).inflate(R.layout.home_head_layout, (ViewGroup) mActivity.findViewById(android.R.id.content), false);
-        View header = View.inflate(mActivity,R.layout.home_head_layout,null);
+        View header = View.inflate(mActivity, R.layout.home_head_layout, null);
         mType1Tv01 = header.findViewById(R.id.type_01_tv);
         mType1Tv02 = header.findViewById(R.id.type_02_tv);
         mType1Tv03 = header.findViewById(R.id.type_03_tv);

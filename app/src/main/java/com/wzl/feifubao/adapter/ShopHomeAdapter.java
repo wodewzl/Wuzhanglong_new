@@ -74,15 +74,17 @@ public class ShopHomeAdapter extends RecyclerBaseAdapter<ShopHomeVO> {
             case "3":
                 break;
             case "4":
-                Picasso.with(mActivity).load(vo.getPic_cover_small()).into(helper.getImageView(R.id.type4_img));
+                if (!TextUtils.isEmpty(vo.getPic_cover_small()))
+                    Picasso.with(mActivity).load(vo.getPic_cover_small()).into(helper.getImageView(R.id.type4_img));
                 helper.setText(R.id.type4_title_tv, vo.getGoods_name());
-                helper.setText(R.id.type4_money_tv,"￥" +  vo.getPrice());
+                helper.setText(R.id.type4_money_tv, "￥" + vo.getPrice());
                 break;
             case "5":
                 System.out.println("ddddddddddddddd");
                 break;
             case "6":
-                Picasso.with(mActivity).load(vo.getPic_cover_small()).into(helper.getImageView(R.id.type6_img));
+                if (!TextUtils.isEmpty(vo.getPic_cover_small()))
+                    Picasso.with(mActivity).load(vo.getPic_cover_small()).into(helper.getImageView(R.id.type6_img));
                 helper.setText(R.id.type6_title_tv, vo.getGoods_name());
                 DecimalFormat df = new DecimalFormat("#.0");
                 if (!TextUtils.isEmpty(vo.getPrice()))
@@ -92,12 +94,14 @@ public class ShopHomeAdapter extends RecyclerBaseAdapter<ShopHomeVO> {
                 yuanjian.setText("￥" + df.format(Double.parseDouble(vo.getPrice())));
                 break;
             case "7":
-                Picasso.with(mActivity).load(vo.getAdv_image()).into(helper.getImageView(R.id.type7_img));
+                if (!TextUtils.isEmpty(vo.getAdv_image()))
+                    Picasso.with(mActivity).load(vo.getAdv_image()).into(helper.getImageView(R.id.type7_img));
                 break;
             case "8":
                 break;
             case "9":
-                Picasso.with(mActivity).load(vo.getPic_cover_small()).into(helper.getImageView(R.id.type9_img));
+                if (!TextUtils.isEmpty(vo.getPic_cover_small()))
+                    Picasso.with(mActivity).load(vo.getPic_cover_small()).into(helper.getImageView(R.id.type9_img));
                 helper.setText(R.id.type9_title_tv, vo.getGoods_name());
                 helper.setText(R.id.type9_desc_tv, vo.getDescription());
                 DecimalFormat dfx = new DecimalFormat("#.0");
