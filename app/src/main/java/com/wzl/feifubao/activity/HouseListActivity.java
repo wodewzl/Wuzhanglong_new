@@ -2,11 +2,10 @@ package com.wzl.feifubao.activity;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.LayoutInflater;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
@@ -25,9 +24,7 @@ import com.wuzhanglong.library.utils.WidthHigthUtil;
 import com.wuzhanglong.library.view.BSPopupWindowsTitle;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.adapter.HouseListAdapter;
-import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
-import com.wzl.feifubao.mode.HomeVO;
 import com.wzl.feifubao.mode.HouseListVO;
 import com.wzl.feifubao.mode.HouseOptionVO;
 import com.youth.banner.Banner;
@@ -36,7 +33,6 @@ import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -112,6 +108,7 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
                 @Override
                 public void displayImage(Context context, Object o, ImageView imageView) {
                     final HouseListVO.DataBean.AdvsBean bannerVO = (HouseListVO.DataBean.AdvsBean) o;
+                    if (TextUtils.isEmpty(bannerVO.getAdv_image()))
                     Picasso.with(context).load(bannerVO.getAdv_image()).into(imageView);
                 }
             });

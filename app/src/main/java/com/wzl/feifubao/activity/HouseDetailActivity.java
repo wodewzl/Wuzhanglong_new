@@ -1,14 +1,11 @@
 package com.wzl.feifubao.activity;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.umeng.socialize.media.Base;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.mode.BaseVO;
@@ -16,14 +13,11 @@ import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.HouseDetailVO;
-import com.wzl.feifubao.mode.HouseListVO;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 
 public class HouseDetailActivity extends BaseActivity {
@@ -80,6 +74,7 @@ public class HouseDetailActivity extends BaseActivity {
                 @Override
                 public void displayImage(Context context, Object o, ImageView imageView) {
                     final String bannerVO = (String) o;
+                    if (TextUtils.isEmpty(bannerVO))
                     Picasso.with(context).load(bannerVO).into(imageView);
                 }
             });

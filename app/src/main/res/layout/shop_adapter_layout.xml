@@ -18,7 +18,7 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_gravity="center"
-            android:background="@color/C9"/>
+            android:background="@color/C1"/>
 
         <TextView
             android:id="@+id/name_tv"

@@ -20,7 +20,7 @@ import java.io.ObjectOutputStream;
 public class AppApplication extends BaseAppApplication {
     private static AppApplication mAppApplication;
     {
-        PlatformConfig.setWeixin("wx93027a99f78841b5","12f61fc306634e3470d2b61de397296b");
+        PlatformConfig.setWeixin("wx2c13faa1a2947596","2b196a7043a25b3edc8c2813224c07fa");
         PlatformConfig.setQQZone("1106176952","KEYRhCNnGRnsBJ7b9tN");
         PlatformConfig.setSinaWeibo("319845988","fbb3df56985bcd557975e1bd8e8d8a1e","http://xiaojingsc.test.beisheng.wang/ht");
     }

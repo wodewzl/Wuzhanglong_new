@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -184,6 +185,7 @@ public class OrderRAdapter extends RecyclerBaseAdapter<OrderVO> {
             });
 
         } else {
+            if (TextUtils.isEmpty(vo.getGoods_image_url()))
             Picasso.with(mContext).load(vo.getGoods_image_url()).placeholder(R.drawable.base_no_content).into(helper.getImageView(R.id.img));
             helper.setText(R.id.name_tv, vo.getGoods_name());
             helper.setText(R.id.price_tv, "￥" + vo.getGoods_price());

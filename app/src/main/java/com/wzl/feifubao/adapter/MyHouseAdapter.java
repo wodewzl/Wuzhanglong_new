@@ -1,6 +1,7 @@
 package com.wzl.feifubao.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,9 +12,7 @@ import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.activity.MyHouseActivity;
-import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
-import com.wzl.feifubao.mode.HouseListVO;
 import com.wzl.feifubao.mode.MyHouseVO;
 
 import java.util.HashMap;
@@ -34,6 +33,7 @@ public class MyHouseAdapter extends RecyclerBaseAdapter<MyHouseVO.DataBean.House
     public void initData(BGAViewHolderHelper helper, final int position, Object model) {
         final MyHouseVO.DataBean.HouseBean bean= (MyHouseVO.DataBean.HouseBean) model;
         ImageView houseImg = helper.getImageView(R.id.house_img);
+        if (TextUtils.isEmpty(bean.getHouse_pic()))
         Picasso.with(mContext).load(bean.getHouse_pic()).into(houseImg);
         helper.setText(R.id.title_tv,bean.getHouse_title());
         helper.setText(R.id.desc_tv, bean.getHouse_name()+"/"+bean.getApartment() + "/" + bean.getHouse_area() + "㎡" + "/" + bean.getHouse_face());

@@ -1,8 +1,7 @@
 package com.wzl.feifubao.activity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
@@ -15,7 +14,7 @@ import com.wzl.feifubao.mode.PaymentRecordsVO;
 import java.util.HashMap;
 
 public class OrderSureActivity extends BaseActivity {
-
+    private LinearLayout mAddressLayout;
     View mXuxian;
 
     @Override
@@ -28,6 +27,8 @@ public class OrderSureActivity extends BaseActivity {
         mBaseTitleTv.setText("确认订单");
         mXuxian = getViewById(R.id.xuxian);
         mXuxian.setBackground(BaseCommonUtils.setBackgroundShap(this, 0, R.color.FUBColor7, R.color.FUBColor7, 1));
+        mAddressLayout=getViewById(R.id.address_layout);
+
     }
 
     @Override
