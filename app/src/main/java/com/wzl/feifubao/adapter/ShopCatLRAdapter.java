@@ -1,18 +1,9 @@
 package com.wzl.feifubao.adapter;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.rey.material.widget.CheckBox;
 import com.squareup.picasso.Picasso;
@@ -21,15 +12,9 @@ import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.activity.ShopCartActivity;
 import com.wzl.feifubao.mode.ShopCatVO;
-import com.wzl.feifubao.mode.ShopHomeVO;
 import com.wzl.feifubao.view.NumberButton;
 
-import java.util.List;
-
-import cc.solart.turbo.BaseTurboAdapter;
-import cc.solart.turbo.BaseViewHolder;
 import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 //import ren.qinc.numberbutton.NumberButton;
@@ -88,7 +73,6 @@ public class ShopCatLRAdapter extends RecyclerBaseAdapter<ShopCatVO> {
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     dataBean.setCheck(b);
                     ShopCartActivity activity = (ShopCartActivity) mActivity;
-                    activity.deleteShop(dataBean.getCart_id());
                     activity.countPrice();
                 }
             });

@@ -1,10 +1,12 @@
 package com.wzl.feifubao.mode;
 
+import java.io.Serializable;
+
 /**
  * Created by ${Wuzhanglong} on 2018/1/12.
  */
 
-public class AddresslistBean {
+public class AddresslistBean implements Serializable{
 
     private String id;
     private String uid;

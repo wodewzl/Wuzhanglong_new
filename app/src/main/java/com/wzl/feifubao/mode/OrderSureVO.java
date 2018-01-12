@@ -2,13 +2,14 @@ package com.wzl.feifubao.mode;
 
 import com.wuzhanglong.library.mode.BaseVO;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by wuzhanglong on 2018/1/11.
  */
 
-public class OrderSureVO extends BaseVO {
+public class OrderSureVO extends BaseVO implements Serializable {
 
     /**
      * data : {"goods_sku_list":"15:5","addresslist":[{"id":"3","uid":"39","consigner":"庄猛","mobile":"13720343150","phone":"","province":"17","city":"173","district":"1565","address":"东津世纪城",
@@ -31,7 +32,7 @@ public class OrderSureVO extends BaseVO {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * goods_sku_list : 15:5
          * addresslist : [{"id":"3","uid":"39","consigner":"庄猛","mobile":"13720343150","phone":"","province":"17","city":"173","district":"1565","address":"东津世纪城","zip_code":"","alias":"",

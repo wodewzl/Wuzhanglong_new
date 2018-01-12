@@ -22,7 +22,7 @@
             android:visibility="visible">
 
             <TextView
-                android:id="@+id/name_title_tv"
+                android:id="@+id/name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="5dp"
@@ -30,11 +30,12 @@
                 android:textSize="13sp" />
 
             <TextView
-                android:id="@+id/name_tv"
+                android:id="@+id/phone_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/name_title_tv"
+                android:layout_toRightOf="@id/name_tv"
                 android:drawablePadding="5dp"
+                android:layout_marginLeft="30dp"
                 android:text="吴章龙"
                 android:textSize="13sp" />
 
@@ -42,7 +43,7 @@
                 android:id="@+id/address_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/name_title_tv"
+                android:layout_below="@id/name_tv"
                 android:layout_marginTop="5dp"
                 android:text="吴章龙"
                 android:textColor="@color/C5"
@@ -80,64 +81,12 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            style="@style/padding_15_10"
+
+        <com.github.jdsjlzx.recyclerview.LuRecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="#Fafafa"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@color/colorAccent" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/goods_name_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="娃娃" />
-
-                <TextView
-                    android:id="@+id/goods_desc_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="娃娃"
-                    android:textColor="@color/C6"
-                    android:textSize="11dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/goods_price_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="娃娃"
-                        android:textColor="@color/FUBColor3"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="x1" />
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
+            android:layout_marginTop="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"

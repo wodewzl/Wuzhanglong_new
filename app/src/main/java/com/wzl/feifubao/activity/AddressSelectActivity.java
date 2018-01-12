@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.alipay.android.phone.mrpc.core.ThreadUtil;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.mode.BaseVO;
@@ -16,11 +15,12 @@ import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wuzhanglong.library.utils.DividerUtil;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.adapter.AddressSelectAdapter;
-import com.wzl.feifubao.application.AppApplication;
-import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.AddressVO;
+import com.wzl.feifubao.mode.AddresslistBean;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 
@@ -46,6 +46,8 @@ public class AddressSelectActivity extends BaseActivity implements BGAOnRVItemCl
         DividerDecoration divider = DividerUtil.linnerDivider(this, R.dimen.dp_10, R.color.C3);
         mRecyclerView.addItemDecoration(divider);
         mAddBt=getViewById(R.id.add_bt);
+        List<AddresslistBean> list= (List<AddresslistBean>) this.getIntent().getSerializableExtra("list");
+        mAdapter.updateData(list);
     }
 
     @Override
