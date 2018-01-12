@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
 import com.wzl.feifubao.R;
-import com.wzl.feifubao.mode.JobOffersVO;
 import com.wzl.feifubao.mode.PaymentRecordsVO;
 
 import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
@@ -17,6 +16,16 @@ import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
 
 
 public class PaymentRecordAdapter extends RecyclerBaseAdapter<PaymentRecordsVO.DataBeanX.DataBean> {
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public PaymentRecordAdapter(RecyclerView recyclerView) {
         super(recyclerView, R.layout.payment_record_adapter_type2);
     }
@@ -32,10 +41,15 @@ public class PaymentRecordAdapter extends RecyclerBaseAdapter<PaymentRecordsVO.D
             helper.setText(R.id.title_tv, vo.getSku_name());
             helper.setText(R.id.time_tv, vo.getCreate_time());
             helper.setText(R.id.money_tv, vo.getPrice() + "P");
+            if("1".equals(type)){
+                helper.setImageResource(R.id.type_img,R.drawable.pay_record_type1);
+            }else if("2".equals(type)){
+                helper.setImageResource(R.id.type_img,R.drawable.pay_record_type2);
+            }else if("3".equals(type)){
+                helper.setImageResource(R.id.type_img,R.drawable.pay_record_type3);
+            }
+
         }
-//        helper.setText(R.id.title_tv, vo.getSku_name());
-//        helper.setText(R.id.time_tv, vo.getCreate_time());
-//        helper.setText(R.id.money_tv, vo.getPrice() + "P");
     }
 
     @Override

@@ -7,7 +7,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_launcher_round"
+
         android:supportsRtl="true"
         android:theme="@style/AppThemeFeiFuBao">
         <activity
@@ -56,6 +56,7 @@
         <activity android:name=".activity.MyHouseActivity"></activity>
 
         <activity android:name=".activity.AddressEditActivity" />
+        <activity android:name=".activity.AddressSelectActivity" />
     </application>
 
 </manifest>

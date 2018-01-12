@@ -1,17 +1,15 @@
 package com.wzl.feifubao.activity;
 
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
-import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.rey.material.widget.CheckBox;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
@@ -24,19 +22,15 @@ import com.wuzhanglong.library.utils.NumberTypeUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.adapter.ShopCatLRAdapter;
-import com.wzl.feifubao.adapter.YellowPagesAdapter;
 import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
-import com.wzl.feifubao.mode.LifeVO;
 import com.wzl.feifubao.mode.ShopCatVO;
-import com.wzl.feifubao.mode.ShopHomeVO;
-import com.wzl.feifubao.mode.UserInfoVO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ShopCartActivity extends BaseActivity implements  SwipeRefreshLayout.OnRefreshListener,CompoundButton.OnCheckedChangeListener, View.OnClickListener,PostCallback{
+public class ShopCartActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, CompoundButton.OnCheckedChangeListener, View.OnClickListener, PostCallback {
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.activity_shop_cart);
@@ -45,10 +39,11 @@ public class ShopCartActivity extends BaseActivity implements  SwipeRefreshLayou
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private LuRecyclerView mRecyclerView;
     private ShopCatLRAdapter mAdapter;
-    private TextView mTotalTv,mCommitTv;
+    private TextView mTotalTv, mCommitTv;
     private CheckBox mAllCheck;
     private View mAllCheckView;
-    private  GridLayoutManager mLayoutManager;
+    private GridLayoutManager mLayoutManager;
+    private LinearLayout mBottomLayout;
 
 
     @Override
@@ -57,7 +52,7 @@ public class ShopCartActivity extends BaseActivity implements  SwipeRefreshLayou
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
         mRecyclerView = getViewById(R.id.recycler_view);
-        mLayoutManager  = new GridLayoutManager(this, 2);
+        mLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new ShopCatLRAdapter(mRecyclerView);
         LuRecyclerViewAdapter adapter = new LuRecyclerViewAdapter(mAdapter);
@@ -71,6 +66,7 @@ public class ShopCartActivity extends BaseActivity implements  SwipeRefreshLayou
         mCommitTv = getViewById(R.id.commit_tv);
         mAllCheck = getViewById(R.id.check_box);
         mAllCheckView = getViewById(R.id.view_check);
+        mBottomLayout = getViewById(R.id.bottom_layout);
 
     }
 
@@ -94,19 +90,29 @@ public class ShopCartActivity extends BaseActivity implements  SwipeRefreshLayou
 //        BaseCommonUtils.setTextTwoLast(mActivity, mTotalTv, "合计总金额：", "￥" + mShopCatVO.getSum(), R.color.XJColor2, 1.5f);
 
         List<ShopCatVO> list = new ArrayList<>();
-        for (int i = 0; i < shopCatVO.getData().getCart().size(); i++) {
-            ShopCatVO cartVo = shopCatVO.getData().getCart().get(i);
-            cartVo.setType("1");
-            list.add(cartVo);
+        if (shopCatVO.getData().getCart() != null) {
+            mBottomLayout.setVisibility(View.VISIBLE);
+            for (int i = 0; i < shopCatVO.getData().getCart().size(); i++) {
+                ShopCatVO cartVo = shopCatVO.getData().getCart().get(i);
+                cartVo.setType("1");
+                list.add(cartVo);
+            }
+        }else {
+            mBottomLayout.setVisibility(View.GONE);
         }
-        ShopCatVO tuiJianTitle = new ShopCatVO();
-        tuiJianTitle.setType("2");
-        list.add(tuiJianTitle);
-        for (int i = 0; i < shopCatVO.getData().getTuijian().size(); i++) {
-            ShopCatVO tuiJianVo = shopCatVO.getData().getTuijian().get(i);
-            tuiJianVo.setType("3");
-            list.add(tuiJianVo);
+
+        if (shopCatVO.getData().getTuijian() != null) {
+
+            ShopCatVO tuiJianTitle = new ShopCatVO();
+            tuiJianTitle.setType("2");
+            list.add(tuiJianTitle);
+            for (int i = 0; i < shopCatVO.getData().getTuijian().size(); i++) {
+                ShopCatVO tuiJianVo = shopCatVO.getData().getTuijian().get(i);
+                tuiJianVo.setType("3");
+                list.add(tuiJianVo);
+            }
         }
+
         mAdapter.updateData(list);
         mAutoSwipeRefreshLayout.setRefreshing(false);
         mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -143,7 +149,7 @@ public class ShopCartActivity extends BaseActivity implements  SwipeRefreshLayou
         switch (v.getId()) {
             case R.id.commit_tv:
                 Bundle bundle = new Bundle();
-                StringBuffer     sb = new StringBuffer();
+                StringBuffer sb = new StringBuffer();
 
                 for (int i = 0; i < mAdapter.getData().size(); i++) {
                     ShopCatVO vo = (ShopCatVO) mAdapter.getData().get(i);
@@ -155,7 +161,7 @@ public class ShopCartActivity extends BaseActivity implements  SwipeRefreshLayou
                     mActivity.showCustomToast("请选择商品");
                     return;
                 }
-                bundle.putString("sku_list", sb.toString().substring(0,sb.toString().length()-1));
+                bundle.putString("sku_list", sb.toString().substring(0, sb.toString().length() - 1));
 
                 mActivity.open(OrderSureActivity.class, bundle, 0);
                 break;
@@ -181,22 +187,22 @@ public class ShopCartActivity extends BaseActivity implements  SwipeRefreshLayou
 
     }
 
-    public void addShopCart(String cartId,String count){
+    public void addShopCart(String cartId, String count) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
-        map.put("cart_id",cartId);
+        map.put("cart_id", cartId);
         map.put("num", count);
         HttpGetDataUtil.post(this, Constant.ADD_SHOP_COUNT, map, this);
     }
 
-    public void deleteShop(String cartId){
+    public void deleteShop(String cartId) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
-        map.put("cart_id",cartId);
+        map.put("cart_id", cartId);
         HttpGetDataUtil.post(this, Constant.DELETE_SHOP_COUNT, map, this);
     }
 
-    public void countPrice(){
+    public void countPrice() {
         double money = 0;
         for (int i = 0; i < mAdapter.getData().size(); i++) {
             ShopCatVO vo = (ShopCatVO) mAdapter.getData().get(i);

@@ -1,12 +1,8 @@
 package com.wzl.feifubao.activity;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
@@ -19,13 +15,9 @@ import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import com.wuzhanglong.library.view.PinnedHeaderDecoration;
 import com.wzl.feifubao.R;
-import com.wzl.feifubao.adapter.MessageAdapter;
 import com.wzl.feifubao.adapter.PaymentRecordAdapter;
-import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
-import com.wzl.feifubao.mode.LifeVO;
 import com.wzl.feifubao.mode.PaymentRecordsVO;
-import com.wzl.feifubao.mode.ShopCatVO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,7 +58,9 @@ public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreLi
             }
         });
         mRecyclerView.addItemDecoration(decoration);
+
         mAdapter = new PaymentRecordAdapter(mRecyclerView);
+        mAdapter.setType(type);
         LuRecyclerViewAdapter adapter = new LuRecyclerViewAdapter(mAdapter);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);

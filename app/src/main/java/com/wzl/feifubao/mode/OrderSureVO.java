@@ -8,10 +8,17 @@ import java.util.List;
  * Created by wuzhanglong on 2018/1/11.
  */
 
-public class OrderSureVO extends BaseVO{
+public class OrderSureVO extends BaseVO {
 
     /**
-     * data : {"goods_sku_list":"15:5","addresslist":[{"id":"3","uid":"39","consigner":"庄猛","mobile":"13720343150","phone":"","province":"17","city":"173","district":"1565","address":"东津世纪城","zip_code":"","alias":"","is_default":"1","address_info":"湖北省&nbsp;襄樊市&nbsp;襄阳区"},{"id":"4","uid":"39","consigner":"毕进","mobile":"15927310680","phone":"","province":"23","city":"251","district":"2167","address":"啊啊啊呃呃","zip_code":"","alias":"","is_default":"0","address_info":"四川省&nbsp;巴中市&nbsp;南江县"}],"address_is_have":"1","expressCompanyCount":"2","yunfei":"30.00","express_company_list":[{"co_id":"1","company_name":"顺丰","is_default":"1","express_fee":"30"}],"discount_money":"0.00","count_money":"41500.00","rate":"0.13100000","total_price":"41530","total_price_rmb":"5440.43","pick_up_money":"0","list":[{"sku_id":"15","goods_id":"3","num":"5","sku_name":"黑色 64G 4.8 ","price":"8300.00","pic_cover_micro":"http://feidu.baonongkang.cn/upload/goods/20171226/2ed7db33f7e55e19f8f3378d8f62848d4.jpg","subtotal":"41500.00","picture_info":""}],"count_point_exchange":"0","member_account":{"point":"0","balance":"5000.00","coin":"0"},"coupon_list":[],"promotion_full_mail":{"mail_id":"1","shop_id":"0","is_open":"0","full_mail_money":"0.00","create_time":"1513594939","modify_time":"0","no_mail_province_id_array":"","no_mail_city_id_array":""},"pickup_point_list":{"data":[],"total_count":"0","page_count":"1"}}
+     * data : {"goods_sku_list":"15:5","addresslist":[{"id":"3","uid":"39","consigner":"庄猛","mobile":"13720343150","phone":"","province":"17","city":"173","district":"1565","address":"东津世纪城",
+     * "zip_code":"","alias":"","is_default":"1","address_info":"湖北省&nbsp;襄樊市&nbsp;襄阳区"},{"id":"4","uid":"39","consigner":"毕进","mobile":"15927310680","phone":"","province":"23","city":"251",
+     * "district":"2167","address":"啊啊啊呃呃","zip_code":"","alias":"","is_default":"0","address_info":"四川省&nbsp;巴中市&nbsp;南江县"}],"address_is_have":"1","expressCompanyCount":"2","yunfei":"30.00",
+     * "express_company_list":[{"co_id":"1","company_name":"顺丰","is_default":"1","express_fee":"30"}],"discount_money":"0.00","count_money":"41500.00","rate":"0.13100000","total_price":"41530",
+     * "total_price_rmb":"5440.43","pick_up_money":"0","list":[{"sku_id":"15","goods_id":"3","num":"5","sku_name":"黑色 64G 4.8 ","price":"8300.00","pic_cover_micro":"http://feidu.baonongkang
+     * .cn/upload/goods/20171226/2ed7db33f7e55e19f8f3378d8f62848d4.jpg","subtotal":"41500.00","picture_info":""}],"count_point_exchange":"0","member_account":{"point":"0","balance":"5000.00",
+     * "coin":"0"},"coupon_list":[],"promotion_full_mail":{"mail_id":"1","shop_id":"0","is_open":"0","full_mail_money":"0.00","create_time":"1513594939","modify_time":"0",
+     * "no_mail_province_id_array":"","no_mail_city_id_array":""},"pickup_point_list":{"data":[],"total_count":"0","page_count":"1"}}
      */
 
     private DataBean data;
@@ -27,7 +34,9 @@ public class OrderSureVO extends BaseVO{
     public static class DataBean {
         /**
          * goods_sku_list : 15:5
-         * addresslist : [{"id":"3","uid":"39","consigner":"庄猛","mobile":"13720343150","phone":"","province":"17","city":"173","district":"1565","address":"东津世纪城","zip_code":"","alias":"","is_default":"1","address_info":"湖北省&nbsp;襄樊市&nbsp;襄阳区"},{"id":"4","uid":"39","consigner":"毕进","mobile":"15927310680","phone":"","province":"23","city":"251","district":"2167","address":"啊啊啊呃呃","zip_code":"","alias":"","is_default":"0","address_info":"四川省&nbsp;巴中市&nbsp;南江县"}]
+         * addresslist : [{"id":"3","uid":"39","consigner":"庄猛","mobile":"13720343150","phone":"","province":"17","city":"173","district":"1565","address":"东津世纪城","zip_code":"","alias":"",
+         * "is_default":"1","address_info":"湖北省&nbsp;襄樊市&nbsp;襄阳区"},{"id":"4","uid":"39","consigner":"毕进","mobile":"15927310680","phone":"","province":"23","city":"251","district":"2167",
+         * "address":"啊啊啊呃呃","zip_code":"","alias":"","is_default":"0","address_info":"四川省&nbsp;巴中市&nbsp;南江县"}]
          * address_is_have : 1
          * expressCompanyCount : 2
          * yunfei : 30.00
@@ -38,11 +47,13 @@ public class OrderSureVO extends BaseVO{
          * total_price : 41530
          * total_price_rmb : 5440.43
          * pick_up_money : 0
-         * list : [{"sku_id":"15","goods_id":"3","num":"5","sku_name":"黑色 64G 4.8 ","price":"8300.00","pic_cover_micro":"http://feidu.baonongkang.cn/upload/goods/20171226/2ed7db33f7e55e19f8f3378d8f62848d4.jpg","subtotal":"41500.00","picture_info":""}]
+         * list : [{"sku_id":"15","goods_id":"3","num":"5","sku_name":"黑色 64G 4.8 ","price":"8300.00","pic_cover_micro":"http://feidu.baonongkang
+         * .cn/upload/goods/20171226/2ed7db33f7e55e19f8f3378d8f62848d4.jpg","subtotal":"41500.00","picture_info":""}]
          * count_point_exchange : 0
          * member_account : {"point":"0","balance":"5000.00","coin":"0"}
          * coupon_list : []
-         * promotion_full_mail : {"mail_id":"1","shop_id":"0","is_open":"0","full_mail_money":"0.00","create_time":"1513594939","modify_time":"0","no_mail_province_id_array":"","no_mail_city_id_array":""}
+         * promotion_full_mail : {"mail_id":"1","shop_id":"0","is_open":"0","full_mail_money":"0.00","create_time":"1513594939","modify_time":"0","no_mail_province_id_array":"",
+         * "no_mail_city_id_array":""}
          * pickup_point_list : {"data":[],"total_count":"0","page_count":"1"}
          */
 
@@ -367,141 +378,6 @@ public class OrderSureVO extends BaseVO{
             }
         }
 
-        public static class AddresslistBean {
-            /**
-             * id : 3
-             * uid : 39
-             * consigner : 庄猛
-             * mobile : 13720343150
-             * phone :
-             * province : 17
-             * city : 173
-             * district : 1565
-             * address : 东津世纪城
-             * zip_code :
-             * alias :
-             * is_default : 1
-             * address_info : 湖北省&nbsp;襄樊市&nbsp;襄阳区
-             */
-
-            private String id;
-            private String uid;
-            private String consigner;
-            private String mobile;
-            private String phone;
-            private String province;
-            private String city;
-            private String district;
-            private String address;
-            private String zip_code;
-            private String alias;
-            private String is_default;
-            private String address_info;
-
-            public String getId() {
-                return id;
-            }
-
-            public void setId(String id) {
-                this.id = id;
-            }
-
-            public String getUid() {
-                return uid;
-            }
-
-            public void setUid(String uid) {
-                this.uid = uid;
-            }
-
-            public String getConsigner() {
-                return consigner;
-            }
-
-            public void setConsigner(String consigner) {
-                this.consigner = consigner;
-            }
-
-            public String getMobile() {
-                return mobile;
-            }
-
-            public void setMobile(String mobile) {
-                this.mobile = mobile;
-            }
-
-            public String getPhone() {
-                return phone;
-            }
-
-            public void setPhone(String phone) {
-                this.phone = phone;
-            }
-
-            public String getProvince() {
-                return province;
-            }
-
-            public void setProvince(String province) {
-                this.province = province;
-            }
-
-            public String getCity() {
-                return city;
-            }
-
-            public void setCity(String city) {
-                this.city = city;
-            }
-
-            public String getDistrict() {
-                return district;
-            }
-
-            public void setDistrict(String district) {
-                this.district = district;
-            }
-
-            public String getAddress() {
-                return address;
-            }
-
-            public void setAddress(String address) {
-                this.address = address;
-            }
-
-            public String getZip_code() {
-                return zip_code;
-            }
-
-            public void setZip_code(String zip_code) {
-                this.zip_code = zip_code;
-            }
-
-            public String getAlias() {
-                return alias;
-            }
-
-            public void setAlias(String alias) {
-                this.alias = alias;
-            }
-
-            public String getIs_default() {
-                return is_default;
-            }
-
-            public void setIs_default(String is_default) {
-                this.is_default = is_default;
-            }
-
-            public String getAddress_info() {
-                return address_info;
-            }
-
-            public void setAddress_info(String address_info) {
-                this.address_info = address_info;
-            }
-        }
 
         public static class ExpressCompanyListBean {
             /**
