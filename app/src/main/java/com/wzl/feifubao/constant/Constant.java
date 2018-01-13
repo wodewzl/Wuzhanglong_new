@@ -40,4 +40,14 @@ public class Constant {
     public static final String COMMIT_ORDER_URL = "api/Order/orderInfo";//提交订单
     public static final String ADD_SHOP_COUNT = "api/Order/changeCartNum";//购物车添加
     public static final String DELETE_SHOP_COUNT = "api/Order/cartDelete";//购物车删除
+    public static final String  SURE_ORDER1_URL= "api/Order/orderCreate";//确认订单1
+    public static final String  SURE_ORDER2_URL= "api/Pay/pay_order";//确认订单2
+    public static final String  MY_ORDER_URL= "api/Order/myOrderList";//个人中心我的订单
+    public static final String  ORDER_DELETE_URL= "api/Order/deleteOrder";//删除订单
+    public static final String  ORDER_CANCEL_URL= "api/Order/orderClose";//取消订单订单
+    public static final String  SHOP_RECIVER_URL= "api/Order/deleteOrde";//收货
+    public static final String  MY_MESSAGE_URL= "api/Order/orderState";//个人中心消息
+    public static final String  UPDATE_USERINFO_URL= "api/Member/updateMember";//修改头像，昵称
+
+    public static final String  SHOP_EVALUATION_URL= "api/Order/deleteOrder";//商品评价
 }

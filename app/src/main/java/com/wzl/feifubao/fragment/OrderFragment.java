@@ -1,7 +1,7 @@
 package com.wzl.feifubao.fragment;
 
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetDialog;
+
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,22 +16,34 @@ import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.google.gson.Gson;
+import com.rey.material.app.BottomSheetDialog;
+import com.rey.material.widget.Button;
 import com.rey.material.widget.CheckBox;
+import com.tamic.novate.Novate;
+import com.tamic.novate.Throwable;
+import com.tamic.novate.callback.RxStringCallback;
 import com.wuzhanglong.library.constant.BaseConstant;
 import com.wuzhanglong.library.fragment.BaseFragment;
+import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.interfaces.PayCallback;
+import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wuzhanglong.library.mode.PayResult;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
+import com.wuzhanglong.library.utils.DateUtils;
 import com.wuzhanglong.library.utils.PayUtis;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import com.wuzhanglong.library.view.PinnedHeaderDecoration;
 import com.wzl.feifubao.R;
+import com.wzl.feifubao.activity.OrderSureActivity;
 import com.wzl.feifubao.adapter.OrderRAdapter;
 import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
+import com.wzl.feifubao.mode.LifeVO;
 import com.wzl.feifubao.mode.OrderVO;
+import com.wzl.feifubao.mode.ShopVO;
+import com.wzl.feifubao.mode.UserInfoVO;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -39,12 +51,13 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 
 
-public class OrderFragment extends BaseFragment implements OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, OrderRAdapter.onTypeClickListener, BGAOnRVItemClickListener {
+public class OrderFragment extends BaseFragment implements OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, OrderRAdapter.onTypeClickListener, BGAOnRVItemClickListener,PostCallback {
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private LuRecyclerView mRecyclerView;
     private OrderRAdapter mAdapter;
@@ -63,47 +76,69 @@ public class OrderFragment extends BaseFragment implements OnLoadMoreListener, S
 
     @Override
     public void getData() {
-//        RequestParams paramsMap = new RequestParams();
-//        String mUrl = Constant.ORDER_URL;
-//        if (AppApplication.getInstance().getUserInfoVO() != null)
-//            paramsMap.put("key", AppApplication.getInstance().getUserInfoVO().getKey());
-//        paramsMap.put("state_type", getOrderState(getState()));
-//        paramsMap.put("curpage", mCurrentPage + "");
-//        HttpClientUtil.get(mActivity, mThreadUtil, mUrl, paramsMap, OrderVO.class);
+        HashMap<String, Object> map = new HashMap<>();
+//        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
+        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
+        map.put("page", mCurrentPage+"");
+        map.put("pagesize", "10");
+        map.put("status",this.getState()+"" );
+        HttpGetDataUtil.get(mActivity, this, Constant.MY_ORDER_URL, map, OrderVO.class);
     }
 
     @Override
     public void hasData(BaseVO vo) {
         mActivity.dismissProgressDialog();
         OrderVO orderVO = (OrderVO) vo;
-        mPayVO = orderVO;
-        mOrderVO = orderVO.getDatas();
-        List<OrderVO> list = new ArrayList<>();
-        for (int i = 0; i < mOrderVO.getOrder_list().size(); i++) {
-            OrderVO orderStaeVO = new OrderVO();
-            orderStaeVO.setOrder_id(mOrderVO.getOrder_list().get(i).getOrder_id());
-            orderStaeVO.setStore_name(mOrderVO.getOrder_list().get(i).getStore_name());
-            orderStaeVO.setState_desc(mOrderVO.getOrder_list().get(i).getState_desc());
-            orderStaeVO.setOrder(true);
-            list.add(orderStaeVO);
-            for (int j = 0; j < mOrderVO.getOrder_list().get(i).getExtend_order_goods().size(); j++) {
-                list.add(mOrderVO.getOrder_list().get(i).getExtend_order_goods().get(j));
-            }
-            list.add(mOrderVO.getOrder_list().get(i));
+        mOrderVO = orderVO.getData();
+
+        if (BaseCommonUtils.parseInt(mOrderVO.getPage_count()) == 1) {
+            mRecyclerView.setLoadMoreEnabled(false);
+        }
+        if (mCurrentPage == BaseCommonUtils.parseInt(mOrderVO.getPage_count())) {
+            mRecyclerView.setNoMore(true);
+        } else {
+            mRecyclerView.setNoMore(false);
         }
 
+        mAdapter.notifyDataSetChanged();
+        List<OrderVO> list = mOrderVO.getOrder_list();
+        List<OrderVO> listBean = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            OrderVO top=new OrderVO();
+            top.setOrder_no(list.get(i).getOrder_no());
+            top.setCreate_time(list.get(i).getCreate_time());
+            top.setType("1");
+            listBean.add(top);
+            for (int j = 0; j < list.get(i).getOrder_item_list().size(); j++) {
+                OrderVO shopOrder=list.get(i).getOrder_item_list().get(j);
+                shopOrder.setOrder_status(list.get(i).getOrder_status());
+                shopOrder.setOrder_id(list.get(i).getOrder_id());
+                listBean.add(shopOrder);
+            }
+            OrderVO bottom=list.get(i);
+            bottom.setType("3");
+            listBean.add(bottom);
+        }
+        if (isLoadMore) {
+            mAdapter.updateDataLast(listBean);
+            isLoadMore = false;
+            mCurrentPage++;
+        } else {
+            mCurrentPage++;
+            mAdapter.updateData(listBean);
+        }
         mAutoSwipeRefreshLayout.setRefreshing(false);
 
     }
 
     @Override
     public void noData(BaseVO vo) {
-
+        mAutoSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void noNet() {
-
+        mAutoSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -171,150 +206,104 @@ public class OrderFragment extends BaseFragment implements OnLoadMoreListener, S
     }
 
     @Override
-    public void onLoadMore() {
-        isLoadMore = true;
-//        mThreadUtil = new ThreadUtil(mActivity, this);
-//        mThreadUtil.start();
+    public void onRefresh() {
+        mCurrentPage = 1;
+        getData();
     }
 
     @Override
-    public void onRefresh() {
-        mCurrentPage = 1;
-//        mThreadUtil = new ThreadUtil(mActivity, this);
-//        mThreadUtil.start();
+    public void onLoadMore() {
+        isLoadMore = true;
+        getData();
     }
-
     @Override
     public void typeClick(String type, final OrderVO vo) {
         String orderId = vo.getOrder_id();
         String url = "";
-//        switch (BaseCommonUtils.parseInt(type)) {
-//            case 1:
-//                url = Constant.CANCEL_ORDER_URL;
-//                commitData(orderId, url);
-//                break;
-//            case 2:
-//                mDialog = new BottomSheetDialog(mActivity);
-//                View dialogView = View.inflate(mActivity, R.layout.pay_view, null);
-//                final CheckBox payCb1 = (CheckBox) dialogView.findViewById(R.id.pay_cb_1);
-//                final CheckBox payCb2 = (CheckBox) dialogView.findViewById(R.id.pay_cb_2);
-//                final CheckBox payCb3 = (CheckBox) dialogView.findViewById(R.id.pay_cb_3);
-//                Button payButton = (Button) dialogView.findViewById(R.id.commit_bt);
-//                payButton.setBackgroundDrawable(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.C7, R.color.C7));
-//                LinearLayout payLayout01 = (LinearLayout) dialogView.findViewById(R.id.pay_layout_01);
-//                LinearLayout payLayout02 = (LinearLayout) dialogView.findViewById(R.id.pay_layout_02);
-//                LinearLayout payLayout03 = (LinearLayout) dialogView.findViewById(R.id.pay_layout_03);
-//
-//                for (int i = 0; i < mPayVO.getPayment_list().size(); i++) {
-//                    if ("alipay_app".equals(mPayVO.getPayment_list().get(i).getPayment_code())) {
-//                        payLayout01.setVisibility(View.VISIBLE);
-//                    } else if ("wxpay_app".equals(mPayVO.getPayment_list().get(i).getPayment_code())) {
-//                        payLayout02.setVisibility(View.VISIBLE);
-//                    } else if ("99bill_app".equals(mPayVO.getPayment_list().get(i).getPayment_code())) {
-//                        payLayout03.setVisibility(View.VISIBLE);
-//                    }
-//                }
-//
-//                mDialog.contentView(dialogView)
-//                        .heightParam(ViewGroup.LayoutParams.WRAP_CONTENT)
-//                        .inDuration(500)
-//                        .cancelable(true)
-//                        .show();
-//
-//                payCb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                    @Override
-//                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                        if (b) {
-//                            payCb2.setChecked(false);
-//                            payCb3.setChecked(false);
-//                        }
-//                    }
-//                });
-//                payCb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                    @Override
-//                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                        if (b) {
-//                            payCb1.setChecked(false);
-//                            payCb3.setChecked(false);
-//                        }
-//                    }
-//                });
-//                payCb3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                    @Override
-//                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                        if (b) {
-//                            payCb1.setChecked(false);
-//                            payCb2.setChecked(false);
-//                        }
-//                    }
-//                });
-//
-//                payButton.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        String payType = "";
-//                        if (payCb1.isChecked()) {
-//                            payType = "alipay_app";
-//                        } else if (payCb2.isChecked()) {
-//                            payType = "wxpay_app";
-//                        } else {
-//                            payType = "99bill_app";
-//                        }
-//
-//                        commit(vo.getPay_sn(), payType);
-//                    }
-//                });
-//                break;
-//            case 3:
-//                url = Constant.SHOP_RECIVER_URL;
-//                commitData(orderId, url);
-//                break;
-//            case 4:
+        switch (BaseCommonUtils.parseInt(type)) {
+            case 1:
+                url = Constant.ORDER_CANCEL_URL;
+                commitData(orderId, url);
+                break;
+            case 2:
+                mDialog = new BottomSheetDialog(mActivity);
+                View dialogView = View.inflate(mActivity, R.layout.pay_view, null);
+                final CheckBox payCb1 = (CheckBox) dialogView.findViewById(R.id.pay_cb_1);
+                final CheckBox payCb2 = (CheckBox) dialogView.findViewById(R.id.pay_cb_2);
+                Button payButton = (Button) dialogView.findViewById(R.id.commit_bt);
+                payButton.setBackgroundDrawable(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.C7, R.color.C7));
+                LinearLayout payLayout01 = (LinearLayout) dialogView.findViewById(R.id.pay_layout_01);
+                LinearLayout payLayout02 = (LinearLayout) dialogView.findViewById(R.id.pay_layout_02);
+
+
+                mDialog.contentView(dialogView)
+                        .heightParam(ViewGroup.LayoutParams.WRAP_CONTENT)
+                        .inDuration(500)
+                        .cancelable(true)
+                        .show();
+
+                payCb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        if (b) {
+                            payCb2.setChecked(false);
+                        }
+                    }
+                });
+                payCb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        if (b) {
+                            payCb1.setChecked(false);
+                        }
+                    }
+                });
+
+                payButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String payType = "";
+                        if (payCb1.isChecked()) {
+                            payType = "2";
+                        } else if (payCb2.isChecked()) {
+                            payType = "1";
+                        }
+
+                        commit(vo.getOut_trade_no(), payType);
+                    }
+                });
+                break;
+            case 3:
+                url = Constant.SHOP_RECIVER_URL;
+                commitData(orderId, url);
+                break;
+            case 4:
 //                Bundle bundle = new Bundle();
 //                bundle.putString("order_id", orderId);
 //                mActivity.open(DeliverActivity.class, bundle, 0);
-//                break;
-//            case 5:
-//                url = ORDER_DELETE_URL;
-//                commitData(orderId, url);
-//                break;
-//            default:
-//                break;
-//        }
+                break;
+            case 5:
+                url = Constant.ORDER_DELETE_URL;
+                commitData(orderId, url);
+
+                break;
+            default:
+                break;
+        }
 
 
     }
 
     //操作后刷新界面
     public void commitData(String orderId, String url) {
-
         //定单状态操作
-//        RequestParams params = new RequestParams();
-//        if (AppApplication.getInstance().getUserInfoVO() != null)
-//            params.put("key", AppApplication.getInstance().getUserInfoVO().getKey());
-//        params.put("order_id", orderId);
-//        HttpClientUtil.get(mActivity, OrderFragment.this, url, params, null);
-//        updateData();
-//
-//        mBaseContentLayout.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                EventBus.getDefault().post(new EBMessageVO("update_info"));
-//            }
-//        },1500);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("order_id", orderId);
+        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
+//        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
+        HttpGetDataUtil.post(mActivity, url, map,this);
     }
 
-    public void updateData() {
-        //刷新数据
-//        mCurrentPage = 1;
-//        RequestParams paramsMap = new RequestParams();
-//        String mUrl = Constant.ORDER_URL;
-//        if (AppApplication.getInstance().getUserInfoVO() != null)
-//            paramsMap.put("key", AppApplication.getInstance().getUserInfoVO().getKey());
-//        paramsMap.put("state_type", getOrderState(getState()));
-//        paramsMap.put("curpage", mCurrentPage);
-//        HttpClientUtil.get(mActivity, this, mUrl, paramsMap, OrderVO.class);
-    }
 
     @Override
     public void onRVItemClick(ViewGroup viewGroup, View view, int i) {
@@ -330,81 +319,74 @@ public class OrderFragment extends BaseFragment implements OnLoadMoreListener, S
     }
 
 
-    public void commit(String paySn, final String payType) {
-//        RequestParams params = new RequestParams();
-//        if (AppApplication.getInstance().getUserInfoVO() != null)
-//            params.put("key", AppApplication.getInstance().getUserInfoVO().getKey());
-//        params.put(" pay_sn", paySn);
-//        params.put("payment_code", payType);
-//
-//        final String allUrl = BaseConstant.DOMAIN_NAME + Constant.SHOP_LIST_PAY_URL;
-//        AsyncHttpClient client = new AsyncHttpClient();
-//        client.post(allUrl, params, new AsyncHttpResponseHandler() {
-//            @Override
-//            public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
-//                mActivity.dismissProgressDialog();
-//            }
-//
-//            @Override
-//            public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-//                try {
-//                    mActivity.dismissProgressDialog();
-//                    String result = new String(arg2);
-//                    JSONObject jsonObject = new JSONObject(result);
-//                    String code = (String) jsonObject.get("code");
-//                    if ("200".equals(code)) {
-//                        JSONObject data = jsonObject.getJSONObject("datas");
-//                        final String payInfo = (String) data.get("orderString");
-//                        if (!"".equals(payInfo)) {
-//                            if ("99bill_app".equals(payType)) {
-//                                Bundle bundle = new Bundle();
-//                                bundle.putString("url", payInfo);
-//                                bundle.putString("title", "快钱支付");
-//                                mActivity.open(WebViewActivity.class, bundle, 0);
-//                            } else if ("alipay_app".equals(payType)) {
-//                                PayUtis.zhiFuBaoPay(mActivity, payInfo, new PayCallback() {
-//                                    @Override
-//                                    public void payResult(int type) {
-//
-//                                        if (type == 1) {
-//                                            updateData();
-//                                            mActivity.showCustomToast("支付成功");
-//                                        } else {
-//                                            mActivity.showCustomToast("支付失败");
-//                                        }
-//                                    }
-//                                });
-//                            }
-//                        } else {
-//                            Gson gson = new Gson();
-//                            final PayResult vo = gson.fromJson(result, PayResult.class);
-//                            if (vo.getDatas().getWxpay_param() != null) {
-//                                PayUtis.weiXinPay(mActivity, vo.getDatas().getWxpay_param());
-//                            }
-//                        }
-//                    } else {
-//                        final String error = (String) jsonObject.get("error");
-//                        mActivity.showCustomToast(error);
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
+    public void commit(String orderNo, final String payType) {
+        HashMap<String, Object> map = new HashMap<>();
+
+        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
+        map.put("out_trade_no", orderNo);
+        map.put("pay_type", payType);
+//        map.put("payment", money);
+        map.put("payment", "0.01");
+
+        new Novate.Builder(mActivity)
+                .baseUrl(BaseConstant.DOMAIN_NAME)
+                .addCache(false)
+                .build().rxPost(Constant.SURE_ORDER2_URL, map, new RxStringCallback() {
+
+
+            @Override
+            public void onError(Object o, Throwable throwable) {
+
+                System.out.println("=============");
+            }
+
+            @Override
+            public void onCancel(Object o, Throwable throwable) {
+
+                System.out.println("=============");
+            }
+
+            @Override
+            public void onNext(Object o, String s) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    int code = (int) jsonObject.get("code");
+                    if (code == 200) {
+                        if ("1".equals(payType)) {
+                            Gson gson = new Gson();
+                            final PayResult vo = gson.fromJson(s, PayResult.class);
+                            PayUtis.weiXinPay(mActivity, vo.getData());
+                        } else {
+                            String payInfo = (String) jsonObject.get("data");
+                            PayUtis.zhiFuBaoPay(mActivity, payInfo, new PayCallback() {
+                                @Override
+                                public void payResult(int type) {
+                                    ;
+                                    if (type == 1) {
+                                        payFinish();
+                                    } else {
+                                        mActivity.showCustomToast("支付失败");
+                                    }
+                                }
+                            });
+                        }
+
+                    } else {
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EBMessageVO event) {
-        if ("kuaiqian_pay".equals(event.getMessage()) && state == 1) {
-            mActivity.showCustomToast("支付成功");
-            mAutoSwipeRefreshLayout.autoRefresh();
-            mDialog.dismiss();
-        }
-
         if ("weixin_pay".equals(event.getMessage()) && state == 1) {
-            mActivity.showCustomToast("支付成功");
-            mAutoSwipeRefreshLayout.autoRefresh();
-            mDialog.dismiss();
+            payFinish();
         }
     }
 
@@ -412,5 +394,16 @@ public class OrderFragment extends BaseFragment implements OnLoadMoreListener, S
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void success(BaseVO vo) {
+        mAutoSwipeRefreshLayout.autoRefresh();
+    }
+
+    public void payFinish(){
+        mActivity.showCustomToast("支付成功");
+        mAutoSwipeRefreshLayout.autoRefresh();
+        mDialog.dismiss();
     }
 }

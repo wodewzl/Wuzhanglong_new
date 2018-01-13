@@ -116,7 +116,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
             mBanner.setImages(mDataBean.getAdvs());
             mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-            mBanner.setBannerAnimation(Transformer.CubeIn);
+//            mBanner.setBannerAnimation(Transformer.CubeIn);
             mBanner.setIndicatorGravity(BannerConfig.CENTER);
 
             mBanner.setOnBannerListener(new OnBannerListener() {

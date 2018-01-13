@@ -27,9 +27,9 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="10dp"
             android:text="白色升级版"
-            android:textColor="@color/FUBColor3"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textColor="@color/FUBColor2"
+            android:textSize="15sp"
+          />
 
         <TextView
             android:id="@+id/name_tv"
@@ -42,7 +42,7 @@
             android:lines="2"
             android:maxLines="2"
             android:text="白色升级版顶顶顶顶顶顶顶顶顶顶顶顶顶顶"
-            android:textSize="13sp"/>
+            />
 
         <TextView
             android:id="@+id/desc_tv"
@@ -54,7 +54,7 @@
             android:layout_toRightOf="@id/img"
             android:text="看看一看瞧一瞧"
             android:textColor="@color/C5"
-            android:visibility="gone"
+            android:visibility="visible"
             />
 
         <TextView
@@ -67,11 +67,27 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="15dp"/>
 
+        <TextView
+            android:id="@+id/back_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/img"
+            android:gravity="center"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp"
+            android:text="退款/退货"
+            android:textColor="@color/C5"
+            android:visibility="visible"
+            android:textSize="11sp"/>
+
         <View
             android:id="@+id/divider_1"
             android:layout_width="match_parent"
             android:layout_height="0.8dp"
-            android:layout_below="@id/img"
+            android:layout_below="@id/back_tv"
             android:layout_marginTop="10dp"
             android:background="@color/C3"/>
     </RelativeLayout>

@@ -22,6 +22,7 @@ import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.adapter.JobOffersAdapter;
 import com.wzl.feifubao.adapter.MessageAdapter;
+import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.LifeVO;
 import com.wzl.feifubao.mode.PaymentRecordsVO;
@@ -68,8 +69,7 @@ public class MessageActivity extends BaseActivity implements BGAOnRVItemClickLis
     public void getData() {
 
         HashMap<String, Object> map = new HashMap<>();
-//        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
-        map.put("uid", "39");
+        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
         map.put("page", mCurrentPage+"");
         map.put("pagesize", "10");
         HttpGetDataUtil.get(mActivity, this, Constant.MESSAGE_LIST_URL, map, PaymentRecordsVO.class);

@@ -30,7 +30,7 @@ public class OrderSureAdapter extends RecyclerBaseAdapter<OrderSureVO.DataBean.L
             Picasso.with(mActivity).load(vo.getPic_cover_micro()).into(helper.getImageView(R.id.goods_img));
         helper.setText(R.id.goods_name_tv, "接口没反？？？？");
         helper.setText(R.id.goods_desc_tv, vo.getSku_name());
-        helper.setText(R.id.goods_price_tv, vo.getSubtotal());
+        helper.setText(R.id.goods_price_tv, "￥"+vo.getSubtotal());
     }
 
 

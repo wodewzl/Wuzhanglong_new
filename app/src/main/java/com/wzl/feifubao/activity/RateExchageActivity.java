@@ -29,9 +29,11 @@ import java.util.List;
 public class RateExchageActivity extends BaseActivity implements View.OnClickListener, PostCallback {
     private LinearLayout mChageLayout;
     private EditText mMoneyEt;
-    private TextView mMoneyTv, mOkTv;
-    private String mTag = "CNY";
+    private TextView mMoneyTv, mOkTv,mFromTv;
+    private String mFrom = "PHP";
+    private String mTo = "CNY";
     private TextView mTypeTv;
+    private LinearLayout mFromLayout;
 
     @Override
     public void baseSetContentView() {
@@ -47,12 +49,15 @@ public class RateExchageActivity extends BaseActivity implements View.OnClickLis
         mOkTv = getViewById(R.id.ok_tv);
         mOkTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 30, R.color.colorAccent, R.color.colorAccent));
         mTypeTv = getViewById(R.id.type_tv);
+        mFromLayout=getViewById(R.id.from_layout);
+        mFromTv=getViewById(R.id.from_tv);
     }
 
     @Override
     public void bindViewsListener() {
         mChageLayout.setOnClickListener(this);
         mOkTv.setOnClickListener(this);
+        mFromLayout.setOnClickListener(this);
     }
 
     @Override
@@ -79,26 +84,11 @@ public class RateExchageActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.change_layout:
-                List<TieBean> datas = new ArrayList<TieBean>();
-                datas.add(new TieBean("人民币 CNY"));
-                datas.add(new TieBean("美元 USD"));
-                datas.add(new TieBean("日元 JPY"));
-                datas.add(new TieBean("港币 HKD"));
-                datas.add(new TieBean("欧元 EUR"));
-                datas.add(new TieBean("英镑 GBP"));
-                TieAdapter adapter = new TieAdapter(this, datas, true);
-                BuildBean buildBean = DialogUIUtils.showMdBottomSheet(mActivity, true, "", datas, 0, new DialogUIItemListener() {
-                    @Override
-                    public void onItemClick(CharSequence text, int position) {
-                        String str = (String) text;
-                        String[] array = str.split(" ");
-                        mTag = array[1];
-                        mTypeTv.setText(array[0]);
-                    }
-                });
-                buildBean.mAdapter = adapter;
-                buildBean.show();
+                setContury("2");
+                break;
 
+            case R.id.from_layout:
+                setContury("1");
                 break;
 
             case R.id.ok_tv:
@@ -106,9 +96,11 @@ public class RateExchageActivity extends BaseActivity implements View.OnClickLis
                     showCustomToast("请输入金额");
                     return;
                 }
+                showProgressDialog();
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("num", mMoneyEt.getText().toString());
-                map.put("tag", mTag);
+                map.put("from", mFrom);
+                map.put("to", mTo);
                 HttpGetDataUtil.post(mActivity, Constant.RATE_EXCHANGE_URL, map, RateQueryVO.class, this);
                 break;
 //            mActivity.openActivity(RateExchageActivity.class);
@@ -119,10 +111,40 @@ public class RateExchageActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void success(BaseVO vo) {
+        dismissProgressDialog();
         RateQueryVO rateQueryVO = (RateQueryVO) vo;
         RateQueryVO.DataBean dataBean = rateQueryVO.getData();
         mMoneyTv.setText(dataBean.getMoney());
 
         showCustomToast("换算成功");
+    }
+
+    public void setContury(final String type){
+        List<TieBean> datas = new ArrayList<TieBean>();
+        datas.add(new TieBean("人民币 CNY"));
+        datas.add(new TieBean("美元 USD"));
+        datas.add(new TieBean("日元 JPY"));
+        datas.add(new TieBean("港币 HKD"));
+        datas.add(new TieBean("欧元 EUR"));
+        datas.add(new TieBean("英镑 GBP"));
+        datas.add(new TieBean("比索 PHP"));
+        final TieAdapter adapter = new TieAdapter(this, datas, true);
+        final BuildBean buildBean = DialogUIUtils.showMdBottomSheet(mActivity, true, "", datas, 0, new DialogUIItemListener() {
+            @Override
+            public void onItemClick(CharSequence text, int position) {
+                String str = (String) text;
+                String[] array = str.split(" ");
+                if("1".equals(type)){
+                    mFrom = array[1];
+                    mFromTv.setText(str);
+                }else {
+                    mTo = array[1];
+                    mTypeTv.setText(str);
+                }
+
+            }
+        });
+        buildBean.mAdapter = adapter;
+        buildBean.show();
     }
 }

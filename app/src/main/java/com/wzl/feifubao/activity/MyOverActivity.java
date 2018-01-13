@@ -23,6 +23,7 @@ import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.adapter.JobOffersAdapter;
 import com.wzl.feifubao.adapter.MyOverAdapter;
+import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.LifeVO;
 import com.wzl.feifubao.mode.MyHouseVO;
@@ -82,7 +83,7 @@ public class MyOverActivity extends BaseActivity implements  ScrollableHelper.Sc
         HashMap<String, Object> map = new HashMap<>();
         map.put("page", mCurrentPage+"");
         map.put("pagesize", "10");
-        map.put("uid", "39");
+        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
         HttpGetDataUtil.get(mActivity, this, Constant.MY_OVER_LIST_URL, map, MyoverVO.class);
     }
 

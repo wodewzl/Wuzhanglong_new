@@ -28,6 +28,17 @@
         <!--<item name="cbd_tickColor">@color/C9</item>选择勾的颜色-->
         <item name="cbd_animDuration">@android:integer/config_mediumAnimTime</item>
     </style>
+    <style name="FUBCheckBox2">
+        <item name="cbd_width">32dp</item>
+        <item name="cbd_height">32dp</item>
+        <item name="cbd_boxSize">15dp</item>
+        <item name="cbd_cornerRadius">100dp</item>
+        <item name="cbd_strokeSize">2dp</item> <!--边框-->
+        <item name="cbd_strokeColor">@color/FUBColor3</item>
+
+        <!--<item name="cbd_tickColor">@color/C9</item>选择勾的颜色-->
+        <item name="cbd_animDuration">@android:integer/config_mediumAnimTime</item>
+    </style>
     <declare-styleable name="NumberButton">
         <attr name="editable" format="boolean"/>
         <attr name="buttonWidth" format="dimension"/>

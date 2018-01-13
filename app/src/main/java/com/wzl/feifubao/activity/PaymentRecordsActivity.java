@@ -16,6 +16,7 @@ import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import com.wuzhanglong.library.view.PinnedHeaderDecoration;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.adapter.PaymentRecordAdapter;
+import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.PaymentRecordsVO;
 
@@ -76,8 +77,7 @@ public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreLi
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-//        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
-        map.put("uid", "39");
+        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
         map.put("page", mCurrentPage+"");
         map.put("pagesize", "10");
         HttpGetDataUtil.get(mActivity, this, Constant.PAYMENT_RECORDS_URL, map, PaymentRecordsVO.class);

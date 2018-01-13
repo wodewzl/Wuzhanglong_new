@@ -135,6 +135,7 @@
                 android:text="买家留言：" />
 
             <EditText
+                android:id="@+id/liuyan_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/C1"
@@ -155,18 +156,29 @@
             android:padding="15dp">
 
             <TextView
+                android:id="@+id/money_bisuo_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="right"
-                android:text="共1件商品" />
+                android:text="支付"
+              />
 
             <TextView
+                android:id="@+id/total_count_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="共1件商品"
+           />
+
+            <TextView
+                android:id="@+id/money_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:text="小计：18000"
-                android:textSize="11sp" />
+                android:text="小计："
+               />
+
         </LinearLayout>
 
 
@@ -174,6 +186,7 @@
         <include layout="@layout/pay_type_view" />
 
         <TextView
+            android:id="@+id/ok_tv"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:background="@color/colorAccent"

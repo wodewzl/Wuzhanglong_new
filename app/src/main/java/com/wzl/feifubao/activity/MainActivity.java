@@ -42,14 +42,14 @@ public class MainActivity extends HomeFragmentActivity implements PostCallback {
 
         mBottomNavigationBar
                 .setActiveColor(R.color.C1)
-                .setInActiveColor(R.color.FUBColor9)
+                .setInActiveColor(R.color.C4)
                 .setBarBackgroundColor(R.color.FUBColor8);
 //                .setActiveColor(R.color.XJColor2)
 //                .setInActiveColor(R.color.XJColor8)
 //                .setBarBackgroundColor(R.color.C1);
 
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.home_1, "首页"))
-                .addItem(new BottomNavigationItem(R.drawable.home_2, "分类"))
+                .addItem(new BottomNavigationItem(R.drawable.home_2, "商城"))
                 .addItem(new BottomNavigationItem(R.drawable.home_3, "个人中心"))
 //                .setFirstSelectedPosition(0)
                 .initialise();

@@ -15,35 +15,45 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/from_layout"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:background="@color/C1"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:paddingRight="15dp">
 
             <TextView
+                android:id="@+id/from_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/rate_7"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="比索 PHP" />
+
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:drawableLeft="@drawable/rate_7"
-                android:drawablePadding="5dp"
-                android:text="菲律宾比索PHP" />
+                android:src="@drawable/my_go" />
 
             <EditText
                 android:id="@+id/money_et"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:background="@color/C1"
                 android:gravity="center_vertical|right"
                 android:maxLines="1"
                 android:text="100"
 
                 android:textColor="@color/colorAccent"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
 
@@ -59,8 +69,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            >
+            android:paddingRight="15dp">
 
             <TextView
                 android:id="@+id/type_tv"
@@ -69,8 +78,8 @@
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/rate_1"
                 android:drawablePadding="5dp"
-                android:text="人民币 CNY"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical"
+                android:text="人民币 CNY" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -90,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2400"
-                    android:textSize="24sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -98,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:text="超优汇率"
                     android:textColor="@color/C5"
-                    android:textSize="11sp"/>
+                    android:textSize="11sp" />
             </LinearLayout>
         </LinearLayout>
 

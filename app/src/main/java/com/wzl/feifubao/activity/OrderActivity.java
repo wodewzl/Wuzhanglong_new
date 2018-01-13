@@ -30,7 +30,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.Simple
 import java.util.ArrayList;
 
 public class OrderActivity extends BaseActivity {
-    private String[] mTitleDataList = {"全部", "待付款", "待发货", "待收货", "待评价"};
+    private String[] mTitleDataList = {"全部", "待付款", "待发货", "待收货", "已收货"};
     private ViewPager mViewPager;
     private ArrayList<Fragment> mFragmentList;
 
@@ -140,7 +140,7 @@ public class OrderActivity extends BaseActivity {
         mFragmentList = new ArrayList<>();
         for (int i = 0; i < mTitleDataList.length; i++) {
             OrderFragment fragment = (OrderFragment) OrderFragment.newInstance();
-            fragment.setState(i);
+            fragment.setState(i-1);
             mFragmentList.add(fragment);
 //            mFragmentList.add( OrderFragment.newInstance());
         }

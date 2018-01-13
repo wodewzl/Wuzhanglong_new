@@ -67,10 +67,11 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/my_info_img"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginRight="15dp"
-                android:src="@drawable/my_go" />
+                android:src="@drawable/ic_keyboard_arrow_right_white_48dp" />
 
         </LinearLayout>
 
@@ -154,7 +155,7 @@
                 android:background="@color/C3" />
 
             <TextView
-                android:id="@+id/order_tv_05"
+                android:id="@+id/order_tv_03"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -173,7 +174,7 @@
                 android:background="@color/C3" />
 
             <TextView
-                android:id="@+id/order_tv_03"
+                android:id="@+id/order_tv_04"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -181,7 +182,7 @@
                 android:drawableTop="@drawable/my_04"
                 android:gravity="center"
                 android:paddingTop="10dp"
-                android:text="待评价"
+                android:text="已收货"
                 android:textColor="@color/C5" />
 
             <View
@@ -192,7 +193,7 @@
                 android:background="@color/C3" />
 
             <TextView
-                android:id="@+id/order_tv_04"
+                android:id="@+id/order_tv_05"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

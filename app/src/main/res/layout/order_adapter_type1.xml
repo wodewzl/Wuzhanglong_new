@@ -14,7 +14,7 @@
         android:layout_marginBottom="0.8dp">
 
         <TextView
-            android:id="@+id/shop_people_name_tv"
+            android:id="@+id/order_name_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -23,13 +23,14 @@
             />
 
         <TextView
-            android:id="@+id/order_state"
+            android:id="@+id/order_time_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:text="小鲸"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/sp_14"/>
+            android:textColor="@color/C5"
+            android:textSize="11sp"
+            />
     </LinearLayout>
 
 </LinearLayout>

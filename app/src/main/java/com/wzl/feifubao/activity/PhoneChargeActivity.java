@@ -19,23 +19,27 @@ import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
+import com.wuzhanglong.library.http.HttpGetDataUtil;
+import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.adapter.JobOffersAdapter;
 import com.wzl.feifubao.adapter.MoneyAdapter;
+import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.MoneyVO;
+import com.wzl.feifubao.mode.OrderPayVO;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 
-public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClickListener,View.OnClickListener
-{
+public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClickListener,View.OnClickListener,PostCallback{
     private LuRecyclerView mRecyclerView;
     private MoneyAdapter mAdapter;
     private String[] mOneyArray = {"30PHP", "50PHP", "100PHP", "300PHP", "500PHP", "1000PHP", "2000PHP", "3000PHP"};
@@ -143,5 +147,21 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
             default:
                 break;
         }
+    }
+
+    @Override
+    public void success(BaseVO vo) {
+
+    }
+
+    public void commit(){
+        HashMap<String, Object> map = new HashMap<>();
+////        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
+//        map.put("uid", "39");
+//        map.put("out_trade_no", orderNo);
+//        map.put("pay_type", mPayType);
+////        map.put("payment", money);
+//        map.put("payment", "0.01");
+//        HttpGetDataUtil.post(this, Constant.SURE_ORDER2_URL, map, OrderPayVO.class,this);
     }
 }

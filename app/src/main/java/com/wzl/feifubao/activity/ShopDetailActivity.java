@@ -1,7 +1,9 @@
 package com.wzl.feifubao.activity;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -22,6 +24,7 @@ import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.FileUtil;
 import com.wuzhanglong.library.utils.WebviewUtil;
+import com.wuzhanglong.library.view.ReboundScrollView;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.adapter.ShopChoseAdapter;
 import com.wzl.feifubao.application.AppApplication;
@@ -55,6 +58,7 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
     private String mGoodName, mGoodsId, mGoodPrice, mShopType;
     private int mCount;
     private LinearLayout mCartLayout;
+    private ReboundScrollView mReboundScrollView;
 
     @Override
     public void baseSetContentView() {
@@ -63,6 +67,8 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void initView() {
+//        mBaseHeadLayout.setVisibility(View.GONE);
+        mBaseTitleTv.setText("商品详情");
         mBanner = getViewById(R.id.banner);
         mBanner.setBannerStyle(BannerConfig.NUM_INDICATOR);
         mBanner.setIndicatorGravity(BannerConfig.RIGHT);
@@ -76,23 +82,30 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
         mAddCartTv = getViewById(R.id.add_cart_tv);
         mBuyTv = getViewById(R.id.buy_tv);
         mShopTypeTv = getViewById(R.id.shop_type_tv);
-        mCartLayout=getViewById(R.id.add_cart_layout);
+        mCartLayout = getViewById(R.id.add_cart_layout);
+        mReboundScrollView=getViewById(R.id.scroll_view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void bindViewsListener() {
         mAddCartTv.setOnClickListener(this);
         mBuyTv.setOnClickListener(this);
+//        mReboundScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+//
+//            }
+//        });
     }
 
     @Override
     public void getData() {
-
         HashMap<String, Object> map = new HashMap<>();
         if (AppApplication.getInstance().getUserInfoVO() != null)
             map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
-//        map.put("goodsId", this.getIntent().getStringExtra("id"));
-        map.put("goodsId", "3");
+        map.put("goodsId", this.getIntent().getStringExtra("id"));
+//        map.put("goodsId", "3");
         HttpGetDataUtil.get(mActivity, this, Constant.SHOP_DETAIL_ULR, map, ShopDetailVO.class);
     }
 
@@ -159,14 +172,14 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
         ImageView shopImg = dialogView.findViewById(R.id.shop_img);
         ImageView colseIm = dialogView.findViewById(R.id.colse_img);
         TextView okTv = dialogView.findViewById(R.id.ok_tv);
-        NumberButton numberBt=dialogView.findViewById(R.id.number_bt);
+        NumberButton numberBt = dialogView.findViewById(R.id.number_bt);
         numberBt.setmOnTextChangeListener(new NumberButton.OnTextChangeListener() {
             @Override
             public void onTextChange(int count) {
-                mCount=count;
+                mCount = count;
             }
         });
-       numberBt.setBuyMax(99).setCurrentNumber(1);
+        numberBt.setBuyMax(99).setCurrentNumber(1);
         moneTv.setText(mDataBean.getPrice());
         Picasso.with(this).load(mDataBean.getImg_list().get(0)).into(shopImg);
 
@@ -174,6 +187,8 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
+                if(adapter.getData().size()==0)
+                    return 5;
                 ShopDetailVO.DataBean.SpecListBean.ValueBean vo = (ShopDetailVO.DataBean.SpecListBean.ValueBean) adapter.getData().get(position);
                 if (TextUtils.isEmpty(vo.getSpec_value_name())) {
                     return 5;
@@ -189,27 +204,27 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
                 mDialog.dismiss();
             }
         });
-        int count=0;
+        int count = 0;
         okTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 StringBuffer sb = new StringBuffer();
-                ComparatorObj comparator=new ComparatorObj();
-                List<ShopDetailVO.DataBean.SpecListBean.ValueBean>list=new ArrayList<>();
+                ComparatorObj comparator = new ComparatorObj();
+                List<ShopDetailVO.DataBean.SpecListBean.ValueBean> list = new ArrayList<>();
                 list.addAll(adapter.getData());
                 Collections.sort(list, comparator);
 
                 for (int i = 0; i < list.size(); i++) {
-                    ShopDetailVO.DataBean.SpecListBean.ValueBean vo = (ShopDetailVO.DataBean.SpecListBean.ValueBean)list.get(i);
+                    ShopDetailVO.DataBean.SpecListBean.ValueBean vo = (ShopDetailVO.DataBean.SpecListBean.ValueBean) list.get(i);
                     if ("1".equals(vo.getSelect())) {
                         sb.append(vo.getSpec_id()).append(":").append(vo.getSpec_value_id()).append(";");
 
                     }
                 }
-                if(sb.length()==0|| sb.toString().split(";").length!=mDataBean.getSpec_list().size()){
+                if (sb.length() == 0 || sb.toString().split(";").length != mDataBean.getSpec_list().size()) {
                     showCustomToast("请选择商品");
-                return;
-            }
+                    return;
+                }
                 String str = sb.toString().substring(0, sb.toString().length() - 1);
                 for (int i = 0; i < mDataBean.getSku_list().size(); i++) {
                     if (str.equals(mDataBean.getSku_list().get(i).getAttr_value_items())) {
@@ -221,12 +236,12 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
                         break;
                     }
                 }
-                if("1".equals(mType)){
+                if ("1".equals(mType)) {
                     addCart();
-                }else {
-                    Bundle bundle =new Bundle();
-                    bundle.putString("sku_list",mShopType.split(":")[0]+":"+mCount);
-                    mActivity.open(OrderSureActivity.class,bundle,0);
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("sku_list", mShopType.split(":")[0] + ":" + mCount);
+                    mActivity.open(OrderSureActivity.class, bundle, 0);
                 }
 
             }
@@ -283,13 +298,13 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
         map.put("count", mCount);
         map.put("list", mShopType + ":" + mCount);
         map.put("price", mGoodPrice);
-        HttpGetDataUtil.post(this, Constant.SHOP_ADD_CART_URL, map,this);
+        HttpGetDataUtil.post(this, Constant.SHOP_ADD_CART_URL, map, this);
     }
 
     @Override
     public void success(BaseVO vo) {
         mDialog.dismiss();
-            QBadgeView qbadgeView = (QBadgeView) new QBadgeView(mActivity).bindTarget(mCartLayout).setBadgeGravity(Gravity.END | Gravity
-                .TOP).setShowShadow(true).setBadgeTextSize(10,true).setBadgeNumber(mCount);
+        QBadgeView qbadgeView = (QBadgeView) new QBadgeView(mActivity).bindTarget(mCartLayout).setBadgeGravity(Gravity.END | Gravity
+                .TOP).setShowShadow(true).setBadgeTextSize(10, true).setBadgeNumber(mCount);
     }
 }

@@ -2,21 +2,37 @@ package com.wzl.feifubao.fragment;
 
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wuzhanglong.library.fragment.BaseFragment;
+import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.activity.AddressActivity;
 import com.wzl.feifubao.activity.MyHouseActivity;
 import com.wzl.feifubao.activity.MyOverActivity;
+import com.wzl.feifubao.activity.OrderActivity;
 import com.wzl.feifubao.activity.PaymentRecordsActivity;
+import com.wzl.feifubao.activity.UserInfoActivity;
+import com.wzl.feifubao.application.AppApplication;
+import com.wzl.feifubao.constant.Constant;
+import com.wzl.feifubao.mode.MyMessageVO;
+import com.wzl.feifubao.mode.OrderVO;
+
+import java.util.HashMap;
+
+import q.rorbin.badgeview.QBadgeView;
 
 public class TabThreeFragment extends BaseFragment implements View.OnClickListener {
     private TextView mOrderTv01, mOrderTv02, mOrderTv03, mOrderTv04, mOrderTv05;
-    private LinearLayout mPhoneLayout, mDianLayout, mWangLayout, mHouseLayout, mLogoutLayout, mOverLayout, mAddressLayout;
+    private LinearLayout mPhoneLayout, mDianLayout, mWangLayout, mHouseLayout, mLogoutLayout, mOverLayout, mAddressLayout,mOrderLayout;
+    private QBadgeView mQBadgeView01, mQBadgeView02, mQBadgeView03, mQBadgeView04, mQBadgeView05;
+    private ImageView mMyInfoImg;
 
 
     @Override
@@ -27,6 +43,7 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void initView(View view) {
         mActivity.mBaseHeadLayout.setVisibility(View.GONE);
+        mMyInfoImg=getViewById(R.id.my_info_img);
         mOrderTv01 = getViewById(R.id.order_tv_01);
         mOrderTv02 = getViewById(R.id.order_tv_02);
         mOrderTv03 = getViewById(R.id.order_tv_03);
@@ -39,7 +56,23 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
         mHouseLayout = getViewById(R.id.house_layout);
         mLogoutLayout = getViewById(R.id.logout_layout);
         mAddressLayout = getViewById(R.id.address_layout);
+        mOrderLayout=getViewById(R.id.order_layout);
 
+        mQBadgeView01 = (QBadgeView) new QBadgeView(mActivity).bindTarget(mOrderTv01).setBadgeGravity(Gravity.END | Gravity
+                .TOP).setShowShadow(true).setBadgeTextSize(10,true)
+                .setGravityOffset(8, 0, true);
+        mQBadgeView02 = (QBadgeView) new QBadgeView(mActivity).bindTarget(mOrderTv02).setBadgeGravity(Gravity.END | Gravity
+                .TOP).setShowShadow(true).setBadgeTextSize(10,true)
+                .setGravityOffset(8, 0, true);
+        mQBadgeView03 = (QBadgeView) new QBadgeView(mActivity).bindTarget(mOrderTv03).setBadgeGravity(Gravity.END | Gravity
+                .TOP).setShowShadow(true).setBadgeTextSize(10,true)
+                .setGravityOffset(8, 0, true);
+        mQBadgeView04 = (QBadgeView) new QBadgeView(mActivity).bindTarget(mOrderTv04).setBadgeGravity(Gravity.END | Gravity.TOP)
+                .setShowShadow(true).setBadgeTextSize(10,true)
+                .setGravityOffset(8, 0, true);
+        mQBadgeView05 = (QBadgeView) new QBadgeView(mActivity).bindTarget(mOrderTv05).setBadgeGravity(Gravity.END | Gravity
+                .TOP).setShowShadow(true).setBadgeTextSize(10,true)
+                .setGravityOffset(8, 0, true);
     }
 
     @Override
@@ -55,16 +88,27 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
         mWangLayout.setOnClickListener(this);
         mHouseLayout.setOnClickListener(this);
         mAddressLayout.setOnClickListener(this);
+        mOrderLayout.setOnClickListener(this);
+        mMyInfoImg.setOnClickListener(this);
     }
 
     @Override
     public void getData() {
-        showView();
+        HashMap<String, Object> map = new HashMap<>();
+//        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
+        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
+        HttpGetDataUtil.get(mActivity, this, Constant.MY_MESSAGE_URL, map, MyMessageVO.class);
     }
 
     @Override
     public void hasData(BaseVO vo) {
+        MyMessageVO myMessageVO= (MyMessageVO) vo;
 
+        mQBadgeView01.setBadgeNumber(BaseCommonUtils.parseInt(myMessageVO.getData().getWait_pay()));
+        mQBadgeView02.setBadgeNumber(BaseCommonUtils.parseInt(myMessageVO.getData().getWait_delivery()));
+        mQBadgeView03.setBadgeNumber(BaseCommonUtils.parseInt(myMessageVO.getData().getWait_recieved()));
+        mQBadgeView04.setBadgeNumber(BaseCommonUtils.parseInt(myMessageVO.getData().getRecieved()));
+        mQBadgeView05.setBadgeNumber(BaseCommonUtils.parseInt(myMessageVO.getData().getRefunding()));
     }
 
     @Override
@@ -81,25 +125,31 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         Bundle bundle = new Bundle();
         switch (v.getId()) {
+            case R.id.my_info_img:
+                mActivity.openActivity(UserInfoActivity.class);
+                break;
+            case R.id.order_layout:
+                mActivity.openActivity(OrderActivity.class);
+                break;
             case R.id.order_tv_01:
-//                bundle.putString("type", "1");
-//                mActivity.open(OrderActivity.class, bundle, 0);
+                bundle.putString("type", "1");
+                mActivity.open(OrderActivity.class, bundle, 0);
                 break;
             case R.id.order_tv_02:
-//                bundle.putString("type", "2");
-//                mActivity.open(OrderActivity.class, bundle, 0);
+                bundle.putString("type", "2");
+                mActivity.open(OrderActivity.class, bundle, 0);
                 break;
             case R.id.order_tv_03:
-//                bundle.putString("type", "4");
-//                mActivity.open(OrderActivity.class, bundle, 0);
+                bundle.putString("type", "3");
+                mActivity.open(OrderActivity.class, bundle, 0);
                 break;
             case R.id.order_tv_04:
-////                bundle.putString("type", "4");
-////                mActivity.open(OrderActivity.class, bundle, 0);
-//                mActivity.openActivity(ShopBackActivity.class);
+                bundle.putString("type", "4");
+                mActivity.open(OrderActivity.class, bundle, 0);
+
                 break;
             case R.id.order_tv_05:
-//                bundle.putString("type", "3");
+//                bundle.putString("type", "5");
 //                mActivity.open(OrderActivity.class, bundle, 0);
                 break;
 

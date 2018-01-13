@@ -56,6 +56,8 @@ public class ShopChoseAdapter extends RecyclerBaseAdapter<ShopDetailVO.DataBean.
 
     @Override
     public int getItemViewType(int position) {
+        if(this.getData().size()==0)
+            return super.getItemViewType(position);
         ShopDetailVO.DataBean.SpecListBean.ValueBean valueBean= (ShopDetailVO.DataBean.SpecListBean.ValueBean) this.getData().get(position);
         if(TextUtils.isEmpty(valueBean.getSpec_value_name())){
             return R.layout.shop_chose_adapter_type1;
