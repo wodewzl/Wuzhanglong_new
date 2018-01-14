@@ -30,6 +30,7 @@ public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreLi
     private PaymentRecordAdapter mAdapter;
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
+    private String mType;
 
     @Override
     public void baseSetContentView() {
@@ -39,12 +40,12 @@ public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreLi
     @Override
     public void initView() {
 
-        String type=this.getIntent().getStringExtra("type");
-        if("1".equals(type)){
+        mType=this.getIntent().getStringExtra("type");
+        if("1".equals(mType)){
             mBaseTitleTv.setText("电费");
-        }else if("2".equals(type)){
+        }else if("2".equals(mType)){
             mBaseTitleTv.setText("网费");
-        }else if("3".equals(type)){
+        }else if("3".equals(mType)){
             mBaseTitleTv.setText("手机费");
         }
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
@@ -61,7 +62,7 @@ public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreLi
         mRecyclerView.addItemDecoration(decoration);
 
         mAdapter = new PaymentRecordAdapter(mRecyclerView);
-        mAdapter.setType(type);
+        mAdapter.setType(mType);
         LuRecyclerViewAdapter adapter = new LuRecyclerViewAdapter(mAdapter);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
@@ -79,6 +80,7 @@ public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreLi
         HashMap<String, Object> map = new HashMap<>();
         map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
         map.put("page", mCurrentPage+"");
+        map.put("type",mType);
         map.put("pagesize", "10");
         HttpGetDataUtil.get(mActivity, this, Constant.PAYMENT_RECORDS_URL, map, PaymentRecordsVO.class);
     }

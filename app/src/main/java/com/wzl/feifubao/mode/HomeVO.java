@@ -241,6 +241,15 @@ public class HomeVO extends BaseVO{
             private String apartment;
             private String province;
             private String city;
+            private String house_id;
+
+            public String getHouse_id() {
+                return house_id;
+            }
+
+            public void setHouse_id(String house_id) {
+                this.house_id = house_id;
+            }
 
             public String getHouse_title() {
                 return house_title;

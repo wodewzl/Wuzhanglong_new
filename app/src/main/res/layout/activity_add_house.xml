@@ -23,18 +23,22 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+
+                android:drawableLeft="@drawable/house_add_1"
+                android:drawablePadding="@dimen/dp_8"
                 android:text="房屋名称："
-                android:textColor="@color/C5"
-                android:drawablePadding="@dimen/dp_8"
-                android:drawableLeft="@drawable/house_add_1"/>
+                android:textColor="@color/C5" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="金太阳城" />
+            <EditText
+                android:id="@+id/params1_et"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:background="@color/C1"
+                android:gravity="right|center_vertical"
+                android:textSize="13sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -47,18 +51,22 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+
+                android:drawableLeft="@drawable/house_add_2"
+                android:drawablePadding="@dimen/dp_8"
                 android:text="租赁方式："
-                android:textColor="@color/C5"
-                android:drawablePadding="@dimen/dp_8"
-                android:drawableLeft="@drawable/house_add_2"/>
+                android:textColor="@color/C5" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="金太阳城" />
+                android:id="@+id/params2_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/my_go"
+                android:gravity="right|center_vertical" />
         </LinearLayout>
 
         <LinearLayout
@@ -71,18 +79,21 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:drawableLeft="@drawable/house_add_3"
+                android:drawablePadding="@dimen/dp_8"
                 android:text="租金："
-                android:textColor="@color/C5"
-                android:drawablePadding="@dimen/dp_8"
-                android:drawableLeft="@drawable/house_add_3"/>
+                android:textColor="@color/C5" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="金太阳城" />
+            <EditText
+                android:id="@+id/params3_et"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:background="@color/C1"
+                android:gravity="right|center_vertical"
+                android:textSize="13sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -95,18 +106,21 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:drawableLeft="@drawable/house_add_4"
+                android:drawablePadding="@dimen/dp_8"
                 android:text="户型："
-                android:textColor="@color/C5"
-                android:drawablePadding="@dimen/dp_8"
-                android:drawableLeft="@drawable/house_add_4"/>
+                android:textColor="@color/C5" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="金太阳城" />
+                android:id="@+id/params4_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/my_go"
+                android:gravity="right|center_vertical" />
         </LinearLayout>
 
         <LinearLayout
@@ -119,18 +133,21 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:drawableLeft="@drawable/house_add_5"
+                android:drawablePadding="@dimen/dp_8"
                 android:text="面积："
-                android:textColor="@color/C5"
-                android:drawablePadding="@dimen/dp_8"
-                android:drawableLeft="@drawable/house_add_5"/>
+                android:textColor="@color/C5" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="金太阳城" />
+            <EditText
+                android:id="@+id/params5_et"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:background="@color/C1"
+                android:gravity="right|center_vertical"
+                android:textSize="13sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -143,18 +160,21 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:drawableLeft="@drawable/house_add_6"
+                android:drawablePadding="@dimen/dp_8"
                 android:text="房源类型："
-                android:textColor="@color/C5"
-                android:drawablePadding="@dimen/dp_8"
-                android:drawableLeft="@drawable/house_add_6"/>
+                android:textColor="@color/C5" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="金太阳城" />
+                android:id="@+id/params6_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/my_go"
+                android:gravity="right|center_vertical" />
         </LinearLayout>
 
         <LinearLayout
@@ -167,18 +187,21 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:drawableLeft="@drawable/house_add_7"
+                android:drawablePadding="@dimen/dp_8"
                 android:text="房屋朝向："
-                android:textColor="@color/C5"
-                android:drawablePadding="@dimen/dp_8"
-                android:drawableLeft="@drawable/house_add_7"/>
+                android:textColor="@color/C5" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="金太阳城" />
+                android:id="@+id/params7_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/my_go"
+                android:gravity="right|center_vertical" />
         </LinearLayout>
 
         <LinearLayout
@@ -191,18 +214,21 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:drawableLeft="@drawable/house_add_8"
+                android:drawablePadding="@dimen/dp_8"
                 android:text="楼层："
-                android:textColor="@color/C5"
-                android:drawablePadding="@dimen/dp_8"
-                android:drawableLeft="@drawable/house_add_8"/>
+                android:textColor="@color/C5" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="金太阳城" />
+            <EditText
+                android:id="@+id/params8_et"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:background="@color/C1"
+                android:gravity="right|center_vertical"
+                android:textSize="13sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -215,18 +241,156 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="装修类型："
-                android:textColor="@color/C5"
+                android:drawableLeft="@drawable/house_add_9"
                 android:drawablePadding="@dimen/dp_8"
-                android:drawableLeft="@drawable/house_add_9"/>
+                android:text="装修类型："
+                android:textColor="@color/C5" />
+
+            <TextView
+                android:id="@+id/params9_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/my_go"
+                android:gravity="right|center_vertical" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="金太阳城" />
+                android:drawableLeft="@drawable/house_add_9"
+                android:drawablePadding="@dimen/dp_8"
+                android:text="付款方式："
+                android:textColor="@color/C5" />
+
+            <TextView
+                android:id="@+id/params10_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/my_go"
+                android:gravity="right|center_vertical" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/house_add_9"
+                android:drawablePadding="@dimen/dp_8"
+                android:text="语种："
+                android:textColor="@color/C5" />
+
+            <TextView
+                android:id="@+id/params11_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/my_go"
+                android:gravity="right|center_vertical" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/house_add_9"
+                android:drawablePadding="@dimen/dp_8"
+                android:text="特色："
+                android:textColor="@color/C5" />
+
+            <TextView
+                android:id="@+id/params12_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/my_go"
+                android:gravity="right|center_vertical" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/house_add_9"
+                android:drawablePadding="@dimen/dp_8"
+                android:text="城市："
+                android:textColor="@color/C5" />
+
+            <TextView
+                android:id="@+id/params13_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/my_go"
+                android:gravity="right|center_vertical" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/house_add_3"
+                android:drawablePadding="@dimen/dp_8"
+                android:text="电话："
+                android:textColor="@color/C5" />
+
+            <EditText
+                android:id="@+id/params14_et"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:background="@color/C1"
+                android:gravity="right|center_vertical"
+                android:textSize="13sp" />
         </LinearLayout>
 
         <TextView
@@ -268,6 +432,7 @@
 
 
         <EditText
+            android:id="@+id/params15_et"
             style="@style/padding_15_10"
             android:layout_width="match_parent"
             android:layout_height="120dp"

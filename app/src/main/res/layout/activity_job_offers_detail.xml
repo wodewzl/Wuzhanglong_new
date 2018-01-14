@@ -142,7 +142,7 @@
                 android:drawableLeft="@drawable/job_5"
                 android:drawablePadding="5dp"
                 android:drawableRight="@drawable/my_go"
-                android:text="改公司其他职位" />
+                android:text="该公司其他职位" />
 
 
         </LinearLayout>
@@ -186,7 +186,8 @@
                     android:gravity="center"
                     android:text="拨打电话"
                     android:textColor="@color/C1"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    />
             </LinearLayout>
 
         </LinearLayout>

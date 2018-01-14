@@ -1,8 +1,10 @@
 package com.wzl.feifubao.fragment;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
@@ -11,19 +13,23 @@ import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import com.wzl.feifubao.R;
+import com.wzl.feifubao.activity.ShopDetailActivity;
 import com.wzl.feifubao.adapter.ShopHomeAdapter;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.ShopHomeVO;
+import com.wzl.feifubao.mode.ShopVO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
+
 /**
  * Created by wuzhanglong on 2018/1/1.
  */
 
-public class ShopHomeFragment extends BaseFragment implements  SwipeRefreshLayout.OnRefreshListener {
+public class ShopHomeFragment extends BaseFragment implements  SwipeRefreshLayout.OnRefreshListener,BGAOnRVItemClickListener {
     private LuRecyclerView mRecyclerView;
     private ShopHomeAdapter mAdapter;
     private LuRecyclerViewAdapter mLuAdapter;
@@ -69,6 +75,7 @@ public class ShopHomeFragment extends BaseFragment implements  SwipeRefreshLayou
     @Override
     public void bindViewsListener() {
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
+        mAdapter.setOnRVItemClickListener(this);
     }
 
     @Override
@@ -152,4 +159,26 @@ public class ShopHomeFragment extends BaseFragment implements  SwipeRefreshLayou
     public void onRefresh() {
         getData();
     }
+
+    @Override
+    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+        if(mAdapter.getData().size()==0)
+            return;
+        ShopHomeVO bean=mAdapter.getItem(position);
+        if("9".equals(bean.getType())){
+            Bundle bundle= new Bundle();
+            bundle.putString("id",bean.getGoods_id());
+            mActivity.open(ShopDetailActivity.class,bundle,0);
+        }else if("6".equals(bean.getType())){
+            Bundle bundle= new Bundle();
+            bundle.putString("id",bean.getGoods_id());
+            mActivity.open(ShopDetailActivity.class,bundle,0);
+        }else if("4".equals(bean.getType())){
+            Bundle bundle= new Bundle();
+            bundle.putString("id",bean.getGoods_id());
+            mActivity.open(ShopDetailActivity.class,bundle,0);
+        }
+
+    }
+
 }

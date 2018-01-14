@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,12 +26,15 @@ import com.wzl.feifubao.adapter.ShopCatLRAdapter;
 import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.ShopCatVO;
+import com.wzl.feifubao.mode.ShopHomeVO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ShopCartActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, CompoundButton.OnCheckedChangeListener, View.OnClickListener, PostCallback {
+import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
+
+public class ShopCartActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, CompoundButton.OnCheckedChangeListener, View.OnClickListener, PostCallback,BGAOnRVItemClickListener {
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.activity_shop_cart);
@@ -75,6 +79,7 @@ public class ShopCartActivity extends BaseActivity implements SwipeRefreshLayout
         mAllCheckView.setOnClickListener(this);
         mCommitTv.setOnClickListener(this);
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
+        mAdapter.setOnRVItemClickListener(this);
     }
 
     @Override
@@ -216,5 +221,17 @@ public class ShopCartActivity extends BaseActivity implements SwipeRefreshLayout
     @Override
     public void success(BaseVO vo) {
 
+    }
+
+    @Override
+    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+        if (mAdapter.getData().size() == 0)
+            return;
+        ShopCatVO bean = mAdapter.getItem(position);
+        if ("4".equals(bean.getType())) {
+            Bundle bundle = new Bundle();
+            bundle.putString("id", bean.getGoods_id());
+            mActivity.open(ShopDetailActivity.class, bundle, 0);
+        }
     }
 }

@@ -223,10 +223,7 @@ public class OrderSureActivity extends BaseActivity implements View.OnClickListe
     public void success(BaseVO vo) {
         if (vo instanceof OrderCrateVO) {
             OrderCrateVO orderCrateVO = (OrderCrateVO) vo;
-
-            //接口反对不规范不是我臃肿
             pay(orderCrateVO.getData().getOut_trade_no(), orderCrateVO.getData().getPay_rmb());
-
         }
     }
 

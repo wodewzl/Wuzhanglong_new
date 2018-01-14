@@ -50,4 +50,6 @@ public class Constant {
     public static final String  UPDATE_USERINFO_URL= "api/Member/updateMember";//修改头像，昵称
 
     public static final String  SHOP_EVALUATION_URL= "api/Order/deleteOrder";//商品评价
+    public static final String  HOUSE_ADD_URL= "api/house/addHouse";//发布房源
+    public static final String  CHAGE_URL= "Api/Order/virtualOrderCreate";//发布房源
 }

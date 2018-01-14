@@ -2,11 +2,9 @@ package com.wzl.feifubao.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -16,7 +14,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
@@ -51,20 +48,19 @@ import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 
-public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickListener, ScrollableHelper.ScrollableContainer, View.OnClickListener, OnLoadMoreListener,
-        SwipeRefreshLayout.OnRefreshListener, android.widget.TextView.OnEditorActionListener, TextWatcher {
+public class HouseListOneActivity extends BaseActivity implements BGAOnRVItemClickListener, View.OnClickListener, OnLoadMoreListener,
+        SwipeRefreshLayout.OnRefreshListener {
     private LuRecyclerView mRecyclerView;
     private HouseListAdapter mAdapter;
-    private ScrollableLayout mScrollableLayout;
-    private Banner mBanner;
+
+
     private boolean mFlag = true;
     private TextView mOptions1Tv, mOptionsTv2, mOptionsTv3;
     private BSPopupWindowsTitle mOption1Pop, mOption2Pop, mOption3Pop;
     private HouseOptionVO.DataBean mOptionDataBean;
-    private TextView mType1Tv, mType2Tv, mType3Tv, mType4Tv;
     private View mDivider;
-    private EditText mSearchEt;
-    private String mKeyword = "";
+
+
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
@@ -73,27 +69,22 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
     private String mProvinceId = "";
     private String mPayClassId = "";
     private String mRentingStyleId = "";
-    private int mDistanceY;
-    private LinearLayout mTitleLayout;
-    private TextView mBackTv;
 
     @Override
     public void baseSetContentView() {
-        contentInflateView(R.layout.activity_house_list);
+        contentInflateView(R.layout.activity_house_list_one);
     }
 
     @Override
     public void initView() {
-        mBaseHeadLayout.setVisibility(View.GONE);
-        setTranslanteBar();
-        mSearchEt = getViewById(R.id.search_et);
-        mSearchEt.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-        mSearchEt.setInputType(EditorInfo.TYPE_CLASS_TEXT);
+        Intent intent = this.getIntent();
+
+        mBaseTitleTv.setText(intent.getStringExtra("name"));
+        mRentingStyleId = intent.getStringExtra("rentingStyleId");
+
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
-        mScrollableLayout = getViewById(R.id.scrollable_Layout);
         mRecyclerView = getViewById(R.id.recycler_view);
-        mScrollableLayout.getHelper().setCurrentScrollableContainer(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         DividerDecoration divider = DividerUtil.linnerDivider(this, R.dimen.dp_1, R.color.C3);
         mRecyclerView.addItemDecoration(divider);
@@ -101,62 +92,23 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
         LuRecyclerViewAdapter adapter = new LuRecyclerViewAdapter(mAdapter);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLoadMoreEnabled(false);
-        mBanner = getViewById(R.id.banner);
+
 
         mOptions1Tv = getViewById(R.id.options1_tv);
         mOptionsTv2 = getViewById(R.id.options2_tv);
         mOptionsTv3 = getViewById(R.id.options3_tv);
         mDivider = getViewById(R.id.divider);
-
-        mType1Tv = getViewById(R.id.type_01_tv);
-        mType2Tv = getViewById(R.id.type_02_tv);
-        mType3Tv = getViewById(R.id.type_03_tv);
-        mType4Tv = getViewById(R.id.type_04_tv);
-        mTitleLayout = getViewById(R.id.title_view);
-        mBackTv = getViewById(R.id.back_tv);
     }
 
     @Override
     public void bindViewsListener() {
-        mBackTv.setOnClickListener(this);
         mOptions1Tv.setOnClickListener(this);
         mOptionsTv2.setOnClickListener(this);
         mOptionsTv3.setOnClickListener(this);
         mAdapter.setOnRVItemClickListener(this);
         mRecyclerView.setOnLoadMoreListener(this);
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
-        mSearchEt.setOnEditorActionListener(this);
-        mSearchEt.addTextChangedListener(this);
-        mType1Tv.setOnClickListener(this);
-        mType2Tv.setOnClickListener(this);
-        mType3Tv.setOnClickListener(this);
-        mType4Tv.setOnClickListener(this);
-
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                //滑动的距离
-                mDistanceY += dy;
-                //toolbar的高度
-//                int toolbarHeight = mTitleLayout.getBottom();
-                int toolbarHeight = BaseCommonUtils.dip2px(mActivity, 200);
-                //当滑动的距离 <= toolbar高度的时候，改变Toolbar背景色的透明度，达到渐变的效果
-                if (mDistanceY <= toolbarHeight) {
-                    float scale = (float) mDistanceY / toolbarHeight;
-                    float alpha = scale * 255;
-                    mTitleLayout.setBackgroundColor(Color.argb((int) alpha, 28, 104, 239));
-//                    RxAnimationUtils.animationColorGradient(R.color.C15, R.color.C7, new onUpdateListener() {
-//                        @Override
-//                        public void onUpdate(int i) {
-//
-//                        }
-//                    });
-                } else {
-                    //将标题栏的颜色设置为完全不透明状态
-                    mTitleLayout.setBackgroundResource(R.color.colorAccent);
-                }
-            }
-        });
+        ;
     }
 
     @Override
@@ -170,7 +122,7 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
         HashMap<String, Object> map = new HashMap<>();
         map.put("page", mCurrentPage + "");
         map.put("pagesize", "10");
-        map.put("keyword", mKeyword);
+
         map.put("languageId", mLanguageId);
         map.put("provinceId", mProvinceId);
         map.put("payClassId", mPayClassId);
@@ -186,28 +138,7 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
 
         } else if (vo instanceof HouseListVO) {
             HouseListVO houseListVO = (HouseListVO) vo;
-            mBanner.setImageLoader(new ImageLoader() {
-                @Override
-                public void displayImage(Context context, Object o, ImageView imageView) {
-                    final HouseListVO.DataBean.AdvsBean bannerVO = (HouseListVO.DataBean.AdvsBean) o;
-                    if (!TextUtils.isEmpty(bannerVO.getAdv_image()))
-                        Picasso.with(context).load(bannerVO.getAdv_image()).into(imageView);
-                }
-            });
-
-            mBanner.setImages(houseListVO.getData().getAdvs());
-            mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-            mBanner.setBannerAnimation(Transformer.CubeIn);
-            mBanner.setIndicatorGravity(BannerConfig.CENTER);
-
-            mBanner.setOnBannerListener(new OnBannerListener() {
-                @Override
-                public void OnBannerClick(int i) {
-                }
-            });
-            mBanner.start();
             mAutoSwipeRefreshLayout.setRefreshing(false);
-
             mAdapter.updateData(houseListVO.getData().getHouse());
         }
 
@@ -238,14 +169,9 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
 
     }
 
-    @Override
-    public View getScrollableView() {
-        return mRecyclerView;
-    }
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.options1_tv:
                 if (mOption1Pop == null) {
@@ -256,7 +182,7 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
                         typeid[i] = mOptionDataBean.getLanguage().get(i).getClass_id();
                     }
                     List<TreeVO> typeList = BaseCommonUtils.getOneLeveTreeVoZero(typeName, typeid);
-                    mOption1Pop = new BSPopupWindowsTitle(mActivity, typeList, option1Callback, WidthHigthUtil.getScreenHigh(HouseListActivity.this) / 3);
+                    mOption1Pop = new BSPopupWindowsTitle(mActivity, typeList, option1Callback, WidthHigthUtil.getScreenHigh(HouseListOneActivity.this) / 3);
                 }
                 mOption1Pop.showAsDropDown(mDivider);
                 break;
@@ -269,7 +195,7 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
                         typeid[i] = mOptionDataBean.getRentingStyle().get(i).getClass_id();
                     }
                     List<TreeVO> typeList = BaseCommonUtils.getOneLeveTreeVoZero(typeName, typeid);
-                    mOption2Pop = new BSPopupWindowsTitle(mActivity, typeList, option1Callback, WidthHigthUtil.getScreenHigh(HouseListActivity.this) / 3);
+                    mOption2Pop = new BSPopupWindowsTitle(mActivity, typeList, option1Callback, WidthHigthUtil.getScreenHigh(HouseListOneActivity.this) / 3);
                 }
                 mOption2Pop.showAsDropDown(mDivider);
                 break;
@@ -282,33 +208,9 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
                         typeid[i] = mOptionDataBean.getFukuan().get(i).getClass_id();
                     }
                     List<TreeVO> typeList = BaseCommonUtils.getOneLeveTreeVoZero(typeName, typeid);
-                    mOption3Pop = new BSPopupWindowsTitle(mActivity, typeList, option3Callback, WidthHigthUtil.getScreenHigh(HouseListActivity.this) / 3);
+                    mOption3Pop = new BSPopupWindowsTitle(mActivity, typeList, option3Callback, WidthHigthUtil.getScreenHigh(HouseListOneActivity.this) / 3);
                 }
                 mOption3Pop.showAsDropDown(mDivider);
-                break;
-            case R.id.type_01_tv:
-                intent.setClass(this, HouseListOneActivity.class);
-                intent.putExtra("rentingStyleId", mOptionDataBean.getRentingStyle().get(0).getClass_id());
-                intent.putExtra("name", "整租");
-                this.startActivity(intent);
-                break;
-            case R.id.type_02_tv:
-                intent.setClass(this, HouseListOneActivity.class);
-                intent.putExtra("rentingStyleId", mOptionDataBean.getRentingStyle().get(1).getClass_id());
-                intent.putExtra("name", "合租");
-                this.startActivity(intent);
-                break;
-            case R.id.type_03_tv:
-                intent.setClass(this, HouseListOneActivity.class);
-                intent.putExtra("rentingStyleId", mOptionDataBean.getRentingStyle().get(2).getClass_id());
-                intent.putExtra("name", "短租");
-                this.startActivity(intent);
-                break;
-            case R.id.type_04_tv:
-                openActivity(HouseAddActivity.class);
-                break;
-            case R.id.back_tv:
-                this.finish();
                 break;
             default:
                 break;
@@ -336,7 +238,7 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
     @Override
     public void onRefresh() {
         mCurrentPage = 1;
-        mKeyword = "";
+
         getData();
     }
 
@@ -347,37 +249,11 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
         getData();
     }
 
-    @Override
-    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-        mKeyword = textView.getText().toString();
-        getData();
-        return false;
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int i, int i1, int i2) {
-        if ("".equals(s.toString())) {
-            mKeyword = "";
-            mCurrentPage = 1;
-            mAutoSwipeRefreshLayout.autoRefresh();
-        }
-    }
-
-    @Override
-    public void afterTextChanged(Editable editable) {
-
-    }
 
     public void match(int key, String value) {
         mCurrentPage = 1;
         switch (key) {
             case 0:
-                mKeyword = "";
                 mCurrentPage = 1;
                 mLanguageId = "";
                 mProvinceId = "";
@@ -393,9 +269,7 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
             case 3:
                 mPayClassId = value;
                 break;
-            case 4:
-                mKeyword = value;
-                break;
+
 
             default:
                 break;

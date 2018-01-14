@@ -28,7 +28,7 @@ public class ShopAdapter  extends RecyclerBaseAdapter<ShopVO.DataBean.GoodsBean>
         Picasso.with(mContext).load(bean.getPic_cover_small()).into(goodsImg);
 
         helper.setText(R.id.name_tv,bean.getGoods_name());
-        helper.setText(R.id.price_tv,bean.getPrice());
+        helper.setText(R.id.price_tv,"￥"+bean.getPrice());
 
     }
 

@@ -71,6 +71,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginRight="15dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_keyboard_arrow_right_white_48dp" />
 
         </LinearLayout>
@@ -99,6 +100,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="30dp"
                 android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:drawablePadding="5dp"
                 android:drawableRight="@drawable/my_go"
                 android:gravity="right"
@@ -121,6 +123,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/my_02"
                 android:gravity="center"
@@ -140,6 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/my_15"
                 android:gravity="center"
@@ -159,6 +163,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/my_03"
                 android:gravity="center"
@@ -197,6 +202,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/my_05"
                 android:gravity="center"
@@ -220,6 +226,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_15"
                 android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:drawableLeft="@drawable/my_1"
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
@@ -249,18 +256,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:layout_marginLeft="@dimen/dp_15"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:drawableLeft="@drawable/my_2"
                 android:drawablePadding="10dp"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:text="手机费"
                 android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_weight="1"
                 android:drawablePadding="5dp"
                 android:drawableRight="@drawable/my_go"
                 android:gravity="right"
@@ -278,20 +286,21 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:layout_marginLeft="@dimen/dp_15"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:drawableLeft="@drawable/my_3"
                 android:drawablePadding="10dp"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:text="电费"
                 android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_weight="1"
                 android:drawablePadding="10dp"
                 android:drawableRight="@drawable/my_go"
                 android:gravity="right"
@@ -309,19 +318,21 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:layout_marginLeft="@dimen/dp_15"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:drawableLeft="@drawable/my_4"
                 android:drawablePadding="10dp"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:text="网费"
                 android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+
                 android:drawablePadding="5dp"
                 android:drawableRight="@drawable/my_go"
                 android:gravity="right"
@@ -339,20 +350,23 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:layout_marginLeft="@dimen/dp_15"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:drawableLeft="@drawable/my_5"
                 android:drawablePadding="10dp"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:text="我的房源信息"
+
                 android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_weight="1"
+
                 android:drawablePadding="5dp"
                 android:drawableRight="@drawable/my_go"
                 android:gravity="right"
@@ -369,20 +383,22 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:layout_marginLeft="@dimen/dp_15"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:drawableLeft="@drawable/my_7"
                 android:drawablePadding="10dp"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:text="我的收货地址"
                 android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_weight="1"
+
                 android:drawablePadding="5dp"
                 android:drawableRight="@drawable/my_go"
                 android:gravity="right"
@@ -413,6 +429,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="30dp"
                 android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:drawablePadding="5dp"
                 android:drawableRight="@drawable/my_go"
                 android:gravity="right"

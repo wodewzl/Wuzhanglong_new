@@ -2,6 +2,7 @@ package com.wzl.feifubao.activity;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,7 +23,7 @@ import java.util.HashMap;
 
 public class HouseDetailActivity extends BaseActivity {
     private Banner mBanner;
-    private TextView mTag1Tv, mTag2Tv, mTimeTv, mMoneyTv, mPayTypeTv, mApartmentTv, mAreaTv, mRentingStyleTv, mDesc1Tv, mDesc2Tv, mDesc3Tv, mDesc4Tv, mDescTv;
+    private TextView mTag1Tv, mTag2Tv, mTimeTv, mMoneyTv, mPayTypeTv, mApartmentTv, mAreaTv, mRentingStyleTv, mDesc1Tv, mDesc2Tv, mDesc3Tv, mDesc4Tv, mDescTv,mTitleTv;
 
     @Override
     public void baseSetContentView() {
@@ -49,6 +50,7 @@ public class HouseDetailActivity extends BaseActivity {
         mDesc3Tv = getViewById(R.id.desc3_tv);
         mDesc4Tv = getViewById(R.id.desc4_tv);
         mDescTv = getViewById(R.id.desc_tv);
+        mTitleTv=getViewById(R.id.title_tv);
     }
 
     @Override
@@ -59,7 +61,7 @@ public class HouseDetailActivity extends BaseActivity {
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("id", "10");
+        map.put("id", this.getIntent().getStringExtra("id"));
         HttpGetDataUtil.get(mActivity, this, Constant.HOUSE_DETAIL_URL, map, HouseDetailVO.class);
     }
 
@@ -80,16 +82,18 @@ public class HouseDetailActivity extends BaseActivity {
             });
             mBanner.start();
         }
-
+        mTitleTv.setText(dataBean.getHouse_name());
         String[] tag = dataBean.getHouse_tag().split(";");
-        if (!"".equals(tag) && tag.length > 0) {
+        if (tag.length > 1) {
             if (!TextUtils.isEmpty(tag[0])) {
                 mTag1Tv.setBackground(BaseCommonUtils.setBackgroundShap(this, 0, R.color.FUBColor3, R.color.C1));
                 mTag1Tv.setText(tag[0]);
+                mTag1Tv.setVisibility(View.VISIBLE);
             }
             if (!TextUtils.isEmpty(tag[1])) {
                 mTag2Tv.setBackground(BaseCommonUtils.setBackgroundShap(this, 0, R.color.FUBColor3, R.color.C1));
                 mTag2Tv.setText(tag[1]);
+                mTag1Tv.setVisibility(View.VISIBLE);
             }
         }
 
@@ -101,10 +105,10 @@ public class HouseDetailActivity extends BaseActivity {
         mAreaTv.setText(dataBean.getHouse_area());
         mRentingStyleTv.setText(dataBean.getRenting_style());
 
-        BaseCommonUtils.setTextTwoBefore(this, mDesc1Tv, "朝向：", dataBean.getHouse_face(), R.color.C5, 1.0f);
-        BaseCommonUtils.setTextTwoBefore(this, mDesc2Tv, "装修：", dataBean.getHouse_decorate(), R.color.C5, 1.0f);
+        BaseCommonUtils.setTextTwoBefore(this, mDesc1Tv, "朝向：", dataBean.getPosition(), R.color.C5, 1.0f);
+        BaseCommonUtils.setTextTwoBefore(this, mDesc2Tv, "装修：", dataBean.getDecorateStyle(), R.color.C5, 1.0f);
         BaseCommonUtils.setTextTwoBefore(this, mDesc3Tv, "楼层：", dataBean.getHouse_floor(), R.color.C5, 1.0f);
-        BaseCommonUtils.setTextTwoBefore(this, mDesc4Tv, "类型：", "????啥字段", R.color.C5, 1.0f);
+        BaseCommonUtils.setTextTwoBefore(this, mDesc4Tv, "类型：", dataBean.getHouseStyle(), R.color.C5, 1.0f);
         mDescTv.setText(dataBean.getHouse_details());
     }
 

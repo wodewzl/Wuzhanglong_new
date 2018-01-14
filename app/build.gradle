@@ -5,15 +5,15 @@ android {
         realse {
             keyAlias 'wzl'
             keyPassword 'wuzhanglong'
-            storeFile file('F:/Wuzhanglong/git_project/Wuzhanglong_new/wzllibrary/wodewzl.jks')
+            storeFile file('D:/studio_project/Wuzhanglong_new/wzllibrary/wodewzl.jks')
             storePassword 'wuzhanglong'
         }
     }
     compileSdkVersion 27
     buildToolsVersion "27.0.1"
     defaultConfig {
-        applicationId "com.wuzhanglong.conveyor"
-        minSdkVersion 19
+        applicationId "com.wzl.feifubao"
+        minSdkVersion 21
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
@@ -36,6 +36,8 @@ android {
     }
     productFlavors {
     }
+
+
 }
 
 dependencies {

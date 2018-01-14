@@ -2,6 +2,7 @@ package com.wzl.feifubao.fragment;
 
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import com.wzl.feifubao.R;
+import com.wzl.feifubao.activity.HouseDetailActivity;
 import com.wzl.feifubao.activity.LifeActivity;
 import com.wzl.feifubao.activity.PhoneChargeActivity;
 import com.wzl.feifubao.activity.RateExchageActivity;
@@ -35,6 +37,7 @@ import com.wzl.feifubao.activity.YellowPagesActivity;
 import com.wzl.feifubao.adapter.HomeAdapter;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.HomeVO;
+import com.wzl.feifubao.mode.HouseListVO;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -43,7 +46,9 @@ import com.youth.banner.loader.ImageLoader;
 
 import java.util.HashMap;
 
-public class TabOneFragment extends BaseFragment implements View.OnClickListener {
+import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
+
+public class TabOneFragment extends BaseFragment implements View.OnClickListener, BGAOnRVItemClickListener {
 
     private LuRecyclerView mRecyclerView;
     private HomeAdapter mAdapter;
@@ -88,6 +93,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mType1Tv06.setOnClickListener(this);
         mType1Tv07.setOnClickListener(this);
         mType1Tv08.setOnClickListener(this);
+        mAdapter.setOnRVItemClickListener(this);
     }
 
     @Override
@@ -109,6 +115,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
             mBanner.setImageLoader(new ImageLoader() {
                 @Override
                 public void displayImage(Context context, Object o, ImageView imageView) {
+                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     final HomeVO.DataBean.AdvsBean bannerVO = (HomeVO.DataBean.AdvsBean) o;
                     Picasso.with(context).load(bannerVO.getAdv_image()).into(imageView);
                 }
@@ -206,18 +213,22 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+        Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.type_01_tv:
                 mActivity.openActivity(PhoneChargeActivity.class);
                 break;
             case R.id.type_02_tv:
-                mActivity.openActivity(PayElectricityActivity.class);
+                bundle.putString("type", "1");
+                mActivity.open(PayElectricityActivity.class, bundle, 0);
+
                 break;
             case R.id.type_03_tv:
                 mActivity.openActivity(LifeActivity.class);
                 break;
             case R.id.type_04_tv:
-                mActivity.openActivity(OrderSureActivity.class);
+                bundle.putString("type", "2");
+                mActivity.open(PayElectricityActivity.class, bundle, 0);
                 break;
             case R.id.type_05_tv:
                 mActivity.openActivity(HouseListActivity.class);
@@ -235,5 +246,17 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+        if (mAdapter.getData().size() == 0 || position < 1)
+            return;
+        Bundle bundle = new Bundle();
+        HomeVO.DataBean.HouseBean bean = (HomeVO.DataBean.HouseBean) mAdapter.getData().get(position);
+        bundle.putString("id", bean.getHouse_id());
+        mActivity.open(HouseDetailActivity.class, bundle, 0);
+
+
     }
 }

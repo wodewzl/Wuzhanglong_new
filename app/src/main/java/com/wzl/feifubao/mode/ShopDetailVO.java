@@ -414,6 +414,15 @@ public class ShopDetailVO extends BaseVO {
             private String create_date;
             private String update_date;
             private String member_price;
+            private String price_rmb;
+
+            public String getPrice_rmb() {
+                return price_rmb;
+            }
+
+            public void setPrice_rmb(String price_rmb) {
+                this.price_rmb = price_rmb;
+            }
 
             public String getSku_id() {
                 return sku_id;

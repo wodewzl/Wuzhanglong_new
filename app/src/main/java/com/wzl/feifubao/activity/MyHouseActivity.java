@@ -24,6 +24,7 @@ import com.wzl.feifubao.adapter.MessageAdapter;
 import com.wzl.feifubao.adapter.MyHouseAdapter;
 import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
+import com.wzl.feifubao.mode.HouseListVO;
 import com.wzl.feifubao.mode.JobOffersVO;
 import com.wzl.feifubao.mode.LifeVO;
 import com.wzl.feifubao.mode.MyHouseVO;
@@ -123,9 +124,15 @@ public class MyHouseActivity extends BaseActivity implements BGAOnRVItemClickLis
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+        if (mAdapter.getData().size() == 0)
+            return;
+        Bundle bundle = new Bundle();
+        HouseListVO.DataBean.HouseBean bean = (HouseListVO.DataBean.HouseBean) mAdapter.getData().get(position);
+        bundle.putString("id", bean.getHouse_id());
+        open(HouseDetailActivity.class, bundle, 0);
+
 
     }
-
     @Override
     public void onLoadMore() {
         isLoadMore = true;

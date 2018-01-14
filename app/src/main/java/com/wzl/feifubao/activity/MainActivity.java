@@ -42,7 +42,7 @@ public class MainActivity extends HomeFragmentActivity implements PostCallback {
 
         mBottomNavigationBar
                 .setActiveColor(R.color.C1)
-                .setInActiveColor(R.color.C4)
+                .setInActiveColor(R.color.FUBColor9)
                 .setBarBackgroundColor(R.color.FUBColor8);
 //                .setActiveColor(R.color.XJColor2)
 //                .setInActiveColor(R.color.XJColor8)

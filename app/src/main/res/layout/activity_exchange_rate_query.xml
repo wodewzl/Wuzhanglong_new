@@ -69,7 +69,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
 
                 <TextView
                     android:id="@+id/cny_tv"
@@ -113,7 +114,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
 
                 <TextView
                     android:id="@+id/usd_tv"
@@ -157,7 +159,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
 
                 <TextView
                     android:id="@+id/jpy_tv"
@@ -201,7 +204,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
 
                 <TextView
                     android:id="@+id/hkd_tv"
@@ -245,7 +249,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
 
                 <TextView
                     android:id="@+id/eur_tv"
@@ -289,7 +294,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
 
                 <TextView
                     android:id="@+id/gbp_tv"

@@ -11,7 +11,7 @@ import java.util.List;
 public class HouseDetailVO extends BaseVO{
 
     /**
-     * data : {"house_id":"10","house_name":"绿地中央广场","house_price":"3000","house_createtime":"2017-12-19","house_tag":"南北通透;绿化好","class_id":"5","pay_class_id":"1","house_area":"130","province_id":"4","city_id":"14","house_face":"南北","house_floor":"12","house_decorate":"精装","house_type":"高层","house_details":"\t优势精装修，南北通透，有阳台，下面有真实照片可以浏览，随时看房\n\n1、乐福天下新建高档电梯房，位于春园路，火车站附近，地理位置优越，城市地标建筑，高端花园美宅，地处城市公园之上，环境优美\n\n2、这是一套精巧的96平两居室,房屋为精装电梯房,按照自住标准,精心打造,采用绿色环保建材,全套家电齐全;南北朝向,冬暖夏凉,通风、采光俱佳!空调、二十四小时热水,是您商、住,工作生活两不误!\n\n3、小区24小时电子*，停车方便，周边及休闲娱乐为一体，配套有家乐福商场，各大银行，提供金融、信息、餐饮，休闲等多方面服务，为您创业，办公，提供佳硬件条件\n\n4、小区环境优美,大量绿色植物茁壮生长,基础设施完备,物业管理贴心，紧邻20中让你教育工作两者兼顾\n（租住用户一定要爱惜房主装修物件，保持公寓干净卫生，如无法做到，勿扰！） \t优势精装修，南北通透，有阳台，下面有真实照片可以浏览，随时看房\n\n1、乐福天下新建高档电梯房，位于春园路，火车站附近，地理位置优越，城市地标建筑，高端花园美宅，地处城市公园之上，环境优美\n\n2、这是一套精巧的96平两居室,房屋为精装电梯房,按照自住标准,精心打造,采用绿色环保建材,全套家电齐全;南北朝向,冬暖夏凉,通风、采光俱佳!空调、二十四小时热水,是您商、住,工作生活两不误!\n\n3、小区24小时电子*，停车方便，周边及休闲娱乐为一体，配套有家乐福商场，各大银行，提供金融、信息、餐饮，休闲等多方面服务，为您创业，办公，提供佳硬件条件\n\n4、小区环境优美,大量绿色植物茁壮生长,基础设施完备,物业管理贴心，紧邻20中让你教育工作两者兼顾\n（租住用户一定要爱惜房主装修物件，保持公寓干净卫生，如无法做到，勿扰！） ","house_pic":["http://183.95.85.31:8001//upload/image_collection/1513599867.jpg","http://183.95.85.31:8001//upload/image_collection/1513599832.jpg"],"status":"2","house_phone":"18672166977","sort":"0","house_title":"好房急租","house_language":"14","renting_style_id":"18","apartment":"三室一厅","renting_style":"整租"}
+     * data : {"house_id":"81","house_name":"恐龙","house_price":"5","house_createtime":"2018-01-13","house_tag":"","class_id":"56","pay_class_id":"54","house_area":"5152","province_id":"30","city_id":"324","house_face":"32","house_floor":"33","house_decorate":"24","house_type":"30","house_details":"健健康康","house_pic":["http://feidu.baonongkang.cn/upload/house/5a59c152e0eaa.png"],"status":"2","house_phone":"13720343150","sort":"0","house_title":"合租 . 恐龙 两室两厅","house_language":"15,16","renting_style_id":"19","uid":"39","out_trade_no":"151583163413851000","img_temp_array":[{"pic_id":"342","shop_id":"0","album_id":"0","is_wide":"0","pic_name":"房源","pic_tag":"房源","pic_cover":"http://feidu.baonongkang.cn/upload/house/5a59c152e0eaa.png","pic_size":"","pic_spec":"","pic_cover_big":"","pic_size_big":"","pic_spec_big":"","pic_cover_mid":"","pic_size_mid":"","pic_spec_mid":"","pic_cover_small":"","pic_size_small":"","pic_spec_small":"","pic_cover_micro":"","pic_size_micro":"","pic_spec_micro":"","upload_time":"1515831634","upload_type":"0","domain":"","bucket":""}],"apartment":"两室两厅","renting_style":"合租","decorateStyle":"中等装修","houseStyle":"别墅","position":"正南正北","house_language_names":["英语","中文"]}
      */
 
     private DataBean data;
@@ -26,48 +26,37 @@ public class HouseDetailVO extends BaseVO{
 
     public static class DataBean {
         /**
-         * house_id : 10
-         * house_name : 绿地中央广场
-         * house_price : 3000
-         * house_createtime : 2017-12-19
-         * house_tag : 南北通透;绿化好
-         * class_id : 5
-         * pay_class_id : 1
-         * house_area : 130
-         * province_id : 4
-         * city_id : 14
-         * house_face : 南北
-         * house_floor : 12
-         * house_decorate : 精装
-         * house_type : 高层
-         * house_details : 	优势精装修，南北通透，有阳台，下面有真实照片可以浏览，随时看房
-
-         1、乐福天下新建高档电梯房，位于春园路，火车站附近，地理位置优越，城市地标建筑，高端花园美宅，地处城市公园之上，环境优美
-
-         2、这是一套精巧的96平两居室,房屋为精装电梯房,按照自住标准,精心打造,采用绿色环保建材,全套家电齐全;南北朝向,冬暖夏凉,通风、采光俱佳!空调、二十四小时热水,是您商、住,工作生活两不误!
-
-         3、小区24小时电子*，停车方便，周边及休闲娱乐为一体，配套有家乐福商场，各大银行，提供金融、信息、餐饮，休闲等多方面服务，为您创业，办公，提供佳硬件条件
-
-         4、小区环境优美,大量绿色植物茁壮生长,基础设施完备,物业管理贴心，紧邻20中让你教育工作两者兼顾
-         （租住用户一定要爱惜房主装修物件，保持公寓干净卫生，如无法做到，勿扰！） 	优势精装修，南北通透，有阳台，下面有真实照片可以浏览，随时看房
-
-         1、乐福天下新建高档电梯房，位于春园路，火车站附近，地理位置优越，城市地标建筑，高端花园美宅，地处城市公园之上，环境优美
-
-         2、这是一套精巧的96平两居室,房屋为精装电梯房,按照自住标准,精心打造,采用绿色环保建材,全套家电齐全;南北朝向,冬暖夏凉,通风、采光俱佳!空调、二十四小时热水,是您商、住,工作生活两不误!
-
-         3、小区24小时电子*，停车方便，周边及休闲娱乐为一体，配套有家乐福商场，各大银行，提供金融、信息、餐饮，休闲等多方面服务，为您创业，办公，提供佳硬件条件
-
-         4、小区环境优美,大量绿色植物茁壮生长,基础设施完备,物业管理贴心，紧邻20中让你教育工作两者兼顾
-         （租住用户一定要爱惜房主装修物件，保持公寓干净卫生，如无法做到，勿扰！）
-         * house_pic : ["http://183.95.85.31:8001//upload/image_collection/1513599867.jpg","http://183.95.85.31:8001//upload/image_collection/1513599832.jpg"]
+         * house_id : 81
+         * house_name : 恐龙
+         * house_price : 5
+         * house_createtime : 2018-01-13
+         * house_tag :
+         * class_id : 56
+         * pay_class_id : 54
+         * house_area : 5152
+         * province_id : 30
+         * city_id : 324
+         * house_face : 32
+         * house_floor : 33
+         * house_decorate : 24
+         * house_type : 30
+         * house_details : 健健康康
+         * house_pic : ["http://feidu.baonongkang.cn/upload/house/5a59c152e0eaa.png"]
          * status : 2
-         * house_phone : 18672166977
+         * house_phone : 13720343150
          * sort : 0
-         * house_title : 好房急租
-         * house_language : 14
-         * renting_style_id : 18
-         * apartment : 三室一厅
-         * renting_style : 整租
+         * house_title : 合租 . 恐龙 两室两厅
+         * house_language : 15,16
+         * renting_style_id : 19
+         * uid : 39
+         * out_trade_no : 151583163413851000
+         * img_temp_array : [{"pic_id":"342","shop_id":"0","album_id":"0","is_wide":"0","pic_name":"房源","pic_tag":"房源","pic_cover":"http://feidu.baonongkang.cn/upload/house/5a59c152e0eaa.png","pic_size":"","pic_spec":"","pic_cover_big":"","pic_size_big":"","pic_spec_big":"","pic_cover_mid":"","pic_size_mid":"","pic_spec_mid":"","pic_cover_small":"","pic_size_small":"","pic_spec_small":"","pic_cover_micro":"","pic_size_micro":"","pic_spec_micro":"","upload_time":"1515831634","upload_type":"0","domain":"","bucket":""}]
+         * apartment : 两室两厅
+         * renting_style : 合租
+         * decorateStyle : 中等装修
+         * houseStyle : 别墅
+         * position : 正南正北
+         * house_language_names : ["英语","中文"]
          */
 
         private String house_id;
@@ -91,9 +80,16 @@ public class HouseDetailVO extends BaseVO{
         private String house_title;
         private String house_language;
         private String renting_style_id;
+        private String uid;
+        private String out_trade_no;
         private String apartment;
         private String renting_style;
+        private String decorateStyle;
+        private String houseStyle;
+        private String position;
         private List<String> house_pic;
+        private List<ImgTempArrayBean> img_temp_array;
+        private List<String> house_language_names;
 
         public String getHouse_id() {
             return house_id;
@@ -263,6 +259,22 @@ public class HouseDetailVO extends BaseVO{
             this.renting_style_id = renting_style_id;
         }
 
+        public String getUid() {
+            return uid;
+        }
+
+        public void setUid(String uid) {
+            this.uid = uid;
+        }
+
+        public String getOut_trade_no() {
+            return out_trade_no;
+        }
+
+        public void setOut_trade_no(String out_trade_no) {
+            this.out_trade_no = out_trade_no;
+        }
+
         public String getApartment() {
             return apartment;
         }
@@ -279,12 +291,308 @@ public class HouseDetailVO extends BaseVO{
             this.renting_style = renting_style;
         }
 
+        public String getDecorateStyle() {
+            return decorateStyle;
+        }
+
+        public void setDecorateStyle(String decorateStyle) {
+            this.decorateStyle = decorateStyle;
+        }
+
+        public String getHouseStyle() {
+            return houseStyle;
+        }
+
+        public void setHouseStyle(String houseStyle) {
+            this.houseStyle = houseStyle;
+        }
+
+        public String getPosition() {
+            return position;
+        }
+
+        public void setPosition(String position) {
+            this.position = position;
+        }
+
         public List<String> getHouse_pic() {
             return house_pic;
         }
 
         public void setHouse_pic(List<String> house_pic) {
             this.house_pic = house_pic;
+        }
+
+        public List<ImgTempArrayBean> getImg_temp_array() {
+            return img_temp_array;
+        }
+
+        public void setImg_temp_array(List<ImgTempArrayBean> img_temp_array) {
+            this.img_temp_array = img_temp_array;
+        }
+
+        public List<String> getHouse_language_names() {
+            return house_language_names;
+        }
+
+        public void setHouse_language_names(List<String> house_language_names) {
+            this.house_language_names = house_language_names;
+        }
+
+        public static class ImgTempArrayBean {
+            /**
+             * pic_id : 342
+             * shop_id : 0
+             * album_id : 0
+             * is_wide : 0
+             * pic_name : 房源
+             * pic_tag : 房源
+             * pic_cover : http://feidu.baonongkang.cn/upload/house/5a59c152e0eaa.png
+             * pic_size :
+             * pic_spec :
+             * pic_cover_big :
+             * pic_size_big :
+             * pic_spec_big :
+             * pic_cover_mid :
+             * pic_size_mid :
+             * pic_spec_mid :
+             * pic_cover_small :
+             * pic_size_small :
+             * pic_spec_small :
+             * pic_cover_micro :
+             * pic_size_micro :
+             * pic_spec_micro :
+             * upload_time : 1515831634
+             * upload_type : 0
+             * domain :
+             * bucket :
+             */
+
+            private String pic_id;
+            private String shop_id;
+            private String album_id;
+            private String is_wide;
+            private String pic_name;
+            private String pic_tag;
+            private String pic_cover;
+            private String pic_size;
+            private String pic_spec;
+            private String pic_cover_big;
+            private String pic_size_big;
+            private String pic_spec_big;
+            private String pic_cover_mid;
+            private String pic_size_mid;
+            private String pic_spec_mid;
+            private String pic_cover_small;
+            private String pic_size_small;
+            private String pic_spec_small;
+            private String pic_cover_micro;
+            private String pic_size_micro;
+            private String pic_spec_micro;
+            private String upload_time;
+            private String upload_type;
+            private String domain;
+            private String bucket;
+
+            public String getPic_id() {
+                return pic_id;
+            }
+
+            public void setPic_id(String pic_id) {
+                this.pic_id = pic_id;
+            }
+
+            public String getShop_id() {
+                return shop_id;
+            }
+
+            public void setShop_id(String shop_id) {
+                this.shop_id = shop_id;
+            }
+
+            public String getAlbum_id() {
+                return album_id;
+            }
+
+            public void setAlbum_id(String album_id) {
+                this.album_id = album_id;
+            }
+
+            public String getIs_wide() {
+                return is_wide;
+            }
+
+            public void setIs_wide(String is_wide) {
+                this.is_wide = is_wide;
+            }
+
+            public String getPic_name() {
+                return pic_name;
+            }
+
+            public void setPic_name(String pic_name) {
+                this.pic_name = pic_name;
+            }
+
+            public String getPic_tag() {
+                return pic_tag;
+            }
+
+            public void setPic_tag(String pic_tag) {
+                this.pic_tag = pic_tag;
+            }
+
+            public String getPic_cover() {
+                return pic_cover;
+            }
+
+            public void setPic_cover(String pic_cover) {
+                this.pic_cover = pic_cover;
+            }
+
+            public String getPic_size() {
+                return pic_size;
+            }
+
+            public void setPic_size(String pic_size) {
+                this.pic_size = pic_size;
+            }
+
+            public String getPic_spec() {
+                return pic_spec;
+            }
+
+            public void setPic_spec(String pic_spec) {
+                this.pic_spec = pic_spec;
+            }
+
+            public String getPic_cover_big() {
+                return pic_cover_big;
+            }
+
+            public void setPic_cover_big(String pic_cover_big) {
+                this.pic_cover_big = pic_cover_big;
+            }
+
+            public String getPic_size_big() {
+                return pic_size_big;
+            }
+
+            public void setPic_size_big(String pic_size_big) {
+                this.pic_size_big = pic_size_big;
+            }
+
+            public String getPic_spec_big() {
+                return pic_spec_big;
+            }
+
+            public void setPic_spec_big(String pic_spec_big) {
+                this.pic_spec_big = pic_spec_big;
+            }
+
+            public String getPic_cover_mid() {
+                return pic_cover_mid;
+            }
+
+            public void setPic_cover_mid(String pic_cover_mid) {
+                this.pic_cover_mid = pic_cover_mid;
+            }
+
+            public String getPic_size_mid() {
+                return pic_size_mid;
+            }
+
+            public void setPic_size_mid(String pic_size_mid) {
+                this.pic_size_mid = pic_size_mid;
+            }
+
+            public String getPic_spec_mid() {
+                return pic_spec_mid;
+            }
+
+            public void setPic_spec_mid(String pic_spec_mid) {
+                this.pic_spec_mid = pic_spec_mid;
+            }
+
+            public String getPic_cover_small() {
+                return pic_cover_small;
+            }
+
+            public void setPic_cover_small(String pic_cover_small) {
+                this.pic_cover_small = pic_cover_small;
+            }
+
+            public String getPic_size_small() {
+                return pic_size_small;
+            }
+
+            public void setPic_size_small(String pic_size_small) {
+                this.pic_size_small = pic_size_small;
+            }
+
+            public String getPic_spec_small() {
+                return pic_spec_small;
+            }
+
+            public void setPic_spec_small(String pic_spec_small) {
+                this.pic_spec_small = pic_spec_small;
+            }
+
+            public String getPic_cover_micro() {
+                return pic_cover_micro;
+            }
+
+            public void setPic_cover_micro(String pic_cover_micro) {
+                this.pic_cover_micro = pic_cover_micro;
+            }
+
+            public String getPic_size_micro() {
+                return pic_size_micro;
+            }
+
+            public void setPic_size_micro(String pic_size_micro) {
+                this.pic_size_micro = pic_size_micro;
+            }
+
+            public String getPic_spec_micro() {
+                return pic_spec_micro;
+            }
+
+            public void setPic_spec_micro(String pic_spec_micro) {
+                this.pic_spec_micro = pic_spec_micro;
+            }
+
+            public String getUpload_time() {
+                return upload_time;
+            }
+
+            public void setUpload_time(String upload_time) {
+                this.upload_time = upload_time;
+            }
+
+            public String getUpload_type() {
+                return upload_type;
+            }
+
+            public void setUpload_type(String upload_type) {
+                this.upload_type = upload_type;
+            }
+
+            public String getDomain() {
+                return domain;
+            }
+
+            public void setDomain(String domain) {
+                this.domain = domain;
+            }
+
+            public String getBucket() {
+                return bucket;
+            }
+
+            public void setBucket(String bucket) {
+                this.bucket = bucket;
+            }
         }
     }
 }

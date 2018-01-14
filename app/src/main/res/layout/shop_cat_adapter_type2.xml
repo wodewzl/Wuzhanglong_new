@@ -76,7 +76,8 @@
                     android:id="@+id/delete_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/delete"/>
+                    android:src="@drawable/delete"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
             </LinearLayout>
 
             <LinearLayout

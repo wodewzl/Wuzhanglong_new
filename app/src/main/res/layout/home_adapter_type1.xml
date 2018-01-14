@@ -24,6 +24,8 @@
                 android:layout_weight="1"
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/home_menu_1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 android:gravity="center"
                 android:text="手机话费" />
 
@@ -34,6 +36,8 @@
                 android:layout_weight="1"
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/home_menu_2"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 android:gravity="center"
                 android:text="电费" />
 
@@ -44,6 +48,8 @@
                 android:layout_weight="1"
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/home_menu_3"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 android:gravity="center"
                 android:text="生活服务" />
 
@@ -54,6 +60,8 @@
                 android:layout_weight="1"
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/home_menu_4"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 android:gravity="center"
                 android:text="网费" />
         </LinearLayout>
@@ -71,6 +79,8 @@
                 android:layout_weight="1"
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/home_menu_5"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 android:gravity="center"
                 android:text="房屋出租" />
 
@@ -80,6 +90,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/home_menu_6"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 android:gravity="center"
                 android:text="招聘" />
 
@@ -90,6 +102,8 @@
                 android:layout_weight="1"
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/home_menu_7"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 android:gravity="center"
                 android:text="汇率" />
 
@@ -100,6 +114,8 @@
                 android:layout_weight="1"
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/home_menu_8"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 android:gravity="center"
                 android:text="黄页" />
         </LinearLayout>

@@ -6,30 +6,60 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import com.bigkoo.pickerview.OptionsPickerView;
+import com.dou361.dialogui.DialogUIUtils;
+import com.dou361.dialogui.adapter.TieAdapter;
+import com.dou361.dialogui.bean.BuildBean;
+import com.dou361.dialogui.bean.TieBean;
+import com.dou361.dialogui.listener.DialogUIItemListener;
 import com.nanchen.compresshelper.CompressHelper;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.constant.BaseConstant;
+import com.wuzhanglong.library.http.HttpGetDataUtil;
+import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
+import com.wzl.feifubao.application.AppApplication;
+import com.wzl.feifubao.constant.Constant;
+import com.wzl.feifubao.mode.CityVO;
+import com.wzl.feifubao.mode.HouseOptionVO;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class HouseAddActivity extends BaseActivity  implements BGASortableNinePhotoLayout.Delegate{
+public class HouseAddActivity extends BaseActivity implements BGASortableNinePhotoLayout.Delegate, View.OnClickListener, PostCallback {
     private static final int PRC_PHOTO_PICKER = 1;
     private static final int RC_CHOOSE_PHOTO = 1;
     private static final int RC_PHOTO_PREVIEW = 2;
     private BGASortableNinePhotoLayout mPhotoLayout;
     public ArrayList<String> mSelectList = new ArrayList<>();
     private List<File> mOneFiles = new ArrayList<>();
+    private HouseOptionVO.DataBean mOptionDataBean;
+    private EditText mParams1Et, mParams3Et, mParams5Et, mParams8Et, mParams14Et, mParams15Et;
+    private TextView mParams2Tv, mParams4Tv, mParams6Tv, mParams7Tv, mParams9Tv, mParams10Tv, mParams11Tv, mParams12Tv, mParams13Tv;
+    private String mParams2, mParams3, mParams4, mParams5, mParams6, mParams7, mParams9, mParams10, mParams11, mParams12, mParams13;
+    private String mType = "2";
+    private ArrayList<CityVO.DataBean> options1Items = new ArrayList<>();
+    private ArrayList<ArrayList<CityVO.DataBean.CitysBean>> options2Items = new ArrayList<>();
+    private ArrayList<ArrayList<ArrayList<CityVO.DataBean.CitysBean.DistrictsBean>>> options3Items = new ArrayList<>();
+    private String mProvinceId, mCityId, mAreaId;
+    private String mHouseId="";
+
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.activity_add_house);
@@ -37,25 +67,87 @@ public class HouseAddActivity extends BaseActivity  implements BGASortableNinePh
 
     @Override
     public void initView() {
+        mBaseTitleTv.setText("发布租房信息");
+        mBaseOkTv.setText("发布");
         mPhotoLayout = getViewById(R.id.phone_layout);
         mPhotoLayout.setMaxItemCount(9);
         mPhotoLayout.setEditable(true);//有加号，有删除，可以点加号选择，false没有加号，点其他按钮选择，也没有删除
         mPhotoLayout.setPlusEnable(true);//有加号，可以点加号选择，false没有加号，点其他按钮选择
         mPhotoLayout.setSortable(true);//排序
+        mParams2Tv = getViewById(R.id.params2_tv);
+
+        mParams4Tv = getViewById(R.id.params4_tv);
+
+        mParams6Tv = getViewById(R.id.params6_tv);
+        mParams7Tv = getViewById(R.id.params7_tv);
+        mParams9Tv = getViewById(R.id.params9_tv);
+        mParams10Tv = getViewById(R.id.params10_tv);
+        mParams11Tv = getViewById(R.id.params11_tv);
+        mParams12Tv = getViewById(R.id.params12_tv);
+        mParams13Tv = getViewById(R.id.params13_tv);
+        mParams1Et = getViewById(R.id.params1_et);
+        mParams8Et = getViewById(R.id.params8_et);
+        mParams3Et = getViewById(R.id.params3_et);
+        mParams5Et = getViewById(R.id.params5_et);
+        mParams14Et = getViewById(R.id.params14_et);
+        mParams15Et = getViewById(R.id.params15_et);
     }
 
     @Override
     public void bindViewsListener() {
         mPhotoLayout.setDelegate(this);
+        mParams2Tv.setOnClickListener(this);
+        mParams4Tv.setOnClickListener(this);
+        mParams6Tv.setOnClickListener(this);
+        mParams7Tv.setOnClickListener(this);
+        mParams9Tv.setOnClickListener(this);
+        mParams10Tv.setOnClickListener(this);
+        mParams11Tv.setOnClickListener(this);
+        mParams12Tv.setOnClickListener(this);
+        mParams13Tv.setOnClickListener(this);
+        mBaseOkTv.setOnClickListener(this);
     }
 
     @Override
     public void getData() {
-
+        HashMap<String, Object> map = new HashMap<>();
+        HttpGetDataUtil.get(mActivity, this, Constant.HOUSE_LIST_OPTION_URL, map, HouseOptionVO.class);
+        HttpGetDataUtil.get(mActivity, this, Constant.CITY_URL, map, CityVO.class);
     }
 
     @Override
     public void hasData(BaseVO vo) {
+        if (vo instanceof HouseOptionVO) {
+            HouseOptionVO houseOptionVO = (HouseOptionVO) vo;
+            mOptionDataBean = houseOptionVO.getData();
+        } else {
+            CityVO cityVO = (CityVO) vo;
+            options1Items = (ArrayList<CityVO.DataBean>) cityVO.getData();
+
+            for (int i = 0; i < options1Items.size(); i++) {//遍历省份
+                ArrayList<CityVO.DataBean.CitysBean> CityList = new ArrayList<>();//该省的城市列表（第二级）
+                ArrayList<ArrayList<CityVO.DataBean.CitysBean.DistrictsBean>> Province_AreaList = new ArrayList<>();//该省的所有地区列表（第三极）
+
+                for (int c = 0; c < options1Items.get(i).getCitys().size(); c++) {//遍历该省份的所有城市
+                    CityVO.DataBean.CitysBean city = options1Items.get(i).getCitys().get(c);
+                    CityList.add(city);//添加城市
+                    ArrayList<CityVO.DataBean.CitysBean.DistrictsBean> City_AreaList = new ArrayList<>();//该城市的所有地区列表
+                    //如果无地区数据，建议添加空字符串，防止数据为null 导致三个选项长度不匹配造成崩溃
+                    if (options1Items.get(i).getCitys().get(c).getDistricts() == null
+                            || options1Items.get(i).getCitys().get(c).getDistricts().size() == 0) {
+                        City_AreaList.add(new CityVO.DataBean.CitysBean.DistrictsBean());
+                    } else {
+                        for (int d = 0; d < options1Items.get(i).getCitys().get(c).getDistricts().size(); d++) {//该城市对应地区所有数据
+                            CityVO.DataBean.CitysBean.DistrictsBean districts = options1Items.get(i).getCitys().get(c).getDistricts().get(d);
+                            City_AreaList.add(districts);//添加该城市所有地区数据
+                        }
+                    }
+                    Province_AreaList.add(City_AreaList);//添加该省所有地区数据
+                }
+                options2Items.add(CityList);
+                options3Items.add(Province_AreaList);
+            }
+        }
 
     }
 
@@ -68,6 +160,7 @@ public class HouseAddActivity extends BaseActivity  implements BGASortableNinePh
     public void noNet() {
 
     }
+
     @Override
     public void onClickAddNinePhotoItem(BGASortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, ArrayList<String> models) {
         choicePhotoWrapper(this, 9, BaseConstant.SDCARD_CACHE);
@@ -97,7 +190,7 @@ public class HouseAddActivity extends BaseActivity  implements BGASortableNinePh
     }
 
     @AfterPermissionGranted(PRC_PHOTO_PICKER)
-    public void choicePhotoWrapper(BaseActivity activity, int maxCount,String filePath) {
+    public void choicePhotoWrapper(BaseActivity activity, int maxCount, String filePath) {
         String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
         if (EasyPermissions.hasPermissions(activity, perms)) {
             // 拍照后照片的存放目录，改成你自己拍照后要存放照片的目录。如果不传递该参数的话就没有拍照功能
@@ -142,5 +235,243 @@ public class HouseAddActivity extends BaseActivity  implements BGASortableNinePh
             File newFile = CompressHelper.getDefault(HouseAddActivity.this).compressToFile(file);
             mOneFiles.add(newFile);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.params2_tv:
+                mType = "2";
+                selectData();
+                break;
+
+            case R.id.params4_tv:
+                mType = "4";
+                selectData();
+                break;
+
+            case R.id.params6_tv:
+                mType = "6";
+                selectData();
+                break;
+            case R.id.params7_tv:
+                mType = "7";
+                selectData();
+                break;
+            case R.id.params9_tv:
+                mType = "9";
+                selectData();
+                break;
+            case R.id.params10_tv:
+                mType = "10";
+                selectData();
+                break;
+            case R.id.params11_tv:
+                mType = "11";
+                selectData();
+                break;
+            case R.id.params12_tv:
+                mType = "12";
+                selectData();
+                break;
+            case R.id.params13_tv:
+                //条件选择器
+                OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+                    @Override
+                    public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                        //返回的分别是三个级别的选中位置
+                        String tx = options1Items.get(options1).getProvince_name()
+                                + options2Items.get(options1).get(option2).getCity_name();
+                        mParams13Tv.setText(tx);
+
+                        mProvinceId = options1Items.get(options1).getProvince_id();
+                        mCityId = options2Items.get(options1).get(option2).getCity_id();
+
+                    }
+                }).build();
+                pvOptions.setPicker(options1Items, options2Items, options3Items);
+                pvOptions.show();
+
+                break;
+
+            case R.id.base_ok_tv:
+                commit();
+                break;
+            default:
+                break;
+        }
+
+
+    }
+
+
+    public void selectData() {
+        final List<TieBean> datas = new ArrayList<TieBean>();
+        switch (mType) {
+            case "2":
+                for (int i = 0; i < mOptionDataBean.getRentingStyle().size(); i++) {
+                    datas.add(new TieBean(mOptionDataBean.getRentingStyle().get(i).getName(), BaseCommonUtils.parseInt(mOptionDataBean.getRentingStyle().get(i).getClass_id())));
+                }
+                break;
+            case "3":
+//                for (int i = 0; i <mOptionDataBean.getRentingStyle().size() ; i++) {
+//                    datas.add(new TieBean(mOptionDataBean.getRentingStyle().get(i).getName(),BaseCommonUtils.parseInt(mOptionDataBean.getRentingStyle().get(i).getClass_id())));
+//                }
+                break;
+            case "4":
+                for (int i = 0; i < mOptionDataBean.getHuxing().size(); i++) {
+                    datas.add(new TieBean(mOptionDataBean.getHuxing().get(i).getName(), BaseCommonUtils.parseInt(mOptionDataBean.getHuxing().get(i).getClass_id())));
+                }
+                break;
+            case "5":
+//                for (int i = 0; i <mOptionDataBean.getHuxing().size() ; i++) {
+//                    datas.add(new TieBean(mOptionDataBean.getRentingStyle().get(i).getName(),BaseCommonUtils.parseInt(mOptionDataBean.getRentingStyle().get(i).getClass_id())));
+//                }
+                break;
+            case "6":
+                for (int i = 0; i < mOptionDataBean.getHouseStyle().size(); i++) {
+                    datas.add(new TieBean(mOptionDataBean.getHouseStyle().get(i).getName(), BaseCommonUtils.parseInt(mOptionDataBean.getHouseStyle().get(i).getClass_id())));
+                }
+                break;
+            case "7":
+                for (int i = 0; i < mOptionDataBean.getPosition().size(); i++) {
+                    datas.add(new TieBean(mOptionDataBean.getPosition().get(i).getName(), BaseCommonUtils.parseInt(mOptionDataBean.getPosition().get(i).getClass_id())));
+                }
+                break;
+            case "9":
+                for (int i = 0; i < mOptionDataBean.getDecorateStyle().size(); i++) {
+                    datas.add(new TieBean(mOptionDataBean.getDecorateStyle().get(i).getName(), BaseCommonUtils.parseInt(mOptionDataBean.getDecorateStyle().get(i).getClass_id())));
+                }
+                break;
+
+            case "10":
+                for (int i = 0; i < mOptionDataBean.getFukuan().size(); i++) {
+                    datas.add(new TieBean(mOptionDataBean.getFukuan().get(i).getName(), BaseCommonUtils.parseInt(mOptionDataBean.getFukuan().get(i).getClass_id())));
+                }
+                break;
+            case "11":
+                for (int i = 0; i < mOptionDataBean.getLanguage().size(); i++) {
+                    datas.add(new TieBean(mOptionDataBean.getLanguage().get(i).getName(), BaseCommonUtils.parseInt(mOptionDataBean.getLanguage().get(i).getClass_id())));
+                }
+                break;
+            case "12":
+                for (int i = 0; i < mOptionDataBean.getTag().size(); i++) {
+                    datas.add(new TieBean(mOptionDataBean.getTag().get(i).getName(), BaseCommonUtils.parseInt(mOptionDataBean.getTag().get(i).getClass_id())));
+                }
+                break;
+            default:
+                break;
+        }
+
+        if (datas.size() == 0)
+            return;
+        final TieAdapter adapter = new TieAdapter(this, datas, true);
+        final BuildBean buildBean = DialogUIUtils.showMdBottomSheet(mActivity, true, "", datas, 0, new DialogUIItemListener() {
+            @Override
+            public void onItemClick(CharSequence text, int position) {
+                String str = (String) text;
+                switch (mType) {
+                    case "2":
+                        mParams2Tv.setText(str);
+                        mParams2 = datas.get(position).getId() + "";
+                        break;
+                    case "3":
+
+                        break;
+                    case "4":
+                        mParams4Tv.setText(str);
+                        mParams4 = datas.get(position).getId() + "";
+                        break;
+                    case "5":
+
+                        break;
+                    case "6":
+                        mParams6Tv.setText(str);
+                        mParams6 = str;
+                        break;
+                    case "7":
+                        mParams7Tv.setText(str);
+                        mParams7 = str;
+                        break;
+                    case "9":
+                        mParams9Tv.setText(str);
+                        mParams9 = str;
+                        break;
+
+                    case "10":
+                        mParams10Tv.setText(str);
+                        mParams10 = datas.get(position).getId() + "";
+                        break;
+                    case "11":
+                        mParams11Tv.setText(str);
+                        mParams11 = datas.get(position).getId() + "";
+                        break;
+                    case "12":
+                        mParams12Tv.setText(str);
+                        mParams12 = str;
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        });
+        buildBean.mAdapter = adapter;
+        buildBean.show();
+    }
+
+    public void commit() {
+//        HashMap<String, Object> map = new HashMap<>();
+//        map.put("house_id", mHouseId);
+//        map.put("house_name", mParams1Et.getText().toString());
+//        map.put("house_price", mParams3Et.getText().toString());
+//        map.put("house_tag", mParams12);
+//        map.put("class_id", BaseCommonUtils.parseInt(mParams4));
+//        map.put("pay_class_id", mParams10);
+//        map.put("house_area ", mParams5Et.getText().toString());
+//        map.put("province_id", BaseCommonUtils.parseInt(mProvinceId));
+//        map.put("city_id",BaseCommonUtils.parseInt(mCityId) );
+//        map.put("house_face", mParams7);
+//        map.put("house_floor", mParams8Et.getText().toString());
+//        map.put("house_decorate", mParams9);
+//        map.put("house_type", mParams6);
+//        map.put("house_details", mParams15Et.getText().toString());
+//        map.put("house_pic", "");
+//        map.put("house_phone", mParams14Et.getText().toString());
+//        map.put("house_language", mParams11);
+//        map.put("renting_style_id", BaseCommonUtils.parseInt(mParams2));
+//        HttpGetDataUtil.get(mActivity, this, Constant.HOUSE_LIST_OPTION_URL, map, HouseOptionVO.class);
+
+
+        MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        requestBody
+                .addFormDataPart("house_id", mHouseId)
+                .addFormDataPart("house_name", mParams1Et.getText().toString())
+                .addFormDataPart("house_price", mParams3Et.getText().toString())
+                .addFormDataPart("house_tag", mParams12)
+                .addFormDataPart("class_id", mParams4)
+                .addFormDataPart("pay_class_id", mParams10)
+                .addFormDataPart("house_area", mParams5Et.getText().toString())
+                .addFormDataPart("province_id", mProvinceId)
+                .addFormDataPart("city_id", mCityId)
+                .addFormDataPart("house_face", mParams7)
+                .addFormDataPart("house_floor", mParams8Et.getText().toString())
+                .addFormDataPart("house_decorate", mParams9)
+                .addFormDataPart("house_type", mParams6)
+                .addFormDataPart("house_details", mParams15Et.getText().toString())
+                .addFormDataPart("house_phone", mParams14Et.getText().toString())
+                .addFormDataPart("house_language", mParams11)
+                .addFormDataPart("renting_style_id", mParams2);
+
+        for (int i = 0; i < mOneFiles.size(); i++) {
+            requestBody.addFormDataPart("house_pic " + i, mOneFiles.get(i).getName(), RequestBody.create(MediaType.parse("image/*"), mOneFiles.get(i)));
+        }
+        MultipartBody rb = requestBody.build();
+        HttpGetDataUtil.post(this, Constant.HOUSE_ADD_URL, rb, BaseVO.class, this);
+    }
+
+    @Override
+    public void success(BaseVO vo) {
+
     }
 }

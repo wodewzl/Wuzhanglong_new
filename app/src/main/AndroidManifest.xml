@@ -76,9 +76,9 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <!-- 支付 -->
-        <activity android:name=".activity.ShopEvaluationActivity"></activity>
-        <activity android:name=".activity.UserInfoActivity"></activity>
-
+        <activity android:name=".activity.ShopEvaluationActivity" />
+        <activity android:name=".activity.UserInfoActivity" />
+        <activity android:name=".activity.HouseListOneActivity"></activity>
     </application>
 
 </manifest>

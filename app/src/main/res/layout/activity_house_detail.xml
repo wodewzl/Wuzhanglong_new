@@ -48,7 +48,8 @@
                 android:paddingRight="2dp"
                 android:text="配套齐全"
                 android:textColor="@color/FUBColor3"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tag2_tv"
@@ -59,7 +60,8 @@
                 android:paddingRight="2dp"
                 android:text="普通装修"
                 android:textColor="@color/FUBColor3"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/time_tv"
@@ -84,7 +86,7 @@
                 android:id="@+id/money_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2016元/月"
+
                 android:textColor="@color/FUBColor3"
                 android:textSize="11sp" />
 
@@ -94,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="2016元/月"
+
                 android:textColor="@color/C5"
                 android:textSize="11sp" />
         </LinearLayout>
@@ -159,7 +161,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/renting_style_tv"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="方式"
@@ -167,6 +169,7 @@
                     android:textSize="11sp" />
 
                 <TextView
+                    android:id="@+id/renting_style_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -240,58 +243,65 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:orientation="horizontal"
-          android:paddingLeft="15dp"
             android:background="@color/C1"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginRight="15dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:background="@color/C7"
-                    />
+                    android:background="@color/C7" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="吴章龙"
-                    android:textSize="10sp"/>
+                    android:textSize="10sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal"
                 android:background="@color/FUBColor6"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:drawableLeft="@drawable/house_5"
                     android:drawablePadding="5dp"
                     android:text="请求帮助"
-                    android:textColor="@color/C1"/>
+                    android:textColor="@color/C1" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal"
                 android:background="@color/FUBColor3"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:drawableLeft="@drawable/house_6"
                     android:drawablePadding="5dp"
                     android:text="呼叫房东"
-                    android:textColor="@color/C1"/>
+                    android:textColor="@color/C1" />
 
             </LinearLayout>
         </LinearLayout>

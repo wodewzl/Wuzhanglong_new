@@ -34,7 +34,8 @@
                 android:drawableLeft="@drawable/rate_7"
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical"
-                android:text="比索 PHP" />
+                android:text="比索 PHP"
+                android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -79,7 +80,8 @@
                 android:drawableLeft="@drawable/rate_1"
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical"
-                android:text="人民币 CNY" />
+                android:text="人民币 CNY"
+                android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
             <ImageView
                 android:layout_width="wrap_content"
