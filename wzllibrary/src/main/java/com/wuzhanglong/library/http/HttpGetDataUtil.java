@@ -12,9 +12,13 @@ import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.cache.ACache;
 import com.wuzhanglong.library.constant.BaseConstant;
 import com.wuzhanglong.library.interfaces.PostCallback;
+import com.wuzhanglong.library.interfaces.PostStringback;
 import com.wuzhanglong.library.interfaces.UpdateCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -72,7 +76,7 @@ public class HttpGetDataUtil {
                 .baseUrl(BaseConstant.DOMAIN_NAME)
                 .addCache(false)
                 .build()
-                .rxGet(BaseConstant.DOMAIN_NAME + url, params, new RxStringCallback() {
+                .rxGet(url, params, new RxStringCallback() {
                     @Override
                     public void onNext(Object o, String s) {
 
@@ -120,21 +124,24 @@ public class HttpGetDataUtil {
             @Override
             public void onError(Object o, Throwable throwable) {
                 System.out.println("=============");
+                activity.dismissProgressDialog();
             }
 
             @Override
             public void onCancel(Object o, Throwable throwable) {
                 System.out.println("=============");
+                activity.dismissProgressDialog();
+
             }
 
             @Override
             public void onNext(Object o, String s) {
-
+                activity.dismissProgressDialog();
                 BaseVO vo = (BaseVO) gson.fromJson(s, className);
                 if ("200".equals(vo.getCode())) {
                     postCallback.success(vo);
                 } else {
-                    activity.showCustomToast(vo.getDesc());
+                    activity.showCustomToast(vo.getMessage());
                 }
             }
         });
@@ -171,6 +178,49 @@ public class HttpGetDataUtil {
                 } else {
                     activity.showCustomToast(vo.getDesc());
                 }
+
+            }
+        });
+    }
+
+    public static <T> void postResult(final BaseActivity activity, final String url, final Map<String, Object> params, final PostStringback postCallback) {
+
+        final Gson gson = new Gson();
+//        final String allUrl = BaseConstant.DOMAIN_NAME + url;
+        new Novate.Builder(activity)
+                .baseUrl(BaseConstant.DOMAIN_NAME)
+                .addCache(false)
+                .build().rxPost(url, params, new RxStringCallback() {
+
+
+            @Override
+            public void onError(Object o, Throwable throwable) {
+                activity.dismissProgressDialog();
+                System.out.println("=============");
+            }
+
+            @Override
+            public void onCancel(Object o, Throwable throwable) {
+                activity.dismissProgressDialog();
+                System.out.println("=============");
+            }
+
+            @Override
+            public void onNext(Object o, String s) {
+                activity.dismissProgressDialog();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    String code = (String) jsonObject.get("code");
+                    if ("200".equals(code)) {
+                        postCallback.success(s);
+                    } else {
+//                        activity.showCustomToast(vo.getDesc());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
 
             }
         });

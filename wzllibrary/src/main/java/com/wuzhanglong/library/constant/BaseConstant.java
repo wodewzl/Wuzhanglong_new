@@ -8,7 +8,7 @@ public class BaseConstant {
 	public static final String LASTID = "lastid";
 	public static final String TRANSITION_ANIMATION_NEWS_PHOTOS = "transition_animation_news_photos";
 	public static final String CRM_CLIENT_OPTION = "api.php/Customer/option/";// 客户列表筛选条件
-		public static final String SDCARD_CACHE = "com.conveyor/files/"; // 文件sdk缓存
+		public static final String SDCARD_CACHE = "com.feifubao/files/"; // 文件sdk缓存
 
 
 
@@ -16,6 +16,6 @@ public class BaseConstant {
 
 //	public static final String DOMAIN_NAME = "http://zuche.test.beisheng.wang/index.php/";// 租车域名域名
 
-	public static  String DOMAIN_NAME = "http://183.95.85.31:8001/index.php/";//菲付宝
+	public static  String DOMAIN_NAME = "http://feidu.baonongkang.cn/index.php/";//菲付宝
 
 }
