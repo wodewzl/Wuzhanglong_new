@@ -1,14 +1,21 @@
 apply plugin: 'com.android.library'
 //apply plugin: 'com.android.application'
 android {
+    signingConfigs {
+        realse {
+            keyAlias 'wzl'
+            keyPassword 'wuzhanglong'
+            storeFile file('D:/studio_project/Wuzhanglong_new/wzllibrary/wodewzl.jks')
+            storePassword 'wuzhanglong'
+        }
+    }
     compileSdkVersion 27
     buildToolsVersion '27.0.1'
-
     defaultConfig {
 
 //        applicationId "com.wuzhanglong.baselibrary"
-        minSdkVersion 19
-        targetSdkVersion 27
+        minSdkVersion 21
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
 //        ndk { abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86","arm64-v8a","x86_64" }
@@ -18,9 +25,23 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.realse
+        }
+        debug {
+            signingConfig signingConfigs.realse
         }
     }
 
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion '25.3.0'
+                }
+            }
+        }
+    }
 }
 
 dependencies {
@@ -39,8 +60,7 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
 
     // -------------------- 九宫格图片选择显示 ----------------------------
-
-        compile 'cn.bingoogolapple:bga-photopicker:1.2.6'
+    compile 'cn.bingoogolapple:bga-photopicker:1.2.6'
     compile 'cn.bingoogolapple:bga-baseadapter:1.2.7'
 
     // -------------------- 九宫格图片选择显示----------------------------
@@ -71,7 +91,7 @@ dependencies {
     //            compile 'com.jaeger.statusbarutil:library:1.4.0'
 
     //底部tab
-    compile 'com.ashokvarma.android:bottom-navigation-bar:1.4.1'
+    compile 'com.ashokvarma.android:bottom-navigation-bar:2.0.4'
 
     //滑动返回
 
@@ -98,7 +118,7 @@ dependencies {
 
     //工具类
 
-    //        compile 'com.github.vondear:RxTools:v1.6.5'
+    //            compile 'com.github.vondear:RxTools:v1.7.6.4'
 
     //material
     compile 'com.github.rey5137:material:1.2.4'
@@ -170,12 +190,9 @@ dependencies {
 
     //沉浸式状态栏
     compile 'com.jaeger.statusbarutil:library:1.4.0'
-    compile ('com.dou361.dialogui:jjdxm-dialogui:1.0.2'){
+    compile('com.dou361.dialogui:jjdxm-dialogui:1.0.2') {
 // exclude group: 'com.android.support', module: 'support-v7'
 // exclude group: 'com.android.support', module: 'design'
     }
-//    compile 'com.dou361.dialogui:jjdxm-dialogui:x.x.x'
-    //多样式Dialog
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
-
 }
