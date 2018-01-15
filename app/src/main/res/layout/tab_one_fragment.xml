@@ -23,11 +23,25 @@
             android:textSize="16sp" />
     </LinearLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include
+                android:id="@+id/type1_layout"
+                layout="@layout/home_head_layout" />
+        </LinearLayout>
+    </ScrollView>
 
     <com.github.jdsjlzx.recyclerview.LuRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 
 
 </LinearLayout>

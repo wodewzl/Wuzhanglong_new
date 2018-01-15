@@ -3,7 +3,6 @@ package com.wzl.feifubao.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +13,10 @@ import android.widget.TextView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.squareup.picasso.Picasso;
-import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
-import com.wuzhanglong.library.utils.DividerUtil;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.activity.HouseDetailActivity;
 import com.wzl.feifubao.activity.HouseListActivity;
@@ -63,17 +60,17 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mActivity.mBaseHeadLayout.setVisibility(View.VISIBLE);
         mActivity.mBaseTitleTv.setText("菲付宝");
 
-
-        mRecyclerView = getViewById(R.id.recycler_view);
-        DividerDecoration divider = DividerUtil.linnerDivider(mActivity, R.dimen.dp_1, R.color.C3);
-        mRecyclerView.addItemDecoration(divider);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
-        mAdapter = new HomeAdapter(mRecyclerView);
-        mLuAdapter = new LuRecyclerViewAdapter(mAdapter);
-        mLuAdapter.addHeaderView(initHeadView());
-        mRecyclerView.setAdapter(mLuAdapter);
-        mRecyclerView.setLoadMoreEnabled(false);
+        initHeadView(view);
+//        mRecyclerView = getViewById(R.id.recycler_view);
+//        DividerDecoration divider = DividerUtil.linnerDivider(mActivity, R.dimen.dp_1, R.color.C3);
+//        mRecyclerView.addItemDecoration(divider);
+//        mRecyclerView.setHasFixedSize(true);
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
+//        mAdapter = new HomeAdapter(mRecyclerView);
+//        mLuAdapter = new LuRecyclerViewAdapter(mAdapter);
+//        mLuAdapter.addHeaderView(initHeadView());
+//        mRecyclerView.setAdapter(mLuAdapter);
+//        mRecyclerView.setLoadMoreEnabled(false);
     }
 
     @Override
@@ -86,7 +83,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mType1Tv06.setOnClickListener(this);
         mType1Tv07.setOnClickListener(this);
         mType1Tv08.setOnClickListener(this);
-        mAdapter.setOnRVItemClickListener(this);
+//        mAdapter.setOnRVItemClickListener(this);
     }
 
     @Override
@@ -100,7 +97,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         HomeVO homeVO = (HomeVO) vo;
 
         mDataBean = homeVO.getData();
-        mAdapter.updateData(mDataBean.getHouse());
+//        mAdapter.updateData(mDataBean.getHouse());
 
         if (mDataBean.getAdvs() == null || mDataBean.getAdvs().size() == 0) {
             mType2Layout.setVisibility(View.GONE);
@@ -109,7 +106,6 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
                 @Override
                 public void displayImage(Context context, Object o, ImageView imageView) {
 
-
                     final HomeVO.DataBean.AdvsBean bannerVO = (HomeVO.DataBean.AdvsBean) o;
                     Picasso.with(context).load(bannerVO.getAdv_image()).into(imageView);
                 }
@@ -117,7 +113,6 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
             mBanner.setImages(mDataBean.getAdvs());
             mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-//            mBanner.setBannerAnimation(Transformer.CubeIn);
             mBanner.setIndicatorGravity(BannerConfig.CENTER);
 
             mBanner.setOnBannerListener(new OnBannerListener() {
@@ -174,9 +169,9 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
     }
 
-    public View initHeadView() {
+    public View initHeadView(View header) {
 //        View header = LayoutInflater.from(mActivity).inflate(R.layout.home_head_layout, (ViewGroup) mActivity.findViewById(android.R.id.content), false);
-        View header = View.inflate(mActivity, R.layout.home_head_layout, null);
+//        View header = View.inflate(mActivity, R.layout.home_head_layout, null);
         mType1Tv01 = header.findViewById(R.id.type_01_tv);
         mType1Tv02 = header.findViewById(R.id.type_02_tv);
         mType1Tv03 = header.findViewById(R.id.type_03_tv);
