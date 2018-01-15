@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,26 +20,20 @@ import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
-import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.activity.HouseDetailActivity;
-import com.wzl.feifubao.activity.LifeActivity;
-import com.wzl.feifubao.activity.PhoneChargeActivity;
-import com.wzl.feifubao.activity.RateExchageActivity;
-import com.wzl.feifubao.activity.RateQueryActivity;
 import com.wzl.feifubao.activity.HouseListActivity;
 import com.wzl.feifubao.activity.JobOffersActivity;
-import com.wzl.feifubao.activity.JobOffersDetailActivity;
-import com.wzl.feifubao.activity.OrderSureActivity;
+import com.wzl.feifubao.activity.LifeActivity;
 import com.wzl.feifubao.activity.PayElectricityActivity;
+import com.wzl.feifubao.activity.PhoneChargeActivity;
+import com.wzl.feifubao.activity.RateQueryActivity;
 import com.wzl.feifubao.activity.YellowPagesActivity;
 import com.wzl.feifubao.adapter.HomeAdapter;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.HomeVO;
-import com.wzl.feifubao.mode.HouseListVO;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
@@ -115,7 +108,8 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
             mBanner.setImageLoader(new ImageLoader() {
                 @Override
                 public void displayImage(Context context, Object o, ImageView imageView) {
-                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+
                     final HomeVO.DataBean.AdvsBean bannerVO = (HomeVO.DataBean.AdvsBean) o;
                     Picasso.with(context).load(bannerVO.getAdv_image()).into(imageView);
                 }

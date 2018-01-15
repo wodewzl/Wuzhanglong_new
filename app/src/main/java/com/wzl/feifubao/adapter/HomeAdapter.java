@@ -40,6 +40,6 @@ public class HomeAdapter extends RecyclerBaseAdapter<HomeVO.DataBean.HouseBean> 
         helper.setText(R.id.desc_tv, houseBean.getApartment() + " | " + houseBean.getHouse_area() + "㎡" + " | " + houseBean.getProvince() + houseBean.getCity());
         TextView priceTv = helper.getTextView(R.id.money_tv);
         BaseCommonUtils.setTextTwoBefore(mContext, priceTv, houseBean.getHouse_price(), "元", R.color.FUBColor3, 1.3f);
-        helper.setText(R.id.tag_tv, houseBean.getHouse_tag());
+        helper.setText(R.id.tag_tv, houseBean.getHouse_face_name());
     }
 }

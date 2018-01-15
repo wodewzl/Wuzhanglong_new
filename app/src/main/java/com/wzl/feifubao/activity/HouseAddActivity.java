@@ -3,8 +3,6 @@ package com.wzl.feifubao.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -446,6 +444,7 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
         MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
         requestBody
                 .addFormDataPart("house_id", mHouseId)
+                .addFormDataPart("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid())
                 .addFormDataPart("house_name", mParams1Et.getText().toString())
                 .addFormDataPart("house_price", mParams3Et.getText().toString())
                 .addFormDataPart("house_tag", mParams12)
