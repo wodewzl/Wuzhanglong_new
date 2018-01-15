@@ -94,6 +94,10 @@
                 android:background="@color/C1"
                 android:gravity="right|center_vertical"
                 android:textSize="13sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="P"/>
         </LinearLayout>
 
         <LinearLayout
@@ -148,6 +152,10 @@
                 android:background="@color/C1"
                 android:gravity="right|center_vertical"
                 android:textSize="13sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="㎡"/>
         </LinearLayout>
 
         <LinearLayout
@@ -229,6 +237,10 @@
                 android:background="@color/C1"
                 android:gravity="right|center_vertical"
                 android:textSize="13sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="楼"/>
         </LinearLayout>
 
         <LinearLayout

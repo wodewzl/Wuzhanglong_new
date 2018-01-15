@@ -12,18 +12,23 @@ import com.alipay.android.phone.mrpc.core.NetworkUtils;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.interfaces.PostCallback;
+import com.wuzhanglong.library.interfaces.PostStringCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.UserInfoVO;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
-public class RegistActivity extends BaseActivity implements View.OnClickListener, PostCallback {
+public class RegistActivity extends BaseActivity implements View.OnClickListener, PostCallback, PostStringCallback {
     private EditText mEt01, mEt02, mEt03, mEt04;
-    private TextView mOkTv,mCodeTv;
+    private TextView mOkTv, mCodeTv;
     private boolean mCodeStae = true;
+    private String mCode = "";
 
     @Override
     public void baseSetContentView() {
@@ -39,7 +44,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         mEt04 = getViewById(R.id.et_04);
         mOkTv = getViewById(R.id.ok_tv);
         mOkTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.colorAccent, R.color.colorAccent));
-        mCodeTv=getViewById(R.id.code_tv);
+        mCodeTv = getViewById(R.id.code_tv);
         mCodeTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.colorAccent, R.color.colorAccent));
     }
 
@@ -81,6 +86,12 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     showCustomToast("请输入邮箱验证码");
                     return;
                 }
+
+                if (!mCode.equals(mEt02.getText().toString())) {
+                    showCustomToast("请输入正确的验证码");
+                    return;
+                }
+
                 if (TextUtils.isEmpty(mEt03.getText().toString())) {
                     showCustomToast("请输入密码");
                     return;
@@ -107,10 +118,13 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                         return;
                     }
 
-                    if(TextUtils.isEmpty(mEt01.getText().toString())){
+                    if (TextUtils.isEmpty(mEt01.getText().toString())) {
                         showCustomToast("请输入邮箱");
                         return;
                     }
+
+                    mCodeTv.setBackground(BaseCommonUtils.setBackgroundShap(RegistActivity.this, 5, R.color.C3_1, R.color.C3_1));
+
                     getCode();
                     DaoJishi();
                     mCodeStae = false;
@@ -143,8 +157,9 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
     public void commit() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("username", mEt01.getText().toString());
-        map.put("phone", mEt02.getText().toString());
+//        map.put("username", mEt01.getText().toString());
+        map.put("email", mEt01.getText().toString());
+//        map.put("phone", mEt01.getText().toString());
         map.put("password", mEt03.getText().toString());
         HttpGetDataUtil.post(this, Constant.REGIST_URL, map, UserInfoVO.class, this);
     }
@@ -152,12 +167,37 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     public void getCode() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("email", mEt01.getText().toString());
-        HttpGetDataUtil.post(this, Constant.REGIST_CODE_URL, map, this);
+        HttpGetDataUtil.postResult(this, Constant.REGIST_CODE_URL, map, this);
     }
 
     @Override
     public void success(BaseVO vo) {
-        showCustomToast("注册成功");
-        this.finish();
+        if (vo instanceof UserInfoVO) {
+            showCustomToast("注册成功");
+            this.finish();
+        } else {
+
+        }
+
+    }
+
+    @Override
+    public void success(String result) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(result);
+            String code = (String) jsonObject.get("code");
+            if ("200".equals(code)) {
+                showCustomToast("验证码发送成功，请查收");
+                mCode = (String) jsonObject.get("data");
+            } else {
+                showCustomToast("验证码发送失败，请从新发送");
+                mCodeStae = true;
+                mCodeTv.setBackground(BaseCommonUtils.setBackgroundShap(RegistActivity.this, 5, R.color.colorAccent, R.color.colorAccent));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }

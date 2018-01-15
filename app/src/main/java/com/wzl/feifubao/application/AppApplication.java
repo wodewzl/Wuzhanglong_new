@@ -2,6 +2,7 @@
 package com.wzl.feifubao.application;
 
 
+import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
@@ -17,7 +18,7 @@ import java.io.ObjectOutputStream;
 
 
 
-public class AppApplication extends BaseAppApplication {
+public class AppApplication extends Application {
     private static AppApplication mAppApplication;
     {
         PlatformConfig.setWeixin("wx2c13faa1a2947596","2b196a7043a25b3edc8c2813224c07fa");

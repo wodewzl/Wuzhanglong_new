@@ -65,24 +65,6 @@ public class HouseListAdapter extends RecyclerBaseAdapter<HouseListVO.DataBean.H
                 helper.getTextView(R.id.language4_tv).setVisibility(View.VISIBLE);
             }
 
-//            if (bean.getHouse_language_names().size()>=1) {
-//                helper.getTextView(R.id.language2_tv).setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.FUBColor13, R.color.FUBColor13));
-//                helper.getTextView(R.id.language2_tv).setVisibility(View.VISIBLE);
-//            } else {
-//                helper.getTextView(R.id.language2_tv).setVisibility(View.GONE);
-//            }
-//            if (!TextUtils.isEmpty(bean.getHouse_language_names().get(1))) {
-//                helper.getTextView(R.id.language3_tv).setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.FUBColor13, R.color.FUBColor13));
-//                helper.getTextView(R.id.language3_tv).setVisibility(View.VISIBLE);
-//            } else {
-//                helper.getTextView(R.id.language3_tv).setVisibility(View.GONE);
-//            }
-//            if (!TextUtils.isEmpty(bean.getHouse_language_names().get(2))) {
-//                helper.getTextView(R.id.language4_tv).setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.FUBColor13, R.color.FUBColor13));
-//                helper.getTextView(R.id.language4_tv).setVisibility(View.VISIBLE);
-//            } else {
-//                helper.getTextView(R.id.language4_tv).setVisibility(View.GONE);
-//            }
         } else {
             helper.getTextView(R.id.language2_tv).setVisibility(View.GONE);
             helper.getTextView(R.id.language3_tv).setVisibility(View.GONE);

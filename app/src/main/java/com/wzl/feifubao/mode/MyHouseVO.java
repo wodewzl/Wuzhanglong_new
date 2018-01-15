@@ -10,8 +10,9 @@ import java.util.List;
 
 public class MyHouseVO extends BaseVO{
 
+
     /**
-     * data : {"house":[{"house_id":"32","house_title":"整租 . 上海霞飞路 三室两厅","house_name":"上海霞飞路","house_type":"30","class_id":"6","house_area":"300","house_face":"31","house_price":"8888","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519f01ca7b4.png","renting_style_id":"18","province_id":"9","city_id":"73","house_decorate":"25","pay_class_id":"12","house_floor":"189","house_phone":"13871732009","house_details":"好房看看咯酷酷兔可口可乐了快快乐乐咯莫哦哦按摩","apartment":"三室两厅","renting_style":"整租","area":"上海市上海市"},{"house_id":"31","house_title":"合租 . 明发新城 三室两厅","house_name":"明发新城","house_type":"29","class_id":"6","house_area":"127","house_face":"32","house_price":"12345","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519f47a0800.png","renting_style_id":"19","province_id":"26","city_id":"286","house_decorate":"24","pay_class_id":"12","house_floor":"15","house_phone":"13720343158","house_details":"恐龙","apartment":"三室两厅","renting_style":"合租","area":"西藏自治区阿里地区"},{"house_id":"30","house_title":"合租 . 明发新城 三室两厅","house_name":"明发新城","house_type":"29","class_id":"6","house_area":"127","house_face":"32","house_price":"12345","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519f5437f93.png","renting_style_id":"19","province_id":"26","city_id":"286","house_decorate":"24","pay_class_id":"12","house_floor":"15","house_phone":"13720343150","house_details":"恐龙","apartment":"三室两厅","renting_style":"合租","area":"西藏自治区阿里地区"},{"house_id":"29","house_title":"合租 . 明发新城 三室两厅","house_name":"明发新城","house_type":"29","class_id":"6","house_area":"127","house_face":"32","house_price":"12345","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519f65604ca.png","renting_style_id":"19","province_id":"26","city_id":"286","house_decorate":"24","pay_class_id":"12","house_floor":"15","house_phone":"13720343150","house_details":"恐龙","apartment":"三室两厅","renting_style":"合租","area":"西藏自治区阿里地区"},{"house_id":"28","house_title":"合租 . 明发新城 三室两厅","house_name":"明发新城","house_type":"29","class_id":"6","house_area":"127","house_face":"32","house_price":"12345","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519f7d56d97.png","renting_style_id":"19","province_id":"26","city_id":"286","house_decorate":"24","pay_class_id":"12","house_floor":"15","house_phone":"13720343150","house_details":"恐龙","apartment":"三室两厅","renting_style":"合租","area":"西藏自治区阿里地区"},{"house_id":"27","house_title":"合租 . 明发新城 三室两厅","house_name":"明发新城","house_type":"29","class_id":"6","house_area":"127","house_face":"32","house_price":"12345","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519f922506b.png","renting_style_id":"19","province_id":"26","city_id":"286","house_decorate":"24","pay_class_id":"12","house_floor":"15","house_phone":"13720343150","house_details":"恐龙","apartment":"三室两厅","renting_style":"合租","area":"西藏自治区阿里地区"},{"house_id":"26","house_title":"合租 . 明发新城 三室两厅","house_name":"明发新城","house_type":"29","class_id":"6","house_area":"127","house_face":"32","house_price":"12345","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519fa2c0f5c.png","renting_style_id":"19","province_id":"26","city_id":"286","house_decorate":"24","pay_class_id":"12","house_floor":"15","house_phone":"13720343150","house_details":"恐龙","apartment":"三室两厅","renting_style":"合租","area":"西藏自治区阿里地区"},{"house_id":"25","house_title":"合租 . 明发新城 三室两厅","house_name":"明发新城","house_type":"29","class_id":"6","house_area":"127","house_face":"32","house_price":"12345","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519fb06e7d8.png","renting_style_id":"19","province_id":"26","city_id":"286","house_decorate":"24","pay_class_id":"12","house_floor":"15","house_phone":"13720343150","house_details":"恐龙空空的克隆不习惯吧","apartment":"三室两厅","renting_style":"合租","area":"西藏自治区阿里地区"},{"house_id":"24","house_title":"合租 . 明发新城 三室两厅","house_name":"明发新城","house_type":"29","class_id":"6","house_area":"127","house_face":"32","house_price":"12345","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519fc10e99d.png","renting_style_id":"19","province_id":"26","city_id":"286","house_decorate":"24","pay_class_id":"12","house_floor":"15","house_phone":"13720343150","house_details":"恐龙","apartment":"三室两厅","renting_style":"合租","area":"西藏自治区阿里地区"},{"house_id":"23","house_title":"合租 . 明发新城 三室两厅","house_name":"明发新城","house_type":"29","class_id":"6","house_area":"127","house_face":"32","house_price":"12345","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519fd243b96.png","renting_style_id":"19","province_id":"26","city_id":"286","house_decorate":"24","pay_class_id":"12","house_floor":"15","house_phone":"13720343150","house_details":"恐龙涂涂秀","apartment":"三室两厅","renting_style":"合租","area":"西藏自治区阿里地区"}],"total_count":"26","page_count":"3"}
+     * data : {"house":[{"house_id":"88","house_title":"","house_name":"吴二少","house_type":"别墅","class_id":"55","house_area":"132","house_face":"正南正北","house_price":"1358","house_language":"14","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5cd251c3817.jpeg","renting_style_id":"19","province_id":"40","city_id":"582","house_decorate":"中等装修","pay_class_id":"12","house_floor":"18","house_phone":"289666","house_details":"就问你租不租","status":"1","out_trade_no":"151603259394111000","house_language_names":["菲律宾语"],"pay_status":"0","pay_money":"0.10","pay_rmb":"0.01","apartment":"一室一厅","renting_style":"合租","area":"甲拉巴松大区八打雁市","decorateStyleName":"","positionName":""},{"house_id":"87","house_title":"","house_name":"吴二少","house_type":"别墅","class_id":"55","house_area":"132","house_face":"正南正北","house_price":"1358","house_language":"14","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5cd23d04f9a.jpeg","renting_style_id":"19","province_id":"40","city_id":"582","house_decorate":"中等装修","pay_class_id":"12","house_floor":"18","house_phone":"289666","house_details":"就问你租不租","status":"1","out_trade_no":"151603257346171000","house_language_names":["菲律宾语"],"pay_status":"0","pay_money":"0.10","pay_rmb":"0.01","apartment":"一室一厅","renting_style":"合租","area":"甲拉巴松大区八打雁市","decorateStyleName":"","positionName":""},{"house_id":"85","house_title":"","house_name":"吴章龙","house_type":"住宅","class_id":"57","house_area":"123","house_face":"正南正北","house_price":"123","house_language":"16","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5ccfb743103.jpeg","renting_style_id":"60","province_id":"35","city_id":"520","house_decorate":"中等装修","pay_class_id":"54","house_floor":"18","house_phone":"1836856856","house_details":"5句我们","status":"1","out_trade_no":"151603192785131000","house_language_names":["中文"],"pay_status":"0","pay_money":"0.10","pay_rmb":"0.01","apartment":"两室一厅","renting_style":"月租","area":"中米沙鄢杜马格特市","decorateStyleName":"","positionName":""}],"total_count":"3","page_count":"1"}
      */
 
     private DataBean data;
@@ -26,9 +27,9 @@ public class MyHouseVO extends BaseVO{
 
     public static class DataBean {
         /**
-         * house : [{"house_id":"32","house_title":"整租 . 上海霞飞路 三室两厅","house_name":"上海霞飞路","house_type":"30","class_id":"6","house_area":"300","house_face":"31","house_price":"8888","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519f01ca7b4.png","renting_style_id":"18","province_id":"9","city_id":"73","house_decorate":"25","pay_class_id":"12","house_floor":"189","house_phone":"13871732009","house_details":"好房看看咯酷酷兔可口可乐了快快乐乐咯莫哦哦按摩","apartment":"三室两厅","renting_style":"整租","area":"上海市上海市"},{"house_id":"31","house_title":"合租 . 明发新城 三室两厅","house_name":"明发新城","house_type":"29","class_id":"6","house_area":"127","house_face":"32","house_price":"12345","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519f47a0800.png","renting_style_id":"19","province_id":"26","city_id":"286","house_decorate":"24","pay_class_id":"12","house_floor":"15","house_phone":"13720343158","house_details":"恐龙","apartment":"三室两厅","renting_style":"合租","area":"西藏自治区阿里地区"},{"house_id":"30","house_title":"合租 . 明发新城 三室两厅","house_name":"明发新城","house_type":"29","class_id":"6","house_area":"127","house_face":"32","house_price":"12345","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519f5437f93.png","renting_style_id":"19","province_id":"26","city_id":"286","house_decorate":"24","pay_class_id":"12","house_floor":"15","house_phone":"13720343150","house_details":"恐龙","apartment":"三室两厅","renting_style":"合租","area":"西藏自治区阿里地区"},{"house_id":"29","house_title":"合租 . 明发新城 三室两厅","house_name":"明发新城","house_type":"29","class_id":"6","house_area":"127","house_face":"32","house_price":"12345","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519f65604ca.png","renting_style_id":"19","province_id":"26","city_id":"286","house_decorate":"24","pay_class_id":"12","house_floor":"15","house_phone":"13720343150","house_details":"恐龙","apartment":"三室两厅","renting_style":"合租","area":"西藏自治区阿里地区"},{"house_id":"28","house_title":"合租 . 明发新城 三室两厅","house_name":"明发新城","house_type":"29","class_id":"6","house_area":"127","house_face":"32","house_price":"12345","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519f7d56d97.png","renting_style_id":"19","province_id":"26","city_id":"286","house_decorate":"24","pay_class_id":"12","house_floor":"15","house_phone":"13720343150","house_details":"恐龙","apartment":"三室两厅","renting_style":"合租","area":"西藏自治区阿里地区"},{"house_id":"27","house_title":"合租 . 明发新城 三室两厅","house_name":"明发新城","house_type":"29","class_id":"6","house_area":"127","house_face":"32","house_price":"12345","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519f922506b.png","renting_style_id":"19","province_id":"26","city_id":"286","house_decorate":"24","pay_class_id":"12","house_floor":"15","house_phone":"13720343150","house_details":"恐龙","apartment":"三室两厅","renting_style":"合租","area":"西藏自治区阿里地区"},{"house_id":"26","house_title":"合租 . 明发新城 三室两厅","house_name":"明发新城","house_type":"29","class_id":"6","house_area":"127","house_face":"32","house_price":"12345","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519fa2c0f5c.png","renting_style_id":"19","province_id":"26","city_id":"286","house_decorate":"24","pay_class_id":"12","house_floor":"15","house_phone":"13720343150","house_details":"恐龙","apartment":"三室两厅","renting_style":"合租","area":"西藏自治区阿里地区"},{"house_id":"25","house_title":"合租 . 明发新城 三室两厅","house_name":"明发新城","house_type":"29","class_id":"6","house_area":"127","house_face":"32","house_price":"12345","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519fb06e7d8.png","renting_style_id":"19","province_id":"26","city_id":"286","house_decorate":"24","pay_class_id":"12","house_floor":"15","house_phone":"13720343150","house_details":"恐龙空空的克隆不习惯吧","apartment":"三室两厅","renting_style":"合租","area":"西藏自治区阿里地区"},{"house_id":"24","house_title":"合租 . 明发新城 三室两厅","house_name":"明发新城","house_type":"29","class_id":"6","house_area":"127","house_face":"32","house_price":"12345","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519fc10e99d.png","renting_style_id":"19","province_id":"26","city_id":"286","house_decorate":"24","pay_class_id":"12","house_floor":"15","house_phone":"13720343150","house_details":"恐龙","apartment":"三室两厅","renting_style":"合租","area":"西藏自治区阿里地区"},{"house_id":"23","house_title":"合租 . 明发新城 三室两厅","house_name":"明发新城","house_type":"29","class_id":"6","house_area":"127","house_face":"32","house_price":"12345","house_language":"15","house_pic":"http://183.95.85.31:8001/upload/house/5a519fd243b96.png","renting_style_id":"19","province_id":"26","city_id":"286","house_decorate":"24","pay_class_id":"12","house_floor":"15","house_phone":"13720343150","house_details":"恐龙涂涂秀","apartment":"三室两厅","renting_style":"合租","area":"西藏自治区阿里地区"}]
-         * total_count : 26
-         * page_count : 3
+         * house : [{"house_id":"88","house_title":"","house_name":"吴二少","house_type":"别墅","class_id":"55","house_area":"132","house_face":"正南正北","house_price":"1358","house_language":"14","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5cd251c3817.jpeg","renting_style_id":"19","province_id":"40","city_id":"582","house_decorate":"中等装修","pay_class_id":"12","house_floor":"18","house_phone":"289666","house_details":"就问你租不租","status":"1","out_trade_no":"151603259394111000","house_language_names":["菲律宾语"],"pay_status":"0","pay_money":"0.10","pay_rmb":"0.01","apartment":"一室一厅","renting_style":"合租","area":"甲拉巴松大区八打雁市","decorateStyleName":"","positionName":""},{"house_id":"87","house_title":"","house_name":"吴二少","house_type":"别墅","class_id":"55","house_area":"132","house_face":"正南正北","house_price":"1358","house_language":"14","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5cd23d04f9a.jpeg","renting_style_id":"19","province_id":"40","city_id":"582","house_decorate":"中等装修","pay_class_id":"12","house_floor":"18","house_phone":"289666","house_details":"就问你租不租","status":"1","out_trade_no":"151603257346171000","house_language_names":["菲律宾语"],"pay_status":"0","pay_money":"0.10","pay_rmb":"0.01","apartment":"一室一厅","renting_style":"合租","area":"甲拉巴松大区八打雁市","decorateStyleName":"","positionName":""},{"house_id":"85","house_title":"","house_name":"吴章龙","house_type":"住宅","class_id":"57","house_area":"123","house_face":"正南正北","house_price":"123","house_language":"16","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5ccfb743103.jpeg","renting_style_id":"60","province_id":"35","city_id":"520","house_decorate":"中等装修","pay_class_id":"54","house_floor":"18","house_phone":"1836856856","house_details":"5句我们","status":"1","out_trade_no":"151603192785131000","house_language_names":["中文"],"pay_status":"0","pay_money":"0.10","pay_rmb":"0.01","apartment":"两室一厅","renting_style":"月租","area":"中米沙鄢杜马格特市","decorateStyleName":"","positionName":""}]
+         * total_count : 3
+         * page_count : 1
          */
 
         private String total_count;
@@ -61,27 +62,35 @@ public class MyHouseVO extends BaseVO{
 
         public static class HouseBean {
             /**
-             * house_id : 32
-             * house_title : 整租 . 上海霞飞路 三室两厅
-             * house_name : 上海霞飞路
-             * house_type : 30
-             * class_id : 6
-             * house_area : 300
-             * house_face : 31
-             * house_price : 8888
-             * house_language : 15
-             * house_pic : http://183.95.85.31:8001/upload/house/5a519f01ca7b4.png
-             * renting_style_id : 18
-             * province_id : 9
-             * city_id : 73
-             * house_decorate : 25
+             * house_id : 88
+             * house_title :
+             * house_name : 吴二少
+             * house_type : 别墅
+             * class_id : 55
+             * house_area : 132
+             * house_face : 正南正北
+             * house_price : 1358
+             * house_language : 14
+             * house_pic : http://feidu.baonongkang.cn/upload/house/5a5cd251c3817.jpeg
+             * renting_style_id : 19
+             * province_id : 40
+             * city_id : 582
+             * house_decorate : 中等装修
              * pay_class_id : 12
-             * house_floor : 189
-             * house_phone : 13871732009
-             * house_details : 好房看看咯酷酷兔可口可乐了快快乐乐咯莫哦哦按摩
-             * apartment : 三室两厅
-             * renting_style : 整租
-             * area : 上海市上海市
+             * house_floor : 18
+             * house_phone : 289666
+             * house_details : 就问你租不租
+             * status : 1
+             * out_trade_no : 151603259394111000
+             * house_language_names : ["菲律宾语"]
+             * pay_status : 0
+             * pay_money : 0.10
+             * pay_rmb : 0.01
+             * apartment : 一室一厅
+             * renting_style : 合租
+             * area : 甲拉巴松大区八打雁市
+             * decorateStyleName :
+             * positionName :
              */
 
             private String house_id;
@@ -102,9 +111,17 @@ public class MyHouseVO extends BaseVO{
             private String house_floor;
             private String house_phone;
             private String house_details;
+            private String status;
+            private String out_trade_no;
+            private String pay_status;
+            private String pay_money;
+            private String pay_rmb;
             private String apartment;
             private String renting_style;
             private String area;
+            private String decorateStyleName;
+            private String positionName;
+            private List<String> house_language_names;
 
             public String getHouse_id() {
                 return house_id;
@@ -250,6 +267,46 @@ public class MyHouseVO extends BaseVO{
                 this.house_details = house_details;
             }
 
+            public String getStatus() {
+                return status;
+            }
+
+            public void setStatus(String status) {
+                this.status = status;
+            }
+
+            public String getOut_trade_no() {
+                return out_trade_no;
+            }
+
+            public void setOut_trade_no(String out_trade_no) {
+                this.out_trade_no = out_trade_no;
+            }
+
+            public String getPay_status() {
+                return pay_status;
+            }
+
+            public void setPay_status(String pay_status) {
+                this.pay_status = pay_status;
+            }
+
+            public String getPay_money() {
+                return pay_money;
+            }
+
+            public void setPay_money(String pay_money) {
+                this.pay_money = pay_money;
+            }
+
+            public String getPay_rmb() {
+                return pay_rmb;
+            }
+
+            public void setPay_rmb(String pay_rmb) {
+                this.pay_rmb = pay_rmb;
+            }
+
             public String getApartment() {
                 return apartment;
             }
@@ -272,6 +329,30 @@ public class MyHouseVO extends BaseVO{
 
             public void setArea(String area) {
                 this.area = area;
+            }
+
+            public String getDecorateStyleName() {
+                return decorateStyleName;
+            }
+
+            public void setDecorateStyleName(String decorateStyleName) {
+                this.decorateStyleName = decorateStyleName;
+            }
+
+            public String getPositionName() {
+                return positionName;
+            }
+
+            public void setPositionName(String positionName) {
+                this.positionName = positionName;
+            }
+
+            public List<String> getHouse_language_names() {
+                return house_language_names;
+            }
+
+            public void setHouse_language_names(List<String> house_language_names) {
+                this.house_language_names = house_language_names;
             }
         }
     }

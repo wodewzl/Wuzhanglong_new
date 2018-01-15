@@ -231,7 +231,7 @@ public class OrderFragment extends BaseFragment implements OnLoadMoreListener, S
                 final CheckBox payCb1 = (CheckBox) dialogView.findViewById(R.id.pay_cb_1);
                 final CheckBox payCb2 = (CheckBox) dialogView.findViewById(R.id.pay_cb_2);
                 Button payButton = (Button) dialogView.findViewById(R.id.commit_bt);
-                payButton.setBackgroundDrawable(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.C7, R.color.C7));
+                payButton.setBackgroundDrawable(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.colorAccent, R.color.colorAccent));
                 LinearLayout payLayout01 = (LinearLayout) dialogView.findViewById(R.id.pay_layout_01);
                 LinearLayout payLayout02 = (LinearLayout) dialogView.findViewById(R.id.pay_layout_02);
 
