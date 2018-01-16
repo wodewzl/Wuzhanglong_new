@@ -76,7 +76,6 @@ public class MainActivity extends HomeFragmentActivity implements PostCallback {
     protected void onDestroy() {
         super.onDestroy();
 
-        EventBus.getDefault().unregister(this);
     }
 
     @Override

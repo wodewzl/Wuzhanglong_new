@@ -2,6 +2,7 @@ package com.wzl.feifubao.mode;
 
 import com.wuzhanglong.library.mode.BaseVO;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -60,7 +61,7 @@ public class MyHouseVO extends BaseVO{
             this.house = house;
         }
 
-        public static class HouseBean {
+        public static class HouseBean implements Serializable{
             /**
              * house_id : 88
              * house_title :

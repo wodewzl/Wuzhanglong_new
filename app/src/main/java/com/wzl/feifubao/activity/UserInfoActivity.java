@@ -90,8 +90,12 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         mTextView02 = (TextView) findViewById(R.id.tv_02);
         mTextView03 = (TextView) findViewById(R.id.tv_03);
         mHeadImg = (CircleImageView) findViewById(R.id.head_img);
-//        if (AppApplication.getInstance().getUserInfoVO() != null)
-//            mTextView02.setText(AppApplication.getInstance().getUserInfoVO().getUsername());
+        if (AppApplication.getInstance().getUserInfoVO() != null) {
+            if (!TextUtils.isEmpty(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()))
+                Picasso.with(mActivity).load(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()).into(mHeadImg);
+            mTextView02.setText(AppApplication.getInstance().getUserInfoVO().getData().getUser_name());
+            mTextView03.setText(AppApplication.getInstance().getUserInfoVO().getData().getNick_name());
+        }
 
         File takePhotoDir = new File(Environment.getExternalStorageDirectory(), BaseConstant.SDCARD_CACHE);
         mPhotoHelper = new BGAPhotoHelper(takePhotoDir);
@@ -136,6 +140,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 showCustomToast("用户名无法修改！");
                 break;
             case R.id.layout_03:
+                showDialog();
                 break;
 
 
@@ -230,6 +235,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 File file = new File(mPhotoHelper.getCropFilePath());
                 mHeadImgFile = CompressHelper.getDefault(UserInfoActivity.this).compressToFile(file);
                 updateHeadImg(mHeadImgFile);
+                EventBus.getDefault().post(new EBMessageVO("update"));
             }
         } else {
             if (requestCode == REQUEST_CODE_CROP) {
@@ -239,10 +245,10 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
-    public void updateNickName(String nickName, File file) {
+    public void updateNickName() {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("nickname", nickName)
+                .addFormDataPart("nickname", mTextView03.getText().toString())
                 .addFormDataPart("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid())
                 .build();
         HttpGetDataUtil.post(UserInfoActivity.this, Constant.UPDATE_USERINFO_URL, requestBody, UserInfoVO.class, UserInfoActivity.this);
@@ -252,7 +258,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid())
-                .addFormDataPart("nickname", "ccc")
+                .addFormDataPart("nickname", mTextView03.getText().toString())
                 .addFormDataPart("file", mHeadImgFile.getName(), RequestBody.create(MediaType.parse("image/*"), mHeadImgFile))
                 .build();
         HttpGetDataUtil.post(UserInfoActivity.this, Constant.UPDATE_USERINFO_URL, requestBody, UserInfoVO.class, this);
@@ -263,59 +269,29 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
     }
 
-//    public void showDialog() {
-//        DialogUIUtils.init(UserInfoActivity.this);
-//        View rootView = View.inflate(MapActivity.this, R.layout.custom_dialog_layout, null);
-//        final EditText routeNameEt = rootView.findViewById(R.id.route_name_tv);
-//        final EditText startNumEt = rootView.findViewById(R.id.start_num_tv);
-//        final EditText endNumEt = rootView.findViewById(R.id.end_num_tv);
-//        TextView cancelTv = rootView.findViewById(R.id.cancle_tv);
-//        TextView okTv = rootView.findViewById(R.id.ok_tv);
-//        final BuildBean buildBean = DialogUIUtils.showCustomAlert(MapActivity.this, rootView);
-//        buildBean.show();
-//        cancelTv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                DialogUIUtils.dismiss(buildBean);
-//            }
-//        });
-//        okTv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mRouteName = routeNameEt.getText().toString();
-//                mStarNum = startNumEt.getText().toString();
-//                mEndNum = endNumEt.getText().toString();
-//                if (TextUtils.isEmpty(mRouteName)) {
-//                    showCustomToast("请填写线路名称");
-//                    return;
-//                }
-//                if (TextUtils.isEmpty(mStarNum)) {
-//                    showCustomToast("请填写起始编号");
-//                    return;
-//                }
-//                if (TextUtils.isEmpty(mEndNum)) {
-//                    showCustomToast("请填写结束编号");
-//                    return;
-//                }
-//
-//                new SweetAlertDialog(MapActivity.this, SweetAlertDialog.WARNING_TYPE)
-//                        .setTitleText("确定要路标吗?")
-////                            .setContentText("删除成功")
-//                        .setConfirmText("确定")
-//                        .setCancelText("取消")
-//                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                            @Override
-//                            public void onClick(SweetAlertDialog sDialog) {
-//                                commit();
-//                                sDialog.dismissWithAnimation();//直接消失
-//                            }
-//                        })
-//                        .show();
-//                DialogUIUtils.dismiss(buildBean);
-//
-//            }
-//        });
-//
-//    }
+    public void showDialog() {
+        DialogUIUtils.init(UserInfoActivity.this);
+        View rootView = View.inflate(UserInfoActivity.this, R.layout.custom_dialog_layout, null);
+        final EditText nickName = rootView.findViewById(R.id.nick_name_tv);
+
+        TextView cancelTv = rootView.findViewById(R.id.cancle_tv);
+        TextView okTv = rootView.findViewById(R.id.ok_tv);
+        final BuildBean buildBean = DialogUIUtils.showCustomAlert(UserInfoActivity.this, rootView);
+        buildBean.show();
+        cancelTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogUIUtils.dismiss(buildBean);
+            }
+        });
+        okTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateNickName();
+                EventBus.getDefault().post(new EBMessageVO("update"));
+            }
+        });
+
+    }
 
 }

@@ -39,6 +39,7 @@ import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.CityVO;
 import com.wzl.feifubao.mode.HouseAddVO;
 import com.wzl.feifubao.mode.HouseOptionVO;
+import com.wzl.feifubao.mode.MyHouseVO;
 
 import org.json.JSONObject;
 
@@ -72,7 +73,7 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
     private ArrayList<ArrayList<CityVO.DataBean.CitysBean>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<CityVO.DataBean.CitysBean.DistrictsBean>>> options3Items = new ArrayList<>();
     private String mProvinceId, mCityId, mAreaId;
-    private String mHouseId="";
+    private String mHouseId = "";
     private BottomSheetDialog mDialog;
 
     @Override
@@ -82,7 +83,7 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
 
     @Override
     public void initView() {
-        mBaseTitleTv.setText("发布租房信息");
+
         mBaseOkTv.setText("发布");
         mPhotoLayout = getViewById(R.id.phone_layout);
         mPhotoLayout.setMaxItemCount(9);
@@ -106,6 +107,32 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
         mParams5Et = getViewById(R.id.params5_et);
         mParams14Et = getViewById(R.id.params14_et);
         mParams15Et = getViewById(R.id.params15_et);
+
+        MyHouseVO.DataBean.HouseBean bean = (MyHouseVO.DataBean.HouseBean) this.getIntent().getSerializableExtra("bean");
+        String type = this.getIntent().getStringExtra("type");
+        if ("2".equals(type)) {
+            mBaseTitleTv.setText("编辑租房信息");
+            mParams1Et.setText(bean.getHouse_name());
+            mParams2Tv.setText(bean.getRenting_style());
+            mParams2 = bean.getRenting_style_id();
+            mParams3Et.setText(bean.getHouse_price());
+            mParams3 = bean.getHouse_price();
+            mParams4Tv.setText(bean.getApartment());
+            mParams4 = bean.getClass_id();
+            mParams5Et.setText(bean.getHouse_area());
+            mParams6Tv.setText(bean.getHouse_type());
+            mParams7Tv.setText(bean.getHouse_face());
+            mParams8Et.setText(bean.getHouse_floor());
+            mParams9Tv.setText(bean.getHouse_decorate());
+//            mParams10Tv.setText(bean.get);
+            mParams11Tv.setText(bean.getHouse_language());
+            mParams13Tv.setText(bean.getArea());
+            mParams14Et.setText(bean.getHouse_phone());
+            mParams15Et.setText(bean.getHouse_details());
+        } else {
+            mBaseTitleTv.setText("发布租房信息");
+        }
+
     }
 
     @Override
@@ -436,27 +463,6 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
     }
 
     public void commit() {
-//        HashMap<String, Object> map = new HashMap<>();
-//        map.put("house_id", mHouseId);
-//        map.put("house_name", mParams1Et.getText().toString());
-//        map.put("house_price", mParams3Et.getText().toString());
-//        map.put("house_tag", mParams12);
-//        map.put("class_id", BaseCommonUtils.parseInt(mParams4));
-//        map.put("pay_class_id", mParams10);
-//        map.put("house_area ", mParams5Et.getText().toString());
-//        map.put("province_id", BaseCommonUtils.parseInt(mProvinceId));
-//        map.put("city_id",BaseCommonUtils.parseInt(mCityId) );
-//        map.put("house_face", mParams7);
-//        map.put("house_floor", mParams8Et.getText().toString());
-//        map.put("house_decorate", mParams9);
-//        map.put("house_type", mParams6);
-//        map.put("house_details", mParams15Et.getText().toString());
-//        map.put("house_pic", "");
-//        map.put("house_phone", mParams14Et.getText().toString());
-//        map.put("house_language", mParams11);
-//        map.put("renting_style_id", BaseCommonUtils.parseInt(mParams2));
-//        HttpGetDataUtil.get(mActivity, this, Constant.HOUSE_LIST_OPTION_URL, map, HouseOptionVO.class);
-
 
         MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
         requestBody
@@ -464,7 +470,7 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
                 .addFormDataPart("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid())
                 .addFormDataPart("house_name", mParams1Et.getText().toString())
                 .addFormDataPart("house_price", mParams3Et.getText().toString())
-                .addFormDataPart("house_tag", mParams12)
+//                .addFormDataPart("house_tag", mParams12)
                 .addFormDataPart("class_id", mParams4)
                 .addFormDataPart("pay_class_id", mParams10)
                 .addFormDataPart("house_area", mParams5Et.getText().toString())
@@ -483,18 +489,18 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
             requestBody.addFormDataPart("house_pic " + i, mOneFiles.get(i).getName(), RequestBody.create(MediaType.parse("image/*"), mOneFiles.get(i)));
         }
         MultipartBody rb = requestBody.build();
-        HttpGetDataUtil.post(HouseAddActivity.this, Constant.HOUSE_ADD_URL, rb,  HouseAddVO.class,this);
+        HttpGetDataUtil.post(HouseAddActivity.this, Constant.HOUSE_ADD_URL, rb, HouseAddVO.class, this);
     }
 
     @Override
     public void success(BaseVO vo) {
-        if(vo instanceof HouseAddVO){
-            HouseAddVO.DataBean dataBean=((HouseAddVO) vo).getData();
+        if (vo instanceof HouseAddVO) {
+            HouseAddVO.DataBean dataBean = ((HouseAddVO) vo).getData();
             showPayDialog(dataBean);
         }
     }
 
-    public void commit(String orderNo, final String payType,String payMoney) {
+    public void commit(String orderNo, final String payType, String payMoney) {
         HashMap<String, Object> map = new HashMap<>();
 
         map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
@@ -538,7 +544,7 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
                                 public void payResult(int type) {
                                     ;
                                     if (type == 1) {
-                                   mActivity.openActivity(MyHouseActivity.class);
+                                        mActivity.openActivity(MyHouseActivity.class);
                                     } else {
                                         mActivity.showCustomToast("支付失败");
                                     }
@@ -558,7 +564,7 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
         });
     }
 
-    public void showPayDialog(final HouseAddVO.DataBean vo){
+    public void showPayDialog(final HouseAddVO.DataBean vo) {
         mDialog = new BottomSheetDialog(mActivity);
         View dialogView = View.inflate(mActivity, R.layout.pay_view, null);
         final CheckBox payCb1 = (CheckBox) dialogView.findViewById(R.id.pay_cb_1);
@@ -602,7 +608,7 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
                     payType = "1";
                 }
 
-                commit(vo.getOut_trade_no(), payType,vo.getPay_rmb());
+                commit(vo.getOut_trade_no(), payType, vo.getPay_rmb());
             }
         });
     }

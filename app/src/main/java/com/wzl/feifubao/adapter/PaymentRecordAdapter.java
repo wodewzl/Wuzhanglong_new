@@ -36,7 +36,8 @@ public class PaymentRecordAdapter extends RecyclerBaseAdapter<PaymentRecordsVO.D
         PaymentRecordsVO.DataBeanX.DataBean vo = (PaymentRecordsVO.DataBeanX.DataBean) model;
         PaymentRecordsVO.DataBeanX.DataBean dataBean = (PaymentRecordsVO.DataBeanX.DataBean) this.getData().get(position);
         if ("1".equals(dataBean.getTypeView())) {
-            helper.setText(R.id.title_tv, vo.getCreate_time().split("-")[2]+"月");
+
+            helper.setText(R.id.title_tv, vo.getCreate_time().split("-")[1]+"月");
         } else {
             helper.setText(R.id.title_tv, vo.getSku_name());
             helper.setText(R.id.time_tv, vo.getCreate_time());

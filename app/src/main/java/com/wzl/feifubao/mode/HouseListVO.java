@@ -2,6 +2,7 @@ package com.wzl.feifubao.mode;
 
 import com.wuzhanglong.library.mode.BaseVO;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -70,7 +71,7 @@ public class HouseListVO extends BaseVO {
             this.advs = advs;
         }
 
-        public static class HouseBean {
+        public static class HouseBean implements Serializable{
             /**
              * house_id : 81
              * house_title : 合租 . 恐龙 两室两厅

@@ -113,7 +113,7 @@ public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreLi
             if(paymentRecordsVO.getData().getData().size()-1==i){
                 break;
             }
-            if(!paymentRecordsVO.getData().getData().get(i).getCreate_time().equals(paymentRecordsVO.getData().getData().get(i+1).getCreate_time())){
+            if(!paymentRecordsVO.getData().getData().get(i).getCreate_time().split("-")[1].equals(paymentRecordsVO.getData().getData().get(i+1).getCreate_time().split("-")[1])){
                 PaymentRecordsVO.DataBeanX.DataBean titleBean=new PaymentRecordsVO.DataBeanX.DataBean();
                 titleBean.setTypeView("1");
                 titleBean.setCreate_time(paymentRecordsVO.getData().getData().get(i+1).getCreate_time());

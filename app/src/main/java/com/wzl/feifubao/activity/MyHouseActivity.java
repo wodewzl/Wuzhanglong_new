@@ -52,13 +52,14 @@ import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 import retrofit2.http.POST;
 
 public class MyHouseActivity extends BaseActivity implements BGAOnRVItemClickListener, OnLoadMoreListener,
-        SwipeRefreshLayout.OnRefreshListener ,PostCallback{
+        SwipeRefreshLayout.OnRefreshListener, PostCallback {
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private LuRecyclerView mRecyclerView;
     private MyHouseAdapter mAdapter;
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
     private BottomSheetDialog mDialog;
+
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.activity_my_house);
@@ -90,7 +91,7 @@ public class MyHouseActivity extends BaseActivity implements BGAOnRVItemClickLis
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("page", mCurrentPage+"");
+        map.put("page", mCurrentPage + "");
         map.put("pagesize", "10");
         map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
         HttpGetDataUtil.get(mActivity, this, Constant.MY_HOUSE_LIST_URL, map, MyHouseVO.class);
@@ -100,7 +101,7 @@ public class MyHouseActivity extends BaseActivity implements BGAOnRVItemClickLis
     public void hasData(BaseVO vo) {
         MyHouseVO myHouseVO = (MyHouseVO) vo;
 
-        if (BaseCommonUtils.parseInt(myHouseVO.getData().getPage_count())==1 ) {
+        if (BaseCommonUtils.parseInt(myHouseVO.getData().getPage_count()) == 1) {
             mRecyclerView.setLoadMoreEnabled(false);
         }
         if (mCurrentPage == BaseCommonUtils.parseInt(myHouseVO.getData().getPage_count())) {
@@ -150,6 +151,7 @@ public class MyHouseActivity extends BaseActivity implements BGAOnRVItemClickLis
 
 
     }
+
     @Override
     public void onLoadMore() {
         isLoadMore = true;
@@ -160,10 +162,10 @@ public class MyHouseActivity extends BaseActivity implements BGAOnRVItemClickLis
     @Override
     public void success(BaseVO vo) {
         showCustomToast("删除成功");
-       mAutoSwipeRefreshLayout.autoRefresh();
+        mAutoSwipeRefreshLayout.autoRefresh();
     }
 
-    public void showPayDialog(final MyHouseVO.DataBean.HouseBean vo){
+    public void showPayDialog(final MyHouseVO.DataBean.HouseBean vo) {
         mDialog = new BottomSheetDialog(mActivity);
         View dialogView = View.inflate(mActivity, R.layout.pay_view, null);
         final CheckBox payCb1 = (CheckBox) dialogView.findViewById(R.id.pay_cb_1);
@@ -207,12 +209,12 @@ public class MyHouseActivity extends BaseActivity implements BGAOnRVItemClickLis
                     payType = "1";
                 }
 
-                commit(vo.getOut_trade_no(), payType,vo.getPay_rmb());
+                commit(vo.getOut_trade_no(), payType, vo.getPay_rmb());
             }
         });
     }
 
-    public void commit(String orderNo, final String payType,String payMoney) {
+    public void commit(String orderNo, final String payType, String payMoney) {
         HashMap<String, Object> map = new HashMap<>();
 
         map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
@@ -274,5 +276,12 @@ public class MyHouseActivity extends BaseActivity implements BGAOnRVItemClickLis
 
             }
         });
+    }
+
+    public void editHouse(final MyHouseVO.DataBean.HouseBean bean) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("bean", bean);
+        bundle.putString("type", "2");
+        open(HouseAddActivity.class, bundle, 0);
     }
 }

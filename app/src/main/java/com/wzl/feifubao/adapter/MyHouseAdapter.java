@@ -80,6 +80,13 @@ public class MyHouseAdapter extends RecyclerBaseAdapter<MyHouseVO.DataBean.House
 
         TextView editTv= helper.getTextView(R.id.edit_tv);
         editTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity,30,R.color.colorAccent,R.color.C1));
+        editTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyHouseActivity activity= (MyHouseActivity) mActivity;
+                activity.editHouse(bean);
+            }
+        });
         TextView payTv= helper.getTextView(R.id.pay_tv);
         if("0".equals(bean.getPay_status())){
             payTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity,30,R.color.colorAccent,R.color.C1));

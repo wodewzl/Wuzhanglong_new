@@ -50,6 +50,7 @@
             android:layout_height="wrap_content"
             android:text="1000P"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textColor="@color/FUBColor3"/>
     </LinearLayout>
 </LinearLayout>

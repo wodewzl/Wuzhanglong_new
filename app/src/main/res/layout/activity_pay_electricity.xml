@@ -124,9 +124,13 @@
                 android:layout_weight="1"
                 android:background="@color/C1"
                 android:gravity="right|center_vertical"
-
                 android:textColor="@color/FUBColor3"
                 android:textSize="15sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="P"
+                android:textColor="@color/FUBColor3"/>
         </LinearLayout>
 
         <include layout="@layout/pay_type_view" />

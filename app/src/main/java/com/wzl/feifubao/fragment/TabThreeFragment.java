@@ -2,18 +2,23 @@ package com.wzl.feifubao.fragment;
 
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.activity.AddressActivity;
+import com.wzl.feifubao.activity.LoginActivity;
+import com.wzl.feifubao.activity.MainActivity;
 import com.wzl.feifubao.activity.MyHouseActivity;
 import com.wzl.feifubao.activity.MyOverActivity;
 import com.wzl.feifubao.activity.OrderActivity;
@@ -24,15 +29,19 @@ import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.MyMessageVO;
 import com.wzl.feifubao.mode.OrderVO;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.HashMap;
+import java.util.Set;
 
 import q.rorbin.badgeview.QBadgeView;
 
 public class TabThreeFragment extends BaseFragment implements View.OnClickListener {
-    private TextView mOrderTv01, mOrderTv02, mOrderTv03, mOrderTv04, mOrderTv05;
+    private TextView mOrderTv01, mOrderTv02, mOrderTv03, mOrderTv04, mOrderTv05,mNameTv,mDescTV;
     private LinearLayout mPhoneLayout, mDianLayout, mWangLayout, mHouseLayout, mLogoutLayout, mOverLayout, mAddressLayout,mOrderLayout;
     private QBadgeView mQBadgeView01, mQBadgeView02, mQBadgeView03, mQBadgeView04, mQBadgeView05;
-    private ImageView mMyInfoImg;
+    private ImageView mMyInfoImg,mHeadImg;
 
 
     @Override
@@ -43,6 +52,17 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void initView(View view) {
         mActivity.mBaseHeadLayout.setVisibility(View.GONE);
+        mHeadImg=getViewById(R.id.head_img);
+        mNameTv=getViewById(R.id.name_tv);
+        mDescTV=getViewById(R.id.desc_tv);
+        if(AppApplication.getInstance().getUserInfoVO()!=null){
+            if(!TextUtils.isEmpty(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()))
+            Picasso.with(mActivity).load(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()).into(mHeadImg);
+            mNameTv.setText(AppApplication.getInstance().getUserInfoVO().getData().getNick_name());
+            mDescTV.setText(AppApplication.getInstance().getUserInfoVO().getData().getUser_email());
+        }
+
+
         mMyInfoImg=getViewById(R.id.my_info_img);
         mOrderTv01 = getViewById(R.id.order_tv_01);
         mOrderTv02 = getViewById(R.id.order_tv_02);
@@ -90,6 +110,8 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
         mAddressLayout.setOnClickListener(this);
         mOrderLayout.setOnClickListener(this);
         mMyInfoImg.setOnClickListener(this);
+
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -174,8 +196,40 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
             case R.id.address_layout:
                 mActivity.openActivity(AddressActivity.class);
                 break;
+            case R.id.logout_layout:
+                AppApplication.getInstance().saveUserInfoVO(null);
+//                intent.setClass(MainActivity.this, LoginActivity.class);
+//                JPushInterface.setAlias(this, "", new TagAliasCallback() {
+//                    @Override
+//                    public void gotResult(int i, String s, Set<String> set) {
+//                    }
+//                });
+                break;
             default:
                 break;
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+    @Subscribe
+    public void onEvent(String event){
+
+    }
+
+    @Subscribe
+    public void onEventMainThread(EBMessageVO event) {
+        if ("update".equals(event.getMessage())) {
+            if(AppApplication.getInstance().getUserInfoVO()!=null){
+                if(!TextUtils.isEmpty(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()))
+                    Picasso.with(mActivity).load(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()).into(mHeadImg);
+                mNameTv.setText(AppApplication.getInstance().getUserInfoVO().getData().getNick_name());
+                mDescTV.setText(AppApplication.getInstance().getUserInfoVO().getData().getUser_email());
+            }
+        }
+    }
+
 }
