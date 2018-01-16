@@ -12,19 +12,15 @@ import com.alipay.android.phone.mrpc.core.NetworkUtils;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.interfaces.PostCallback;
-import com.wuzhanglong.library.interfaces.PostStringCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.UserInfoVO;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.HashMap;
 
-public class RegistActivity extends BaseActivity implements View.OnClickListener, PostCallback, PostStringCallback {
+public class RegistActivity extends BaseActivity implements View.OnClickListener, PostCallback{
     private EditText mEt01, mEt02, mEt03, mEt04;
     private TextView mOkTv, mCodeTv;
     private boolean mCodeStae = true;
@@ -165,9 +161,9 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     }
 
     public void getCode() {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("email", mEt01.getText().toString());
-        HttpGetDataUtil.postResult(this, Constant.REGIST_CODE_URL, map, this);
+//        HashMap<String, Object> map = new HashMap<>();
+//        map.put("email", mEt01.getText().toString());
+//        HttpGetDataUtil.postResult(this, Constant.REGIST_CODE_URL, map, this);
     }
 
     @Override
@@ -181,23 +177,23 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
     }
 
-    @Override
-    public void success(String result) {
-
-        try {
-            JSONObject jsonObject = new JSONObject(result);
-            String code = (String) jsonObject.get("code");
-            if ("200".equals(code)) {
-                showCustomToast("验证码发送成功，请查收");
-                mCode = (String) jsonObject.get("data");
-            } else {
-                showCustomToast("验证码发送失败，请从新发送");
-                mCodeStae = true;
-                mCodeTv.setBackground(BaseCommonUtils.setBackgroundShap(RegistActivity.this, 5, R.color.colorAccent, R.color.colorAccent));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
+//    @Override
+//    public void success(String result) {
+//
+//        try {
+//            JSONObject jsonObject = new JSONObject(result);
+//            String code = (String) jsonObject.get("code");
+//            if ("200".equals(code)) {
+//                showCustomToast("验证码发送成功，请查收");
+//                mCode = (String) jsonObject.get("data");
+//            } else {
+//                showCustomToast("验证码发送失败，请从新发送");
+//                mCodeStae = true;
+//                mCodeTv.setBackground(BaseCommonUtils.setBackgroundShap(RegistActivity.this, 5, R.color.colorAccent, R.color.colorAccent));
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 }

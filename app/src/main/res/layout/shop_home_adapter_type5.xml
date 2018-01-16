@@ -19,7 +19,9 @@
         android:layout_weight="1"
         android:text="限时抢购"
         android:textSize="15sp"
-        android:textColor="@color/FUBColor10"/>
+        android:textColor="@color/FUBColor10"
+        android:drawableLeft="@drawable/qiagngao"
+        android:drawablePadding="5dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

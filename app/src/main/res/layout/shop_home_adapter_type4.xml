@@ -1,39 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="160dp"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:background="@color/C1"
-    android:padding="10dp">
-
-
-
-
-
-    <ImageView
-        android:id="@+id/type4_img"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:background="@color/C1"/>
-
-    <TextView
-        android:id="@+id/type4_title_tv"
+              android:background="@color/C1"
+>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/typ4_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="5dp"
-        android:maxLines="3"
-        android:ellipsize="end"
-        android:lines="3"
-        android:text="我爱你" />
+        android:layout_height="170dp"
+        android:scrollbars="none"
 
-    <TextView
-        android:id="@+id/type4_money_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="349"
-        android:textColor="@color/FUBColor10"
-        android:paddingBottom="10dp"/>
+        android:layout_centerVertical="true"
+    >
+
+    </android.support.v7.widget.RecyclerView>
+
     </LinearLayout>
 

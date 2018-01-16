@@ -27,7 +27,7 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="手机话费" />
+                android:text="手机充值" />
 
             <TextView
                 android:id="@+id/type_02_tv"
@@ -39,7 +39,7 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="电费" />
+                android:text="缴纳电费" />
 
             <TextView
                 android:id="@+id/type_03_tv"
@@ -51,7 +51,7 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="生活服务" />
+                android:text="缴纳网费" />
 
             <TextView
                 android:id="@+id/type_04_tv"
@@ -63,7 +63,7 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="网费" />
+                android:text="菲度锦囊" />
         </LinearLayout>
 
         <LinearLayout
@@ -93,7 +93,7 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="招聘" />
+                android:text="求职招聘" />
 
             <TextView
                 android:id="@+id/type_07_tv"
@@ -105,7 +105,7 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="汇率" />
+                android:text="汇率查询" />
 
             <TextView
                 android:id="@+id/type_08_tv"
@@ -117,7 +117,7 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="黄页" />
+                android:text="黄企业页" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

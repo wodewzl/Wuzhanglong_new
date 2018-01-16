@@ -17,7 +17,6 @@ import com.wzl.feifubao.activity.ShopDetailActivity;
 import com.wzl.feifubao.adapter.ShopHomeAdapter;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.ShopHomeVO;
-import com.wzl.feifubao.mode.ShopVO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,11 +28,12 @@ import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
  * Created by wuzhanglong on 2018/1/1.
  */
 
-public class ShopHomeFragment extends BaseFragment implements  SwipeRefreshLayout.OnRefreshListener,BGAOnRVItemClickListener {
+public class ShopHomeFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BGAOnRVItemClickListener {
     private LuRecyclerView mRecyclerView;
     private ShopHomeAdapter mAdapter;
     private LuRecyclerViewAdapter mLuAdapter;
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
+
     public static BaseFragment newInstance() {
         BaseFragment fragment = new ShopHomeFragment();
         return fragment;
@@ -59,9 +59,7 @@ public class ShopHomeFragment extends BaseFragment implements  SwipeRefreshLayou
             @Override
             public int getSpanSize(int position) {
                 ShopHomeVO vo = (ShopHomeVO) mAdapter.getData().get(position);
-                if ("4".equals(vo.getType()) || "6".equals(vo.getType())) {
-                    return 2;
-                } else if ("9".equals(vo.getType())) {
+                if ("9".equals(vo.getType())) {
                     return 3;
                 } else {
                     return 6;
@@ -89,36 +87,53 @@ public class ShopHomeFragment extends BaseFragment implements  SwipeRefreshLayou
     public void hasData(BaseVO vo) {
         ShopHomeVO shopHomeVO = (ShopHomeVO) vo;
         List<ShopHomeVO> list = new ArrayList<>();
-        ShopHomeVO advs = new ShopHomeVO();
-        advs.setData(shopHomeVO.getData());
-        advs.setType("1");
-        list.add(advs);
-        ShopHomeVO articles = new ShopHomeVO();
-        articles.setData(shopHomeVO.getData());
-        articles.setType("2");
-        list.add(articles);
+        if (shopHomeVO.getData().getAdvs() != null && shopHomeVO.getData().getAdvs().size() > 0) {
+            ShopHomeVO advs = new ShopHomeVO();
+            advs.setData(shopHomeVO.getData());
+            advs.setType("1");
+            list.add(advs);
+        }
+        if (shopHomeVO.getData().getArticles() != null && shopHomeVO.getData().getArticles().size() > 0) {
+            ShopHomeVO articles = new ShopHomeVO();
+            articles.setData(shopHomeVO.getData());
+            articles.setType("2");
+            list.add(articles);
+        }
+
         if (shopHomeVO.getData().getTehui() != null) {
             ShopHomeVO tehuiTitle = new ShopHomeVO();
             tehuiTitle.setType("3");
             list.add(tehuiTitle);
-            List<ShopHomeVO> tehui = shopHomeVO.getData().getTehui();
-            for (int i = 0; i < tehui.size(); i++) {
-                ShopHomeVO tehuiVO = tehui.get(i);
-                tehuiVO.setType("4");
-                list.add(tehuiVO);
-            }
+//            List<ShopHomeVO> tehui = shopHomeVO.getData().getTehui();
+//            for (int i = 0; i < tehui.size(); i++) {
+//                ShopHomeVO tehuiVO = tehui.get(i);
+//                tehuiVO.setType("4");
+//                list.add(tehuiVO);
+//            }
+
+            ShopHomeVO tehui = new ShopHomeVO();
+            List<ShopHomeVO> tehuiList = shopHomeVO.getData().getTehui();
+            tehui.setTehui(tehuiList);
+            tehui.setType("4");
+            list.add(tehui);
         }
 
         if (shopHomeVO.getData().getXianshi() != null) {
             ShopHomeVO xianshiTitle = new ShopHomeVO();
             xianshiTitle.setType("5");
             list.add(xianshiTitle);
-            List<ShopHomeVO> xianshi = shopHomeVO.getData().getXianshi();
-            for (int i = 0; i < xianshi.size(); i++) {
-                ShopHomeVO xianshiVO = xianshi.get(i);
-                xianshiVO.setType("6");
-                list.add(xianshiVO);
-            }
+//            List<ShopHomeVO> xianshi = shopHomeVO.getData().getXianshi();
+//            for (int i = 0; i < xianshi.size(); i++) {
+//                ShopHomeVO xianshiVO = xianshi.get(i);
+//                xianshiVO.setType("6");
+//                list.add(xianshiVO);
+//            }
+
+            ShopHomeVO xianshi = new ShopHomeVO();
+            List<ShopHomeVO> xianshiList = shopHomeVO.getData().getXianshi();
+            xianshi.setXianshi(xianshiList);
+            xianshi.setType("6");
+            list.add(xianshi);
         }
 
         if (shopHomeVO.getData().getTuijianadvs() != null) {
@@ -162,21 +177,21 @@ public class ShopHomeFragment extends BaseFragment implements  SwipeRefreshLayou
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
-        if(mAdapter.getData().size()==0)
+        if (mAdapter.getData().size() == 0)
             return;
-        ShopHomeVO bean=mAdapter.getItem(position);
-        if("9".equals(bean.getType())){
-            Bundle bundle= new Bundle();
-            bundle.putString("id",bean.getGoods_id());
-            mActivity.open(ShopDetailActivity.class,bundle,0);
-        }else if("6".equals(bean.getType())){
-            Bundle bundle= new Bundle();
-            bundle.putString("id",bean.getGoods_id());
-            mActivity.open(ShopDetailActivity.class,bundle,0);
-        }else if("4".equals(bean.getType())){
-            Bundle bundle= new Bundle();
-            bundle.putString("id",bean.getGoods_id());
-            mActivity.open(ShopDetailActivity.class,bundle,0);
+        ShopHomeVO bean = mAdapter.getItem(position);
+        if ("9".equals(bean.getType())) {
+            Bundle bundle = new Bundle();
+            bundle.putString("id", bean.getGoods_id());
+            mActivity.open(ShopDetailActivity.class, bundle, 0);
+        } else if ("6".equals(bean.getType())) {
+            Bundle bundle = new Bundle();
+            bundle.putString("id", bean.getGoods_id());
+            mActivity.open(ShopDetailActivity.class, bundle, 0);
+        } else if ("4".equals(bean.getType())) {
+            Bundle bundle = new Bundle();
+            bundle.putString("id", bean.getGoods_id());
+            mActivity.open(ShopDetailActivity.class, bundle, 0);
         }
 
     }

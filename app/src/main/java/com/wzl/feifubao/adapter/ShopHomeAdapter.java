@@ -3,8 +3,8 @@ package com.wzl.feifubao.adapter;
 import android.content.Context;
 import android.graphics.Paint;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.widget.ImageView;
@@ -14,11 +14,9 @@ import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
-import com.wzl.feifubao.mode.HomeVO;
 import com.wzl.feifubao.mode.ShopHomeVO;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
@@ -74,24 +72,49 @@ public class ShopHomeAdapter extends RecyclerBaseAdapter<ShopHomeVO> {
             case "3":
                 break;
             case "4":
-                if (!TextUtils.isEmpty(vo.getPic_cover_small()))
-                    Picasso.with(mActivity).load(vo.getPic_cover_small()).into(helper.getImageView(R.id.type4_img));
-                helper.setText(R.id.type4_title_tv, vo.getGoods_name());
-                helper.setText(R.id.type4_money_tv, "￥" + vo.getPrice());
+                RecyclerView recyclerView = helper.getView(R.id.typ4_recycler_view);
+
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity);
+                linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                recyclerView.setLayoutManager(linearLayoutManager);
+                ShopHomeHorizontalAdapter adapter = new ShopHomeHorizontalAdapter(recyclerView);
+                recyclerView.setAdapter(adapter);
+
+                for (int i = 0; i <vo.getTehui().size() ; i++) {
+                    vo.getTehui().get(i).setType("4");
+                }
+                adapter.updateData(vo.getTehui());
+//                if (!TextUtils.isEmpty(vo.getPic_cover_small()))
+//                    Picasso.with(mActivity).load(vo.getPic_cover_small()).into(helper.getImageView(R.id.type4_img));
+//                helper.setText(R.id.type4_title_tv, vo.getGoods_name());
+//                helper.setText(R.id.type4_money_tv, "￥" + vo.getPrice());
                 break;
             case "5":
                 System.out.println("ddddddddddddddd");
                 break;
             case "6":
-                if (!TextUtils.isEmpty(vo.getPic_cover_small()))
-                    Picasso.with(mActivity).load(vo.getPic_cover_small()).into(helper.getImageView(R.id.type6_img));
-                helper.setText(R.id.type6_title_tv, vo.getGoods_name());
-                DecimalFormat df = new DecimalFormat("#.0");
-                if (!TextUtils.isEmpty(vo.getPrice()))
-                    helper.setText(R.id.type6_money_tv, "￥" + df.format(Double.parseDouble(vo.getPromotion_price())));
-                TextView yuanjian = helper.getTextView(R.id.type6_yuanjian_tv);
-                yuanjian.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                yuanjian.setText("￥" + df.format(Double.parseDouble(vo.getPrice())));
+                RecyclerView recyclerView6 = helper.getView(R.id.typ6_recycler_view);
+
+                LinearLayoutManager linearLayoutManager6 = new LinearLayoutManager(mActivity);
+                linearLayoutManager6.setOrientation(LinearLayoutManager.HORIZONTAL);
+                recyclerView6.setLayoutManager(linearLayoutManager6);
+                ShopHomeHorizontalAdapter adapter6 = new ShopHomeHorizontalAdapter(recyclerView6);
+                recyclerView6.setAdapter(adapter6);
+
+                for (int i = 0; i <vo.getXianshi().size() ; i++) {
+                    vo.getXianshi().get(i).setType("6");
+                }
+                adapter6.updateData(vo.getXianshi());
+
+//                if (!TextUtils.isEmpty(vo.getPic_cover_small()))
+//                    Picasso.with(mActivity).load(vo.getPic_cover_small()).into(helper.getImageView(R.id.type6_img));
+//                helper.setText(R.id.type6_title_tv, vo.getGoods_name());
+//                DecimalFormat df = new DecimalFormat("#.0");
+//                if (!TextUtils.isEmpty(vo.getPrice()))
+//                    helper.setText(R.id.type6_money_tv, "￥" + df.format(Double.parseDouble(vo.getPromotion_price())));
+//                TextView yuanjian = helper.getTextView(R.id.type6_yuanjian_tv);
+//                yuanjian.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+//                yuanjian.setText("￥" + df.format(Double.parseDouble(vo.getPrice())));
                 break;
             case "7":
                 if (!TextUtils.isEmpty(vo.getAdv_image()))
@@ -119,6 +142,9 @@ public class ShopHomeAdapter extends RecyclerBaseAdapter<ShopHomeVO> {
 
     @Override
     public int getItemViewType(int position) {
+        if(this.getData().size()==0){
+            return  super.getItemViewType(position);
+        }
         ShopHomeVO shopHomeVO = (ShopHomeVO) mData.get(position);
         int type = BaseCommonUtils.parseInt(shopHomeVO.getType());
         return getViewByType(type);
