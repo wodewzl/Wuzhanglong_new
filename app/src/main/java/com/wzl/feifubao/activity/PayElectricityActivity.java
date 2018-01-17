@@ -8,6 +8,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.TimePickerView;
 import com.google.gson.Gson;
 import com.rey.material.widget.CheckBox;
 import com.tamic.novate.Novate;
@@ -21,6 +22,7 @@ import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.mode.PayResult;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
+import com.wuzhanglong.library.utils.DateUtils;
 import com.wuzhanglong.library.utils.PayUtis;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.application.AppApplication;
@@ -29,14 +31,17 @@ import com.wzl.feifubao.mode.OrderCrateVO;
 
 import org.json.JSONObject;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 public class PayElectricityActivity extends BaseActivity implements View.OnClickListener, PostCallback, CompoundButton.OnCheckedChangeListener {
     private CheckBox mPayCb1, mPayCb2;
     private String mPayType = "2";
     private EditText mEt01,mEt02,mEt03,mEt04;
-    private TextView mOkTv;
+    private TextView mOkTv,mTv05;
     private String mType;
+
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.activity_pay_electricity);
@@ -54,6 +59,7 @@ public class PayElectricityActivity extends BaseActivity implements View.OnClick
 
         mEt02=getViewById(R.id.et_02);
         mEt04=getViewById(R.id.et_04);
+        mTv05=getViewById(R.id.tv_05);
         mPayCb1 = getViewById(R.id.pay_cb_1);
         mPayCb2 = getViewById(R.id.pay_cb_2);
         mOkTv = getViewById(R.id.ok_tv);
@@ -66,6 +72,7 @@ public class PayElectricityActivity extends BaseActivity implements View.OnClick
         mPayCb1.setOnCheckedChangeListener(this);
         mPayCb2.setOnCheckedChangeListener(this);
         mPayCb1.setChecked(true);
+        mTv05.setOnClickListener(this);
     }
 
     @Override
@@ -116,8 +123,29 @@ public class PayElectricityActivity extends BaseActivity implements View.OnClick
     }
 
     @Override
-    public void onClick(View view) {
-        commit();
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ok_tv:
+                commit();
+                break;
+
+            case R.id.tv_05:
+                //时间选择器
+                TimePickerView pvTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
+                    @Override
+                    public void onTimeSelect(Date date, View v) {//选中事件回调
+                        mTv05.setText("");
+                    }
+                })
+                        .build();
+//                pvTime.setDate(Calendar.getInstance());//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
+
+                 pvTime.show();
+                break;
+            default:
+                break;
+        }
+
     }
 
     @Override

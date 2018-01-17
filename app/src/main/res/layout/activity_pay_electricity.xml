@@ -132,7 +132,34 @@
                 android:text="P"
                 android:textColor="@color/FUBColor3"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:visibility="visible">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/date"
+                android:drawablePadding="8dp"
+                android:text="截止日期："
+                android:textColor="@color/C5" />
+
+            <TextView
+                android:id="@+id/tv_05"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/C1"
+                android:gravity="right|center_vertical"
+                android:textSize="13sp" />
+        </LinearLayout>
         <include layout="@layout/pay_type_view" />
 
         <TextView

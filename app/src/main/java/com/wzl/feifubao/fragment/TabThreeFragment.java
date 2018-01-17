@@ -110,7 +110,7 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
         mAddressLayout.setOnClickListener(this);
         mOrderLayout.setOnClickListener(this);
         mMyInfoImg.setOnClickListener(this);
-
+        mLogoutLayout.setOnClickListener(this);
         EventBus.getDefault().register(this);
     }
 
@@ -125,7 +125,6 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void hasData(BaseVO vo) {
         MyMessageVO myMessageVO= (MyMessageVO) vo;
-
         mQBadgeView01.setBadgeNumber(BaseCommonUtils.parseInt(myMessageVO.getData().getWait_pay()));
         mQBadgeView02.setBadgeNumber(BaseCommonUtils.parseInt(myMessageVO.getData().getWait_delivery()));
         mQBadgeView03.setBadgeNumber(BaseCommonUtils.parseInt(myMessageVO.getData().getWait_recieved()));
@@ -145,6 +144,11 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+
+        if(AppApplication.getInstance().getUserInfoVO()==null){
+            mActivity.openActivity(LoginActivity.class);
+            return;
+        }
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.my_info_img:
@@ -198,6 +202,7 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
                 break;
             case R.id.logout_layout:
                 AppApplication.getInstance().saveUserInfoVO(null);
+                logOut();
 //                intent.setClass(MainActivity.this, LoginActivity.class);
 //                JPushInterface.setAlias(this, "", new TagAliasCallback() {
 //                    @Override
@@ -230,6 +235,16 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
                 mDescTV.setText(AppApplication.getInstance().getUserInfoVO().getData().getUser_email());
             }
         }
+    }
+
+    public void logOut(){
+        mQBadgeView01.setBadgeNumber(0);
+        mQBadgeView02.setBadgeNumber(0);
+        mQBadgeView03.setBadgeNumber(0);
+        mQBadgeView04.setBadgeNumber(0);
+        mQBadgeView05.setBadgeNumber(0);
+        mNameTv.setText("点击登录");
+        mDescTV.setText("");
     }
 
 }

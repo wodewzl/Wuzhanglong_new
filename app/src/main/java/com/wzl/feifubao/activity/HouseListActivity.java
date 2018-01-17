@@ -38,6 +38,7 @@ import com.wuzhanglong.library.view.BSPopupWindowsTitle;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.adapter.HouseListAdapter;
 import com.wzl.feifubao.constant.Constant;
+import com.wzl.feifubao.mode.CityVO;
 import com.wzl.feifubao.mode.HouseListVO;
 import com.wzl.feifubao.mode.HouseOptionVO;
 import com.youth.banner.Banner;
@@ -46,6 +47,7 @@ import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -76,6 +78,7 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
     private int mDistanceY;
     private LinearLayout mTitleLayout;
     private TextView mBackTv;
+    private CityVO.DataBean mCityVO;
 
     @Override
     public void baseSetContentView() {
@@ -132,31 +135,31 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
         mType3Tv.setOnClickListener(this);
         mType4Tv.setOnClickListener(this);
 
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                //滑动的距离
-                mDistanceY += dy;
-                //toolbar的高度
-//                int toolbarHeight = mTitleLayout.getBottom();
-                int toolbarHeight = BaseCommonUtils.dip2px(mActivity, 200);
-                //当滑动的距离 <= toolbar高度的时候，改变Toolbar背景色的透明度，达到渐变的效果
-                if (mDistanceY <= toolbarHeight) {
-                    float scale = (float) mDistanceY / toolbarHeight;
-                    float alpha = scale * 255;
-                    mTitleLayout.setBackgroundColor(Color.argb((int) alpha, 28, 104, 239));
-//                    RxAnimationUtils.animationColorGradient(R.color.C15, R.color.C7, new onUpdateListener() {
-//                        @Override
-//                        public void onUpdate(int i) {
-//
-//                        }
-//                    });
-                } else {
-                    //将标题栏的颜色设置为完全不透明状态
-                    mTitleLayout.setBackgroundResource(R.color.colorAccent);
-                }
-            }
-        });
+//        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                //滑动的距离
+//                mDistanceY += dy;
+//                //toolbar的高度
+////                int toolbarHeight = mTitleLayout.getBottom();
+//                int toolbarHeight = BaseCommonUtils.dip2px(mActivity, 200);
+//                //当滑动的距离 <= toolbar高度的时候，改变Toolbar背景色的透明度，达到渐变的效果
+//                if (mDistanceY <= toolbarHeight) {
+//                    float scale = (float) mDistanceY / toolbarHeight;
+//                    float alpha = scale * 255;
+//                    mTitleLayout.setBackgroundColor(Color.argb((int) alpha, 28, 104, 239));
+////                    RxAnimationUtils.animationColorGradient(R.color.C15, R.color.C7, new onUpdateListener() {
+////                        @Override
+////                        public void onUpdate(int i) {
+////
+////                        }
+////                    });
+//                } else {
+//                    //将标题栏的颜色设置为完全不透明状态
+//                    mTitleLayout.setBackgroundResource(R.color.colorAccent);
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -164,6 +167,9 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
         if (mFlag) {
             HashMap<String, Object> map = new HashMap<>();
             HttpGetDataUtil.get(mActivity, this, Constant.HOUSE_LIST_OPTION_URL, map, HouseOptionVO.class);
+
+
+            HttpGetDataUtil.get(mActivity, this, Constant.CITY_URL, map, CityVO.class);
             mFlag = false;
         }
 
@@ -173,7 +179,9 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
         map.put("keyword", mKeyword);
         map.put("languageId", mLanguageId);
         map.put("provinceId", mProvinceId);
+        map.put("cityId", mCityId);
         map.put("payClassId", mPayClassId);
+
         map.put("rentingStyleId", mRentingStyleId);
         HttpGetDataUtil.get(mActivity, this, Constant.HOUSE_LIST_URL, map, HouseListVO.class);
     }
@@ -183,6 +191,13 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
         if (vo instanceof HouseOptionVO) {
             HouseOptionVO houseOptionVO = (HouseOptionVO) vo;
             mOptionDataBean = houseOptionVO.getData();
+
+        } else if (vo instanceof CityVO) {
+            CityVO cityVO = (CityVO) vo;
+
+            ArrayList<TreeVO> treeList = getTreeVOList((ArrayList<CityVO.DataBean>) cityVO.getData());
+            mOption2Pop = new BSPopupWindowsTitle(mActivity, treeList, callbackCity);
+
 
         } else if (vo instanceof HouseListVO) {
             HouseListVO houseListVO = (HouseListVO) vo;
@@ -335,9 +350,7 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
 
     @Override
     public void onRefresh() {
-        mCurrentPage = 1;
-        mKeyword = "";
-        getData();
+        match(0, "");
     }
 
 
@@ -388,7 +401,7 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
                 mLanguageId = value;
                 break;
             case 2:
-
+                mCityId = value;
                 break;
             case 3:
                 mPayClassId = value;
@@ -402,4 +415,52 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
         }
         mAutoSwipeRefreshLayout.autoRefresh();
     }
+
+
+    // 一级二级都带全部的菜单
+    public ArrayList<TreeVO> getTreeVOList(ArrayList<CityVO.DataBean> allList) {
+        ArrayList<TreeVO> treeList = new ArrayList<TreeVO>();
+        for (int i = 0; i < allList.size(); i++) {
+            CityVO.DataBean oneCityVO = allList.get(i);
+            TreeVO oneTreeVo = new TreeVO();
+            oneTreeVo.setSearchId(oneCityVO.getProvince_id());
+            oneTreeVo.setParentId(0);
+            oneTreeVo.setId(Integer.parseInt(oneCityVO.getProvince_id()));
+            oneTreeVo.setName(oneCityVO.getProvince_name());
+            oneTreeVo.setLevel(1);
+            if (oneCityVO.getCitys().size() > 0) {
+                oneTreeVo.setHaschild(true);
+            } else {
+                oneTreeVo.setHaschild(false);
+            }
+            treeList.add(oneTreeVo);
+            for (int j = 0; j < oneCityVO.getCitys().size(); j++) {
+                CityVO.DataBean.CitysBean twoCityVO = oneCityVO.getCitys().get(j);
+                TreeVO twoTreeVo = new TreeVO();
+                twoTreeVo.setSearchId(twoCityVO.getCity_id());
+                twoTreeVo.setName(twoCityVO.getCity_name());
+                twoTreeVo.setLevel(2);
+                twoTreeVo.setParentId(Integer.parseInt(oneCityVO.getProvince_id()));
+                twoTreeVo.setId(Integer.parseInt(twoCityVO.getCity_id()));
+                if (twoCityVO.getDistricts().size() > 0) {
+                    twoTreeVo.setHaschild(true);
+                } else {
+                    twoTreeVo.setHaschild(false);
+                }
+                treeList.add(twoTreeVo);
+
+            }
+        }
+        return treeList;
+    }
+
+    // 菜单点击回调函数
+    BSPopupWindowsTitle.TreeCallBack callbackCity = new BSPopupWindowsTitle.TreeCallBack() {
+        @Override
+        public void callback(TreeVO vo) {
+            mOptionsTv2.setText(vo.getName());
+            match(2, vo.getSearchId());
+
+        }
+    };
 }

@@ -16,6 +16,7 @@ import com.dou361.dialogui.adapter.TieAdapter;
 import com.dou361.dialogui.bean.BuildBean;
 import com.dou361.dialogui.bean.TieBean;
 import com.dou361.dialogui.listener.DialogUIItemListener;
+import com.dou361.dialogui.listener.DialogUIListener;
 import com.google.gson.Gson;
 import com.nanchen.compresshelper.CompressHelper;
 import com.rey.material.app.BottomSheetDialog;
@@ -108,30 +109,6 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
         mParams14Et = getViewById(R.id.params14_et);
         mParams15Et = getViewById(R.id.params15_et);
 
-        MyHouseVO.DataBean.HouseBean bean = (MyHouseVO.DataBean.HouseBean) this.getIntent().getSerializableExtra("bean");
-        String type = this.getIntent().getStringExtra("type");
-        if ("2".equals(type)) {
-            mBaseTitleTv.setText("编辑租房信息");
-            mParams1Et.setText(bean.getHouse_name());
-            mParams2Tv.setText(bean.getRenting_style());
-            mParams2 = bean.getRenting_style_id();
-            mParams3Et.setText(bean.getHouse_price());
-            mParams3 = bean.getHouse_price();
-            mParams4Tv.setText(bean.getApartment());
-            mParams4 = bean.getClass_id();
-            mParams5Et.setText(bean.getHouse_area());
-            mParams6Tv.setText(bean.getHouse_type());
-            mParams7Tv.setText(bean.getHouse_face());
-            mParams8Et.setText(bean.getHouse_floor());
-            mParams9Tv.setText(bean.getHouse_decorate());
-//            mParams10Tv.setText(bean.get);
-            mParams11Tv.setText(bean.getHouse_language());
-            mParams13Tv.setText(bean.getArea());
-            mParams14Et.setText(bean.getHouse_phone());
-            mParams15Et.setText(bean.getHouse_details());
-        } else {
-            mBaseTitleTv.setText("发布租房信息");
-        }
 
     }
 
@@ -190,6 +167,60 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
                 options3Items.add(Province_AreaList);
             }
         }
+
+        MyHouseVO.DataBean.HouseBean bean = (MyHouseVO.DataBean.HouseBean) this.getIntent().getSerializableExtra("bean");
+        String type = this.getIntent().getStringExtra("type");
+        if ("2".equals(type)) {
+            mHouseId=bean.getHouse_id();
+            mBaseTitleTv.setText("编辑租房信息");
+            mParams1Et.setText(bean.getHouse_name());
+            mParams2Tv.setText(bean.getRenting_style());
+            mParams2 = bean.getRenting_style_id();
+            mParams3Et.setText(bean.getHouse_price());
+            mParams3 = bean.getHouse_price();
+            mParams4Tv.setText(bean.getApartment());
+            mParams4 = bean.getClass_id();
+            mParams5Et.setText(bean.getHouse_area());
+            mParams5=bean.getHouse_area();
+            mParams6Tv.setText(bean.getHouse_type());
+            mParams6=bean.getHouse_type();
+            mParams7Tv.setText(bean.getHouse_face());
+            mParams7=bean.getHouse_face();
+            mParams8Et.setText(bean.getHouse_floor());
+
+            mParams9Tv.setText(bean.getHouse_decorate());
+            mParams9=bean.getHouse_decorate();
+            mParams10=bean.getPay_class_id();
+            for (int i = 0; i <mOptionDataBean.getFukuan().size() ; i++) {
+                if(bean.getPay_class_id().equals(mOptionDataBean.getFukuan().get(i).getClass_id())){
+                    mParams10Tv.setText(mOptionDataBean.getFukuan().get(i).getName());
+                }
+            }
+            mParams11 = bean.getHouse_language();
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < bean.getHouse_language().split(",").length; i++) {
+                for (int j = 0; j < mOptionDataBean.getLanguage().size() ; j++) {
+                    if(bean.getHouse_language().split(",")[i].equals( mOptionDataBean.getLanguage().get(i).getClass_id())){
+                        sb.append( mOptionDataBean.getLanguage().get(i).getName()).append("、");
+                       ;
+                        break;
+                    }
+                }
+            }
+
+            mParams11Tv.setText(sb.toString().substring(0, sb.toString().length() - 1));
+            mParams13Tv.setText(bean.getArea());
+            mParams14Et.setText(bean.getHouse_phone());
+            mParams15Et.setText(bean.getHouse_details());
+
+            mCityId=bean.getCity_id();
+            mProvinceId=bean.getProvince_id();
+
+            mParams13Tv.setText(bean.getArea());
+        } else {
+            mBaseTitleTv.setText("发布租房信息");
+        }
+
 
     }
 
@@ -310,11 +341,41 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
                 break;
             case R.id.params11_tv:
                 mType = "11";
-                selectData();
+//                selectData();
+                final String[] langue = new String[mOptionDataBean.getTag().size()];
+
+                for (int i = 0; i < mOptionDataBean.getLanguage().size(); i++) {
+//                    datas.add(new TieBean(mOptionDataBean.getTag().get(i).getName(), BaseCommonUtils.parseInt(mOptionDataBean.getTag().get(i).getClass_id())));
+                    langue[i] = mOptionDataBean.getLanguage().get(i).getName();
+                }
+
+                final boolean[] choseDefault = new boolean[]{false, false, false};
+                DialogUIUtils.showMdMultiChoose(HouseAddActivity.this, "选择语种", langue, choseDefault, new DialogUIListener() {
+                    @Override
+                    public void onPositive() {
+                        StringBuffer name = new StringBuffer();
+                        StringBuffer id = new StringBuffer();
+                        for (int i = 0; i < choseDefault.length; i++) {
+                            if (choseDefault[i]) {
+                                name.append(langue[i]).append("、");
+                                id.append(mOptionDataBean.getLanguage().get(i).getClass_id()).append(",");
+                            }
+                        }
+                        mParams11Tv.setText(name.toString().substring(0, name.length() - 1));
+                        mParams11 = id.toString().substring(0, id.length() - 1);
+                    }
+
+                    @Override
+                    public void onNegative() {
+
+                    }
+                }).show();
                 break;
             case R.id.params12_tv:
                 mType = "12";
-                selectData();
+//                selectData();
+
+
                 break;
             case R.id.params13_tv:
                 //条件选择器
@@ -324,14 +385,14 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
                         //返回的分别是三个级别的选中位置
                         String tx = options1Items.get(options1).getProvince_name()
                                 + options2Items.get(options1).get(option2).getCity_name();
-                        mParams13Tv.setText(tx);
+
 
                         mProvinceId = options1Items.get(options1).getProvince_id();
                         mCityId = options2Items.get(options1).get(option2).getCity_id();
 
                     }
                 }).build();
-                pvOptions.setPicker(options1Items, options2Items, options3Items);
+                pvOptions.setPicker(options1Items, options2Items);
                 pvOptions.show();
 
                 break;

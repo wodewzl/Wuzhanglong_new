@@ -235,7 +235,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 File file = new File(mPhotoHelper.getCropFilePath());
                 mHeadImgFile = CompressHelper.getDefault(UserInfoActivity.this).compressToFile(file);
                 updateHeadImg(mHeadImgFile);
-                EventBus.getDefault().post(new EBMessageVO("update"));
+
             }
         } else {
             if (requestCode == REQUEST_CODE_CROP) {
@@ -258,7 +258,6 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid())
-                .addFormDataPart("nickname", mTextView03.getText().toString())
                 .addFormDataPart("file", mHeadImgFile.getName(), RequestBody.create(MediaType.parse("image/*"), mHeadImgFile))
                 .build();
         HttpGetDataUtil.post(UserInfoActivity.this, Constant.UPDATE_USERINFO_URL, requestBody, UserInfoVO.class, this);
@@ -266,7 +265,9 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void success(BaseVO vo) {
-
+        UserInfoVO userInfoVO= (UserInfoVO) vo;
+        AppApplication.getInstance().saveUserInfoVO(userInfoVO);
+        EventBus.getDefault().post(new EBMessageVO("update"));
     }
 
     public void showDialog() {
@@ -287,8 +288,9 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         okTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mTextView03.setText(nickName.getText().toString());
                 updateNickName();
-                EventBus.getDefault().post(new EBMessageVO("update"));
+                DialogUIUtils.dismiss(buildBean);
             }
         });
 

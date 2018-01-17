@@ -167,7 +167,8 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
         final ShopChoseAdapter adapter = new ShopChoseAdapter(recyclerView);
         recyclerView.setAdapter(adapter);
         adapter.updateData(mList);
-
+        if(mList.size()==0)
+            recyclerView.setVisibility(View.GONE);
         TextView moneTv = dialogView.findViewById(R.id.money_tv);
         ImageView shopImg = dialogView.findViewById(R.id.shop_img);
         ImageView colseIm = dialogView.findViewById(R.id.colse_img);
@@ -208,42 +209,49 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
         okTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StringBuffer sb = new StringBuffer();
-                ComparatorObj comparator = new ComparatorObj();
-                List<ShopDetailVO.DataBean.SpecListBean.ValueBean> list = new ArrayList<>();
-                list.addAll(adapter.getData());
-                Collections.sort(list, comparator);
+                if (mList.size() == 0) {
 
-                for (int i = 0; i < list.size(); i++) {
-                    ShopDetailVO.DataBean.SpecListBean.ValueBean vo = (ShopDetailVO.DataBean.SpecListBean.ValueBean) list.get(i);
-                    if ("1".equals(vo.getSelect())) {
-                        sb.append(vo.getSpec_id()).append(":").append(vo.getSpec_value_id()).append(";");
-
-                    }
-                }
-                if (sb.length() == 0 || sb.toString().split(";").length != mDataBean.getSpec_list().size()) {
-                    showCustomToast("请选择商品");
-                    return;
-                }
-                String str = sb.toString().substring(0, sb.toString().length() - 1);
-                for (int i = 0; i < mDataBean.getSku_list().size(); i++) {
-                    if (str.equals(mDataBean.getSku_list().get(i).getAttr_value_items())) {
-                        mShopTypeTv.setText(mDataBean.getSku_list().get(i).getSku_name());
-                        mGoodName = mDataBean.getGoods_name();
-                        mGoodsId = mDataBean.getSku_list().get(i).getGoods_id();
-                        mGoodPrice = mDataBean.getSku_list().get(i).getPrice();
-                        mShopType = mDataBean.getSku_list().get(i).getSku_id() + ":" + mDataBean.getSku_list().get(i).getSku_name();
-                        break;
-                    }
-                }
-                if ("1".equals(mType)) {
-                    addCart();
                 } else {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("sku_list", mShopType.split(":")[0] + ":" + mCount);
-                    mActivity.open(OrderSureActivity.class, bundle, 0);
-                }
 
+
+                    StringBuffer sb = new StringBuffer();
+                    ComparatorObj comparator = new ComparatorObj();
+                    List<ShopDetailVO.DataBean.SpecListBean.ValueBean> list = new ArrayList<>();
+                    list.addAll(adapter.getData());
+                    Collections.sort(list, comparator);
+                    for (int i = 0; i < list.size(); i++) {
+                        ShopDetailVO.DataBean.SpecListBean.ValueBean vo = (ShopDetailVO.DataBean.SpecListBean.ValueBean) list.get(i);
+                        if ("1".equals(vo.getSelect())) {
+                            sb.append(vo.getSpec_id()).append(":").append(vo.getSpec_value_id()).append(";");
+
+                        }
+                    }
+                    if (sb.length() == 0 || sb.toString().split(";").length != mDataBean.getSpec_list().size()) {
+                        showCustomToast("请选择商品");
+                        return;
+                    }
+                    String str = sb.toString().substring(0, sb.toString().length() - 1);
+                    for (int i = 0; i < mDataBean.getSku_list().size(); i++) {
+                        if (str.equals(mDataBean.getSku_list().get(i).getAttr_value_items())) {
+                            mShopTypeTv.setText(mDataBean.getSku_list().get(i).getSku_name());
+                            mGoodName = mDataBean.getGoods_name();
+                            mGoodsId = mDataBean.getSku_list().get(i).getGoods_id();
+                            mGoodPrice = mDataBean.getSku_list().get(i).getPrice();
+                            mShopType = mDataBean.getSku_list().get(i).getSku_id() + ":" + mDataBean.getSku_list().get(i).getSku_name();
+                            break;
+                        }
+                    }
+
+
+                    if ("1".equals(mType)) {
+                        addCart();
+                    } else {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("sku_list", mShopType.split(":")[0] + ":" + mCount);
+                        mActivity.open(OrderSureActivity.class, bundle, 0);
+                    }
+
+                }
             }
         });
         mDialog.contentView(dialogView)

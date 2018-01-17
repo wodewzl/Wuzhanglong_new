@@ -128,10 +128,14 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
         List<MoneyVO> list = new ArrayList<>();
         for (int i = 0; i < mDataBean.getSpec_list().get(1).getValue().size(); i++) {
             MoneyVO moneyVO = new MoneyVO();
+            if(i==0)
+                moneyVO.setStatus("1");
             moneyVO.setMoney(mDataBean.getSpec_list().get(1).getValue().get(i).getSpec_value_name());
             moneyVO.setId(mDataBean.getSpec_list().get(1).getValue().get(i).getSpec_id() + ":" + mDataBean.getSpec_list().get(1).getValue().get(i).getSpec_value_id());
             list.add(moneyVO);
         }
+
+
         mAdapter.updateData(list);
 
     }

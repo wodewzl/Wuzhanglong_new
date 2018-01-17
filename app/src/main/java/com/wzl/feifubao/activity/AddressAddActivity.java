@@ -54,7 +54,7 @@ public class AddressAddActivity extends BaseActivity implements View.OnClickList
         mTv03 = getViewById(R.id.tv_03);
         mEt04 = getViewById(R.id.et_04);
         mAddBt = getViewById(R.id.add_bt);
-        mAddBt.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.C7, R.color.C7));
+        mAddBt.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.colorAccent, R.color.colorAccent));
     }
 
     @Override

@@ -36,7 +36,7 @@ public class MyHouseAdapter extends RecyclerBaseAdapter<MyHouseVO.DataBean.House
         if (!TextUtils.isEmpty(bean.getHouse_pic()))
         Picasso.with(mContext).load(bean.getHouse_pic()).into(houseImg);
         helper.setText(R.id.title_tv,bean.getHouse_title());
-        helper.setText(R.id.desc_tv, bean.getHouse_name()+"/"+bean.getApartment() + "/" + bean.getHouse_area() + "㎡" + "/" + bean.getHouse_face());
+        helper.setText(R.id.desc_tv, bean.getApartment() + "/" + bean.getHouse_area() + "㎡" + "/" + bean.getHouse_face());
 //        helper.setText(R.id.address_tv,bean.getArea());
         helper.setText(R.id.money_tv,bean.getHouse_price()+"/月");
 
