@@ -123,13 +123,12 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
             mBanner.start();
         }
 
-        if (mDataBean.getArticles() == null || mDataBean.getArticles().size() == 0) {
-            mType3Layout.setVisibility(View.GONE);
-        } else {
-
-            mType3v01Tv.setText(mDataBean.getArticles().get(0).getTitle());
-            mType3v02Tv.setText(mDataBean.getArticles().get(1).getTitle());
-        }
+//        if (mDataBean.getArticles() == null || mDataBean.getArticles().size() == 0) {
+//            mType3Layout.setVisibility(View.GONE);
+//        } else {
+//            mType3v01Tv.setText(mDataBean.getArticles().get(0).getTitle());
+//            mType3v02Tv.setText(mDataBean.getArticles().get(1).getTitle());
+//        }
 
         if (mDataBean.getHuo() == null || mDataBean.getHuo().size() == 0) {
             mType4Layout.setVisibility(View.GONE);
