@@ -32,7 +32,7 @@ public class AppApplication extends Application {
         mAppApplication = this;
 //        RxUtils.init(this);
 //        JPushInterface.setDebugMode(true);
-//        JPushInterface.init(this);
+        JPushInterface.init(this);
     }
 
     /** 获取Application */

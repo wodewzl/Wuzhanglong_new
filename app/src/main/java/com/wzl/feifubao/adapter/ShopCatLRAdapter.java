@@ -8,16 +8,11 @@ import android.widget.CompoundButton;
 import com.rey.material.widget.CheckBox;
 import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
-import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
-import com.wzl.feifubao.activity.MyHouseActivity;
 import com.wzl.feifubao.activity.ShopCartActivity;
-import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.ShopCatVO;
 import com.wzl.feifubao.view.NumberButton;
-
-import java.util.HashMap;
 
 import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -52,7 +47,7 @@ public class ShopCatLRAdapter extends RecyclerBaseAdapter<ShopCatVO> {
         int type = BaseCommonUtils.parseInt(dataBean.getType());
         if (type == 1) {
             if (!TextUtils.isEmpty(dataBean.getPicture()))
-                Picasso.with(mActivity).load(dataBean.getPic_cover_small()).into(helper.getImageView(R.id.shop_img));
+                Picasso.with(mActivity).load(dataBean.getPicture()).into(helper.getImageView(R.id.shop_img));
             helper.setText(R.id.name_tv, dataBean.getGoods_name());
             helper.setText(R.id.price_tv, dataBean.getPrice());
             NumberButton numberBt = helper.getView(R.id.number_bt);

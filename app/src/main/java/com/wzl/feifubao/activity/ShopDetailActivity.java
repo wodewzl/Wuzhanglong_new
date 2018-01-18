@@ -83,7 +83,7 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
         mBuyTv = getViewById(R.id.buy_tv);
         mShopTypeTv = getViewById(R.id.shop_type_tv);
         mCartLayout = getViewById(R.id.add_cart_layout);
-        mReboundScrollView=getViewById(R.id.scroll_view);
+        mReboundScrollView = getViewById(R.id.scroll_view);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -168,7 +168,7 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
         recyclerView.setAdapter(adapter);
         adapter.updateData(mList);
         if(mList.size()==0)
-            recyclerView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.INVISIBLE);
         TextView moneTv = dialogView.findViewById(R.id.money_tv);
         ImageView shopImg = dialogView.findViewById(R.id.shop_img);
         ImageView colseIm = dialogView.findViewById(R.id.colse_img);
@@ -188,7 +188,7 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if(adapter.getData().size()==0)
+                if (adapter.getData().size() == 0)
                     return 5;
                 ShopDetailVO.DataBean.SpecListBean.ValueBean vo = (ShopDetailVO.DataBean.SpecListBean.ValueBean) adapter.getData().get(position);
                 if (TextUtils.isEmpty(vo.getSpec_value_name())) {
@@ -210,10 +210,18 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onClick(View view) {
                 if (mList.size() == 0) {
-
+                    if ("1".equals(mType)) {
+                        mShopType=mDataBean.getSku_list().get(0).getSku_id();
+                        mGoodName = mDataBean.getGoods_name();
+                        mGoodsId = mDataBean.getGoods_id();
+                        mGoodPrice = mDataBean.getPrice();
+                        addCart();
+                    } else {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("sku_list", mShopType+":" + mCount);
+                        mActivity.open(OrderSureActivity.class, bundle, 0);
+                    }
                 } else {
-
-
                     StringBuffer sb = new StringBuffer();
                     ComparatorObj comparator = new ComparatorObj();
                     List<ShopDetailVO.DataBean.SpecListBean.ValueBean> list = new ArrayList<>();
@@ -237,7 +245,7 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
                             mGoodName = mDataBean.getGoods_name();
                             mGoodsId = mDataBean.getSku_list().get(i).getGoods_id();
                             mGoodPrice = mDataBean.getSku_list().get(i).getPrice();
-                            mShopType = mDataBean.getSku_list().get(i).getSku_id() + ":" + mDataBean.getSku_list().get(i).getSku_name();
+                            mShopType = mDataBean.getSku_list().get(i).getSku_id() ;
                             break;
                         }
                     }
@@ -247,7 +255,7 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
                         addCart();
                     } else {
                         Bundle bundle = new Bundle();
-                        bundle.putString("sku_list", mShopType.split(":")[0] + ":" + mCount);
+                        bundle.putString("sku_list", mShopType + ":" + mCount);
                         mActivity.open(OrderSureActivity.class, bundle, 0);
                     }
 

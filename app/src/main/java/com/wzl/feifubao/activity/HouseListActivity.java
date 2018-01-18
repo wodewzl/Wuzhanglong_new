@@ -2,11 +2,9 @@ package com.wzl.feifubao.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -276,16 +274,6 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
                 mOption1Pop.showAsDropDown(mDivider);
                 break;
             case R.id.options2_tv:
-                if (mOption2Pop == null) {
-                    String[] typeName = new String[mOptionDataBean.getRentingStyle().size()];
-                    String[] typeid = new String[mOptionDataBean.getRentingStyle().size()];
-                    for (int i = 0; i < mOptionDataBean.getRentingStyle().size(); i++) {
-                        typeName[i] = mOptionDataBean.getRentingStyle().get(i).getName();
-                        typeid[i] = mOptionDataBean.getRentingStyle().get(i).getClass_id();
-                    }
-                    List<TreeVO> typeList = BaseCommonUtils.getOneLeveTreeVoZero(typeName, typeid);
-                    mOption2Pop = new BSPopupWindowsTitle(mActivity, typeList, option1Callback, WidthHigthUtil.getScreenHigh(HouseListActivity.this) / 3);
-                }
                 mOption2Pop.showAsDropDown(mDivider);
                 break;
             case R.id.options3_tv:

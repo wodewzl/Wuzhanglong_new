@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
+    android:layout_height="150dp"
     android:gravity="center_horizontal"
     android:orientation="vertical"
               android:background="@color/C1"
@@ -9,7 +9,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/typ4_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="150dp"
         android:scrollbars="none"
 
         android:layout_centerVertical="true"

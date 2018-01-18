@@ -1,27 +1,16 @@
 package com.wzl.feifubao.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
-import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
-import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
@@ -35,14 +24,11 @@ import com.wuzhanglong.library.view.BSPopupWindowsTitle;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.adapter.HouseListAdapter;
 import com.wzl.feifubao.constant.Constant;
+import com.wzl.feifubao.mode.CityVO;
 import com.wzl.feifubao.mode.HouseListVO;
 import com.wzl.feifubao.mode.HouseOptionVO;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
-import com.youth.banner.listener.OnBannerListener;
-import com.youth.banner.loader.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -136,6 +122,13 @@ public class HouseListOneActivity extends BaseActivity implements BGAOnRVItemCli
             HouseOptionVO houseOptionVO = (HouseOptionVO) vo;
             mOptionDataBean = houseOptionVO.getData();
 
+        } else if (vo instanceof CityVO) {
+            CityVO cityVO = (CityVO) vo;
+
+            ArrayList<TreeVO> treeList = getTreeVOList((ArrayList<CityVO.DataBean>) cityVO.getData());
+            mOption2Pop = new BSPopupWindowsTitle(mActivity, treeList, callbackCity);
+
+
         } else if (vo instanceof HouseListVO) {
             HouseListVO houseListVO = (HouseListVO) vo;
             mAutoSwipeRefreshLayout.setRefreshing(false);
@@ -187,16 +180,6 @@ public class HouseListOneActivity extends BaseActivity implements BGAOnRVItemCli
                 mOption1Pop.showAsDropDown(mDivider);
                 break;
             case R.id.options2_tv:
-                if (mOption2Pop == null) {
-                    String[] typeName = new String[mOptionDataBean.getRentingStyle().size()];
-                    String[] typeid = new String[mOptionDataBean.getRentingStyle().size()];
-                    for (int i = 0; i < mOptionDataBean.getRentingStyle().size(); i++) {
-                        typeName[i] = mOptionDataBean.getRentingStyle().get(i).getName();
-                        typeid[i] = mOptionDataBean.getRentingStyle().get(i).getClass_id();
-                    }
-                    List<TreeVO> typeList = BaseCommonUtils.getOneLeveTreeVoZero(typeName, typeid);
-                    mOption2Pop = new BSPopupWindowsTitle(mActivity, typeList, option1Callback, WidthHigthUtil.getScreenHigh(HouseListOneActivity.this) / 3);
-                }
                 mOption2Pop.showAsDropDown(mDivider);
                 break;
             case R.id.options3_tv:
@@ -276,4 +259,51 @@ public class HouseListOneActivity extends BaseActivity implements BGAOnRVItemCli
         }
         mAutoSwipeRefreshLayout.autoRefresh();
     }
+
+    // 一级二级都带全部的菜单
+    public ArrayList<TreeVO> getTreeVOList(ArrayList<CityVO.DataBean> allList) {
+        ArrayList<TreeVO> treeList = new ArrayList<TreeVO>();
+        for (int i = 0; i < allList.size(); i++) {
+            CityVO.DataBean oneCityVO = allList.get(i);
+            TreeVO oneTreeVo = new TreeVO();
+            oneTreeVo.setSearchId(oneCityVO.getProvince_id());
+            oneTreeVo.setParentId(0);
+            oneTreeVo.setId(Integer.parseInt(oneCityVO.getProvince_id()));
+            oneTreeVo.setName(oneCityVO.getProvince_name());
+            oneTreeVo.setLevel(1);
+            if (oneCityVO.getCitys().size() > 0) {
+                oneTreeVo.setHaschild(true);
+            } else {
+                oneTreeVo.setHaschild(false);
+            }
+            treeList.add(oneTreeVo);
+            for (int j = 0; j < oneCityVO.getCitys().size(); j++) {
+                CityVO.DataBean.CitysBean twoCityVO = oneCityVO.getCitys().get(j);
+                TreeVO twoTreeVo = new TreeVO();
+                twoTreeVo.setSearchId(twoCityVO.getCity_id());
+                twoTreeVo.setName(twoCityVO.getCity_name());
+                twoTreeVo.setLevel(2);
+                twoTreeVo.setParentId(Integer.parseInt(oneCityVO.getProvince_id()));
+                twoTreeVo.setId(Integer.parseInt(twoCityVO.getCity_id()));
+                if (twoCityVO.getDistricts().size() > 0) {
+                    twoTreeVo.setHaschild(true);
+                } else {
+                    twoTreeVo.setHaschild(false);
+                }
+                treeList.add(twoTreeVo);
+
+            }
+        }
+        return treeList;
+    }
+    // 菜单点击回调函数
+    BSPopupWindowsTitle.TreeCallBack callbackCity = new BSPopupWindowsTitle.TreeCallBack() {
+        @Override
+        public void callback(TreeVO vo) {
+            mOptionsTv2.setText(vo.getName());
+            match(2, vo.getSearchId());
+
+        }
+    };
+
 }
