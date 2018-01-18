@@ -76,7 +76,7 @@ public class HttpGetDataUtil {
                 .rxGet(url, params, new RxStringCallback() {
                     @Override
                     public void onNext(Object o, String s) {
-
+                        activity.dismissProgressDialog();
                         if (s.trim().equals(cacheStr) || className == null) {
                             System.out.println("===============");
                             return;
@@ -99,11 +99,15 @@ public class HttpGetDataUtil {
                     @Override
                     public void onError(Object o, Throwable throwable) {
                         System.out.println("===========");
+                        activity.dismissProgressDialog();
+
                     }
 
                     @Override
                     public void onCancel(Object o, Throwable throwable) {
                         System.out.println("===========");
+                        activity.dismissProgressDialog();
+
                     }
                 });
     }

@@ -860,6 +860,25 @@ public class BaseCommonUtils {
         return list;
     }
 
+
+    // id是数据自带的
+    public static ArrayList<TreeVO> getOneLeveTreeVoHasAll(String[] array, String[] itemId) {
+        ArrayList<TreeVO> list = new ArrayList<TreeVO>();
+        TreeVO allVo = new TreeVO();
+        allVo.setName("全部");
+        allVo.setSearchId("");
+        allVo.setLevel(1);
+        list.add(allVo);
+        for (int i = 0; i < array.length; i++) {
+            TreeVO vo = new TreeVO();
+            vo.setName(array[i]);
+            vo.setSearchId(itemId[i]);
+            vo.setLevel(1);
+            list.add(vo);
+        }
+        return list;
+    }
+
     public static String getUrl(HashMap<String, Object> params) {
         String url = "";
         // 添加url参数

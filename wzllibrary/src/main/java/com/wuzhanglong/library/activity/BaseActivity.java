@@ -261,7 +261,7 @@ public abstract class BaseActivity extends AppCompatActivity implements UpdateCa
     }
 
     @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
-    private void hideKeyboard(IBinder token) {
+    public void hideKeyboard(IBinder token) {
         if (token != null) {
             InputMethodManager im = (InputMethodManager) getSystemService(Context
                     .INPUT_METHOD_SERVICE);
