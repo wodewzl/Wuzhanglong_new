@@ -154,8 +154,10 @@ public class YellowPagesActivity extends BaseActivity implements BGAOnRVItemClic
     @Override
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
         mKeyword = textView.getText().toString();
-        getData();
+        mCurrentPage=1;
+        mAutoSwipeRefreshLayout.autoRefresh();
         return false;
+
     }
 
     @Override

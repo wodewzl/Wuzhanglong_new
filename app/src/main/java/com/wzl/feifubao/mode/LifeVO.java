@@ -73,6 +73,15 @@ public class LifeVO extends BaseVO{
             private String short_title;
             private String create_time;
             private String image;
+            private String content;
+
+            public String getContent() {
+                return content;
+            }
+
+            public void setContent(String content) {
+                this.content = content;
+            }
 
             public String getArticle_id() {
                 return article_id;

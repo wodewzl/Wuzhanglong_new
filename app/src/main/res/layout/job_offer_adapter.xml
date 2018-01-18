@@ -30,8 +30,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="8000p"
+            android:textSize="16sp"
             android:textColor="@color/FUBColor3"
-            android:textStyle="bold" />
+             />
     </LinearLayout>
 
     <LinearLayout

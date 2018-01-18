@@ -100,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
-                android:background="@color/FUBColor7"
+                android:background="@color/colorAccent"
                 android:drawableLeft="@drawable/tel"
                 android:drawablePadding="5dp"
                 android:paddingBottom="2dp"

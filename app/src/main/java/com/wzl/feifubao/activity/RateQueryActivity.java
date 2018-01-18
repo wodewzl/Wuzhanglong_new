@@ -26,6 +26,7 @@ public class RateQueryActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void initView() {
         mBaseTitleTv.setText("汇率查询");
+        mBaseOkTv.setText("汇率计算");
         mTitle1 = getViewById(R.id.title1);
         mTitle2 = getViewById(R.id.title2);
         mCnyTv = getViewById(R.id.cny_tv);
@@ -34,7 +35,7 @@ public class RateQueryActivity extends BaseActivity implements View.OnClickListe
         mHkdTv = getViewById(R.id.hkd_tv);
         mEurTv = getViewById(R.id.eur_tv);
         mGbpTv = getViewById(R.id.gbp_tv);
-        mBaseOkTv.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.login_pwd,0);
+//        mBaseOkTv.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.login_pwd,0);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.wzl.feifubao.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -24,7 +25,7 @@ public class YellowPagesAdapter extends RecyclerBaseAdapter<YellowPagesVO.DataBe
 
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
-        YellowPagesVO.DataBeanX.DataBean vo = (YellowPagesVO.DataBeanX.DataBean) model;
+        final YellowPagesVO.DataBeanX.DataBean vo = (YellowPagesVO.DataBeanX.DataBean) model;
         if (!TextUtils.isEmpty(vo.getPic()))
             Picasso.with(mActivity).load(vo.getPic()).into(helper.getImageView(R.id.img));
         helper.setText(R.id.title_tv, vo.getSupplier_name());
@@ -35,6 +36,12 @@ public class YellowPagesAdapter extends RecyclerBaseAdapter<YellowPagesVO.DataBe
         helper.setText(R.id.phone_tv, vo.getLinkman_tel());
         helper.getTextView(R.id.phone_tv).setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.FUBColor7, R.color.FUBColor7));
         helper.getTextView(R.id.type_tv).setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.C3_1, R.color.C1));
+        helper.getTextView(R.id.phone_tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BaseCommonUtils.call(mActivity,vo.getLinkman_tel());
+            }
+        });
     }
 
 }

@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import cn.jpush.android.api.JPushInterface;
 
 
 public class AppApplication extends Application {

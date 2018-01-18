@@ -2,6 +2,7 @@ package com.wzl.feifubao.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -102,13 +103,14 @@ public class HouseListOneActivity extends BaseActivity implements BGAOnRVItemCli
         if (mFlag) {
             HashMap<String, Object> map = new HashMap<>();
             HttpGetDataUtil.get(mActivity, this, Constant.HOUSE_LIST_OPTION_URL, map, HouseOptionVO.class);
+            HttpGetDataUtil.get(mActivity, this, Constant.CITY_URL, map, CityVO.class);
             mFlag = false;
         }
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("page", mCurrentPage + "");
         map.put("pagesize", "10");
-
+        map.put("cityId", mCityId);
         map.put("languageId", mLanguageId);
         map.put("provinceId", mProvinceId);
         map.put("payClassId", mPayClassId);
@@ -174,7 +176,7 @@ public class HouseListOneActivity extends BaseActivity implements BGAOnRVItemCli
                         typeName[i] = mOptionDataBean.getLanguage().get(i).getName();
                         typeid[i] = mOptionDataBean.getLanguage().get(i).getClass_id();
                     }
-                    List<TreeVO> typeList = BaseCommonUtils.getOneLeveTreeVoZero(typeName, typeid);
+                    List<TreeVO> typeList = BaseCommonUtils.getOneLeveTreeVoHasAll(typeName, typeid);
                     mOption1Pop = new BSPopupWindowsTitle(mActivity, typeList, option1Callback, WidthHigthUtil.getScreenHigh(HouseListOneActivity.this) / 3);
                 }
                 mOption1Pop.showAsDropDown(mDivider);
@@ -190,7 +192,7 @@ public class HouseListOneActivity extends BaseActivity implements BGAOnRVItemCli
                         typeName[i] = mOptionDataBean.getFukuan().get(i).getName();
                         typeid[i] = mOptionDataBean.getFukuan().get(i).getClass_id();
                     }
-                    List<TreeVO> typeList = BaseCommonUtils.getOneLeveTreeVoZero(typeName, typeid);
+                    List<TreeVO> typeList = BaseCommonUtils.getOneLeveTreeVoHasAll(typeName, typeid);
                     mOption3Pop = new BSPopupWindowsTitle(mActivity, typeList, option3Callback, WidthHigthUtil.getScreenHigh(HouseListOneActivity.this) / 3);
                 }
                 mOption3Pop.showAsDropDown(mDivider);
@@ -200,10 +202,16 @@ public class HouseListOneActivity extends BaseActivity implements BGAOnRVItemCli
         }
     }
 
+
     BSPopupWindowsTitle.TreeCallBack option1Callback = new BSPopupWindowsTitle.TreeCallBack() {
         @Override
         public void callback(TreeVO vo) {
             String id = vo.getSearchId();
+            if ("全部".equals(vo.getName())) {
+                mOptions1Tv.setTextColor(ContextCompat.getColor(HouseListOneActivity.this, R.color.C4));
+            } else {
+                mOptions1Tv.setTextColor(ContextCompat.getColor(HouseListOneActivity.this, R.color.colorAccent));
+            }
             mOptions1Tv.setText(vo.getName());
             match(1, id);
         }
@@ -213,11 +221,15 @@ public class HouseListOneActivity extends BaseActivity implements BGAOnRVItemCli
         @Override
         public void callback(TreeVO vo) {
             String id = vo.getSearchId();
+            if ("全部".equals(vo.getName())) {
+                mOptionsTv3.setTextColor(ContextCompat.getColor(HouseListOneActivity.this, R.color.C4));
+            } else {
+                mOptionsTv3.setTextColor(ContextCompat.getColor(HouseListOneActivity.this, R.color.colorAccent));
+            }
             mOptionsTv3.setText(vo.getName());
             match(3, id);
         }
     };
-
     @Override
     public void onRefresh() {
         mCurrentPage = 1;
@@ -247,7 +259,10 @@ public class HouseListOneActivity extends BaseActivity implements BGAOnRVItemCli
                 mLanguageId = value;
                 break;
             case 2:
-
+                mCityId = value;
+                break;
+            case 5:
+                mProvinceId = value;
                 break;
             case 3:
                 mPayClassId = value;
@@ -264,6 +279,14 @@ public class HouseListOneActivity extends BaseActivity implements BGAOnRVItemCli
     public ArrayList<TreeVO> getTreeVOList(ArrayList<CityVO.DataBean> allList) {
         ArrayList<TreeVO> treeList = new ArrayList<TreeVO>();
         for (int i = 0; i < allList.size(); i++) {
+            if (i == 0) {
+                TreeVO oneTitleTreeVo = new TreeVO();
+                oneTitleTreeVo.setSearchId("");
+                oneTitleTreeVo.setName("全部");
+                oneTitleTreeVo.setLevel(1);
+                treeList.add(oneTitleTreeVo);
+            }
+
             CityVO.DataBean oneCityVO = allList.get(i);
             TreeVO oneTreeVo = new TreeVO();
             oneTreeVo.setSearchId(oneCityVO.getProvince_id());
@@ -278,6 +301,16 @@ public class HouseListOneActivity extends BaseActivity implements BGAOnRVItemCli
             }
             treeList.add(oneTreeVo);
             for (int j = 0; j < oneCityVO.getCitys().size(); j++) {
+
+                if (j == 0) {
+                    TreeVO twoTitleTreeVo = new TreeVO();
+                    twoTitleTreeVo.setSearchId(oneCityVO.getProvince_id());
+                    twoTitleTreeVo.setName("全部");
+                    twoTitleTreeVo.setLevel(1);
+                    twoTitleTreeVo.setParentId(Integer.parseInt(oneCityVO.getProvince_id()));
+                    treeList.add(twoTitleTreeVo);
+                }
+
                 CityVO.DataBean.CitysBean twoCityVO = oneCityVO.getCitys().get(j);
                 TreeVO twoTreeVo = new TreeVO();
                 twoTreeVo.setSearchId(twoCityVO.getCity_id());
@@ -296,13 +329,23 @@ public class HouseListOneActivity extends BaseActivity implements BGAOnRVItemCli
         }
         return treeList;
     }
+
     // 菜单点击回调函数
     BSPopupWindowsTitle.TreeCallBack callbackCity = new BSPopupWindowsTitle.TreeCallBack() {
         @Override
         public void callback(TreeVO vo) {
+            if ("全部".equals(vo.getName())) {
+                mOptionsTv2.setTextColor(ContextCompat.getColor(HouseListOneActivity.this, R.color.C4));
+            } else {
+                mOptionsTv2.setTextColor(ContextCompat.getColor(HouseListOneActivity.this, R.color.colorAccent));
+            }
             mOptionsTv2.setText(vo.getName());
-            match(2, vo.getSearchId());
-
+            if(vo.getLevel()==1){
+                match(5, vo.getSearchId());
+                mCityId="";
+            }else {
+                match(2, vo.getSearchId());
+            }
         }
     };
 

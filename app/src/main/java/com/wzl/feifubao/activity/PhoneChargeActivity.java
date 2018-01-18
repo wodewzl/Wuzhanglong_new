@@ -128,16 +128,23 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
         List<MoneyVO> list = new ArrayList<>();
         for (int i = 0; i < mDataBean.getSpec_list().get(1).getValue().size(); i++) {
             MoneyVO moneyVO = new MoneyVO();
-            if(i==0)
+            if (i == 0){
                 moneyVO.setStatus("1");
+                mSelectVO=moneyVO;
+                BaseCommonUtils.setTextTwoBefore(this, mPhpTv, mDataBean.getSpec_list().get(1).getValue().get(0).getSpec_value_name(), "PHP", R.color.FUBColor3, 1.7f);
+                mShopType = mDataBean.getSpec_list().get(0).getValue().get(0).getSpec_id() + ":" + mDataBean.getSpec_list().get(0).getValue().get(0).getSpec_value_id();
+                mMoneyStr = mDataBean.getSpec_list().get(1).getValue().get(0).getSpec_id() + ":" + mDataBean.getSpec_list().get(1).getValue().get(0).getSpec_value_id();
+
+                totalMoney();
+            }
+
             moneyVO.setMoney(mDataBean.getSpec_list().get(1).getValue().get(i).getSpec_value_name());
             moneyVO.setId(mDataBean.getSpec_list().get(1).getValue().get(i).getSpec_id() + ":" + mDataBean.getSpec_list().get(1).getValue().get(i).getSpec_value_id());
             list.add(moneyVO);
         }
 
-
         mAdapter.updateData(list);
-
+        mTypeTv.setText(mDataBean.getSpec_list().get(0).getValue().get(0).getSpec_value_name());
     }
 
     @Override
@@ -162,12 +169,9 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
         mAdapter.notifyDataSetChanged();
 
         mMoneyStr = mSelectVO.getId();
-        BaseCommonUtils.setTextTwoBefore(this, mPhpTv, mSelectVO.getMoney(), "PHP", R.color.FUBColor3, 1.3f);
-        for (int i = 0; i < mDataBean.getSku_list().size(); i++) {
-            if ((mMoneyStr + ";" + mShopType).equals(mDataBean.getSku_list().get(i).getAttr_value_items())) {
-                BaseCommonUtils.setTextTwoBefore(this, mRmbTv, mDataBean.getSku_list().get(i).getPrice_rmb(), "元", R.color.FUBColor3, 1.3f);
-            }
-        }
+
+        BaseCommonUtils.setTextTwoBefore(this, mPhpTv, mSelectVO.getMoney(), "PHP", R.color.FUBColor3, 1.7f);
+        totalMoney();
     }
 
     @Override
@@ -187,11 +191,7 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
                         mTypeTv.setText(str);
                         mShopType = mDataBean.getSpec_list().get(0).getValue().get(position).getSpec_id() + ":" + mDataBean.getSpec_list().get(0).getValue().get(position).getSpec_value_id();
 
-                        for (int i = 0; i < mDataBean.getSku_list().size(); i++) {
-                            if ((mMoneyStr + ";" + mShopType).equals(mDataBean.getSku_list().get(i).getAttr_value_items())) {
-                                BaseCommonUtils.setTextTwoBefore(PhoneChargeActivity.this, mRmbTv, mDataBean.getSku_list().get(i).getPrice_rmb(), "元", R.color.FUBColor3, 1.3f);
-                            }
-                        }
+                        totalMoney();
                     }
 
                 });
@@ -205,6 +205,15 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
                 break;
             default:
                 break;
+        }
+    }
+
+
+    public void totalMoney(){
+        for (int i = 0; i < mDataBean.getSku_list().size(); i++) {
+            if ((mMoneyStr + ";" + mShopType).equals(mDataBean.getSku_list().get(i).getAttr_value_items())) {
+                BaseCommonUtils.setTextTwoBefore(PhoneChargeActivity.this, mRmbTv, mDataBean.getSku_list().get(i).getPrice_rmb(), "元", R.color.FUBColor3, 1.3f);
+            }
         }
     }
 

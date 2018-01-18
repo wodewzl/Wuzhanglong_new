@@ -56,6 +56,24 @@ public class JobOffersDetailVO extends BaseVO{
         private String company_desc;
         private String linkman_name;
         private String linkman_tel;
+        private String position_education_name;
+        private String position_life_name;
+
+        public String getPosition_education_name() {
+            return position_education_name;
+        }
+
+        public void setPosition_education_name(String position_education_name) {
+            this.position_education_name = position_education_name;
+        }
+
+        public String getPosition_life_name() {
+            return position_life_name;
+        }
+
+        public void setPosition_life_name(String position_life_name) {
+            this.position_life_name = position_life_name;
+        }
 
         public String getId() {
             return id;

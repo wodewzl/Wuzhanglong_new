@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
@@ -43,6 +44,7 @@ public class JobOffersActivity extends BaseActivity implements OnLoadMoreListene
     private JobOffersAdapter mAdapter;
     private EditText mSearchEt;
     private String mKeyword = "";
+    private String mCompnayId="";
 
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
@@ -70,6 +72,9 @@ public class JobOffersActivity extends BaseActivity implements OnLoadMoreListene
         mRecyclerView.addItemDecoration(divider);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
         mRecyclerView.setLoadMoreEnabled(true);
+
+
+        mCompnayId=this.getIntent().getStringExtra("supplier_id");
     }
 
     @Override
@@ -87,6 +92,8 @@ public class JobOffersActivity extends BaseActivity implements OnLoadMoreListene
         map.put("page", mCurrentPage+"");
         map.put("pagesize", "10");
         map.put("keyword", mKeyword);
+
+        map.put("supplierId", TextUtils.isEmpty(mCompnayId)?"":mCompnayId);
         HttpGetDataUtil.get(mActivity, this, Constant.JOBOFFER_URL, map, JobOffersVO.class);
     }
 
@@ -130,7 +137,6 @@ public class JobOffersActivity extends BaseActivity implements OnLoadMoreListene
     @Override
     public void onRefresh() {
         mCurrentPage = 1;
-        mKeyword = "";
         getData();
     }
 
@@ -153,8 +159,9 @@ public class JobOffersActivity extends BaseActivity implements OnLoadMoreListene
 
     @Override
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+        BaseCommonUtils.hideSoftKeybord(this);
         mKeyword = textView.getText().toString();
-        getData();
+        mAutoSwipeRefreshLayout.autoRefresh();
         return false;
     }
 

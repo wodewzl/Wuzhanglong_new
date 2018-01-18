@@ -2,11 +2,13 @@ package com.wzl.feifubao.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.JobOffersDetailVO;
@@ -16,8 +18,9 @@ import java.util.HashMap;
 
 import cn.bingoogolapple.baseadapter.BGADivider;
 
-public class JobOffersDetailActivity extends BaseActivity {
-    private TextView mPositionTv, mMoneyTv, mPositionRequireTv, mCompanyTv, mAddressTv, mCompanyDescTv, mPositionDescTv,mNameTv,mPhoneTv;
+public class JobOffersDetailActivity extends BaseActivity implements View.OnClickListener{
+    private TextView mPositionTv, mMoneyTv, mPositionRequireTv, mCompanyTv, mAddressTv, mCompanyDescTv, mPositionDescTv,mNameTv,mPhoneTv,mOtherPositionTv;
+    private String mCompanyId,mPhone;
 
     @Override
     public void baseSetContentView() {
@@ -37,12 +40,13 @@ public class JobOffersDetailActivity extends BaseActivity {
         mPositionDescTv = getViewById(R.id.position_desc_tv);
         mNameTv=getViewById(R.id.name_tv);
         mPhoneTv=getViewById(R.id.tel_tv);
-
+        mOtherPositionTv=getViewById(R.id.other_position_tv);
     }
 
     @Override
     public void bindViewsListener() {
-
+        mOtherPositionTv.setOnClickListener(this);
+        mPhoneTv.setOnClickListener(this);
     }
 
     @Override
@@ -57,15 +61,18 @@ public class JobOffersDetailActivity extends BaseActivity {
     public void hasData(BaseVO vo) {
         JobOffersDetailVO jobOffersDetailVO = (JobOffersDetailVO) vo;
         JobOffersDetailVO.DataBean dataBean = jobOffersDetailVO.getData();
+        mCompanyId=dataBean.getSupplier_id();
+        mPhone=dataBean.getLinkman_tel();
         mPositionTv.setText(dataBean.getPosition_name());
         mMoneyTv.setText("【" + dataBean.getPosition_salary() + "p】");
-        mPositionRequireTv.setText(dataBean.getPosition_class_name() + " | " + dataBean.getPosition_education() + " | " + dataBean.getPosition_life());
+        mPositionRequireTv.setText(dataBean.getPosition_class_name() + " | " + dataBean.getPosition_education_name() + " | " + dataBean.getPosition_life_name());
         mPositionDescTv.setText(dataBean.getPosition_desc());
         mCompanyTv.setText(dataBean.getSupplier_name());
         mAddressTv.setText(dataBean.getAddress());
         mCompanyDescTv.setText(dataBean.getCompany_desc());
-        mNameTv.setText(dataBean.getLinkman_name());
+        mNameTv.setText("联系人："+dataBean.getLinkman_name());
         mPhoneTv.setText(dataBean.getLinkman_tel());
+
     }
 
     @Override
@@ -75,6 +82,23 @@ public class JobOffersDetailActivity extends BaseActivity {
 
     @Override
     public void noNet() {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tel_tv:
+                BaseCommonUtils.call(this,mPhone);
+                break;
+            case R.id.other_position_tv:
+                Bundle bundle= new Bundle();
+                bundle.putString("supplier_id",mCompanyId);
+                open(JobOffersActivity.class,bundle,0);
+                break;
+            default:
+                break;
+        }
 
     }
 }

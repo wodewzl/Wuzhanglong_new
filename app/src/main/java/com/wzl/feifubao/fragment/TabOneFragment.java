@@ -212,11 +212,12 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
                 break;
             case R.id.type_03_tv:
-                mActivity.openActivity(LifeActivity.class);
-                break;
-            case R.id.type_04_tv:
                 bundle.putString("type", "2");
                 mActivity.open(PayElectricityActivity.class, bundle, 0);
+
+                break;
+            case R.id.type_04_tv:
+                mActivity.openActivity(LifeActivity.class);
                 break;
             case R.id.type_05_tv:
                 mActivity.openActivity(HouseListActivity.class);

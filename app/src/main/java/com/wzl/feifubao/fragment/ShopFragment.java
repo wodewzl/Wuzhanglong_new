@@ -180,6 +180,7 @@ public class ShopFragment extends BaseFragment implements BGAOnRVItemClickListen
     @Override
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
         mKeyword = textView.getText().toString();
+        mCurrentPage=1;
         getData();
         return false;
     }

@@ -3,6 +3,7 @@ package com.wzl.feifubao.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
@@ -268,10 +269,11 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
                         typeName[i] = mOptionDataBean.getLanguage().get(i).getName();
                         typeid[i] = mOptionDataBean.getLanguage().get(i).getClass_id();
                     }
-                    List<TreeVO> typeList = BaseCommonUtils.getOneLeveTreeVoZero(typeName, typeid);
+                    List<TreeVO> typeList = BaseCommonUtils.getOneLeveTreeVoHasAll(typeName, typeid);
                     mOption1Pop = new BSPopupWindowsTitle(mActivity, typeList, option1Callback, WidthHigthUtil.getScreenHigh(HouseListActivity.this) / 3);
                 }
                 mOption1Pop.showAsDropDown(mDivider);
+
                 break;
             case R.id.options2_tv:
                 mOption2Pop.showAsDropDown(mDivider);
@@ -284,7 +286,7 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
                         typeName[i] = mOptionDataBean.getFukuan().get(i).getName();
                         typeid[i] = mOptionDataBean.getFukuan().get(i).getClass_id();
                     }
-                    List<TreeVO> typeList = BaseCommonUtils.getOneLeveTreeVoZero(typeName, typeid);
+                    List<TreeVO> typeList = BaseCommonUtils.getOneLeveTreeVoHasAll(typeName, typeid);
                     mOption3Pop = new BSPopupWindowsTitle(mActivity, typeList, option3Callback, WidthHigthUtil.getScreenHigh(HouseListActivity.this) / 3);
                 }
                 mOption3Pop.showAsDropDown(mDivider);
@@ -322,6 +324,11 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
         @Override
         public void callback(TreeVO vo) {
             String id = vo.getSearchId();
+            if ("全部".equals(vo.getName())) {
+                mOptions1Tv.setTextColor(ContextCompat.getColor(HouseListActivity.this, R.color.C4));
+            } else {
+                mOptions1Tv.setTextColor(ContextCompat.getColor(HouseListActivity.this, R.color.colorAccent));
+            }
             mOptions1Tv.setText(vo.getName());
             match(1, id);
         }
@@ -331,6 +338,11 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
         @Override
         public void callback(TreeVO vo) {
             String id = vo.getSearchId();
+            if ("全部".equals(vo.getName())) {
+                mOptionsTv3.setTextColor(ContextCompat.getColor(HouseListActivity.this, R.color.C4));
+            } else {
+                mOptionsTv3.setTextColor(ContextCompat.getColor(HouseListActivity.this, R.color.colorAccent));
+            }
             mOptionsTv3.setText(vo.getName());
             match(3, id);
         }
@@ -338,7 +350,8 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
 
     @Override
     public void onRefresh() {
-        match(0, "");
+        mCurrentPage = 1;
+        getData();
     }
 
 
@@ -350,8 +363,11 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
 
     @Override
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+        BaseCommonUtils.hideSoftKeybord(this);
         mKeyword = textView.getText().toString();
-        getData();
+//        mCurrentPage=1;
+//        getData();
+        match(4, mKeyword);
         return false;
     }
 
@@ -382,6 +398,7 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
                 mCurrentPage = 1;
                 mLanguageId = "";
                 mProvinceId = "";
+                mCityId="";
                 mPayClassId = "";
                 mRentingStyleId = "";
                 break;
@@ -390,6 +407,9 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
                 break;
             case 2:
                 mCityId = value;
+                break;
+            case 5:
+                mProvinceId = value;
                 break;
             case 3:
                 mPayClassId = value;
@@ -401,6 +421,8 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
             default:
                 break;
         }
+
+
         mAutoSwipeRefreshLayout.autoRefresh();
     }
 
@@ -409,6 +431,14 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
     public ArrayList<TreeVO> getTreeVOList(ArrayList<CityVO.DataBean> allList) {
         ArrayList<TreeVO> treeList = new ArrayList<TreeVO>();
         for (int i = 0; i < allList.size(); i++) {
+            if (i == 0) {
+                TreeVO oneTitleTreeVo = new TreeVO();
+                oneTitleTreeVo.setSearchId("");
+                oneTitleTreeVo.setName("全部");
+                oneTitleTreeVo.setLevel(1);
+                treeList.add(oneTitleTreeVo);
+            }
+
             CityVO.DataBean oneCityVO = allList.get(i);
             TreeVO oneTreeVo = new TreeVO();
             oneTreeVo.setSearchId(oneCityVO.getProvince_id());
@@ -423,6 +453,16 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
             }
             treeList.add(oneTreeVo);
             for (int j = 0; j < oneCityVO.getCitys().size(); j++) {
+
+                if (j == 0) {
+                    TreeVO twoTitleTreeVo = new TreeVO();
+                    twoTitleTreeVo.setSearchId(oneCityVO.getProvince_id());
+                    twoTitleTreeVo.setName("全部");
+                    twoTitleTreeVo.setLevel(1);
+                    twoTitleTreeVo.setParentId(Integer.parseInt(oneCityVO.getProvince_id()));
+                    treeList.add(twoTitleTreeVo);
+                }
+
                 CityVO.DataBean.CitysBean twoCityVO = oneCityVO.getCitys().get(j);
                 TreeVO twoTreeVo = new TreeVO();
                 twoTreeVo.setSearchId(twoCityVO.getCity_id());
@@ -446,9 +486,18 @@ public class HouseListActivity extends BaseActivity implements BGAOnRVItemClickL
     BSPopupWindowsTitle.TreeCallBack callbackCity = new BSPopupWindowsTitle.TreeCallBack() {
         @Override
         public void callback(TreeVO vo) {
+            if ("全部".equals(vo.getName())) {
+                mOptionsTv2.setTextColor(ContextCompat.getColor(HouseListActivity.this, R.color.C4));
+            } else {
+                mOptionsTv2.setTextColor(ContextCompat.getColor(HouseListActivity.this, R.color.colorAccent));
+            }
             mOptionsTv2.setText(vo.getName());
-            match(2, vo.getSearchId());
-
+            if(vo.getLevel()==1){
+                match(5, vo.getSearchId());
+                mCityId="";
+            }else {
+                match(2, vo.getSearchId());
+            }
         }
     };
 }
