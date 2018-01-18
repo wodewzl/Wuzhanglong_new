@@ -12,12 +12,10 @@ import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.cache.ACache;
 import com.wuzhanglong.library.constant.BaseConstant;
 import com.wuzhanglong.library.interfaces.PostCallback;
-import com.wuzhanglong.library.interfaces.PostStringback;
+import com.wuzhanglong.library.interfaces.PostStringCallback;
 import com.wuzhanglong.library.interfaces.UpdateCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
-
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -177,11 +175,12 @@ public class HttpGetDataUtil {
                 } else {
                     activity.showCustomToast(vo.getDesc());
                 }
+
             }
         });
     }
 
-    public static <T> void postResult(final BaseActivity activity, final String url, final Map<String, Object> params, final PostStringback postCallback) {
+    public static <T> void postResult(final BaseActivity activity, final String url, final Map<String, Object> params, final PostStringCallback postCallback) {
 
         final Gson gson = new Gson();
 //        final String allUrl = BaseConstant.DOMAIN_NAME + url;
@@ -206,20 +205,7 @@ public class HttpGetDataUtil {
             @Override
             public void onNext(Object o, String s) {
                 activity.dismissProgressDialog();
-
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    String code = (String) jsonObject.get("code");
-                    if ("200".equals(code)) {
-                        postCallback.success(s);
-                    } else {
-//                        activity.showCustomToast(vo.getDesc());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
+                postCallback.success(s);
             }
         });
     }
