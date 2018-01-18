@@ -17,7 +17,6 @@ import com.wuzhanglong.library.interfaces.UpdateCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -178,7 +177,6 @@ public class HttpGetDataUtil {
                 } else {
                     activity.showCustomToast(vo.getDesc());
                 }
-
             }
         });
     }
