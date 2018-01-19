@@ -36,7 +36,7 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
         TabTwoFragment two = new TabTwoFragment();
         TabThreeFragment three = new TabThreeFragment();
         list.add(one);
-        list.add(two);
+//        list.add(two);
         list.add(three);
     }
 

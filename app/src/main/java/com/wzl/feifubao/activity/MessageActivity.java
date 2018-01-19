@@ -25,6 +25,7 @@ import com.wzl.feifubao.adapter.MessageAdapter;
 import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.LifeVO;
+import com.wzl.feifubao.mode.MessageVO;
 import com.wzl.feifubao.mode.PaymentRecordsVO;
 
 import java.util.HashMap;
@@ -70,34 +71,36 @@ public class MessageActivity extends BaseActivity implements BGAOnRVItemClickLis
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
+
+
         map.put("page", mCurrentPage+"");
         map.put("pagesize", "10");
-        HttpGetDataUtil.get(mActivity, this, Constant.MESSAGE_LIST_URL, map, PaymentRecordsVO.class);
+        HttpGetDataUtil.get(mActivity, this, Constant.MESSAGE_LIST_URL, map, MessageVO.class);
     }
 
     @Override
     public void hasData(BaseVO vo) {
-//        LifeVO lifeVO = (LifeVO) vo;
-//        if (BaseCommonUtils.parseInt(lifeVO.getData().getPage_count())==1 ) {
-//            mRecyclerView.setLoadMoreEnabled(false);
-//        }
-//        if (mCurrentPage == BaseCommonUtils.parseInt(lifeVO.getData().getPage_count())) {
-//            mRecyclerView.setNoMore(true);
-//        } else {
-//            mRecyclerView.setNoMore(false);
-//        }
-//
-//        List<LifeVO.DataBean.NewsBean> list = lifeVO.getData().getNews();
-//        if (isLoadMore) {
-//            mAdapter.updateDataLast(list);
-//            isLoadMore = false;
-//            mCurrentPage++;
-//        } else {
-//            mCurrentPage++;
-//            mAdapter.updateData(list);
-//        }
-//        mAutoSwipeRefreshLayout.setRefreshing(false);
-//        mAdapter.notifyDataSetChanged();
+        MessageVO messageVO = (MessageVO) vo;
+        if (BaseCommonUtils.parseInt(messageVO.getData().getPage_count())==1 ) {
+            mRecyclerView.setLoadMoreEnabled(false);
+        }
+        if (mCurrentPage == BaseCommonUtils.parseInt(messageVO.getData().getPage_count())) {
+            mRecyclerView.setNoMore(true);
+        } else {
+            mRecyclerView.setNoMore(false);
+        }
+
+        List<MessageVO.DataBeanX.DataBean> list = messageVO.getData().getData();
+        if (isLoadMore) {
+            mAdapter.updateDataLast(list);
+            isLoadMore = false;
+            mCurrentPage++;
+        } else {
+            mCurrentPage++;
+            mAdapter.updateData(list);
+        }
+        mAutoSwipeRefreshLayout.setRefreshing(false);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

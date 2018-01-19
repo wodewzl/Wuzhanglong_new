@@ -26,20 +26,22 @@ public class HomeAdapter extends RecyclerBaseAdapter<HomeVO.DataBean.TishiBean> 
     private String signUrl;
 
     public HomeAdapter(RecyclerView recyclerView) {
-        super(recyclerView, R.layout.home_adapter_type7);
+        super(recyclerView, R.layout.home_adapter_type8);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
-        final HomeVO.DataBean.HouseBean houseBean = (HomeVO.DataBean.HouseBean) model;
-        ImageView horseImg = helper.getImageView(R.id.house_img);
-        if (!TextUtils.isEmpty(houseBean.getHouse_pic()))
-            Picasso.with(mContext).load(houseBean.getHouse_pic()).into(horseImg);
-        helper.setText(R.id.title_tv, houseBean.getHouse_title());
-        helper.setText(R.id.desc_tv, houseBean.getApartment() + " | " + houseBean.getHouse_area() + "㎡" + " | " + houseBean.getProvince() + houseBean.getCity());
-        TextView priceTv = helper.getTextView(R.id.money_tv);
-        BaseCommonUtils.setTextTwoBefore(mContext, priceTv, houseBean.getHouse_price(), "元", R.color.FUBColor3, 1.3f);
-        helper.setText(R.id.tag_tv, houseBean.getHouse_face_name());
+        final HomeVO.DataBean.TishiBean houseBean = (HomeVO.DataBean.TishiBean) model;
+        ImageView tiShiImg = helper.getImageView(R.id.tishi_img);
+        if (!TextUtils.isEmpty(houseBean.getImage()))
+            Picasso.with(mContext).load(houseBean.getImage()).into(tiShiImg);
+        helper.setText(R.id.desc_tv, houseBean.getTitle());
+
+//        helper.setText(R.id.title_tv, houseBean.getHouse_title());
+//        helper.setText(R.id.desc_tv, houseBean.getApartment() + " | " + houseBean.getHouse_area() + "㎡" + " | " + houseBean.getProvince() + houseBean.getCity());
+//        TextView priceTv = helper.getTextView(R.id.money_tv);
+//        BaseCommonUtils.setTextTwoBefore(mContext, priceTv, houseBean.getHouse_price(), "元", R.color.FUBColor3, 1.3f);
+//        helper.setText(R.id.tag_tv, houseBean.getHouse_face_name());
     }
 }

@@ -179,9 +179,15 @@
                 android:background="@color/C1"
                 android:gravity="right|center_vertical"
 
-                android:textColor="@color/FUBColor3"
+                android:textColor="@color/colorAccent"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/FUBColor3"
+                android:text="P"/>
         </LinearLayout>
 
         <TextView

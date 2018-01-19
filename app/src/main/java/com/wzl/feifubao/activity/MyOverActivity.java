@@ -4,6 +4,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -13,10 +14,12 @@ import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
+import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
@@ -29,6 +32,9 @@ import com.wzl.feifubao.mode.LifeVO;
 import com.wzl.feifubao.mode.MyHouseVO;
 import com.wzl.feifubao.mode.MyoverVO;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +46,7 @@ public class MyOverActivity extends BaseActivity implements  ScrollableHelper.Sc
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private LuRecyclerView mRecyclerView;
     private MyOverAdapter mAdapter;
-    private TextView mOkTv;
+    private TextView mOkTv,mGetMontyTv;
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
     private TextView mMoneyTv;
@@ -53,7 +59,10 @@ public class MyOverActivity extends BaseActivity implements  ScrollableHelper.Sc
     public void initView() {
         mBaseTitleTv.setText("我的余额");
         mOkTv=getViewById(R.id.ok_tv);
-        mOkTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 30, R.color.FUBColor7, R.color.FUBColor7));
+        mOkTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 30, R.color.colorAccent, R.color.colorAccent));
+        mGetMontyTv=getViewById(R.id.get_money_tv);
+        mGetMontyTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 30, R.color.colorAccent, R.color.colorAccent));
+
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
         mRecyclerView = getViewById(R.id.recycler_view);
@@ -74,6 +83,8 @@ public class MyOverActivity extends BaseActivity implements  ScrollableHelper.Sc
         mOkTv.setOnClickListener(this);
         mRecyclerView.setOnLoadMoreListener(this);
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
+        mGetMontyTv.setOnClickListener(this);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -133,7 +144,10 @@ public class MyOverActivity extends BaseActivity implements  ScrollableHelper.Sc
         switch (v.getId()) {
             case R.id.ok_tv:
                 openActivity(WithdrawActivity.class);
+                break;
 
+            case R.id.get_money_tv:
+                openActivity(ChargeActivity.class);
                 break;
             default:
                 break;
@@ -155,5 +169,18 @@ public class MyOverActivity extends BaseActivity implements  ScrollableHelper.Sc
     public void onLoadMore() {
         isLoadMore = true;
         getData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onEventMainThread(EBMessageVO event) {
+        if ("over_update".equals(event.getMessage())) {
+            mAutoSwipeRefreshLayout.autoRefresh();
+        }
     }
 }

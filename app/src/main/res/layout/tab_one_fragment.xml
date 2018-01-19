@@ -26,7 +26,8 @@
     <com.wuzhanglong.library.view.ReboundScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,15 +36,17 @@
 
             <include
                 android:id="@+id/type1_layout"
-                layout="@layout/home_head_layout" />
+                layout="@layout/home_head_layout"
+                android:visibility="visible"/>
+            <com.github.jdsjlzx.recyclerview.LuRecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
         </LinearLayout>
     </com.wuzhanglong.library.view.ReboundScrollView>
 
-    <com.github.jdsjlzx.recyclerview.LuRecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-         />
+
 
 
 </LinearLayout>

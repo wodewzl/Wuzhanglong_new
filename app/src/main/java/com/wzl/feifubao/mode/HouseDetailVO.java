@@ -10,8 +10,9 @@ import java.util.List;
 
 public class HouseDetailVO extends BaseVO{
 
+
     /**
-     * data : {"house_id":"81","house_name":"恐龙","house_price":"5","house_createtime":"2018-01-13","house_tag":"","class_id":"56","pay_class_id":"54","house_area":"5152","province_id":"30","city_id":"324","house_face":"32","house_floor":"33","house_decorate":"24","house_type":"30","house_details":"健健康康","house_pic":["http://feidu.baonongkang.cn/upload/house/5a59c152e0eaa.png"],"status":"2","house_phone":"13720343150","sort":"0","house_title":"合租 . 恐龙 两室两厅","house_language":"15,16","renting_style_id":"19","uid":"39","out_trade_no":"151583163413851000","img_temp_array":[{"pic_id":"342","shop_id":"0","album_id":"0","is_wide":"0","pic_name":"房源","pic_tag":"房源","pic_cover":"http://feidu.baonongkang.cn/upload/house/5a59c152e0eaa.png","pic_size":"","pic_spec":"","pic_cover_big":"","pic_size_big":"","pic_spec_big":"","pic_cover_mid":"","pic_size_mid":"","pic_spec_mid":"","pic_cover_small":"","pic_size_small":"","pic_spec_small":"","pic_cover_micro":"","pic_size_micro":"","pic_spec_micro":"","upload_time":"1515831634","upload_type":"0","domain":"","bucket":""}],"apartment":"两室两厅","renting_style":"合租","decorateStyle":"中等装修","houseStyle":"别墅","position":"正南正北","house_language_names":["英语","中文"]}
+     * data : {"house_id":"74","house_name":"沃尔玛附近长住短住得可，拎包入住","house_price":"600","house_createtime":"2018-01-12","house_tag":"","class_id":"58","pay_class_id":"59","house_area":"50","province_id":"48","city_id":"659","house_face":"31","house_floor":"8","house_decorate":"24","house_type":"61","house_details":"经济实惠，拎包入住，全天热水，可用热水洗衣服，无线网络，免费停车场，出行方便，门口就是公交车站台(26-9-517路)，走路几分钟到沃尔玛","house_pic":["http://feidu.baonongkang.cn/upload/goods/20180112/dda18be83f12da40e364c675cdd1b7da.jpg","http://feidu.baonongkang.cn/upload/goods/20180112/ca049bef34c826b1dae0b82608f102fe.jpg","http://feidu.baonongkang.cn/upload/goods/20180112/f7b21f723be7dde40353d68faf744fcd.jpg"],"status":"2","house_phone":"13476380438","sort":"0","house_title":"月租沃尔玛附近长住短住得可，拎包入住一室0厅","house_language":"16","renting_style_id":"60","uid":"0","out_trade_no":"151582477550301000","img_temp_array":[{"pic_id":"250","shop_id":"0","album_id":"0","is_wide":"0","pic_name":"n_v2f4bd61d4c5f74c51bb3cd4fe0611442c","pic_tag":"n_v2f4bd61d4c5f74c51bb3cd4fe0611442c","pic_cover":"http://feidu.baonongkang.cn/upload/goods/20180112/dda18be83f12da40e364c675cdd1b7da.jpg","pic_size":"503,503","pic_spec":"503,503","pic_cover_big":"http://feidu.baonongkang.cn/upload/goods/20180112/e490fb97a4e8c9e0e4e9a248dd44336b1.jpg","pic_size_big":"700,700","pic_spec_big":"700,700","pic_cover_mid":"http://feidu.baonongkang.cn/upload/goods/20180112/e490fb97a4e8c9e0e4e9a248dd44336b2.jpg","pic_size_mid":"360,360","pic_spec_mid":"360,360","pic_cover_small":"http://feidu.baonongkang.cn/upload/goods/20180112/e490fb97a4e8c9e0e4e9a248dd44336b3.jpg","pic_size_small":"240,240","pic_spec_small":"240,240","pic_cover_micro":"http://feidu.baonongkang.cn/upload/goods/20180112/e490fb97a4e8c9e0e4e9a248dd44336b4.jpg","pic_size_micro":"60,60","pic_spec_micro":"60,60","upload_time":"1515737960","upload_type":"1","domain":"","bucket":""},{"pic_id":"251","shop_id":"0","album_id":"0","is_wide":"0","pic_name":"n_v25ddb03a5f3284f3c8bd9de9925a77f4a","pic_tag":"n_v25ddb03a5f3284f3c8bd9de9925a77f4a","pic_cover":"http://feidu.baonongkang.cn/upload/goods/20180112/ca049bef34c826b1dae0b82608f102fe.jpg","pic_size":"503,503","pic_spec":"503,503","pic_cover_big":"http://feidu.baonongkang.cn/upload/goods/20180112/eba685ad1fde2a04e507f3b5c2d3b7381.jpg","pic_size_big":"700,700","pic_spec_big":"700,700","pic_cover_mid":"http://feidu.baonongkang.cn/upload/goods/20180112/eba685ad1fde2a04e507f3b5c2d3b7382.jpg","pic_size_mid":"360,360","pic_spec_mid":"360,360","pic_cover_small":"http://feidu.baonongkang.cn/upload/goods/20180112/eba685ad1fde2a04e507f3b5c2d3b7383.jpg","pic_size_small":"240,240","pic_spec_small":"240,240","pic_cover_micro":"http://feidu.baonongkang.cn/upload/goods/20180112/eba685ad1fde2a04e507f3b5c2d3b7384.jpg","pic_size_micro":"60,60","pic_spec_micro":"60,60","upload_time":"1515737962","upload_type":"1","domain":"","bucket":""},{"pic_id":"252","shop_id":"0","album_id":"0","is_wide":"0","pic_name":"n_v28c07b00f146d476dafaa1522cb0a4d2b","pic_tag":"n_v28c07b00f146d476dafaa1522cb0a4d2b","pic_cover":"http://feidu.baonongkang.cn/upload/goods/20180112/f7b21f723be7dde40353d68faf744fcd.jpg","pic_size":"503,503","pic_spec":"503,503","pic_cover_big":"http://feidu.baonongkang.cn/upload/goods/20180112/db7549554345254e68002046f8e8becb1.jpg","pic_size_big":"700,700","pic_spec_big":"700,700","pic_cover_mid":"http://feidu.baonongkang.cn/upload/goods/20180112/db7549554345254e68002046f8e8becb2.jpg","pic_size_mid":"360,360","pic_spec_mid":"360,360","pic_cover_small":"http://feidu.baonongkang.cn/upload/goods/20180112/db7549554345254e68002046f8e8becb3.jpg","pic_size_small":"240,240","pic_spec_small":"240,240","pic_cover_micro":"http://feidu.baonongkang.cn/upload/goods/20180112/db7549554345254e68002046f8e8becb4.jpg","pic_size_micro":"60,60","pic_spec_micro":"60,60","upload_time":"1515737965","upload_type":"1","domain":"","bucket":""}],"apartment":"一室0厅","renting_style":"短租","decorateStyle":"中等装修","houseStyle":"公寓/酒店","position":"南北通透","house_language_names":["中文"],"user_headimg":"http://feidu.baonongkang.cn/upload/avator/2017122020031226.jpg"}
      */
 
     private DataBean data;
@@ -26,37 +27,38 @@ public class HouseDetailVO extends BaseVO{
 
     public static class DataBean {
         /**
-         * house_id : 81
-         * house_name : 恐龙
-         * house_price : 5
-         * house_createtime : 2018-01-13
+         * house_id : 74
+         * house_name : 沃尔玛附近长住短住得可，拎包入住
+         * house_price : 600
+         * house_createtime : 2018-01-12
          * house_tag :
-         * class_id : 56
-         * pay_class_id : 54
-         * house_area : 5152
-         * province_id : 30
-         * city_id : 324
-         * house_face : 32
-         * house_floor : 33
+         * class_id : 58
+         * pay_class_id : 59
+         * house_area : 50
+         * province_id : 48
+         * city_id : 659
+         * house_face : 31
+         * house_floor : 8
          * house_decorate : 24
-         * house_type : 30
-         * house_details : 健健康康
-         * house_pic : ["http://feidu.baonongkang.cn/upload/house/5a59c152e0eaa.png"]
+         * house_type : 61
+         * house_details : 经济实惠，拎包入住，全天热水，可用热水洗衣服，无线网络，免费停车场，出行方便，门口就是公交车站台(26-9-517路)，走路几分钟到沃尔玛
+         * house_pic : ["http://feidu.baonongkang.cn/upload/goods/20180112/dda18be83f12da40e364c675cdd1b7da.jpg","http://feidu.baonongkang.cn/upload/goods/20180112/ca049bef34c826b1dae0b82608f102fe.jpg","http://feidu.baonongkang.cn/upload/goods/20180112/f7b21f723be7dde40353d68faf744fcd.jpg"]
          * status : 2
-         * house_phone : 13720343150
+         * house_phone : 13476380438
          * sort : 0
-         * house_title : 合租 . 恐龙 两室两厅
-         * house_language : 15,16
-         * renting_style_id : 19
-         * uid : 39
-         * out_trade_no : 151583163413851000
-         * img_temp_array : [{"pic_id":"342","shop_id":"0","album_id":"0","is_wide":"0","pic_name":"房源","pic_tag":"房源","pic_cover":"http://feidu.baonongkang.cn/upload/house/5a59c152e0eaa.png","pic_size":"","pic_spec":"","pic_cover_big":"","pic_size_big":"","pic_spec_big":"","pic_cover_mid":"","pic_size_mid":"","pic_spec_mid":"","pic_cover_small":"","pic_size_small":"","pic_spec_small":"","pic_cover_micro":"","pic_size_micro":"","pic_spec_micro":"","upload_time":"1515831634","upload_type":"0","domain":"","bucket":""}]
-         * apartment : 两室两厅
-         * renting_style : 合租
+         * house_title : 月租沃尔玛附近长住短住得可，拎包入住一室0厅
+         * house_language : 16
+         * renting_style_id : 60
+         * uid : 0
+         * out_trade_no : 151582477550301000
+         * img_temp_array : [{"pic_id":"250","shop_id":"0","album_id":"0","is_wide":"0","pic_name":"n_v2f4bd61d4c5f74c51bb3cd4fe0611442c","pic_tag":"n_v2f4bd61d4c5f74c51bb3cd4fe0611442c","pic_cover":"http://feidu.baonongkang.cn/upload/goods/20180112/dda18be83f12da40e364c675cdd1b7da.jpg","pic_size":"503,503","pic_spec":"503,503","pic_cover_big":"http://feidu.baonongkang.cn/upload/goods/20180112/e490fb97a4e8c9e0e4e9a248dd44336b1.jpg","pic_size_big":"700,700","pic_spec_big":"700,700","pic_cover_mid":"http://feidu.baonongkang.cn/upload/goods/20180112/e490fb97a4e8c9e0e4e9a248dd44336b2.jpg","pic_size_mid":"360,360","pic_spec_mid":"360,360","pic_cover_small":"http://feidu.baonongkang.cn/upload/goods/20180112/e490fb97a4e8c9e0e4e9a248dd44336b3.jpg","pic_size_small":"240,240","pic_spec_small":"240,240","pic_cover_micro":"http://feidu.baonongkang.cn/upload/goods/20180112/e490fb97a4e8c9e0e4e9a248dd44336b4.jpg","pic_size_micro":"60,60","pic_spec_micro":"60,60","upload_time":"1515737960","upload_type":"1","domain":"","bucket":""},{"pic_id":"251","shop_id":"0","album_id":"0","is_wide":"0","pic_name":"n_v25ddb03a5f3284f3c8bd9de9925a77f4a","pic_tag":"n_v25ddb03a5f3284f3c8bd9de9925a77f4a","pic_cover":"http://feidu.baonongkang.cn/upload/goods/20180112/ca049bef34c826b1dae0b82608f102fe.jpg","pic_size":"503,503","pic_spec":"503,503","pic_cover_big":"http://feidu.baonongkang.cn/upload/goods/20180112/eba685ad1fde2a04e507f3b5c2d3b7381.jpg","pic_size_big":"700,700","pic_spec_big":"700,700","pic_cover_mid":"http://feidu.baonongkang.cn/upload/goods/20180112/eba685ad1fde2a04e507f3b5c2d3b7382.jpg","pic_size_mid":"360,360","pic_spec_mid":"360,360","pic_cover_small":"http://feidu.baonongkang.cn/upload/goods/20180112/eba685ad1fde2a04e507f3b5c2d3b7383.jpg","pic_size_small":"240,240","pic_spec_small":"240,240","pic_cover_micro":"http://feidu.baonongkang.cn/upload/goods/20180112/eba685ad1fde2a04e507f3b5c2d3b7384.jpg","pic_size_micro":"60,60","pic_spec_micro":"60,60","upload_time":"1515737962","upload_type":"1","domain":"","bucket":""},{"pic_id":"252","shop_id":"0","album_id":"0","is_wide":"0","pic_name":"n_v28c07b00f146d476dafaa1522cb0a4d2b","pic_tag":"n_v28c07b00f146d476dafaa1522cb0a4d2b","pic_cover":"http://feidu.baonongkang.cn/upload/goods/20180112/f7b21f723be7dde40353d68faf744fcd.jpg","pic_size":"503,503","pic_spec":"503,503","pic_cover_big":"http://feidu.baonongkang.cn/upload/goods/20180112/db7549554345254e68002046f8e8becb1.jpg","pic_size_big":"700,700","pic_spec_big":"700,700","pic_cover_mid":"http://feidu.baonongkang.cn/upload/goods/20180112/db7549554345254e68002046f8e8becb2.jpg","pic_size_mid":"360,360","pic_spec_mid":"360,360","pic_cover_small":"http://feidu.baonongkang.cn/upload/goods/20180112/db7549554345254e68002046f8e8becb3.jpg","pic_size_small":"240,240","pic_spec_small":"240,240","pic_cover_micro":"http://feidu.baonongkang.cn/upload/goods/20180112/db7549554345254e68002046f8e8becb4.jpg","pic_size_micro":"60,60","pic_spec_micro":"60,60","upload_time":"1515737965","upload_type":"1","domain":"","bucket":""}]
+         * apartment : 一室0厅
+         * renting_style : 短租
          * decorateStyle : 中等装修
-         * houseStyle : 别墅
-         * position : 正南正北
-         * house_language_names : ["英语","中文"]
+         * houseStyle : 公寓/酒店
+         * position : 南北通透
+         * house_language_names : ["中文"]
+         * user_headimg : http://feidu.baonongkang.cn/upload/avator/2017122020031226.jpg
          */
 
         private String house_id;
@@ -87,6 +89,7 @@ public class HouseDetailVO extends BaseVO{
         private String decorateStyle;
         private String houseStyle;
         private String position;
+        private String user_headimg;
         private List<String> house_pic;
         private List<ImgTempArrayBean> img_temp_array;
         private List<String> house_language_names;
@@ -315,6 +318,14 @@ public class HouseDetailVO extends BaseVO{
             this.position = position;
         }
 
+        public String getUser_headimg() {
+            return user_headimg;
+        }
+
+        public void setUser_headimg(String user_headimg) {
+            this.user_headimg = user_headimg;
+        }
+
         public List<String> getHouse_pic() {
             return house_pic;
         }
@@ -341,29 +352,29 @@ public class HouseDetailVO extends BaseVO{
 
         public static class ImgTempArrayBean {
             /**
-             * pic_id : 342
+             * pic_id : 250
              * shop_id : 0
              * album_id : 0
              * is_wide : 0
-             * pic_name : 房源
-             * pic_tag : 房源
-             * pic_cover : http://feidu.baonongkang.cn/upload/house/5a59c152e0eaa.png
-             * pic_size :
-             * pic_spec :
-             * pic_cover_big :
-             * pic_size_big :
-             * pic_spec_big :
-             * pic_cover_mid :
-             * pic_size_mid :
-             * pic_spec_mid :
-             * pic_cover_small :
-             * pic_size_small :
-             * pic_spec_small :
-             * pic_cover_micro :
-             * pic_size_micro :
-             * pic_spec_micro :
-             * upload_time : 1515831634
-             * upload_type : 0
+             * pic_name : n_v2f4bd61d4c5f74c51bb3cd4fe0611442c
+             * pic_tag : n_v2f4bd61d4c5f74c51bb3cd4fe0611442c
+             * pic_cover : http://feidu.baonongkang.cn/upload/goods/20180112/dda18be83f12da40e364c675cdd1b7da.jpg
+             * pic_size : 503,503
+             * pic_spec : 503,503
+             * pic_cover_big : http://feidu.baonongkang.cn/upload/goods/20180112/e490fb97a4e8c9e0e4e9a248dd44336b1.jpg
+             * pic_size_big : 700,700
+             * pic_spec_big : 700,700
+             * pic_cover_mid : http://feidu.baonongkang.cn/upload/goods/20180112/e490fb97a4e8c9e0e4e9a248dd44336b2.jpg
+             * pic_size_mid : 360,360
+             * pic_spec_mid : 360,360
+             * pic_cover_small : http://feidu.baonongkang.cn/upload/goods/20180112/e490fb97a4e8c9e0e4e9a248dd44336b3.jpg
+             * pic_size_small : 240,240
+             * pic_spec_small : 240,240
+             * pic_cover_micro : http://feidu.baonongkang.cn/upload/goods/20180112/e490fb97a4e8c9e0e4e9a248dd44336b4.jpg
+             * pic_size_micro : 60,60
+             * pic_spec_micro : 60,60
+             * upload_time : 1515737960
+             * upload_type : 1
              * domain :
              * bucket :
              */

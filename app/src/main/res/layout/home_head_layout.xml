@@ -34,18 +34,25 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="@color/C3"/>
+
+
     <include
         android:id="@+id/type5_layout"
-        layout="@layout/home_adapter_type5" />
+        layout="@layout/home_adapter_type5"
+        android:visibility="gone"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="@color/C3"/>
+        android:background="@color/C3"
+        android:visibility="gone"/>
 
     <include
         android:id="@+id/type6_layout"
         layout="@layout/home_adapter_type6"
         android:visibility="gone"/>
 
+        <include
+            layout="@layout/home_adapter_type9"
+            />
     </LinearLayout>
 </ScrollView>

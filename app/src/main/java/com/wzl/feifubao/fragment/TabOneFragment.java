@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.squareup.picasso.Picasso;
+import com.sunfusheng.marqueeview.MarqueeView;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
@@ -23,10 +24,14 @@ import com.wzl.feifubao.R;
 import com.wzl.feifubao.activity.HouseDetailActivity;
 import com.wzl.feifubao.activity.HouseListActivity;
 import com.wzl.feifubao.activity.JobOffersActivity;
+import com.wzl.feifubao.activity.JobOffersDetailActivity;
 import com.wzl.feifubao.activity.LifeActivity;
+import com.wzl.feifubao.activity.MessageActivity;
 import com.wzl.feifubao.activity.PayElectricityActivity;
 import com.wzl.feifubao.activity.PhoneChargeActivity;
 import com.wzl.feifubao.activity.RateQueryActivity;
+import com.wzl.feifubao.activity.ShopDetailActivity;
+import com.wzl.feifubao.activity.WebViewActivity;
 import com.wzl.feifubao.activity.YellowPagesActivity;
 import com.wzl.feifubao.adapter.HomeAdapter;
 import com.wzl.feifubao.constant.Constant;
@@ -36,7 +41,9 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 
@@ -46,7 +53,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     private HomeAdapter mAdapter;
     private LuRecyclerViewAdapter mLuAdapter;
     private HomeVO.DataBean mDataBean;
-    private LinearLayout mType2Layout, mType3Layout, mType4Layout, mType5Layout;
+    private LinearLayout mType2Layout, mType3Layout, mType4Layout, mType5Layout, mType8Layout;
     private Banner mBanner;
     private TextView mType3v01Tv, mType3v02Tv, mType5TitleTv, mType5DescTv, mType5BuyTv;
     private ImageView mType4Img01, mType4Img02, mType5GoodsImg;
@@ -62,17 +69,17 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mActivity.mBaseHeadLayout.setVisibility(View.VISIBLE);
         mActivity.mBaseTitleTv.setText("菲付宝");
 
-        initHeadView();
+        initHeadView(view);
         mRecyclerView = getViewById(R.id.recycler_view);
-        DividerDecoration divider = DividerUtil.linnerDivider(mActivity, R.dimen.dp_1, R.color.C3);
-        mRecyclerView.addItemDecoration(divider);
+//        DividerDecoration divider = DividerUtil.linnerDivider(mActivity, R.dimen.dp_1, R.color.C3);
+//        mRecyclerView.addItemDecoration(divider);
         mRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager=  new LinearLayoutManager(mActivity);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new HomeAdapter(mRecyclerView);
         mLuAdapter = new LuRecyclerViewAdapter(mAdapter);
-        mLuAdapter.addHeaderView(initHeadView());
+//        mLuAdapter.addHeaderView(initHeadView());
         mRecyclerView.setAdapter(mLuAdapter);
         mRecyclerView.setLoadMoreEnabled(false);
     }
@@ -101,7 +108,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         HomeVO homeVO = (HomeVO) vo;
 
         mDataBean = homeVO.getData();
-        mAdapter.updateData(mDataBean.getHouse());
+
 
         if (mDataBean.getAdvs() == null || mDataBean.getAdvs().size() == 0) {
             mType2Layout.setVisibility(View.GONE);
@@ -121,26 +128,57 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
             mBanner.setOnBannerListener(new OnBannerListener() {
                 @Override
                 public void OnBannerClick(int i) {
+                    showActivity(mDataBean.getAdvs().get(i).getClass_id(), mDataBean.getAdvs().get(i).getId(),mDataBean.getAdvs().get(i).getContent());
                 }
             });
             mBanner.start();
         }
 
-//        if (mDataBean.getArticles() == null || mDataBean.getArticles().size() == 0) {
-//            mType3Layout.setVisibility(View.GONE);
-//        } else {
-//            mType3v01Tv.setText(mDataBean.getArticles().get(0).getTitle());
-//            mType3v02Tv.setText(mDataBean.getArticles().get(1).getTitle());
-//        }
+        if (mDataBean.getArticles() == null || mDataBean.getArticles().size() == 0) {
+            mType3Layout.setVisibility(View.GONE);
+        } else {
+            mType3v01Tv.setText(mDataBean.getArticles().get(0).getJpush_content());
+            mType3v02Tv.setText(mDataBean.getArticles().get(1).getJpush_content());
+            mType3v01Tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mActivity.openActivity(MessageActivity.class);
+                }
+            });
+            mType3v02Tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mActivity.openActivity(MessageActivity.class);
+                }
+            });
+        }
 
         if (mDataBean.getHuo() == null || mDataBean.getHuo().size() == 0) {
             mType4Layout.setVisibility(View.GONE);
 
         } else {
-            if (!TextUtils.isEmpty(mDataBean.getHuo().get(0).getAdv_image()))
+            if (!TextUtils.isEmpty(mDataBean.getHuo().get(0).getAdv_image())) {
                 Picasso.with(mActivity).load(mDataBean.getHuo().get(0).getAdv_image()).into(mType4Img01);
-            if (!TextUtils.isEmpty(mDataBean.getHuo().get(1).getAdv_image()))
+                mType4Img01.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showActivity(mDataBean.getHuo().get(0).getClass_id(), mDataBean.getHuo().get(0).getId(),"");
+                    }
+                });
+
+            }
+
+            if (!TextUtils.isEmpty(mDataBean.getHuo().get(1).getAdv_image())) {
                 Picasso.with(mActivity).load(mDataBean.getHuo().get(1).getAdv_image()).into(mType4Img02);
+                mType4Img02.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showActivity(mDataBean.getHuo().get(1).getClass_id(), mDataBean.getHuo().get(1).getId(),"");
+
+                    }
+                });
+            }
+
 
         }
 
@@ -159,7 +197,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 //                }
 //            });
 //        }
-
+        mAdapter.updateData(mDataBean.getTishi());
     }
 
     @Override
@@ -172,8 +210,8 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
     }
 
-    public View initHeadView() {
-        View header = View.inflate(mActivity, R.layout.home_head_layout, null);
+    public View initHeadView(View header) {
+//        View header = View.inflate(mActivity, R.layout.home_head_layout, null);
         mType1Tv01 = header.findViewById(R.id.type_01_tv);
         mType1Tv02 = header.findViewById(R.id.type_02_tv);
         mType1Tv03 = header.findViewById(R.id.type_03_tv);
@@ -199,6 +237,8 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mType5DescTv = header.findViewById(R.id.typ5_desc_tv);
         mType5BuyTv = header.findViewById(R.id.type5_buy_tv);
         mType5GoodsImg = header.findViewById(R.id.type5_googs_tv);
+
+
         return header;
     }
 
@@ -242,13 +282,30 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
-        if (mAdapter.getData().size() == 0 || position < 1)
+        if (mAdapter.getData().size() == 0 )
             return;
         Bundle bundle = new Bundle();
-        HomeVO.DataBean.HouseBean bean = (HomeVO.DataBean.HouseBean) mAdapter.getData().get(position);
-        bundle.putString("id", bean.getHouse_id());
-        mActivity.open(HouseDetailActivity.class, bundle, 0);
+        HomeVO.DataBean.TishiBean bean = (HomeVO.DataBean.TishiBean) mAdapter.getData().get(position);
+        bundle.putString("title", "文章详情");
+        bundle.putString("url",bean.getUrl());
+        mActivity.open(WebViewActivity.class, bundle, 0);
+    }
 
+    public void showActivity(String type, String id,String url) {
+        Bundle bundle = new Bundle();
+        bundle.putString("id", id);
+        if ("1".equals(type)) {
+            mActivity.open(HouseDetailActivity.class, bundle, 0);
 
+        } else if ("2".equals(type)) {
+            mActivity.open(JobOffersDetailActivity.class, bundle, 0);
+        } else if ("3".equals(type)) {
+            mActivity.open(ShopDetailActivity.class, bundle, 0);
+
+        } else if ("4".equals(type)) {
+            bundle.putString("url", url);
+            bundle.putString("title", "文章详情");
+            mActivity.open(WebViewActivity.class, bundle, 0);
+        }
     }
 }

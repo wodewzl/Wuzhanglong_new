@@ -35,6 +35,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.HashMap;
 import java.util.Set;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import q.rorbin.badgeview.QBadgeView;
 
 public class TabThreeFragment extends BaseFragment implements View.OnClickListener {
@@ -151,6 +152,7 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
         }
         Bundle bundle = new Bundle();
         switch (v.getId()) {
+            case R.id.head_img:
             case R.id.my_info_img:
                 mActivity.openActivity(UserInfoActivity.class);
                 break;
@@ -201,14 +203,27 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
                 mActivity.openActivity(AddressActivity.class);
                 break;
             case R.id.logout_layout:
-                AppApplication.getInstance().saveUserInfoVO(null);
-                logOut();
+                new SweetAlertDialog(mActivity, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("确定要退出登录吗?")
+                        .setConfirmText("确定")
+                        .setCancelText("取消")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                AppApplication.getInstance().saveUserInfoVO(null);
+                                logOut();
 //                intent.setClass(MainActivity.this, LoginActivity.class);
 //                JPushInterface.setAlias(this, "", new TagAliasCallback() {
 //                    @Override
 //                    public void gotResult(int i, String s, Set<String> set) {
 //                    }
 //                });
+                                sDialog.dismissWithAnimation();//直接消失
+                            }
+                        })
+                        .show();
+
+
                 break;
             default:
                 break;
@@ -245,6 +260,7 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
         mQBadgeView05.setBadgeNumber(0);
         mNameTv.setText("点击登录");
         mDescTV.setText("");
+        mActivity.openActivity(LoginActivity.class);
     }
 
 }

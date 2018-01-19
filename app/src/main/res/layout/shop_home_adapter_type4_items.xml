@@ -26,6 +26,7 @@
         android:maxLines="2"
         android:ellipsize="end"
         android:lines="2"
+        android:textSize="11sp"
         android:text="我爱你" />
 
     <TextView
@@ -34,6 +35,6 @@
         android:layout_height="wrap_content"
         android:text="349"
         android:textColor="@color/FUBColor10"
-      />
+        android:textSize="11sp" />
     </LinearLayout>
 

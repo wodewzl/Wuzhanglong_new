@@ -122,7 +122,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             TabTwoFragment two = new TabTwoFragment();
             TabThreeFragment three = new TabThreeFragment();
             list.add(one);
-            list.add(two);
+//            list.add(two);
             list.add(three);
             Intent intent = new Intent();
             intent.putExtra("fragment_list", (Serializable) list);

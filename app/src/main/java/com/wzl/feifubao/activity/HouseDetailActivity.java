@@ -12,6 +12,7 @@ import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
+import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.HouseDetailVO;
 import com.youth.banner.Banner;
@@ -21,9 +22,12 @@ import com.youth.banner.loader.ImageLoader;
 import java.util.HashMap;
 
 
-public class HouseDetailActivity extends BaseActivity {
+public class HouseDetailActivity extends BaseActivity implements View.OnClickListener {
     private Banner mBanner;
-    private TextView mTag1Tv, mTag2Tv, mTimeTv, mMoneyTv, mPayTypeTv, mApartmentTv, mAreaTv, mRentingStyleTv, mDesc1Tv, mDesc2Tv, mDesc3Tv, mDesc4Tv, mDescTv,mTitleTv;
+    private TextView mTag1Tv, mTag2Tv, mTimeTv, mMoneyTv, mPayTypeTv, mApartmentTv, mAreaTv, mRentingStyleTv, mDesc1Tv, mDesc2Tv, mDesc3Tv, mDesc4Tv, mDescTv, mTitleTv;
+    private ImageView mHeadImg;
+    private TextView mNameTv, mCallTv, mHelpTv;
+    private HouseDetailVO.DataBean mDataBean;
 
     @Override
     public void baseSetContentView() {
@@ -50,12 +54,17 @@ public class HouseDetailActivity extends BaseActivity {
         mDesc3Tv = getViewById(R.id.desc3_tv);
         mDesc4Tv = getViewById(R.id.desc4_tv);
         mDescTv = getViewById(R.id.desc_tv);
-        mTitleTv=getViewById(R.id.title_tv);
+        mTitleTv = getViewById(R.id.title_tv);
+        mHeadImg = getViewById(R.id.head_img);
+        mNameTv = getViewById(R.id.name_tv);
+        mCallTv = getViewById(R.id.call_tv);
+        mHelpTv = getViewById(R.id.help_tv);
     }
 
     @Override
     public void bindViewsListener() {
-
+        mCallTv.setOnClickListener(this);
+        mHelpTv.setOnClickListener(this);
     }
 
     @Override
@@ -69,6 +78,7 @@ public class HouseDetailActivity extends BaseActivity {
     public void hasData(BaseVO vo) {
         HouseDetailVO houseDetailVO = (HouseDetailVO) vo;
         HouseDetailVO.DataBean dataBean = houseDetailVO.getData();
+        mDataBean = dataBean;
         if (dataBean.getHouse_pic() != null && dataBean.getHouse_pic().size() > 0) {
             mBanner.setImages(dataBean.getHouse_pic());
 
@@ -77,7 +87,7 @@ public class HouseDetailActivity extends BaseActivity {
                 public void displayImage(Context context, Object o, ImageView imageView) {
                     final String bannerVO = (String) o;
                     if (!TextUtils.isEmpty(bannerVO))
-                    Picasso.with(context).load(bannerVO).into(imageView);
+                        Picasso.with(context).load(bannerVO).into(imageView);
                 }
             });
             mBanner.start();
@@ -110,6 +120,9 @@ public class HouseDetailActivity extends BaseActivity {
         BaseCommonUtils.setTextTwoBefore(this, mDesc3Tv, "楼层：", dataBean.getHouse_floor(), R.color.C5, 1.0f);
         BaseCommonUtils.setTextTwoBefore(this, mDesc4Tv, "类型：", dataBean.getHouseStyle(), R.color.C5, 1.0f);
         mDescTv.setText(dataBean.getHouse_details());
+        if (!TextUtils.isEmpty(dataBean.getUser_headimg()))
+            Picasso.with(mActivity).load(dataBean.getUser_headimg()).into(mHeadImg);
+//        mNameTv.setText(dataBean.get);
     }
 
     @Override
@@ -122,4 +135,14 @@ public class HouseDetailActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.call_tv:
+                BaseCommonUtils.call(this, mDataBean.getHouse_phone());
+                break;
+            default:
+                break;
+        }
+    }
 }
