@@ -1,8 +1,6 @@
 package com.wzl.feifubao.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -25,10 +23,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener,PostCallback {
-    private TextView mPhoneTv, mPasswordTv, mOkTv,mRegistTv,mForgetTv;
+public class LoginActivity extends BaseActivity implements View.OnClickListener, PostCallback {
+    private TextView mPhoneTv, mPasswordTv, mOkTv, mRegistTv, mForgetTv;
 
 
     @Override
@@ -43,8 +40,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         mPasswordTv = getViewById(R.id.password_tv);
         mOkTv = getViewById(R.id.ok_tv);
         mOkTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 30, R.color.colorAccent, R.color.colorAccent));
-        mRegistTv=getViewById(R.id.regist_tv);
-        mForgetTv=getViewById(R.id.forget_tv);
+        mRegistTv = getViewById(R.id.regist_tv);
+        mForgetTv = getViewById(R.id.forget_tv);
     }
 
     @Override
@@ -79,11 +76,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         switch (v.getId()) {
             case R.id.ok_tv:
 
-                if(TextUtils.isEmpty(mPhoneTv.getText().toString())){
+                if (TextUtils.isEmpty(mPhoneTv.getText().toString())) {
                     showCustomToast("请输入手机号");
                     return;
                 }
-                if(TextUtils.isEmpty(mPasswordTv.getText().toString())){
+                if (TextUtils.isEmpty(mPasswordTv.getText().toString())) {
                     showCustomToast("请输入密码");
                     return;
                 }
@@ -106,13 +103,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         HashMap<String, Object> map = new HashMap<>();
         map.put("username", mPhoneTv.getText().toString());
         map.put("password", mPasswordTv.getText().toString());
-        HttpGetDataUtil.post(this, Constant.LOGIN_URL, map, UserInfoVO.class,this);
+        HttpGetDataUtil.post(this, Constant.LOGIN_URL, map, UserInfoVO.class, this);
     }
 
     @Override
     public void success(BaseVO vo) {
         UserInfoVO userInfoVO = (UserInfoVO) vo;
-        if(userInfoVO.getData()!=null){
+        if (userInfoVO.getData() != null) {
 //            JPushInterface.setAlias(LoginActivity.this, userInfoVO.getData().getJpalias(), new TagAliasCallback() {
 //                @Override
 //                public void gotResult(int i, String s, Set<String> set) {
@@ -120,8 +117,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 //            });
 
             AppApplication.getInstance().saveUserInfoVO(userInfoVO);
-
-            List<BaseFragment> list  = new ArrayList<>();
+            List<BaseFragment> list = new ArrayList<>();
             TabOneFragment one = new TabOneFragment();
             TabTwoFragment two = new TabTwoFragment();
             TabThreeFragment three = new TabThreeFragment();

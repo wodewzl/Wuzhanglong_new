@@ -22,7 +22,7 @@ import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
  * Created by Administrator on 2017/2/13.
  */
 
-public class HomeAdapter extends RecyclerBaseAdapter<HomeVO.DataBean.HouseBean> {
+public class HomeAdapter extends RecyclerBaseAdapter<HomeVO.DataBean.TishiBean> {
     private String signUrl;
 
     public HomeAdapter(RecyclerView recyclerView) {
