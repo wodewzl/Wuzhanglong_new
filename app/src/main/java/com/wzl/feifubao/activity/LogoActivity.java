@@ -8,6 +8,7 @@ import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.application.AppApplication;
+import com.wzl.feifubao.fragment.TabFourragment;
 import com.wzl.feifubao.fragment.TabOneFragment;
 import com.wzl.feifubao.fragment.TabThreeFragment;
 import com.wzl.feifubao.fragment.TabTwoFragment;
@@ -35,8 +36,9 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
         TabOneFragment one = new TabOneFragment();
         TabTwoFragment two = new TabTwoFragment();
         TabThreeFragment three = new TabThreeFragment();
+        TabFourragment four = new TabFourragment();
         list.add(one);
-//        list.add(two);
+        list.add(four);
         list.add(three);
     }
 

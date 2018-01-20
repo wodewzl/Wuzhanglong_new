@@ -18,5 +18,6 @@
     <color name="FUBColor12">#E9C067</color>
     <color name="FUBColor13">#EDF0F3</color>
     <color name="FUBColor14">#95A9B9</color>
+    <color name="bga_pp_colorPrimary">@color/colorAccent</color>
 
 </resources>

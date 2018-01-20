@@ -68,7 +68,7 @@
                 android:background="@color/C1"
                 android:gravity="right|center_vertical"
                 android:textSize="13sp"
-                android:hint="ATM/Phone Reference No."/>
+                android:hint="请输入户号"/>
         </LinearLayout>
 
         <LinearLayout
@@ -80,7 +80,7 @@
             android:orientation="horizontal"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
                 android:gravity="right|center_vertical"
                 android:textColor="@color/FUBColor3"
                 android:inputType="numberDecimal"
-                android:hint="Total Amount Due"/>
+                android:hint="输入缴费金额"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
             android:orientation="horizontal"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"

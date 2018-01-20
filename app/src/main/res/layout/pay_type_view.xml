@@ -5,12 +5,27 @@
               android:layout_height="wrap_content"
               android:background="@color/C3"
               android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <TextView
         style="@style/padding_15_13"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:text="选择支付方式"
         android:textColor="@color/C5" />
+        <TextView
+            android:id="@+id/money_tv"
+            style="@style/padding_15_13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择支付方式"
+            android:textColor="@color/C5"
+            android:visibility="gone"/>
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/pay_layout_01"
         style="@style/padding_15_10"

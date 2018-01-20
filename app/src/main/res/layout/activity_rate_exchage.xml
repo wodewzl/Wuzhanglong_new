@@ -54,7 +54,8 @@
                 android:hint="输入计算金额"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+
+                android:inputType="numberDecimal"/>
 
 
         </LinearLayout>

@@ -79,7 +79,7 @@ public class MyHouseAdapter extends RecyclerBaseAdapter<MyHouseVO.DataBean.House
         }
 
         TextView editTv= helper.getTextView(R.id.edit_tv);
-        editTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity,30,R.color.colorAccent,R.color.C1));
+        editTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity,15,R.color.colorAccent,R.color.C1));
         editTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +89,7 @@ public class MyHouseAdapter extends RecyclerBaseAdapter<MyHouseVO.DataBean.House
         });
         TextView payTv= helper.getTextView(R.id.pay_tv);
         if("0".equals(bean.getPay_status())){
-            payTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity,30,R.color.colorAccent,R.color.C1));
+            payTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity,15,R.color.colorAccent,R.color.C1));
             payTv.setVisibility(View.VISIBLE);
         }else {
             payTv.setVisibility(View.GONE);
@@ -103,7 +103,7 @@ public class MyHouseAdapter extends RecyclerBaseAdapter<MyHouseVO.DataBean.House
             }
         });
         TextView deleteTv= helper.getTextView(R.id.delete_tv);
-        deleteTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity,30,R.color.FUBColor3,R.color.C1));
+        deleteTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity,15,R.color.FUBColor3,R.color.C1));
         deleteTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -14,9 +14,11 @@ import android.widget.TextView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.squareup.picasso.Picasso;
+import com.wuzhanglong.library.cache.ACache;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.activity.HouseDetailActivity;
 import com.wzl.feifubao.activity.HouseListActivity;
@@ -25,6 +27,7 @@ import com.wzl.feifubao.activity.JobOffersDetailActivity;
 import com.wzl.feifubao.activity.LifeActivity;
 import com.wzl.feifubao.activity.MessageActivity;
 import com.wzl.feifubao.activity.PayElectricityActivity;
+import com.wzl.feifubao.activity.PayInternetActivity;
 import com.wzl.feifubao.activity.PhoneChargeActivity;
 import com.wzl.feifubao.activity.RateQueryActivity;
 import com.wzl.feifubao.activity.ShopDetailActivity;
@@ -37,6 +40,8 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 
@@ -123,7 +128,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
             mBanner.setOnBannerListener(new OnBannerListener() {
                 @Override
                 public void OnBannerClick(int i) {
-                    showActivity(mDataBean.getAdvs().get(i).getClass_id(), mDataBean.getAdvs().get(i).getId(),mDataBean.getAdvs().get(i).getContent());
+                    showActivity(mDataBean.getAdvs().get(i).getClass_id(), mDataBean.getAdvs().get(i).getId(), mDataBean.getAdvs().get(i).getContent());
                 }
             });
             mBanner.start();
@@ -134,18 +139,13 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         } else {
             mType3v01Tv.setText(mDataBean.getArticles().get(0).getJpush_content());
             mType3v02Tv.setText(mDataBean.getArticles().get(1).getJpush_content());
-            mType3v01Tv.setOnClickListener(new View.OnClickListener() {
+            mType3Layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mActivity.openActivity(MessageActivity.class);
                 }
             });
-            mType3v02Tv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mActivity.openActivity(MessageActivity.class);
-                }
-            });
+
         }
 
         if (mDataBean.getHuo() == null || mDataBean.getHuo().size() == 0) {
@@ -157,7 +157,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
                 mType4Img01.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        showActivity(mDataBean.getHuo().get(0).getClass_id(), mDataBean.getHuo().get(0).getId(),"");
+                        showActivity(mDataBean.getHuo().get(0).getClass_id(), mDataBean.getHuo().get(0).getId(), "");
                     }
                 });
 
@@ -168,7 +168,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
                 mType4Img02.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        showActivity(mDataBean.getHuo().get(1).getClass_id(), mDataBean.getHuo().get(1).getId(),"");
+                        showActivity(mDataBean.getHuo().get(1).getClass_id(), mDataBean.getHuo().get(1).getId(), "");
 
                     }
                 });
@@ -193,6 +193,13 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 //            });
 //        }
         mAdapter.updateData(mDataBean.getTishi());
+
+        ACache.get(mActivity).put("kefu", mDataBean.getKefu());
+
+        ACache.get(mActivity).put("electricity_bill", mDataBean.getElectricity_bill());
+
+        ACache.get(mActivity).put("rate", mDataBean.getRate());
+        EventBus.getDefault().post(new EBMessageVO("load"));
     }
 
     @Override
@@ -245,13 +252,13 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
                 mActivity.openActivity(PhoneChargeActivity.class);
                 break;
             case R.id.type_02_tv:
-                bundle.putString("type", "1");
-                mActivity.open(PayElectricityActivity.class, bundle, 0);
+
+                mActivity.openActivity(PayElectricityActivity.class);
 
                 break;
             case R.id.type_03_tv:
-                bundle.putString("type", "2");
-                mActivity.open(PayElectricityActivity.class, bundle, 0);
+
+                mActivity.openActivity(PayInternetActivity.class);
 
                 break;
             case R.id.type_04_tv:
@@ -277,16 +284,13 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
-        if (mAdapter.getData().size() == 0 )
+        if (mAdapter.getData().size() == 0)
             return;
-        Bundle bundle = new Bundle();
-        HomeVO.DataBean.TishiBean bean = (HomeVO.DataBean.TishiBean) mAdapter.getData().get(position);
-        bundle.putString("title", "文章详情");
-        bundle.putString("url",bean.getUrl());
-        mActivity.open(WebViewActivity.class, bundle, 0);
+
+        mActivity.openActivity(MessageActivity.class);
     }
 
-    public void showActivity(String type, String id,String url) {
+    public void showActivity(String type, String id, String url) {
         Bundle bundle = new Bundle();
         bundle.putString("id", id);
         if ("1".equals(type)) {
@@ -303,4 +307,6 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
             mActivity.open(WebViewActivity.class, bundle, 0);
         }
     }
+
+
 }

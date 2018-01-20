@@ -129,12 +129,12 @@ public class HouseDetailActivity extends BaseActivity implements View.OnClickLis
         mPayTypeTv.setText(dataBean.getPay_class());
 
         mApartmentTv.setText(dataBean.getApartment());
-        mAreaTv.setText(dataBean.getHouse_area());
+        mAreaTv.setText(dataBean.getHouse_area()+"㎡");
         mRentingStyleTv.setText(dataBean.getRenting_style());
 
         BaseCommonUtils.setTextTwoBefore(this, mDesc1Tv, "朝向：", dataBean.getPosition(), R.color.C5, 1.0f);
         BaseCommonUtils.setTextTwoBefore(this, mDesc2Tv, "装修：", dataBean.getDecorateStyle(), R.color.C5, 1.0f);
-        BaseCommonUtils.setTextTwoBefore(this, mDesc3Tv, "楼层：", dataBean.getHouse_floor(), R.color.C5, 1.0f);
+        BaseCommonUtils.setTextTwoBefore(this, mDesc3Tv, "楼层：", dataBean.getHouse_floor()+"楼", R.color.C5, 1.0f);
         BaseCommonUtils.setTextTwoBefore(this, mDesc4Tv, "类型：", dataBean.getHouseStyle(), R.color.C5, 1.0f);
         mDescTv.setText(dataBean.getHouse_details());
         if (!TextUtils.isEmpty(dataBean.getUser_headimg()))
@@ -212,6 +212,6 @@ public class HouseDetailActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void success(BaseVO vo) {
-
+        showCustomToast("咨询内容提交成功");
     }
 }

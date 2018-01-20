@@ -40,7 +40,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:adjustViewBounds="true"
-            android:background="@color/C1"/>
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"/>
 
         <ImageView
             android:id="@+id/typ4_02_img"
@@ -49,6 +50,7 @@
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:layout_marginLeft="1dp"
-            android:background="@color/C1"/>
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"/>
     </LinearLayout>
 </LinearLayout>

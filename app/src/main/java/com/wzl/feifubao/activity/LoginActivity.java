@@ -15,6 +15,7 @@ import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
+import com.wzl.feifubao.fragment.TabFourragment;
 import com.wzl.feifubao.fragment.TabOneFragment;
 import com.wzl.feifubao.fragment.TabThreeFragment;
 import com.wzl.feifubao.fragment.TabTwoFragment;
@@ -130,8 +131,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             TabOneFragment one = new TabOneFragment();
             TabTwoFragment two = new TabTwoFragment();
             TabThreeFragment three = new TabThreeFragment();
+            TabFourragment four = new TabFourragment();
             list.add(one);
-//            list.add(two);
+            list.add(four);
             list.add(three);
             Intent intent = new Intent();
             intent.putExtra("fragment_list", (Serializable) list);

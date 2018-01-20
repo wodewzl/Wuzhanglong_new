@@ -97,7 +97,7 @@ public class AddressAddActivity extends BaseActivity implements View.OnClickList
                 Province_AreaList.add(City_AreaList);//添加该省所有地区数据
             }
             options2Items.add(CityList);
-//            options3Items.add(Province_AreaList);
+            options3Items.add(Province_AreaList);
         }
 
     }
@@ -124,15 +124,15 @@ public class AddressAddActivity extends BaseActivity implements View.OnClickList
                         //返回的分别是三个级别的选中位置
                         String tx = options1Items.get(options1).getProvince_name()
                                 + options2Items.get(options1).get(option2).getCity_name()
-                             ;
+                                + options3Items.get(options1).get(option2).get(options3).getDistrict_name();
                         mTv03.setText(tx);
 
                         mProvinceId = options1Items.get(options1).getProvince_id();
                         mCityId = options2Items.get(options1).get(option2).getCity_id();
-
+                        mAreaId = options3Items.get(options1).get(option2).get(options3).getDistrict_id();
                     }
                 }).build();
-                pvOptions.setPicker(options1Items, options2Items);
+                pvOptions.setPicker(options1Items, options2Items, options3Items);
                 pvOptions.show();
                 break;
             case R.id.add_bt:

@@ -1,5 +1,7 @@
 package com.wzl.feifubao.activity;
 
+import android.Manifest;
+import android.os.Environment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,11 +40,17 @@ import com.wzl.feifubao.mode.PaymentRecordsVO;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener,PostStringCallback {
+import cn.bingoogolapple.photopicker.activity.BGAPhotoPreviewActivity;
+import cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
+
+public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, PostStringCallback,BGANinePhotoLayout.Delegate {
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private LuRecyclerView mRecyclerView;
     private PaymentRecordAdapter mAdapter;
@@ -50,6 +58,7 @@ public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreLi
     private boolean isLoadMore = true;
     private String mType;
     private BottomSheetDialog mDialog;
+    private static final int PRC_PHOTO_PICKER = 1;
 
     @Override
     public void baseSetContentView() {
@@ -59,12 +68,12 @@ public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreLi
     @Override
     public void initView() {
 
-        mType=this.getIntent().getStringExtra("type");
-        if("1".equals(mType)){
+        mType = this.getIntent().getStringExtra("type");
+        if ("1".equals(mType)) {
             mBaseTitleTv.setText("电费");
-        }else if("2".equals(mType)){
+        } else if ("2".equals(mType)) {
             mBaseTitleTv.setText("网费");
-        }else if("3".equals(mType)){
+        } else if ("3".equals(mType)) {
             mBaseTitleTv.setText("手机费");
         }
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
@@ -86,6 +95,8 @@ public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreLi
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
         mRecyclerView.setLoadMoreEnabled(true);
+
+
     }
 
     @Override
@@ -97,9 +108,10 @@ public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreLi
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
-        map.put("page", mCurrentPage+"");
-        map.put("type",mType);
+//        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
+        map.put("uid", "39");
+        map.put("page", mCurrentPage + "");
+        map.put("type", mType);
         map.put("pagesize", "10");
         HttpGetDataUtil.get(mActivity, this, Constant.PAYMENT_RECORDS_URL, map, PaymentRecordsVO.class);
     }
@@ -108,7 +120,7 @@ public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreLi
     public void hasData(BaseVO vo) {
         PaymentRecordsVO paymentRecordsVO = (PaymentRecordsVO) vo;
 
-        if (BaseCommonUtils.parseInt(paymentRecordsVO.getData().getPage_count())==1 ) {
+        if (BaseCommonUtils.parseInt(paymentRecordsVO.getData().getPage_count()) == 1) {
             mRecyclerView.setLoadMoreEnabled(false);
         }
         if (mCurrentPage == BaseCommonUtils.parseInt(paymentRecordsVO.getData().getPage_count())) {
@@ -118,9 +130,9 @@ public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreLi
         }
 
         List<PaymentRecordsVO.DataBeanX> list = new ArrayList<>();
-        for (int i = 0; i <paymentRecordsVO.getData().getData().size() ; i++) {
+        for (int i = 0; i < paymentRecordsVO.getData().getData().size(); i++) {
             list.add(paymentRecordsVO.getData().getData().get(i));
-            for (int j = 0; j <paymentRecordsVO.getData().getData().get(i).getLists().size() ; j++) {
+            for (int j = 0; j < paymentRecordsVO.getData().getData().get(i).getLists().size(); j++) {
                 list.add(paymentRecordsVO.getData().getData().get(i).getLists().get(j));
             }
         }
@@ -135,6 +147,10 @@ public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreLi
         }
         mAutoSwipeRefreshLayout.setRefreshing(false);
         mAdapter.notifyDataSetChanged();
+
+
+
+
     }
 
     @Override
@@ -249,7 +265,8 @@ public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreLi
                                 @Override
                                 public void payResult(int type) {
                                     if (type == 1) {
-                                        mActivity.openActivity(MyHouseActivity.class);
+                                        mActivity.showCustomToast("支付成功");
+                                        mAutoSwipeRefreshLayout.autoRefresh();
                                     } else {
                                         mActivity.showCustomToast("支付失败");
                                     }
@@ -272,6 +289,34 @@ public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreLi
 
     @Override
     public void success(String result) {
+
+    }
+
+
+
+    @AfterPermissionGranted(PRC_PHOTO_PICKER)
+    public void choicePhotoWrapper(String path) {
+//        ArrayList<String> list=new ArrayList<>();
+//        list.add(path);
+//        mPhotoLyout.setData(list);
+//        mPhotoLyout.setDelegate(this);
+//        path="http://gwhb.work.csongdai.com/Uploads/bs0640/Log/image/20180120/5a62e3a52890a.jpeg";
+        // 保存图片的目录，改成你自己要保存图片的目录。如果不传递该参数的话就不会显示右上角的保存按钮
+        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            File downloadDir = new File(Environment.getExternalStorageDirectory(), BaseConstant.SDCARD_CACHE);
+            BGAPhotoPreviewActivity.IntentBuilder photoPreviewIntentBuilder = new BGAPhotoPreviewActivity.IntentBuilder(this)
+                    .saveImgDir(downloadDir); // 保存图片的目录，如果传 null，则没有保存图片功能
+
+            photoPreviewIntentBuilder.previewPhoto(path);
+            startActivity(photoPreviewIntentBuilder.build());
+        } else {
+            EasyPermissions.requestPermissions(this, "图片预览需要以下权限:\n\n1.访问设备上的照片", PRC_PHOTO_PICKER, perms);
+        }
+    }
+
+    @Override
+    public void onClickNinePhotoItem(BGANinePhotoLayout ninePhotoLayout, View view, int position, String model, List<String> models) {
 
     }
 }

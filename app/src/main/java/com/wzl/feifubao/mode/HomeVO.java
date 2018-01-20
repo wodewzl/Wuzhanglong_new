@@ -7,43 +7,9 @@ import java.util.List;
 
 public class HomeVO extends BaseVO{
 
+
     /**
-     * data : {"advs":[{"id":"74","adv_image":"http://feidu.baonongkang.cn/upload/image_collection/1515759661.jpg","class_id":"1","content":""},{"id":"15","adv_image":"http://feidu.baonongkang
-     * .cn/upload/image_collection/1515740625.png","class_id":"4","content":"http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/15"}],"articles":[{"jpush_id":"82",
-     * "jpush_content":"这是官方发出的一条测试消息，这是官方发出的一条测试消息。","jpush_type":"5"},{"jpush_id":"81","jpush_content":"最新官方","jpush_type":"5"}],"huo":[{"id":"58","adv_image":"http://feidu.baonongkang
-     * .cn/upload/image_collection/1515760464.jpg","class_id":"1","content":""},{"id":"26","adv_image":"http://feidu.baonongkang.cn/upload/image_collection/1515760449.jpg","class_id":"2",
-     * "content":""}],"goods":[],"house":[{"house_id":"94","house_title":"整租·Original Place  一室0厅","house_pic":"http://feidu.baonongkang
-     * .cn/upload/goods/20180119/9f741dc90e959f8c01a7fbf5b410bc31.jpg","class_id":"58","house_area":"50","house_name":"Original Place","house_price":"30000","house_tag":"","province_id":"50",
-     * "city_id":"512","house_decorate":"23","house_face":"31","house_language":"16","apartment":"一室0厅","province":"国家首都区","city":"马卡迪市","house_face_name":"南北通透","house_language_names":["中文"],
-     * "house_decorate_name":"普通装修","area":"国家首都区马卡迪市"},{"house_id":"93","house_title":"月租·Avida Tower  一室0厅","house_pic":"","class_id":"58","house_area":"50","house_name":"Avida Tower",
-     * "house_price":"20000","house_tag":"","province_id":"50","city_id":"512","house_decorate":"23","house_face":"32","house_language":"14,15,16","apartment":"一室0厅","province":"国家首都区",
-     * "city":"马卡迪市","house_face_name":"正南正北","house_language_names":["菲律宾语","英语","中文"],"house_decorate_name":"普通装修","area":"国家首都区马卡迪市"},{"house_id":"90","house_title":"合租·上海霞飞路  一室一厅",
-     * "house_pic":"http://feidu.baonongkang.cn/upload/house/5a61c59174bf1.png","class_id":"55","house_area":"222","house_name":"上海霞飞路","house_price":"555","house_tag":"","province_id":"50",
-     * "city_id":"504","house_decorate":"25","house_face":"32","house_language":"14,15,16","apartment":"一室一厅","province":"国家首都区","city":"马尼拉市","house_face_name":"正南正北",
-     * "house_language_names":["菲律宾语","英语","中文"],"house_decorate_name":"精装修","area":"国家首都区马尼拉市"},{"house_id":"89","house_title":"合租·襄阳两室两厅","house_pic":"http://feidu.baonongkang
-     * .cn/upload/house/5a5eb1f625f38.png","class_id":"56","house_area":"888","house_name":"襄阳","house_price":"633","house_tag":"","province_id":"43","city_id":"629","house_decorate":"24",
-     * "house_face":"32","house_language":"14,15","apartment":"两室两厅","province":"","city":"","house_face_name":"正南正北","house_language_names":["菲律宾语","英语"],"house_decorate_name":"中等装修","area":""},
-     * {"house_id":"88","house_title":"合租吴二少一室一厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5cd251c3817.jpeg","class_id":"55","house_area":"132","house_name":"吴二少",
-     * "house_price":"1358","house_tag":"","province_id":"40","city_id":"582","house_decorate":"23","house_face":"31","house_language":"14","apartment":"一室一厅","province":"","city":"",
-     * "house_face_name":"南北通透","house_language_names":["菲律宾语"],"house_decorate_name":"普通装修","area":""},{"house_id":"86","house_title":"整租·Belton Place一室一厅","house_pic":"http://feidu.baonongkang
-     * .cn/upload/house/5a5ccffb3335e.png","class_id":"55","house_area":"50","house_name":"Belton Place","house_price":"20000","house_tag":"","province_id":"37","city_id":"547",
-     * "house_decorate":"23","house_face":"31","house_language":"14,15,16","apartment":"一室一厅","province":"","city":"","house_face_name":"南北通透","house_language_names":["菲律宾语","英语","中文"],
-     * "house_decorate_name":"普通装修","area":""},{"house_id":"84","house_title":"合租上海霞飞路三室两厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5b1dd706495.png","class_id":"6",
-     * "house_area":"239","house_name":"上海霞飞路","house_price":"123","house_tag":"","province_id":"36","city_id":"537","house_decorate":"24","house_face":"32","house_language":"14,15,16",
-     * "apartment":"三室两厅","province":"","city":"","house_face_name":"正南正北","house_language_names":["菲律宾语","英语","中文"],"house_decorate_name":"中等装修","area":""},{"house_id":"81",
-     * "house_title":"合租恐龙两室两厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a59c152e0eaa.png","class_id":"56","house_area":"5152","house_name":"恐龙","house_price":"5","house_tag":"",
-     * "province_id":"40","city_id":"582","house_decorate":"24","house_face":"32","house_language":"15,16","apartment":"两室两厅","province":"","city":"","house_face_name":"正南正北",
-     * "house_language_names":["英语","中文"],"house_decorate_name":"中等装修","area":""},{"house_id":"80","house_title":"合租啊啊啊摸摸摸一室一厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a59b525d538f
-     * .png","class_id":"55","house_area":"23","house_name":"啊啊啊摸摸摸","house_price":"233","house_tag":"","province_id":"40","city_id":"599","house_decorate":"24","house_face":"32",
-     * "house_language":"15","apartment":"一室一厅","province":"","city":"","house_face_name":"正南正北","house_language_names":["英语"],"house_decorate_name":"中等装修","area":""},{"house_id":"79",
-     * "house_title":"合租武汉江夏区两室两厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a59b366c586b.png","class_id":"56","house_area":"566","house_name":"武汉江夏区","house_price":"888",
-     * "house_tag":"","province_id":"48","city_id":"660","house_decorate":"24","house_face":"31","house_language":"15","apartment":"两室两厅","province":"","city":"","house_face_name":"南北通透",
-     * "house_language_names":["英语"],"house_decorate_name":"中等装修","area":""}],"msgStatus":"0","electricity_bill":"http://feidu.baonongkang.cn/index
-     * .php?s=/wap/articlecenter/articleContent/article_id/23","tishi":[{"article_id":"23","title":"如何在菲度上缴纳电费？","short_title":"","image":"http://feidu.baonongkang.cn/upload/cms/1516348549.png",
-     * "url":"http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/23"},{"article_id":"22","title":"中国-东盟国际汽车拉力赛首次抵达菲律宾","short_title":"","image":"http://feidu
-     * .baonongkang.cn/upload/cms/1516359984.jpg","url":"http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/22"},{"article_id":"21","title":"续法缘增法谊
-     * 福建省佛教界参访团一行到菲律宾访问","short_title":"","image":"http://feidu.baonongkang.cn/upload/cms/1516359895.jpg","url":"http://feidu.baonongkang.cn/index
-     * .php?s=/wap/articlecenter/articleContent/article_id/21"}],"rate":"0.13"}
+     * data : {"advs":[{"id":"74","adv_image":"http://feidu.baonongkang.cn/upload/image_collection/1515759661.jpg","class_id":"1","content":""},{"id":"15","adv_image":"http://feidu.baonongkang.cn/upload/image_collection/1515740625.png","class_id":"4","content":"http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/15"}],"articles":[{"jpush_id":"87","jpush_content":"你把U盾不啊好速度","jpush_type":"5"},{"jpush_id":"85","jpush_content":"这个周末你是怎么过得呢？","jpush_type":"5"}],"huo":[{"id":"58","adv_image":"http://feidu.baonongkang.cn/upload/image_collection/1515760464.jpg","class_id":"1","content":""},{"id":"26","adv_image":"http://feidu.baonongkang.cn/upload/image_collection/1515760449.jpg","class_id":"2","content":""}],"goods":[],"house":[{"house_id":"94","house_title":"整租·Original Place  一室零厅","house_pic":"http://feidu.baonongkang.cn/upload/goods/20180119/9f741dc90e959f8c01a7fbf5b410bc31.jpg","class_id":"58","house_area":"50","house_name":"Original Place","house_price":"30000","house_tag":"","province_id":"50","city_id":"512","house_decorate":"23","house_face":"31","house_language":"16","apartment":"一室零厅","province":"国家首都区","city":"马卡迪市","house_face_name":"有阳台","house_language_names":["中文"],"house_decorate_name":"普通装修","area":"国家首都区马卡迪市"},{"house_id":"93","house_title":"短租·Avida Tower  一室零厅","house_pic":"","class_id":"58","house_area":"50","house_name":"Avida Tower","house_price":"20000","house_tag":"","province_id":"50","city_id":"512","house_decorate":"23","house_face":"32","house_language":"14,15,16","apartment":"一室零厅","province":"国家首都区","city":"马卡迪市","house_face_name":"无阳台","house_language_names":["菲律宾语","英语","中文"],"house_decorate_name":"普通装修","area":"国家首都区马卡迪市"},{"house_id":"90","house_title":"合租·上海霞飞路  一室一厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a61c59174bf1.png","class_id":"55","house_area":"222","house_name":"上海霞飞路","house_price":"555","house_tag":"","province_id":"50","city_id":"504","house_decorate":"25","house_face":"32","house_language":"14,15,16","apartment":"一室一厅","province":"国家首都区","city":"马尼拉市","house_face_name":"无阳台","house_language_names":["菲律宾语","英语","中文"],"house_decorate_name":"精装修","area":"国家首都区马尼拉市"},{"house_id":"89","house_title":"合租·襄阳两室两厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5eb1f625f38.png","class_id":"56","house_area":"888","house_name":"襄阳","house_price":"633","house_tag":"","province_id":"43","city_id":"629","house_decorate":"24","house_face":"32","house_language":"14,15","apartment":"两室两厅","province":"","city":"","house_face_name":"无阳台","house_language_names":["菲律宾语","英语"],"house_decorate_name":"中等装修","area":""},{"house_id":"88","house_title":"合租吴二少一室一厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5cd251c3817.jpeg","class_id":"55","house_area":"132","house_name":"吴二少","house_price":"1358","house_tag":"","province_id":"40","city_id":"582","house_decorate":"23","house_face":"31","house_language":"14","apartment":"一室一厅","province":"","city":"","house_face_name":"有阳台","house_language_names":["菲律宾语"],"house_decorate_name":"普通装修","area":""},{"house_id":"86","house_title":"整租·Belton Place一室一厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5ccffb3335e.png","class_id":"55","house_area":"50","house_name":"Belton Place","house_price":"20000","house_tag":"","province_id":"37","city_id":"547","house_decorate":"23","house_face":"31","house_language":"14,15,16","apartment":"一室一厅","province":"","city":"","house_face_name":"有阳台","house_language_names":["菲律宾语","英语","中文"],"house_decorate_name":"普通装修","area":""},{"house_id":"84","house_title":"合租上海霞飞路三室两厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5b1dd706495.png","class_id":"6","house_area":"239","house_name":"上海霞飞路","house_price":"123","house_tag":"","province_id":"36","city_id":"537","house_decorate":"24","house_face":"32","house_language":"14,15,16","apartment":"三室两厅","province":"","city":"","house_face_name":"无阳台","house_language_names":["菲律宾语","英语","中文"],"house_decorate_name":"中等装修","area":""},{"house_id":"81","house_title":"合租恐龙两室两厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a59c152e0eaa.png","class_id":"56","house_area":"5152","house_name":"恐龙","house_price":"5","house_tag":"","province_id":"40","city_id":"582","house_decorate":"24","house_face":"32","house_language":"15,16","apartment":"两室两厅","province":"","city":"","house_face_name":"无阳台","house_language_names":["英语","中文"],"house_decorate_name":"中等装修","area":""},{"house_id":"80","house_title":"合租啊啊啊摸摸摸一室一厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a59b525d538f.png","class_id":"55","house_area":"23","house_name":"啊啊啊摸摸摸","house_price":"233","house_tag":"","province_id":"40","city_id":"599","house_decorate":"24","house_face":"32","house_language":"15","apartment":"一室一厅","province":"","city":"","house_face_name":"无阳台","house_language_names":["英语"],"house_decorate_name":"中等装修","area":""},{"house_id":"79","house_title":"合租武汉江夏区两室两厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a59b366c586b.png","class_id":"56","house_area":"566","house_name":"武汉江夏区","house_price":"888","house_tag":"","province_id":"48","city_id":"660","house_decorate":"24","house_face":"31","house_language":"15","apartment":"两室两厅","province":"","city":"","house_face_name":"有阳台","house_language_names":["英语"],"house_decorate_name":"中等装修","area":""}],"msgStatus":"0","electricity_bill":"http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/23","tishi":[{"article_id":"27","title":"Globe套餐说明","short_title":"Globe套餐说明","image":"http://feidu.baonongkang.cn/upload/cms/1516439358.jpg","url":"http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/27"},{"article_id":"26","title":"菲度客服","short_title":"","image":"","url":"http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/26"},{"article_id":"23","title":"如何在菲度上缴纳电费？","short_title":"","image":"http://feidu.baonongkang.cn/upload/cms/1516348549.png","url":"http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/23"}],"rate":"0.15","kefu":"http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/26"}
      */
 
     private DataBean data;
@@ -58,50 +24,22 @@ public class HomeVO extends BaseVO{
 
     public static class DataBean {
         /**
-         * advs : [{"id":"74","adv_image":"http://feidu.baonongkang.cn/upload/image_collection/1515759661.jpg","class_id":"1","content":""},{"id":"15","adv_image":"http://feidu.baonongkang
-         * .cn/upload/image_collection/1515740625.png","class_id":"4","content":"http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/15"}]
-         * articles : [{"jpush_id":"82","jpush_content":"这是官方发出的一条测试消息，这是官方发出的一条测试消息。","jpush_type":"5"},{"jpush_id":"81","jpush_content":"最新官方","jpush_type":"5"}]
-         * huo : [{"id":"58","adv_image":"http://feidu.baonongkang.cn/upload/image_collection/1515760464.jpg","class_id":"1","content":""},{"id":"26","adv_image":"http://feidu.baonongkang
-         * .cn/upload/image_collection/1515760449.jpg","class_id":"2","content":""}]
+         * advs : [{"id":"74","adv_image":"http://feidu.baonongkang.cn/upload/image_collection/1515759661.jpg","class_id":"1","content":""},{"id":"15","adv_image":"http://feidu.baonongkang.cn/upload/image_collection/1515740625.png","class_id":"4","content":"http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/15"}]
+         * articles : [{"jpush_id":"87","jpush_content":"你把U盾不啊好速度","jpush_type":"5"},{"jpush_id":"85","jpush_content":"这个周末你是怎么过得呢？","jpush_type":"5"}]
+         * huo : [{"id":"58","adv_image":"http://feidu.baonongkang.cn/upload/image_collection/1515760464.jpg","class_id":"1","content":""},{"id":"26","adv_image":"http://feidu.baonongkang.cn/upload/image_collection/1515760449.jpg","class_id":"2","content":""}]
          * goods : []
-         * house : [{"house_id":"94","house_title":"整租·Original Place  一室0厅","house_pic":"http://feidu.baonongkang.cn/upload/goods/20180119/9f741dc90e959f8c01a7fbf5b410bc31.jpg","class_id":"58",
-         * "house_area":"50","house_name":"Original Place","house_price":"30000","house_tag":"","province_id":"50","city_id":"512","house_decorate":"23","house_face":"31","house_language":"16",
-         * "apartment":"一室0厅","province":"国家首都区","city":"马卡迪市","house_face_name":"南北通透","house_language_names":["中文"],"house_decorate_name":"普通装修","area":"国家首都区马卡迪市"},{"house_id":"93",
-         * "house_title":"月租·Avida Tower  一室0厅","house_pic":"","class_id":"58","house_area":"50","house_name":"Avida Tower","house_price":"20000","house_tag":"","province_id":"50","city_id":"512",
-         * "house_decorate":"23","house_face":"32","house_language":"14,15,16","apartment":"一室0厅","province":"国家首都区","city":"马卡迪市","house_face_name":"正南正北","house_language_names":["菲律宾语","英语",
-         * "中文"],"house_decorate_name":"普通装修","area":"国家首都区马卡迪市"},{"house_id":"90","house_title":"合租·上海霞飞路  一室一厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a61c59174bf1.png",
-         * "class_id":"55","house_area":"222","house_name":"上海霞飞路","house_price":"555","house_tag":"","province_id":"50","city_id":"504","house_decorate":"25","house_face":"32",
-         * "house_language":"14,15,16","apartment":"一室一厅","province":"国家首都区","city":"马尼拉市","house_face_name":"正南正北","house_language_names":["菲律宾语","英语","中文"],"house_decorate_name":"精装修",
-         * "area":"国家首都区马尼拉市"},{"house_id":"89","house_title":"合租·襄阳两室两厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5eb1f625f38.png","class_id":"56","house_area":"888",
-         * "house_name":"襄阳","house_price":"633","house_tag":"","province_id":"43","city_id":"629","house_decorate":"24","house_face":"32","house_language":"14,15","apartment":"两室两厅","province":"",
-         * "city":"","house_face_name":"正南正北","house_language_names":["菲律宾语","英语"],"house_decorate_name":"中等装修","area":""},{"house_id":"88","house_title":"合租吴二少一室一厅","house_pic":"http://feidu
-         * .baonongkang.cn/upload/house/5a5cd251c3817.jpeg","class_id":"55","house_area":"132","house_name":"吴二少","house_price":"1358","house_tag":"","province_id":"40","city_id":"582",
-         * "house_decorate":"23","house_face":"31","house_language":"14","apartment":"一室一厅","province":"","city":"","house_face_name":"南北通透","house_language_names":["菲律宾语"],
-         * "house_decorate_name":"普通装修","area":""},{"house_id":"86","house_title":"整租·Belton Place一室一厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5ccffb3335e.png","class_id":"55",
-         * "house_area":"50","house_name":"Belton Place","house_price":"20000","house_tag":"","province_id":"37","city_id":"547","house_decorate":"23","house_face":"31","house_language":"14,15,16",
-         * "apartment":"一室一厅","province":"","city":"","house_face_name":"南北通透","house_language_names":["菲律宾语","英语","中文"],"house_decorate_name":"普通装修","area":""},{"house_id":"84",
-         * "house_title":"合租上海霞飞路三室两厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5b1dd706495.png","class_id":"6","house_area":"239","house_name":"上海霞飞路","house_price":"123",
-         * "house_tag":"","province_id":"36","city_id":"537","house_decorate":"24","house_face":"32","house_language":"14,15,16","apartment":"三室两厅","province":"","city":"","house_face_name":"正南正北",
-         * "house_language_names":["菲律宾语","英语","中文"],"house_decorate_name":"中等装修","area":""},{"house_id":"81","house_title":"合租恐龙两室两厅","house_pic":"http://feidu.baonongkang
-         * .cn/upload/house/5a59c152e0eaa.png","class_id":"56","house_area":"5152","house_name":"恐龙","house_price":"5","house_tag":"","province_id":"40","city_id":"582","house_decorate":"24",
-         * "house_face":"32","house_language":"15,16","apartment":"两室两厅","province":"","city":"","house_face_name":"正南正北","house_language_names":["英语","中文"],"house_decorate_name":"中等装修","area":""},
-         * {"house_id":"80","house_title":"合租啊啊啊摸摸摸一室一厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a59b525d538f.png","class_id":"55","house_area":"23","house_name":"啊啊啊摸摸摸",
-         * "house_price":"233","house_tag":"","province_id":"40","city_id":"599","house_decorate":"24","house_face":"32","house_language":"15","apartment":"一室一厅","province":"","city":"",
-         * "house_face_name":"正南正北","house_language_names":["英语"],"house_decorate_name":"中等装修","area":""},{"house_id":"79","house_title":"合租武汉江夏区两室两厅","house_pic":"http://feidu.baonongkang
-         * .cn/upload/house/5a59b366c586b.png","class_id":"56","house_area":"566","house_name":"武汉江夏区","house_price":"888","house_tag":"","province_id":"48","city_id":"660","house_decorate":"24",
-         * "house_face":"31","house_language":"15","apartment":"两室两厅","province":"","city":"","house_face_name":"南北通透","house_language_names":["英语"],"house_decorate_name":"中等装修","area":""}]
+         * house : [{"house_id":"94","house_title":"整租·Original Place  一室零厅","house_pic":"http://feidu.baonongkang.cn/upload/goods/20180119/9f741dc90e959f8c01a7fbf5b410bc31.jpg","class_id":"58","house_area":"50","house_name":"Original Place","house_price":"30000","house_tag":"","province_id":"50","city_id":"512","house_decorate":"23","house_face":"31","house_language":"16","apartment":"一室零厅","province":"国家首都区","city":"马卡迪市","house_face_name":"有阳台","house_language_names":["中文"],"house_decorate_name":"普通装修","area":"国家首都区马卡迪市"},{"house_id":"93","house_title":"短租·Avida Tower  一室零厅","house_pic":"","class_id":"58","house_area":"50","house_name":"Avida Tower","house_price":"20000","house_tag":"","province_id":"50","city_id":"512","house_decorate":"23","house_face":"32","house_language":"14,15,16","apartment":"一室零厅","province":"国家首都区","city":"马卡迪市","house_face_name":"无阳台","house_language_names":["菲律宾语","英语","中文"],"house_decorate_name":"普通装修","area":"国家首都区马卡迪市"},{"house_id":"90","house_title":"合租·上海霞飞路  一室一厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a61c59174bf1.png","class_id":"55","house_area":"222","house_name":"上海霞飞路","house_price":"555","house_tag":"","province_id":"50","city_id":"504","house_decorate":"25","house_face":"32","house_language":"14,15,16","apartment":"一室一厅","province":"国家首都区","city":"马尼拉市","house_face_name":"无阳台","house_language_names":["菲律宾语","英语","中文"],"house_decorate_name":"精装修","area":"国家首都区马尼拉市"},{"house_id":"89","house_title":"合租·襄阳两室两厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5eb1f625f38.png","class_id":"56","house_area":"888","house_name":"襄阳","house_price":"633","house_tag":"","province_id":"43","city_id":"629","house_decorate":"24","house_face":"32","house_language":"14,15","apartment":"两室两厅","province":"","city":"","house_face_name":"无阳台","house_language_names":["菲律宾语","英语"],"house_decorate_name":"中等装修","area":""},{"house_id":"88","house_title":"合租吴二少一室一厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5cd251c3817.jpeg","class_id":"55","house_area":"132","house_name":"吴二少","house_price":"1358","house_tag":"","province_id":"40","city_id":"582","house_decorate":"23","house_face":"31","house_language":"14","apartment":"一室一厅","province":"","city":"","house_face_name":"有阳台","house_language_names":["菲律宾语"],"house_decorate_name":"普通装修","area":""},{"house_id":"86","house_title":"整租·Belton Place一室一厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5ccffb3335e.png","class_id":"55","house_area":"50","house_name":"Belton Place","house_price":"20000","house_tag":"","province_id":"37","city_id":"547","house_decorate":"23","house_face":"31","house_language":"14,15,16","apartment":"一室一厅","province":"","city":"","house_face_name":"有阳台","house_language_names":["菲律宾语","英语","中文"],"house_decorate_name":"普通装修","area":""},{"house_id":"84","house_title":"合租上海霞飞路三室两厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a5b1dd706495.png","class_id":"6","house_area":"239","house_name":"上海霞飞路","house_price":"123","house_tag":"","province_id":"36","city_id":"537","house_decorate":"24","house_face":"32","house_language":"14,15,16","apartment":"三室两厅","province":"","city":"","house_face_name":"无阳台","house_language_names":["菲律宾语","英语","中文"],"house_decorate_name":"中等装修","area":""},{"house_id":"81","house_title":"合租恐龙两室两厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a59c152e0eaa.png","class_id":"56","house_area":"5152","house_name":"恐龙","house_price":"5","house_tag":"","province_id":"40","city_id":"582","house_decorate":"24","house_face":"32","house_language":"15,16","apartment":"两室两厅","province":"","city":"","house_face_name":"无阳台","house_language_names":["英语","中文"],"house_decorate_name":"中等装修","area":""},{"house_id":"80","house_title":"合租啊啊啊摸摸摸一室一厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a59b525d538f.png","class_id":"55","house_area":"23","house_name":"啊啊啊摸摸摸","house_price":"233","house_tag":"","province_id":"40","city_id":"599","house_decorate":"24","house_face":"32","house_language":"15","apartment":"一室一厅","province":"","city":"","house_face_name":"无阳台","house_language_names":["英语"],"house_decorate_name":"中等装修","area":""},{"house_id":"79","house_title":"合租武汉江夏区两室两厅","house_pic":"http://feidu.baonongkang.cn/upload/house/5a59b366c586b.png","class_id":"56","house_area":"566","house_name":"武汉江夏区","house_price":"888","house_tag":"","province_id":"48","city_id":"660","house_decorate":"24","house_face":"31","house_language":"15","apartment":"两室两厅","province":"","city":"","house_face_name":"有阳台","house_language_names":["英语"],"house_decorate_name":"中等装修","area":""}]
          * msgStatus : 0
          * electricity_bill : http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/23
-         * tishi : [{"article_id":"23","title":"如何在菲度上缴纳电费？","short_title":"","image":"http://feidu.baonongkang.cn/upload/cms/1516348549.png","url":"http://feidu.baonongkang.cn/index
-         * .php?s=/wap/articlecenter/articleContent/article_id/23"},{"article_id":"22","title":"中国-东盟国际汽车拉力赛首次抵达菲律宾","short_title":"","image":"http://feidu.baonongkang
-         * .cn/upload/cms/1516359984.jpg","url":"http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/22"},{"article_id":"21","title":"续法缘增法谊 福建省佛教界参访团一行到菲律宾访问",
-         * "short_title":"","image":"http://feidu.baonongkang.cn/upload/cms/1516359895.jpg","url":"http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/21"}]
-         * rate : 0.13
+         * tishi : [{"article_id":"27","title":"Globe套餐说明","short_title":"Globe套餐说明","image":"http://feidu.baonongkang.cn/upload/cms/1516439358.jpg","url":"http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/27"},{"article_id":"26","title":"菲度客服","short_title":"","image":"","url":"http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/26"},{"article_id":"23","title":"如何在菲度上缴纳电费？","short_title":"","image":"http://feidu.baonongkang.cn/upload/cms/1516348549.png","url":"http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/23"}]
+         * rate : 0.15
+         * kefu : http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/26
          */
 
         private String msgStatus;
         private String electricity_bill;
         private String rate;
+        private String kefu;
         private List<AdvsBean> advs;
         private List<ArticlesBean> articles;
         private List<HuoBean> huo;
@@ -131,6 +69,14 @@ public class HomeVO extends BaseVO{
 
         public void setRate(String rate) {
             this.rate = rate;
+        }
+
+        public String getKefu() {
+            return kefu;
+        }
+
+        public void setKefu(String kefu) {
+            this.kefu = kefu;
         }
 
         public List<AdvsBean> getAdvs() {
@@ -229,8 +175,8 @@ public class HomeVO extends BaseVO{
 
         public static class ArticlesBean {
             /**
-             * jpush_id : 82
-             * jpush_content : 这是官方发出的一条测试消息，这是官方发出的一条测试消息。
+             * jpush_id : 87
+             * jpush_content : 你把U盾不啊好速度
              * jpush_type : 5
              */
 
@@ -312,7 +258,7 @@ public class HomeVO extends BaseVO{
         public static class HouseBean {
             /**
              * house_id : 94
-             * house_title : 整租·Original Place  一室0厅
+             * house_title : 整租·Original Place  一室零厅
              * house_pic : http://feidu.baonongkang.cn/upload/goods/20180119/9f741dc90e959f8c01a7fbf5b410bc31.jpg
              * class_id : 58
              * house_area : 50
@@ -324,10 +270,10 @@ public class HomeVO extends BaseVO{
              * house_decorate : 23
              * house_face : 31
              * house_language : 16
-             * apartment : 一室0厅
+             * apartment : 一室零厅
              * province : 国家首都区
              * city : 马卡迪市
-             * house_face_name : 南北通透
+             * house_face_name : 有阳台
              * house_language_names : ["中文"]
              * house_decorate_name : 普通装修
              * area : 国家首都区马卡迪市
@@ -517,11 +463,11 @@ public class HomeVO extends BaseVO{
 
         public static class TishiBean {
             /**
-             * article_id : 23
-             * title : 如何在菲度上缴纳电费？
-             * short_title :
-             * image : http://feidu.baonongkang.cn/upload/cms/1516348549.png
-             * url : http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/23
+             * article_id : 27
+             * title : Globe套餐说明
+             * short_title : Globe套餐说明
+             * image : http://feidu.baonongkang.cn/upload/cms/1516439358.jpg
+             * url : http://feidu.baonongkang.cn/index.php?s=/wap/articlecenter/articleContent/article_id/27
              */
 
             private String article_id;

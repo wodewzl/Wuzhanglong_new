@@ -16,11 +16,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+    >
 
         <TextView
             android:id="@+id/type3_tv01"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:drawableLeft="@drawable/frame_shixin_black"
@@ -32,7 +34,7 @@
 
         <TextView
             android:id="@+id/type3_tv02"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="3dp"

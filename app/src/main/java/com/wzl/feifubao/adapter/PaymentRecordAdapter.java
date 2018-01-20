@@ -57,14 +57,14 @@ public class PaymentRecordAdapter extends RecyclerBaseAdapter<PaymentRecordsVO.D
             if (TextUtils.isEmpty(vo.getReturn_img())) {
                 if ("0".equals(vo.getPay_status())) {
                     statusTv.setText("去支付");
-                    statusTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.FUBColor3, R.color.FUBColor3));
+                    statusTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 15, R.color.FUBColor3, R.color.FUBColor3));
 
                 } else if ("2".equals(vo.getPay_status())) {
-                    statusTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.C3_1, R.color.C3_1));
+                    statusTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 15, R.color.C3_1, R.color.C3_1));
                     statusTv.setText("已支付");
                 }
             } else {
-                statusTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.colorAccent, R.color.colorAccent));
+                statusTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 15, R.color.colorAccent, R.color.colorAccent));
                 statusTv.setText("查看回执");
             }
 
@@ -78,7 +78,8 @@ public class PaymentRecordAdapter extends RecyclerBaseAdapter<PaymentRecordsVO.D
                             activity.showPayDialog(vo);
                         }
                     } else {
-
+                        PaymentRecordsActivity activity = (PaymentRecordsActivity) mActivity;
+                        activity.choicePhotoWrapper(vo.getReturn_img());
                     }
 
                 }
