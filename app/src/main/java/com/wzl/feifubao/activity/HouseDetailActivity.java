@@ -3,28 +3,34 @@ package com.wzl.feifubao.activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dou361.dialogui.DialogUIUtils;
+import com.dou361.dialogui.bean.BuildBean;
 import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
+import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.HouseDetailVO;
+import com.wzl.feifubao.mode.UserInfoVO;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.HashMap;
+import java.util.List;
 
 
-public class HouseDetailActivity extends BaseActivity implements View.OnClickListener {
+public class HouseDetailActivity extends BaseActivity implements View.OnClickListener,PostCallback{
     private Banner mBanner;
-    private TextView mTag1Tv, mTag2Tv, mTimeTv, mMoneyTv, mPayTypeTv, mApartmentTv, mAreaTv, mRentingStyleTv, mDesc1Tv, mDesc2Tv, mDesc3Tv, mDesc4Tv, mDescTv, mTitleTv;
+    private TextView mTag1Tv, mTag2Tv, mTag3Tv,mTimeTv, mMoneyTv, mPayTypeTv, mApartmentTv, mAreaTv, mRentingStyleTv, mDesc1Tv, mDesc2Tv, mDesc3Tv, mDesc4Tv, mDescTv, mTitleTv;
     private ImageView mHeadImg;
     private TextView mNameTv, mCallTv, mHelpTv;
     private HouseDetailVO.DataBean mDataBean;
@@ -43,6 +49,7 @@ public class HouseDetailActivity extends BaseActivity implements View.OnClickLis
         mBanner.setIndicatorGravity(BannerConfig.RIGHT);
         mTag1Tv = getViewById(R.id.tag1_tv);
         mTag2Tv = getViewById(R.id.tag2_tv);
+        mTag3Tv = getViewById(R.id.tag3_tv);
         mTimeTv = getViewById(R.id.time_tv);
         mMoneyTv = getViewById(R.id.money_tv);
         mPayTypeTv = getViewById(R.id.pay_type_tv);
@@ -93,23 +100,33 @@ public class HouseDetailActivity extends BaseActivity implements View.OnClickLis
             mBanner.start();
         }
         mTitleTv.setText(dataBean.getHouse_name());
-        String[] tag = dataBean.getHouse_tag().split(";");
-        if (tag.length > 1) {
-            if (!TextUtils.isEmpty(tag[0])) {
-                mTag1Tv.setBackground(BaseCommonUtils.setBackgroundShap(this, 0, R.color.FUBColor3, R.color.C1));
-                mTag1Tv.setText(tag[0]);
-                mTag1Tv.setVisibility(View.VISIBLE);
-            }
-            if (!TextUtils.isEmpty(tag[1])) {
-                mTag2Tv.setBackground(BaseCommonUtils.setBackgroundShap(this, 0, R.color.FUBColor3, R.color.C1));
-                mTag2Tv.setText(tag[1]);
-                mTag1Tv.setVisibility(View.VISIBLE);
+        List<String> language = dataBean.getHouse_language_names();
+        for (int i = 0; i <language.size() ; i++) {
+            switch (0) {
+                case 0:
+                    mTag1Tv.setBackground(BaseCommonUtils.setBackgroundShap(this, 0, R.color.FUBColor3, R.color.C1));
+                    mTag1Tv.setText(language.get(i));
+                    mTag1Tv.setVisibility(View.VISIBLE);
+                    break;
+                case 1:
+                    mTag2Tv.setBackground(BaseCommonUtils.setBackgroundShap(this, 0, R.color.FUBColor3, R.color.C1));
+                    mTag2Tv.setText(language.get(i));
+                    mTag1Tv.setVisibility(View.VISIBLE);
+                    break;
+                case 2:
+                    mTag3Tv.setBackground(BaseCommonUtils.setBackgroundShap(this, 0, R.color.FUBColor3, R.color.C1));
+                    mTag3Tv.setText(language.get(i));
+                    mTag3Tv.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    break;
             }
         }
 
+
         mTimeTv.setText(dataBean.getHouse_createtime());
         BaseCommonUtils.setTextTwoBefore(this, mMoneyTv, dataBean.getHouse_price(), "月/元", R.color.FUBColor3, 1.5f);
-        mPayTypeTv.setText("????啥字段");
+        mPayTypeTv.setText(dataBean.getPay_class());
 
         mApartmentTv.setText(dataBean.getApartment());
         mAreaTv.setText(dataBean.getHouse_area());
@@ -141,8 +158,60 @@ public class HouseDetailActivity extends BaseActivity implements View.OnClickLis
             case R.id.call_tv:
                 BaseCommonUtils.call(this, mDataBean.getHouse_phone());
                 break;
+
+            case R.id.help_tv:
+                if(AppApplication.getInstance().getUserInfoVO()==null){
+                    openActivity(LoginActivity.class);
+                    return;
+                }
+                showDialog();
+                break;
             default:
                 break;
         }
+    }
+
+
+    public void showDialog() {
+        DialogUIUtils.init(HouseDetailActivity.this);
+        View rootView = View.inflate(HouseDetailActivity.this, R.layout.custom_house_help_dialog_layout, null);
+        final EditText nickName = rootView.findViewById(R.id.nick_name_tv);
+
+        TextView cancelTv = rootView.findViewById(R.id.cancle_tv);
+        TextView okTv = rootView.findViewById(R.id.ok_tv);
+        final BuildBean buildBean = DialogUIUtils.showCustomAlert(HouseDetailActivity.this, rootView);
+        buildBean.show();
+        cancelTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogUIUtils.dismiss(buildBean);
+            }
+        });
+        okTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(TextUtils.isEmpty(nickName.getText().toString())){
+                    showCustomToast("请输入咨询内容");
+                    return;
+                }
+                commit(nickName.getText().toString());
+                DialogUIUtils.dismiss(buildBean);
+            }
+        });
+
+    }
+
+    public void commit(String str){
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("house_id", mDataBean.getHouse_id());
+        map.put("house_name", mDataBean.getHouse_name());
+        map.put("content", str);
+        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
+        HttpGetDataUtil.post(HouseDetailActivity.this, Constant.HOUSE_HELP_URL, map, UserInfoVO.class, this);
+    }
+
+    @Override
+    public void success(BaseVO vo) {
+
     }
 }

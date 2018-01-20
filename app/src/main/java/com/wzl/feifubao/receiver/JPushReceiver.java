@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.wzl.feifubao.activity.MessageActivity;
 
 import java.util.Map;
 
@@ -30,7 +31,9 @@ public class JPushReceiver extends BroadcastReceiver {
 
         if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             // 打开自定义的Activity
-
+            Intent msgIntent = new Intent();
+            msgIntent.setClass(context, MessageActivity.class);
+            context.startActivity(msgIntent);
         }
     }
 

@@ -1,9 +1,7 @@
 package com.wzl.feifubao.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +17,11 @@ import com.dou361.dialogui.bean.TieBean;
 import com.dou361.dialogui.listener.DialogUIItemListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
-import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.google.gson.Gson;
 import com.rey.material.widget.CheckBox;
 import com.tamic.novate.Novate;
 import com.tamic.novate.Throwable;
 import com.tamic.novate.callback.RxStringCallback;
-import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.constant.BaseConstant;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
@@ -34,21 +30,16 @@ import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.mode.PayResult;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
-import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.utils.PayUtis;
 import com.wzl.feifubao.R;
-import com.wzl.feifubao.adapter.JobOffersAdapter;
 import com.wzl.feifubao.adapter.MoneyAdapter;
 import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
-import com.wzl.feifubao.mode.JobOffersVO;
 import com.wzl.feifubao.mode.MoneyVO;
 import com.wzl.feifubao.mode.OrderCrateVO;
-import com.wzl.feifubao.mode.OrderPayVO;
 import com.wzl.feifubao.mode.ShopDetailVO;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -230,8 +221,8 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
         map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
         map.put("out_trade_no", orderNo);
         map.put("pay_type", mPayType);
-//        map.put("payment", money);
-        map.put("payment", "0.01");
+        map.put("payment", money);
+
 //        HttpGetDataUtil.post(this, Constant.SURE_ORDER2_URL, map, OrderPayVO.class,this);
 
         new Novate.Builder(PhoneChargeActivity.this)

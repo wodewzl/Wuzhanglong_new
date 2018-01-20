@@ -1,7 +1,5 @@
 package com.wzl.feifubao.constant;
 
-import java.lang.reflect.Member;
-
 public class Constant {
 
     public static final String FIRSTID = "firstid";
@@ -52,7 +50,10 @@ public class Constant {
 
     public static final String  SHOP_EVALUATION_URL= "api/Order/deleteOrder";//商品评价
     public static final String  HOUSE_ADD_URL= "api/house/addHouse";//发布房源
-    public static final String  CHAGE_URL= "Api/Order/virtualOrderCreate";//发布房源
+    public static final String  CHAGE_URL= "Api/Order/virtualOrderCreate";//电费，网费充值
     public static final String  WITHDRAW_URL= "api/Member/addMemberBalanceWithdraw";//提现
-    public static final String  PASSWORD_BACK_URL= "api/Member/resetUserPassword";//提现
+    public static final String  CHANGE_MONEY_URL= "api/Member/recharge";//充值
+    public static final String  PASSWORD_BACK_URL= "api/Member/resetUserPassword";//找回密码
+    public static final String  HOUSE_HELP_URL= "api/House/addConsult";//提交资讯;
+
 }

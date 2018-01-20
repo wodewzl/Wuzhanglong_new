@@ -62,6 +62,17 @@
                 android:textColor="@color/FUBColor3"
                 android:textSize="11sp"
                 android:visibility="gone" />
+            <TextView
+                android:id="@+id/tag3_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:text="普通装修"
+                android:textColor="@color/FUBColor3"
+                android:textSize="11sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/time_tv"
@@ -257,17 +268,11 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/head_img"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                    />
 
-                <TextView
-                    android:id="@+id/name_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="吴章龙"
-                    android:textSize="10sp"
-                    android:layout_marginTop="5dp"/>
+
             </LinearLayout>
 
             <LinearLayout

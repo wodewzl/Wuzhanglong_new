@@ -18,7 +18,6 @@ import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.activity.AddressActivity;
 import com.wzl.feifubao.activity.LoginActivity;
-import com.wzl.feifubao.activity.MainActivity;
 import com.wzl.feifubao.activity.MyHouseActivity;
 import com.wzl.feifubao.activity.MyOverActivity;
 import com.wzl.feifubao.activity.OrderActivity;
@@ -27,7 +26,6 @@ import com.wzl.feifubao.activity.UserInfoActivity;
 import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.MyMessageVO;
-import com.wzl.feifubao.mode.OrderVO;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -35,14 +33,16 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.HashMap;
 import java.util.Set;
 
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import q.rorbin.badgeview.QBadgeView;
 
 public class TabThreeFragment extends BaseFragment implements View.OnClickListener {
-    private TextView mOrderTv01, mOrderTv02, mOrderTv03, mOrderTv04, mOrderTv05,mNameTv,mDescTV;
-    private LinearLayout mPhoneLayout, mDianLayout, mWangLayout, mHouseLayout, mLogoutLayout, mOverLayout, mAddressLayout,mOrderLayout;
+    private TextView mOrderTv01, mOrderTv02, mOrderTv03, mOrderTv04, mOrderTv05, mNameTv, mDescTV;
+    private LinearLayout mPhoneLayout, mDianLayout, mWangLayout, mHouseLayout, mLogoutLayout, mOverLayout, mAddressLayout, mOrderLayout;
     private QBadgeView mQBadgeView01, mQBadgeView02, mQBadgeView03, mQBadgeView04, mQBadgeView05;
-    private ImageView mMyInfoImg,mHeadImg;
+    private ImageView mMyInfoImg, mHeadImg;
 
 
     @Override
@@ -53,18 +53,18 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void initView(View view) {
         mActivity.mBaseHeadLayout.setVisibility(View.GONE);
-        mHeadImg=getViewById(R.id.head_img);
-        mNameTv=getViewById(R.id.name_tv);
-        mDescTV=getViewById(R.id.desc_tv);
-        if(AppApplication.getInstance().getUserInfoVO()!=null){
-            if(!TextUtils.isEmpty(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()))
-            Picasso.with(mActivity).load(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()).into(mHeadImg);
+        mHeadImg = getViewById(R.id.head_img);
+        mNameTv = getViewById(R.id.name_tv);
+        mDescTV = getViewById(R.id.desc_tv);
+        if (AppApplication.getInstance().getUserInfoVO() != null) {
+            if (!TextUtils.isEmpty(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()))
+                Picasso.with(mActivity).load(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()).into(mHeadImg);
             mNameTv.setText(AppApplication.getInstance().getUserInfoVO().getData().getNick_name());
             mDescTV.setText(AppApplication.getInstance().getUserInfoVO().getData().getUser_email());
         }
 
 
-        mMyInfoImg=getViewById(R.id.my_info_img);
+        mMyInfoImg = getViewById(R.id.my_info_img);
         mOrderTv01 = getViewById(R.id.order_tv_01);
         mOrderTv02 = getViewById(R.id.order_tv_02);
         mOrderTv03 = getViewById(R.id.order_tv_03);
@@ -77,22 +77,22 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
         mHouseLayout = getViewById(R.id.house_layout);
         mLogoutLayout = getViewById(R.id.logout_layout);
         mAddressLayout = getViewById(R.id.address_layout);
-        mOrderLayout=getViewById(R.id.order_layout);
+        mOrderLayout = getViewById(R.id.order_layout);
 
         mQBadgeView01 = (QBadgeView) new QBadgeView(mActivity).bindTarget(mOrderTv01).setBadgeGravity(Gravity.END | Gravity
-                .TOP).setShowShadow(true).setBadgeTextSize(10,true)
+                .TOP).setShowShadow(true).setBadgeTextSize(10, true)
                 .setGravityOffset(8, 0, true);
         mQBadgeView02 = (QBadgeView) new QBadgeView(mActivity).bindTarget(mOrderTv02).setBadgeGravity(Gravity.END | Gravity
-                .TOP).setShowShadow(true).setBadgeTextSize(10,true)
+                .TOP).setShowShadow(true).setBadgeTextSize(10, true)
                 .setGravityOffset(8, 0, true);
         mQBadgeView03 = (QBadgeView) new QBadgeView(mActivity).bindTarget(mOrderTv03).setBadgeGravity(Gravity.END | Gravity
-                .TOP).setShowShadow(true).setBadgeTextSize(10,true)
+                .TOP).setShowShadow(true).setBadgeTextSize(10, true)
                 .setGravityOffset(8, 0, true);
         mQBadgeView04 = (QBadgeView) new QBadgeView(mActivity).bindTarget(mOrderTv04).setBadgeGravity(Gravity.END | Gravity.TOP)
-                .setShowShadow(true).setBadgeTextSize(10,true)
+                .setShowShadow(true).setBadgeTextSize(10, true)
                 .setGravityOffset(8, 0, true);
         mQBadgeView05 = (QBadgeView) new QBadgeView(mActivity).bindTarget(mOrderTv05).setBadgeGravity(Gravity.END | Gravity
-                .TOP).setShowShadow(true).setBadgeTextSize(10,true)
+                .TOP).setShowShadow(true).setBadgeTextSize(10, true)
                 .setGravityOffset(8, 0, true);
     }
 
@@ -113,6 +113,7 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
         mMyInfoImg.setOnClickListener(this);
         mLogoutLayout.setOnClickListener(this);
         EventBus.getDefault().register(this);
+        mHeadImg.setOnClickListener(this);
     }
 
     @Override
@@ -125,7 +126,7 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void hasData(BaseVO vo) {
-        MyMessageVO myMessageVO= (MyMessageVO) vo;
+        MyMessageVO myMessageVO = (MyMessageVO) vo;
         mQBadgeView01.setBadgeNumber(BaseCommonUtils.parseInt(myMessageVO.getData().getWait_pay()));
         mQBadgeView02.setBadgeNumber(BaseCommonUtils.parseInt(myMessageVO.getData().getWait_delivery()));
         mQBadgeView03.setBadgeNumber(BaseCommonUtils.parseInt(myMessageVO.getData().getWait_recieved()));
@@ -146,7 +147,7 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
 
-        if(AppApplication.getInstance().getUserInfoVO()==null){
+        if (AppApplication.getInstance().getUserInfoVO() == null) {
             mActivity.openActivity(LoginActivity.class);
             return;
         }
@@ -212,12 +213,12 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
                             public void onClick(SweetAlertDialog sDialog) {
                                 AppApplication.getInstance().saveUserInfoVO(null);
                                 logOut();
-//                intent.setClass(MainActivity.this, LoginActivity.class);
-//                JPushInterface.setAlias(this, "", new TagAliasCallback() {
-//                    @Override
-//                    public void gotResult(int i, String s, Set<String> set) {
-//                    }
-//                });
+
+                                JPushInterface.setAlias(mActivity, "", new TagAliasCallback() {
+                                    @Override
+                                    public void gotResult(int i, String s, Set<String> set) {
+                                    }
+                                });
                                 sDialog.dismissWithAnimation();//直接消失
                             }
                         })
@@ -235,16 +236,17 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
     @Subscribe
-    public void onEvent(String event){
+    public void onEvent(String event) {
 
     }
 
     @Subscribe
     public void onEventMainThread(EBMessageVO event) {
         if ("update".equals(event.getMessage())) {
-            if(AppApplication.getInstance().getUserInfoVO()!=null){
-                if(!TextUtils.isEmpty(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()))
+            if (AppApplication.getInstance().getUserInfoVO() != null) {
+                if (!TextUtils.isEmpty(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()))
                     Picasso.with(mActivity).load(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()).into(mHeadImg);
                 mNameTv.setText(AppApplication.getInstance().getUserInfoVO().getData().getNick_name());
                 mDescTV.setText(AppApplication.getInstance().getUserInfoVO().getData().getUser_email());
@@ -252,7 +254,7 @@ public class TabThreeFragment extends BaseFragment implements View.OnClickListen
         }
     }
 
-    public void logOut(){
+    public void logOut() {
         mQBadgeView01.setBadgeNumber(0);
         mQBadgeView02.setBadgeNumber(0);
         mQBadgeView03.setBadgeNumber(0);

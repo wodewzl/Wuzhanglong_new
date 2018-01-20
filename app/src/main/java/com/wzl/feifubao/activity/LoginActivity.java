@@ -1,6 +1,7 @@
 package com.wzl.feifubao.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -23,6 +24,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener, PostCallback {
     private TextView mPhoneTv, mPasswordTv, mOkTv, mRegistTv, mForgetTv;
@@ -89,9 +94,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 break;
 
             case R.id.regist_tv:
+
                 openActivity(RegistActivity.class);
                 break;
             case R.id.forget_tv:
+                Bundle bundle = new Bundle();
+                bundle.putString("type", "2");
+                open(RegistActivity.class, bundle, 0);
                 break;
             default:
                 break;
@@ -110,11 +119,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void success(BaseVO vo) {
         UserInfoVO userInfoVO = (UserInfoVO) vo;
         if (userInfoVO.getData() != null) {
-//            JPushInterface.setAlias(LoginActivity.this, userInfoVO.getData().getJpalias(), new TagAliasCallback() {
-//                @Override
-//                public void gotResult(int i, String s, Set<String> set) {
-//                }
-//            });
+            JPushInterface.setAlias(LoginActivity.this, userInfoVO.getData().getUid(), new TagAliasCallback() {
+                @Override
+                public void gotResult(int i, String s, Set<String> set) {
+                }
+            });
 
             AppApplication.getInstance().saveUserInfoVO(userInfoVO);
             List<BaseFragment> list = new ArrayList<>();

@@ -1,6 +1,6 @@
 package com.wzl.feifubao.activity;
 
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.TimePickerView;
+import com.bigkoo.pickerview.lib.WheelView;
 import com.google.gson.Gson;
 import com.rey.material.widget.CheckBox;
 import com.tamic.novate.Novate;
@@ -22,7 +23,6 @@ import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.mode.PayResult;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
-import com.wuzhanglong.library.utils.DateUtils;
 import com.wuzhanglong.library.utils.PayUtis;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.application.AppApplication;
@@ -31,6 +31,7 @@ import com.wzl.feifubao.mode.OrderCrateVO;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -41,7 +42,7 @@ public class PayElectricityActivity extends BaseActivity implements View.OnClick
     private EditText mEt01,mEt02,mEt03,mEt04;
     private TextView mOkTv,mTv05;
     private String mType;
-
+    private WheelView mDateWheelView;
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.activity_pay_electricity);
@@ -131,16 +132,36 @@ public class PayElectricityActivity extends BaseActivity implements View.OnClick
 
             case R.id.tv_05:
                 //时间选择器
-                TimePickerView pvTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
+                //控制时间范围(如果不设置范围，则使用默认时间1900-2100年，此段代码可注释)
+                //因为系统Calendar的月份是从0-11的,所以如果是调用Calendar的set方法来设置时间,月份的范围也要是从0-11
+                Calendar selectedDate = Calendar.getInstance();
+                Calendar startDate = Calendar.getInstance();
+                startDate.set(2013, 0, 23);
+                Calendar endDate = Calendar.getInstance();
+                endDate.set(2019, 11, 28);
+                //时间选择器
+                TimePickerView      pvTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
                     @Override
                     public void onTimeSelect(Date date, View v) {//选中事件回调
-                        mTv05.setText("");
+                        // 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
+                /*btn_Time.setText(getTime(date));*/
+                        mTv05.setText(getTime(date));
+
                     }
                 })
+                        //年月日时分秒 的显示与否，不设置则默认全部显示
+                        .setType(new boolean[]{false, true, true, false, false, false})
+                        .setLabel("", "", "", "", "", "")
+                        .isCenterLabel(false)
+                        .setDividerColor(Color.DKGRAY)
+                        .setContentSize(21)
+                        .setDate(selectedDate)
+                        .setRangDate(startDate, endDate)
+//                .setBackgroundId(0x00FFFFFF) //设置外部遮罩颜色
+                        .setDecorView(null)
                         .build();
-//                pvTime.setDate(Calendar.getInstance());//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
-
-                 pvTime.show();
+         /* pvTime.show(); //show timePicker*/
+                pvTime.show(v);//弹出时间选择器，传递参数过去，回调的时候则可以绑定此view
                 break;
             default:
                 break;
@@ -253,6 +274,10 @@ public class PayElectricityActivity extends BaseActivity implements View.OnClick
         map.put("bill_num", mEt02.getText().toString());
         map.put("payment", mEt04.getText().toString());
         HttpGetDataUtil.post(this, Constant.CHAGE_URL, map, OrderCrateVO.class, this);
+    }
+    private String getTime(Date date) {//可根据需要自行截取数据显示
+        SimpleDateFormat format = new SimpleDateFormat("MM月dd日");
+        return format.format(date);
     }
 
 }

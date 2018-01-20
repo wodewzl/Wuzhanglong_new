@@ -3,9 +3,14 @@ package com.wzl.feifubao.adapter;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.TextView;
 
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
+import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
+import com.wzl.feifubao.activity.PaymentRecordsActivity;
 import com.wzl.feifubao.mode.PaymentRecordsVO;
 
 import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
@@ -15,7 +20,7 @@ import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
  */
 
 
-public class PaymentRecordAdapter extends RecyclerBaseAdapter<PaymentRecordsVO.DataBeanX.DataBean> {
+public class PaymentRecordAdapter extends RecyclerBaseAdapter<PaymentRecordsVO.DataBeanX> {
     private String type;
 
     public String getType() {
@@ -33,36 +38,66 @@ public class PaymentRecordAdapter extends RecyclerBaseAdapter<PaymentRecordsVO.D
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
-        PaymentRecordsVO.DataBeanX.DataBean vo = (PaymentRecordsVO.DataBeanX.DataBean) model;
-        PaymentRecordsVO.DataBeanX.DataBean dataBean = (PaymentRecordsVO.DataBeanX.DataBean) this.getData().get(position);
-        if ("1".equals(dataBean.getTypeView())) {
-
-            helper.setText(R.id.title_tv, vo.getCreate_time().split("-")[1]+"月");
+        final PaymentRecordsVO.DataBeanX vo = (PaymentRecordsVO.DataBeanX) model;
+        if (vo.getLists() != null) {
+            helper.setText(R.id.title_tv, vo.getDatetime());
         } else {
             helper.setText(R.id.title_tv, vo.getSku_name());
             helper.setText(R.id.time_tv, vo.getCreate_time());
             helper.setText(R.id.money_tv, vo.getPrice() + "P");
-            if("1".equals(type)){
-                helper.setImageResource(R.id.type_img,R.drawable.pay_record_type1);
-            }else if("2".equals(type)){
-                helper.setImageResource(R.id.type_img,R.drawable.pay_record_type2);
-            }else if("3".equals(type)){
-                helper.setImageResource(R.id.type_img,R.drawable.pay_record_type3);
+            if ("1".equals(type)) {
+                helper.setImageResource(R.id.type_img, R.drawable.pay_record_type1);
+            } else if ("2".equals(type)) {
+                helper.setImageResource(R.id.type_img, R.drawable.pay_record_type2);
+            } else if ("3".equals(type)) {
+                helper.setImageResource(R.id.type_img, R.drawable.pay_record_type3);
             }
+            final TextView statusTv = helper.getTextView(R.id.type_tv);
+
+            if (TextUtils.isEmpty(vo.getReturn_img())) {
+                if ("0".equals(vo.getPay_status())) {
+                    statusTv.setText("去支付");
+                    statusTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.FUBColor3, R.color.FUBColor3));
+
+                } else if ("2".equals(vo.getPay_status())) {
+                    statusTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.C3_1, R.color.C3_1));
+                    statusTv.setText("已支付");
+                }
+            } else {
+                statusTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.colorAccent, R.color.colorAccent));
+                statusTv.setText("查看回执");
+            }
+
+            statusTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (TextUtils.isEmpty(vo.getReturn_img())) {
+
+                        if ("0".equals(vo.getPay_status())) {
+                            PaymentRecordsActivity activity = (PaymentRecordsActivity) mActivity;
+                            activity.showPayDialog(vo);
+                        }
+                    } else {
+
+                    }
+
+                }
+            });
 
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(this.getData().size()==0){
+        if (this.getData().size() == 0) {
             return super.getItemViewType(position);
         }
-        PaymentRecordsVO.DataBeanX.DataBean dataBean = (PaymentRecordsVO.DataBeanX.DataBean) this.getData().get(position);
-        if ("1".equals(dataBean.getTypeView())) {
-            return R.layout.payment_record_adapter_type1;
-        } else {
+        PaymentRecordsVO.DataBeanX dataBean = (PaymentRecordsVO.DataBeanX) this.getData().get(position);
+        if (dataBean.getLists() == null) {
             return R.layout.payment_record_adapter_type2;
+        } else {
+            return R.layout.payment_record_adapter_type1;
+
         }
     }
 }

@@ -16,6 +16,7 @@ import com.wuzhanglong.library.interfaces.PostStringCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
+import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.UserInfoVO;
 
@@ -37,7 +38,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void initView() {
-        mBaseTitleTv.setText("用户注册");
+
         mEt01 = getViewById(R.id.et_01);
         mEt02 = getViewById(R.id.et_02);
         mEt03 = getViewById(R.id.et_03);
@@ -48,7 +49,9 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         mCodeTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.colorAccent, R.color.colorAccent));
         if ("2".equals(this.getIntent().getStringExtra("type"))) {
             mType = "2";
+            mBaseTitleTv.setText("找回密码");
         } else {
+            mBaseTitleTv.setText("用户注册");
             mType = "1";
         }
     }
@@ -164,15 +167,11 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         HashMap<String, Object> map = new HashMap<>();
 
         if("2".equals(mType)){
-
-            map.put("uid", mEt01.getText().toString());
-
+            map.put("email", AppApplication.getInstance());
             map.put("newPassword", mEt03.getText().toString());
-            HttpGetDataUtil.post(this, Constant.REGIST_URL, map, UserInfoVO.class, this);
+            HttpGetDataUtil.post(this, Constant.PASSWORD_BACK_URL, map, UserInfoVO.class, this);
         }else {
-            //        map.put("username", mEt01.getText().toString());
             map.put("email", mEt01.getText().toString());
-//        map.put("phone", mEt01.getText().toString());
             map.put("password", mEt03.getText().toString());
             HttpGetDataUtil.post(this, Constant.REGIST_URL, map, UserInfoVO.class, this);
         }

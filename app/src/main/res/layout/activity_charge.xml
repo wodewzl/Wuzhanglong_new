@@ -36,7 +36,9 @@
                 android:background="@color/C1"
                 android:gravity="right|center_vertical"
                 android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:inputType="numberDecimal"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,7 +58,7 @@
             android:layout_marginTop="30dp"
             android:background="@color/colorAccent"
             android:gravity="center"
-            android:text="确认提现"
+            android:text="确认充值"
             android:textColor="@color/C1"
             android:textSize="15sp" />
     </LinearLayout>

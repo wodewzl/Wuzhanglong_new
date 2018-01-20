@@ -14,12 +14,9 @@ import android.widget.TextView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.squareup.picasso.Picasso;
-import com.sunfusheng.marqueeview.MarqueeView;
-import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.mode.BaseVO;
-import com.wuzhanglong.library.utils.DividerUtil;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.activity.HouseDetailActivity;
 import com.wzl.feifubao.activity.HouseListActivity;
@@ -41,9 +38,7 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 
