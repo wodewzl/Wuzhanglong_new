@@ -96,7 +96,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 }
 
                 if (!mCode.equals(mEt02.getText().toString())) {
-                    showCustomToast("请输入正确的验证码");
+                    showCustomToast("请输入正确的邮箱验证码");
                     return;
                 }
 
