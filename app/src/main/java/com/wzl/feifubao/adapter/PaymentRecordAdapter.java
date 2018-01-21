@@ -44,6 +44,7 @@ public class PaymentRecordAdapter extends RecyclerBaseAdapter<PaymentRecordsVO.D
         } else {
             helper.setText(R.id.title_tv, vo.getSku_name());
             helper.setText(R.id.time_tv, vo.getCreate_time());
+
             helper.setText(R.id.money_tv, vo.getPrice() );
             if ("1".equals(type)) {
                 helper.setImageResource(R.id.type_img, R.drawable.pay_record_type1);
