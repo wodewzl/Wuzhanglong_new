@@ -232,14 +232,8 @@ public class HttpGetDataUtil {
                             final BaseVO vo = (BaseVO) gson.fromJson(s, className);
                             if ("200".equals(vo.getCode())) {
                                 postCallback.success(vo);
-                                activity.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        activity.showCustomToast(vo.getDesc());
-                                    }
-                                });
                             } else {
-                                activity.showCustomToast(vo.getDesc());
+                                activity.showCustomToast(vo.getMessage());
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
