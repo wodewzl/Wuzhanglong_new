@@ -27,8 +27,8 @@
         android:background="@color/C1"
         android:drawableLeft="@drawable/login_pwd"
         android:drawablePadding="5dp"
-        android:hint="手机号"
-        android:inputType="phone"
+        android:hint="邮箱"
+
         android:maxLength="11"/>
 
     <View

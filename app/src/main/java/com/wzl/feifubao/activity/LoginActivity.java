@@ -83,7 +83,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             case R.id.ok_tv:
 
                 if (TextUtils.isEmpty(mPhoneTv.getText().toString())) {
-                    showCustomToast("请输入手机号");
+                    showCustomToast("请输入邮箱");
                     return;
                 }
                 if (TextUtils.isEmpty(mPasswordTv.getText().toString())) {
