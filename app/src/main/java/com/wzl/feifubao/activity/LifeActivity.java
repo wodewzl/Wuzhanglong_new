@@ -51,7 +51,7 @@ public class LifeActivity extends BaseActivity implements BGAOnRVItemClickListen
 
     @Override
     public void initView() {
-        mBaseTitleTv.setText("生活服务");
+        mBaseTitleTv.setText("菲度锦囊");
         mSearchEt = getViewById(R.id.search_et);
         mSearchEt.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         mSearchEt.setInputType(EditorInfo.TYPE_CLASS_TEXT);

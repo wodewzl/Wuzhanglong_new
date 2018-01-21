@@ -44,7 +44,7 @@ public class JobOffersActivity extends BaseActivity implements OnLoadMoreListene
     private JobOffersAdapter mAdapter;
     private EditText mSearchEt;
     private String mKeyword = "";
-    private String mCompnayId="";
+    private String mCompnayId = "";
 
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
@@ -56,7 +56,7 @@ public class JobOffersActivity extends BaseActivity implements OnLoadMoreListene
 
     @Override
     public void initView() {
-        mBaseTitleTv.setText("招聘信息");
+        mBaseTitleTv.setText("求职招聘");
         mSearchEt = getViewById(R.id.search_et);
         mSearchEt.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         mSearchEt.setInputType(EditorInfo.TYPE_CLASS_TEXT);
@@ -74,7 +74,7 @@ public class JobOffersActivity extends BaseActivity implements OnLoadMoreListene
         mRecyclerView.setLoadMoreEnabled(true);
 
 
-        mCompnayId=this.getIntent().getStringExtra("supplier_id");
+        mCompnayId = this.getIntent().getStringExtra("supplier_id");
     }
 
     @Override
@@ -89,11 +89,11 @@ public class JobOffersActivity extends BaseActivity implements OnLoadMoreListene
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("page", mCurrentPage+"");
+        map.put("page", mCurrentPage + "");
         map.put("pagesize", "10");
         map.put("keyword", mKeyword);
 
-        map.put("supplierId", TextUtils.isEmpty(mCompnayId)?"":mCompnayId);
+        map.put("supplierId", TextUtils.isEmpty(mCompnayId) ? "" : mCompnayId);
         HttpGetDataUtil.get(mActivity, this, Constant.JOBOFFER_URL, map, JobOffersVO.class);
     }
 
@@ -142,12 +142,12 @@ public class JobOffersActivity extends BaseActivity implements OnLoadMoreListene
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
-        if(mAdapter.getData().size()==0)
+        if (mAdapter.getData().size() == 0)
             return;
-        JobOffersVO.DataBeanX.DataBean vo=mAdapter.getItem(position);
-        Bundle bundle=new Bundle();
-        bundle.putString("id",vo.getId());
-        open(JobOffersDetailActivity.class,bundle,0);
+        JobOffersVO.DataBeanX.DataBean vo = mAdapter.getItem(position);
+        Bundle bundle = new Bundle();
+        bundle.putString("id", vo.getId());
+        open(JobOffersDetailActivity.class, bundle, 0);
     }
 
 
@@ -174,7 +174,7 @@ public class JobOffersActivity extends BaseActivity implements OnLoadMoreListene
     public void onTextChanged(CharSequence s, int i, int i1, int i2) {
         if ("".equals(s.toString())) {
             mKeyword = "";
-            mCurrentPage=1;
+            mCurrentPage = 1;
             mAutoSwipeRefreshLayout.autoRefresh();
         }
     }
