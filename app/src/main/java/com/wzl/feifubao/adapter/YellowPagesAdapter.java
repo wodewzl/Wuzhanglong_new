@@ -9,6 +9,7 @@ import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wzl.feifubao.R;
+import com.wzl.feifubao.activity.YellowPagesActivity;
 import com.wzl.feifubao.mode.JobOffersVO;
 import com.wzl.feifubao.mode.YellowPagesVO;
 
@@ -34,12 +35,22 @@ public class YellowPagesAdapter extends RecyclerBaseAdapter<YellowPagesVO.DataBe
         helper.setText(R.id.address_tv, "地址：" + vo.getLinkman_address());
         helper.setText(R.id.name_tv, "联系人：" + vo.getLinkman_name());
         helper.setText(R.id.phone_tv, vo.getLinkman_tel());
-        helper.getTextView(R.id.phone_tv).setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.FUBColor7, R.color.FUBColor7));
+        helper.getTextView(R.id.phone_tv).setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.colorAccent, R.color.colorAccent));
         helper.getTextView(R.id.type_tv).setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.C3_1, R.color.C1));
         helper.getTextView(R.id.phone_tv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BaseCommonUtils.call(mActivity,vo.getLinkman_tel());
+                BaseCommonUtils.call(mActivity, vo.getLinkman_tel());
+            }
+        });
+
+        helper.getImageView(R.id.img).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!TextUtils.isEmpty(vo.getPic())) {
+                    YellowPagesActivity activity = (YellowPagesActivity) mActivity;
+                    activity.choicePhotoWrapper(vo.getPic());
+                }
             }
         });
     }

@@ -2,7 +2,9 @@ package com.wzl.feifubao.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -23,6 +25,7 @@ import com.tamic.novate.Novate;
 import com.tamic.novate.Throwable;
 import com.tamic.novate.callback.RxStringCallback;
 import com.wuzhanglong.library.activity.BaseActivity;
+import com.wuzhanglong.library.cache.ACache;
 import com.wuzhanglong.library.constant.BaseConstant;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.interfaces.PayCallback;
@@ -30,6 +33,7 @@ import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.mode.PayResult;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
+import com.wuzhanglong.library.utils.NumberTypeUtil;
 import com.wuzhanglong.library.utils.PayUtis;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.adapter.MoneyAdapter;
@@ -102,6 +106,28 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
         mPayCb2.setOnCheckedChangeListener(this);
         mPayCb1.setChecked(true);
         mOkTv.setOnClickListener(this);
+        mPhoneEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.toString().length()>0){
+
+                    if(!s.toString().startsWith("0")){
+                        showCustomToast("请输入正确的手机号");
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -122,7 +148,7 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
             if (i == 0){
                 moneyVO.setStatus("1");
                 mSelectVO=moneyVO;
-                BaseCommonUtils.setTextTwoBefore(this, mPhpTv, mDataBean.getSpec_list().get(1).getValue().get(0).getSpec_value_name(), "PHP", R.color.FUBColor3, 1.7f);
+                BaseCommonUtils.setTextTwoBefore(this, mPhpTv, mDataBean.getSpec_list().get(1).getValue().get(0).getSpec_value_name(), "P", R.color.FUBColor3, 1.7f);
                 mShopType = mDataBean.getSpec_list().get(0).getValue().get(0).getSpec_id() + ":" + mDataBean.getSpec_list().get(0).getValue().get(0).getSpec_value_id();
                 mMoneyStr = mDataBean.getSpec_list().get(1).getValue().get(0).getSpec_id() + ":" + mDataBean.getSpec_list().get(1).getValue().get(0).getSpec_value_id();
 
@@ -161,7 +187,7 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
 
         mMoneyStr = mSelectVO.getId();
 
-        BaseCommonUtils.setTextTwoBefore(this, mPhpTv, mSelectVO.getMoney(), "PHP", R.color.FUBColor3, 1.7f);
+        BaseCommonUtils.setTextTwoBefore(this, mPhpTv, mSelectVO.getMoney(), "P", R.color.FUBColor3, 1.7f);
         totalMoney();
     }
 
@@ -203,7 +229,7 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
     public void totalMoney(){
         for (int i = 0; i < mDataBean.getSku_list().size(); i++) {
             if ((mMoneyStr + ";" + mShopType).equals(mDataBean.getSku_list().get(i).getAttr_value_items())) {
-                BaseCommonUtils.setTextTwoBefore(PhoneChargeActivity.this, mRmbTv, mDataBean.getSku_list().get(i).getPrice_rmb(), "元", R.color.FUBColor3, 1.3f);
+                BaseCommonUtils.setTextTwoBefore(PhoneChargeActivity.this, mRmbTv, mDataBean.getSku_list().get(i).getPrice_rmb(), "P", R.color.FUBColor3, 1.7f);
             }
         }
     }

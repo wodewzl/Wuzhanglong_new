@@ -286,8 +286,11 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
         if (mAdapter.getData().size() == 0)
             return;
-
-        mActivity.openActivity(MessageActivity.class);
+        HomeVO.DataBean.TishiBean tishiBean= (HomeVO.DataBean.TishiBean) mAdapter.getData().get(position);
+        Bundle bundle = new Bundle();
+        bundle.putString("url", tishiBean.getUrl());
+        bundle.putString("title", "文章详情");
+        mActivity.open(WebViewActivity.class, bundle, 0);
     }
 
     public void showActivity(String type, String id, String url) {

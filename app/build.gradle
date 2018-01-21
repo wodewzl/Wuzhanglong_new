@@ -19,6 +19,22 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        sourceSets {
+            main {
+                jniLibs.srcDirs = ['libs']
+            }
+        }
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "9100c310d6174e23fb741a20", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+        ]
     }
     buildTypes {
         release {
@@ -49,4 +65,8 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     testCompile 'junit:junit:4.12'
     implementation project(':wzllibrary')
+    //激光推送
+    compile 'cn.jiguang.sdk:jpush:3.0.9'
+    //激光推送
+    compile 'cn.jiguang.sdk:jcore:1.1.7'
 }

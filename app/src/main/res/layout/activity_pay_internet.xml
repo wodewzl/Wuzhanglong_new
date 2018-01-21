@@ -68,7 +68,7 @@
                 android:background="@color/C1"
                 android:gravity="right|center_vertical"
                 android:textSize="13sp"
-                android:hint="请输入户号"/>
+                android:hint="仅支持Globle网费"/>
         </LinearLayout>
 
         <LinearLayout

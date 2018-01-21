@@ -324,7 +324,16 @@ public class HouseListOneActivity extends BaseActivity implements BGAOnRVItemCli
                     twoTreeVo.setHaschild(false);
                 }
                 treeList.add(twoTreeVo);
-
+                for (int k = 0; k < twoCityVO.getDistricts().size(); k++) {
+                    CityVO.DataBean.CitysBean.DistrictsBean threeCityVO = oneCityVO.getCitys().get(j).getDistricts().get(k);
+                    TreeVO threeTreeVo = new TreeVO();
+                    twoTreeVo.setSearchId(threeCityVO.getDistrict_id());
+                    twoTreeVo.setName(threeCityVO.getDistrict_name());
+                    twoTreeVo.setLevel(3);
+                    twoTreeVo.setParentId(Integer.parseInt(twoCityVO.getCity_id()));
+                    twoTreeVo.setId(Integer.parseInt(threeCityVO.getDistrict_id()));
+                    treeList.add(threeTreeVo);
+                }
             }
         }
         return treeList;

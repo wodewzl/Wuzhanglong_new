@@ -117,7 +117,7 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="黄企业页" />
+                android:text="企业黄页" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -246,8 +246,8 @@ public class OrderSureActivity extends BaseActivity implements View.OnClickListe
         map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
         map.put("out_trade_no", orderNo);
         map.put("pay_type", mPayType);
-//        map.put("payment", money);
-        map.put("payment", "0.01");
+        map.put("payment", money);
+//        map.put("payment", "0.01");
 //        HttpGetDataUtil.post(this, Constant.SURE_ORDER2_URL, map, OrderPayVO.class,this);
 
         new Novate.Builder(OrderSureActivity.this)

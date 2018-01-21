@@ -44,7 +44,7 @@ public class PaymentRecordAdapter extends RecyclerBaseAdapter<PaymentRecordsVO.D
         } else {
             helper.setText(R.id.title_tv, vo.getSku_name());
             helper.setText(R.id.time_tv, vo.getCreate_time());
-            helper.setText(R.id.money_tv, vo.getPrice() + "P");
+            helper.setText(R.id.money_tv, vo.getPrice() );
             if ("1".equals(type)) {
                 helper.setImageResource(R.id.type_img, R.drawable.pay_record_type1);
             } else if ("2".equals(type)) {
@@ -54,19 +54,31 @@ public class PaymentRecordAdapter extends RecyclerBaseAdapter<PaymentRecordsVO.D
             }
             final TextView statusTv = helper.getTextView(R.id.type_tv);
 
-            if (TextUtils.isEmpty(vo.getReturn_img())) {
-                if ("0".equals(vo.getPay_status())) {
-                    statusTv.setText("去支付");
-                    statusTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 15, R.color.FUBColor3, R.color.FUBColor3));
+            if ("0".equals(vo.getPay_status())) {
+                statusTv.setText("去支付");
+                statusTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 15, R.color.FUBColor3, R.color.FUBColor3));
 
-                } else if ("2".equals(vo.getPay_status())) {
-                    statusTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 15, R.color.C3_1, R.color.C3_1));
-                    statusTv.setText("已支付");
-                }
-            } else {
-                statusTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 15, R.color.colorAccent, R.color.colorAccent));
-                statusTv.setText("查看回执");
+            } else if ("2".equals(vo.getPay_status())) {
+                statusTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 15, R.color.C3_1, R.color.C3_1));
+                statusTv.setText("已支付");
+                statusTv.setVisibility(View.VISIBLE);
             }
+
+//            if (TextUtils.isEmpty(vo.getReturn_img())) {
+//                if ("0".equals(vo.getPay_status())) {
+//                    statusTv.setText("去支付");
+//                    statusTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 15, R.color.FUBColor3, R.color.FUBColor3));
+//
+//                } else if ("2".equals(vo.getPay_status())) {
+//                    statusTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 15, R.color.C3_1, R.color.C3_1));
+//                    statusTv.setText("已支付");
+//                    statusTv.setVisibility(View.VISIBLE);
+//                }
+//            } else {
+//                statusTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 15, R.color.colorAccent, R.color.colorAccent));
+//                statusTv.setText("查看回执");
+//
+//            }
 
             statusTv.setOnClickListener(new View.OnClickListener() {
                 @Override

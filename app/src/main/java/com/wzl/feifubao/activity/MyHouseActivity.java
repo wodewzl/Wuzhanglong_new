@@ -212,6 +212,8 @@ public class MyHouseActivity extends BaseActivity implements BGAOnRVItemClickLis
                 commit(vo.getOut_trade_no(), payType, vo.getPay_rmb());
             }
         });
+
+        payCb1.setChecked(true);
     }
 
     public void commit(String orderNo, final String payType, String payMoney) {

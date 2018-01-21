@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="50dp"
         android:background="@color/colorAccent"
         android:orientation="horizontal">
 
@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="菲付宝"
+            android:text="菲度"
             android:textColor="@color/C1"
             android:textSize="16sp" />
     </LinearLayout>

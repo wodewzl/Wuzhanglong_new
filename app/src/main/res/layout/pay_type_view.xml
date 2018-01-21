@@ -22,7 +22,6 @@
             style="@style/padding_15_13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="选择支付方式"
             android:textColor="@color/C5"
             android:visibility="gone"/>
     </LinearLayout>

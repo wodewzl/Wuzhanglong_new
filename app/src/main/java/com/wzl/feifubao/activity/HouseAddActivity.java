@@ -48,10 +48,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -68,12 +72,12 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
     private HouseOptionVO.DataBean mOptionDataBean;
     private EditText mParams1Et, mParams3Et, mParams5Et, mParams8Et, mParams14Et, mParams15Et;
     private TextView mParams2Tv, mParams4Tv, mParams6Tv, mParams7Tv, mParams9Tv, mParams10Tv, mParams11Tv, mParams12Tv, mParams13Tv;
-    private String mParams2, mParams3, mParams4, mParams5, mParams6, mParams7, mParams9, mParams10, mParams11, mParams12, mParams13;
+    private String mParams2 = "", mParams3 = "", mParams4 = "", mParams5 = "", mParams6 = "", mParams7 = "", mParams9 = "", mParams10 = "", mParams11 = "", mParams12 = "", mParams13 = "";
     private String mType = "2";
     private ArrayList<CityVO.DataBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<CityVO.DataBean.CitysBean>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<CityVO.DataBean.CitysBean.DistrictsBean>>> options3Items = new ArrayList<>();
-    private String mProvinceId, mCityId, mAreaId;
+    private String mProvinceId = "", mCityId = "", mAreaId = "";
     private String mHouseId = "";
     private BottomSheetDialog mDialog;
 
@@ -171,7 +175,7 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
         MyHouseVO.DataBean.HouseBean bean = (MyHouseVO.DataBean.HouseBean) this.getIntent().getSerializableExtra("bean");
         String type = this.getIntent().getStringExtra("type");
         if ("2".equals(type)) {
-            mHouseId=bean.getHouse_id();
+            mHouseId = bean.getHouse_id();
             mBaseTitleTv.setText("编辑租房信息");
             mParams1Et.setText(bean.getHouse_name());
             mParams2Tv.setText(bean.getRenting_style());
@@ -181,28 +185,28 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
             mParams4Tv.setText(bean.getApartment());
             mParams4 = bean.getClass_id();
             mParams5Et.setText(bean.getHouse_area());
-            mParams5=bean.getHouse_area();
+            mParams5 = bean.getHouse_area();
             mParams6Tv.setText(bean.getHouse_type());
-            mParams6=bean.getHouse_type();
+            mParams6 = bean.getHouse_type();
             mParams7Tv.setText(bean.getHouse_face());
-            mParams7=bean.getHouse_face();
+            mParams7 = bean.getHouse_face();
             mParams8Et.setText(bean.getHouse_floor());
 
             mParams9Tv.setText(bean.getHouse_decorate());
-            mParams9=bean.getHouse_decorate();
-            mParams10=bean.getPay_class_id();
-            for (int i = 0; i <mOptionDataBean.getFukuan().size() ; i++) {
-                if(bean.getPay_class_id().equals(mOptionDataBean.getFukuan().get(i).getClass_id())){
+            mParams9 = bean.getHouse_decorate();
+            mParams10 = bean.getPay_class_id();
+            for (int i = 0; i < mOptionDataBean.getFukuan().size(); i++) {
+                if (bean.getPay_class_id().equals(mOptionDataBean.getFukuan().get(i).getClass_id())) {
                     mParams10Tv.setText(mOptionDataBean.getFukuan().get(i).getName());
                 }
             }
             mParams11 = bean.getHouse_language();
             StringBuffer sb = new StringBuffer();
             for (int i = 0; i < bean.getHouse_language().split(",").length; i++) {
-                for (int j = 0; j < mOptionDataBean.getLanguage().size() ; j++) {
-                    if(bean.getHouse_language().split(",")[i].equals( mOptionDataBean.getLanguage().get(i).getClass_id())){
-                        sb.append( mOptionDataBean.getLanguage().get(i).getName()).append("、");
-                       ;
+                for (int j = 0; j < mOptionDataBean.getLanguage().size(); j++) {
+                    if (bean.getHouse_language().split(",")[i].equals(mOptionDataBean.getLanguage().get(i).getClass_id())) {
+                        sb.append(mOptionDataBean.getLanguage().get(i).getName()).append("、");
+                        ;
                         break;
                     }
                 }
@@ -213,8 +217,8 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
             mParams14Et.setText(bean.getHouse_phone());
             mParams15Et.setText(bean.getHouse_details());
 
-            mCityId=bean.getCity_id();
-            mProvinceId=bean.getProvince_id();
+            mCityId = bean.getCity_id();
+            mProvinceId = bean.getProvince_id();
 
             mParams13Tv.setText(bean.getArea());
         } else {
@@ -384,21 +388,34 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
                     public void onOptionsSelect(int options1, int option2, int options3, View v) {
                         //返回的分别是三个级别的选中位置
                         String tx = options1Items.get(options1).getProvince_name()
-                                + options2Items.get(options1).get(option2).getCity_name();
-
-
+                                + options2Items.get(options1).get(option2).getCity_name()
+                                + options3Items.get(options1).get(option2).get(options3).getDistrict_name();
+                        mParams13Tv.setText(tx);
                         mProvinceId = options1Items.get(options1).getProvince_id();
                         mCityId = options2Items.get(options1).get(option2).getCity_id();
 
+                        mAreaId = options3Items.get(options1).get(option2).get(options3).getDistrict_id();
                     }
                 }).build();
-                pvOptions.setPicker(options1Items, options2Items);
+                pvOptions.setPicker(options1Items, options2Items, options3Items);
                 pvOptions.show();
 
                 break;
 
             case R.id.base_ok_tv:
-                commit();
+                new SweetAlertDialog(mActivity, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("确定要发布房源吗?")
+                        .setConfirmText("确定")
+                        .setCancelText("取消")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                commit();
+                                sDialog.dismissWithAnimation();//直接消失
+                            }
+                        })
+                        .show();
+
                 break;
             default:
                 break;
@@ -672,5 +689,7 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
                 commit(vo.getOut_trade_no(), payType, vo.getPay_rmb());
             }
         });
+
+        payCb1.setChecked(true);
     }
 }

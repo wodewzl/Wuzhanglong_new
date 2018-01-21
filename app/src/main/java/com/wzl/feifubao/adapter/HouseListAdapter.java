@@ -32,7 +32,7 @@ public class HouseListAdapter extends RecyclerBaseAdapter<HouseListVO.DataBean.H
         helper.setText(R.id.title_tv, bean.getHouse_title());
         helper.setText(R.id.desc_tv, bean.getDecorateStyleName() + "/" + bean.getHouse_area() + "㎡" + "/" + bean.getPositionName());
         helper.setText(R.id.address_tv, bean.getArea());
-        helper.setText(R.id.money_tv, bean.getHouse_price() + "P/月");
+        helper.setText(R.id.money_tv, bean.getHouse_price() + "/月");
         helper.getTextView(R.id.language1_tv).setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 3, R.color.FUBColor12, R.color.FUBColor12));
 
         if (bean.getHouse_language_names() != null && bean.getHouse_language_names().size() > 0) {
@@ -70,7 +70,6 @@ public class HouseListAdapter extends RecyclerBaseAdapter<HouseListVO.DataBean.H
             helper.getTextView(R.id.language3_tv).setVisibility(View.GONE);
             helper.getTextView(R.id.language4_tv).setVisibility(View.GONE);
         }
-
     }
 
 }

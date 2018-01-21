@@ -1,5 +1,7 @@
 package com.wzl.feifubao.activity;
 
+import android.Manifest;
+import android.os.Environment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
+import com.wuzhanglong.library.constant.BaseConstant;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
@@ -31,12 +34,16 @@ import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.JobOffersVO;
 import com.wzl.feifubao.mode.YellowPagesVO;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGADivider;
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
+import cn.bingoogolapple.photopicker.activity.BGAPhotoPreviewActivity;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class YellowPagesActivity extends BaseActivity implements BGAOnRVItemClickListener, OnLoadMoreListener,SwipeRefreshLayout.OnRefreshListener,android.widget.TextView.OnEditorActionListener, TextWatcher {
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
@@ -46,6 +53,7 @@ public class YellowPagesActivity extends BaseActivity implements BGAOnRVItemClic
     private String mKeyword = "";
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
+    private static final int PRC_PHOTO_PICKER = 1;
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.activity_yellow_pages);
@@ -177,5 +185,26 @@ public class YellowPagesActivity extends BaseActivity implements BGAOnRVItemClic
     @Override
     public void afterTextChanged(Editable editable) {
 
+    }
+
+    @AfterPermissionGranted(PRC_PHOTO_PICKER)
+    public void choicePhotoWrapper(String path) {
+//        ArrayList<String> list=new ArrayList<>();
+//        list.add(path);
+//        mPhotoLyout.setData(list);
+//        mPhotoLyout.setDelegate(this);
+//        path="http://gwhb.work.csongdai.com/Uploads/bs0640/Log/image/20180120/5a62e3a52890a.jpeg";
+        // 保存图片的目录，改成你自己要保存图片的目录。如果不传递该参数的话就不会显示右上角的保存按钮
+        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            File downloadDir = new File(Environment.getExternalStorageDirectory(), BaseConstant.SDCARD_CACHE);
+            BGAPhotoPreviewActivity.IntentBuilder photoPreviewIntentBuilder = new BGAPhotoPreviewActivity.IntentBuilder(this)
+                    .saveImgDir(downloadDir); // 保存图片的目录，如果传 null，则没有保存图片功能
+
+            photoPreviewIntentBuilder.previewPhoto(path);
+            startActivity(photoPreviewIntentBuilder.build());
+        } else {
+            EasyPermissions.requestPermissions(this, "图片预览需要以下权限:\n\n1.访问设备上的照片", PRC_PHOTO_PICKER, perms);
+        }
     }
 }

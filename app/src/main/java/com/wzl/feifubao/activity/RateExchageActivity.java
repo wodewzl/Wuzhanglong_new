@@ -2,7 +2,9 @@ package com.wzl.feifubao.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -29,7 +31,7 @@ import java.util.List;
 public class RateExchageActivity extends BaseActivity implements View.OnClickListener, PostCallback {
     private LinearLayout mChageLayout;
     private EditText mMoneyEt;
-    private TextView mMoneyTv, mOkTv,mFromTv;
+    private TextView mMoneyTv, mOkTv, mFromTv;
     private String mFrom = "PHP";
     private String mTo = "CNY";
     private TextView mTypeTv;
@@ -49,8 +51,8 @@ public class RateExchageActivity extends BaseActivity implements View.OnClickLis
         mOkTv = getViewById(R.id.ok_tv);
         mOkTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 30, R.color.colorAccent, R.color.colorAccent));
         mTypeTv = getViewById(R.id.type_tv);
-        mFromLayout=getViewById(R.id.from_layout);
-        mFromTv=getViewById(R.id.from_tv);
+        mFromLayout = getViewById(R.id.from_layout);
+        mFromTv = getViewById(R.id.from_tv);
     }
 
     @Override
@@ -58,6 +60,25 @@ public class RateExchageActivity extends BaseActivity implements View.OnClickLis
         mChageLayout.setOnClickListener(this);
         mOkTv.setOnClickListener(this);
         mFromLayout.setOnClickListener(this);
+        mMoneyEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().length() > 0) {
+                    commit();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -109,6 +130,14 @@ public class RateExchageActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
+    public void commit() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("num", mMoneyEt.getText().toString());
+        map.put("from", mFrom);
+        map.put("to", mTo);
+        HttpGetDataUtil.post(mActivity, Constant.RATE_EXCHANGE_URL, map, RateQueryVO.class, this);
+    }
+
     @Override
     public void success(BaseVO vo) {
         dismissProgressDialog();
@@ -116,10 +145,10 @@ public class RateExchageActivity extends BaseActivity implements View.OnClickLis
         RateQueryVO.DataBean dataBean = rateQueryVO.getData();
         mMoneyTv.setText(dataBean.getMoney());
 
-        showCustomToast("换算成功");
+//        showCustomToast("换算成功");
     }
 
-    public void setContury(final String type){
+    public void setContury(final String type) {
         List<TieBean> datas = new ArrayList<TieBean>();
         datas.add(new TieBean("人民币 CNY"));
         datas.add(new TieBean("美元 USD"));
@@ -134,10 +163,10 @@ public class RateExchageActivity extends BaseActivity implements View.OnClickLis
             public void onItemClick(CharSequence text, int position) {
                 String str = (String) text;
                 String[] array = str.split(" ");
-                if("1".equals(type)){
+                if ("1".equals(type)) {
                     mFrom = array[1];
                     mFromTv.setText(str);
-                }else {
+                } else {
                     mTo = array[1];
                     mTypeTv.setText(str);
                 }

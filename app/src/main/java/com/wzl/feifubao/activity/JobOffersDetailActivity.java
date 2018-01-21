@@ -64,7 +64,7 @@ public class JobOffersDetailActivity extends BaseActivity implements View.OnClic
         mCompanyId=dataBean.getSupplier_id();
         mPhone=dataBean.getLinkman_tel();
         mPositionTv.setText(dataBean.getPosition_name());
-        mMoneyTv.setText("【" + dataBean.getPosition_salary() + "p】");
+        mMoneyTv.setText("【" + dataBean.getPosition_salary() + "】");
         mPositionRequireTv.setText(dataBean.getPosition_class_name() + " | " + dataBean.getPosition_education_name() + " | " + dataBean.getPosition_life_name());
         mPositionDescTv.setText(dataBean.getPosition_desc());
         mCompanyTv.setText(dataBean.getSupplier_name());

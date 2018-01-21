@@ -60,7 +60,7 @@ public class PayElectricityActivity extends BaseActivity implements View.OnClick
     @Override
     public void initView() {
         mType = this.getIntent().getStringExtra("type");
-        mBaseTitleTv.setText("电费充值");
+        mBaseTitleTv.setText("缴纳电费");
 
 
         mEt02 = getViewById(R.id.et_02);

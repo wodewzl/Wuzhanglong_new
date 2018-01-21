@@ -110,7 +110,7 @@ public class MyOverActivity extends BaseActivity implements  ScrollableHelper.Sc
         } else {
             mRecyclerView.setNoMore(false);
         }
-        mMoneyTv.setText("￥"+myoverVO.getData().getSum());
+        mMoneyTv.setText(myoverVO.getData().getSum());
         List<MyoverVO.DataBeanX.DataBean> list = myoverVO.getData().getData();
         if (isLoadMore) {
             mAdapter.updateDataLast(list);

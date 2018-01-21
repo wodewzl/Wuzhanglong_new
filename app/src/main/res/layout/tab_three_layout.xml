@@ -216,7 +216,7 @@
             android:id="@+id/over_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
+
             android:background="@color/C1"
             android:clickable="true"
 
@@ -422,7 +422,7 @@
                 android:drawableLeft="@drawable/my_6"
                 android:drawablePadding="10dp"
                 android:gravity="center"
-                android:text="退出登陆"
+                android:text="退出登录"
                 android:textSize="13sp" />
 
             <TextView

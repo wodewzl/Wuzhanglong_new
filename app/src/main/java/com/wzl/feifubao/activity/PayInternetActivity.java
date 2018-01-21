@@ -52,7 +52,7 @@ public class PayInternetActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void initView() {
         mType = this.getIntent().getStringExtra("type");
-        mBaseTitleTv.setText("网费充值");
+        mBaseTitleTv.setText("缴纳网费");
 
 
         mEt02 = getViewById(R.id.et_02);

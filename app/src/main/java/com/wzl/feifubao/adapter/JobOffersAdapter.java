@@ -24,7 +24,7 @@ public class JobOffersAdapter extends RecyclerBaseAdapter<JobOffersVO.DataBeanX.
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
         JobOffersVO.DataBeanX.DataBean vo= (JobOffersVO.DataBeanX.DataBean) model;
         helper.setText(R.id.title_tv,vo.getPosition_name());
-        helper.setText(R.id.money_tv,vo.getPosition_salary()+"P");
+        helper.setText(R.id.money_tv,vo.getPosition_salary());
         helper.setText(R.id.desc_tv,vo.getPosition_class_name()+" | "+vo.getPosition_education_name()+" | "+vo.getPosition_life_name());
         helper.setText(R.id.time_tv, vo.getPosition_createtime());
         helper.setText(R.id.company_tv,vo.getSupplier_name());

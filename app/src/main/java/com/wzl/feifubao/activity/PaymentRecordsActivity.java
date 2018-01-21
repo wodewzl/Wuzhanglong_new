@@ -108,8 +108,8 @@ public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreLi
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-//        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
-        map.put("uid", "39");
+        map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
+//        map.put("uid", "39");
         map.put("page", mCurrentPage + "");
         map.put("type", mType);
         map.put("pagesize", "10");
@@ -222,6 +222,7 @@ public class PaymentRecordsActivity extends BaseActivity implements OnLoadMoreLi
                 commit(vo.getOut_trade_no(), payType, vo.getPay_rmb());
             }
         });
+        payCb1.setChecked(true);
     }
 
     public void commit(String orderNo, final String payType, String payMoney) {
