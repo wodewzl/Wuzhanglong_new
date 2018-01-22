@@ -44,7 +44,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
         android:background="@color/C1"
-        android:drawableLeft="@drawable/login_pwd"
+        android:drawableLeft="@drawable/login_user"
         android:drawablePadding="5dp"
         android:hint="密码"
         android:inputType="textPassword"/>

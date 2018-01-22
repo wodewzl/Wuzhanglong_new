@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         style="@style/padding_15_13"
         android:background="@color/C3"
+        android:textSize="15sp"
         android:text="12月"/>
 
 

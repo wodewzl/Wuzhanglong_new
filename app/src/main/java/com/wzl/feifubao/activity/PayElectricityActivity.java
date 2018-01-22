@@ -51,6 +51,7 @@ public class PayElectricityActivity extends BaseActivity implements View.OnClick
     private TextView mOkTv, mTv05, mMoneTv;
     private String mType;
     private WheelView mDateWheelView;
+    private String mOrderId = "";
 
     @Override
     public void baseSetContentView() {
@@ -221,6 +222,7 @@ public class PayElectricityActivity extends BaseActivity implements View.OnClick
     public void success(BaseVO vo) {
         if (vo instanceof OrderCrateVO) {
             OrderCrateVO orderCrateVO = (OrderCrateVO) vo;
+            mOrderId=orderCrateVO.getData().getOrder_id();
             pay(orderCrateVO.getData().getOut_trade_no(), orderCrateVO.getData().getPay_rmb());
         }
     }
@@ -268,7 +270,7 @@ public class PayElectricityActivity extends BaseActivity implements View.OnClick
                             PayUtis.zhiFuBaoPay(PayElectricityActivity.this, payInfo, new PayCallback() {
                                 @Override
                                 public void payResult(int type) {
-//                                    payFinish(type)
+                                    payFinish(type);
                                 }
                             });
                         }
@@ -286,14 +288,15 @@ public class PayElectricityActivity extends BaseActivity implements View.OnClick
     }
 
     public void payFinish(int type) {
-        Bundle bundle=new Bundle();
-        bundle.putString("order_id",mOrderId);
+        Bundle bundle = new Bundle();
+        bundle.putString("order_id", mOrderId);
         if (type == 1) {
             showCustomToast("支付成功");
         } else {
             showCustomToast("支付失败");
         }
-        open(PayStatusActivity.class,bundle,0);
+        open(PayStatusActivity.class, bundle, 0);
+        this.finish();
     }
 
     public void commit() {

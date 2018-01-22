@@ -369,5 +369,6 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
             showCustomToast("支付失败");
         }
         open(PayStatusActivity.class,bundle,0);
+        this.finish();
     }
 }

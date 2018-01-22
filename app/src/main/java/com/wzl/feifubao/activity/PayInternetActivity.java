@@ -42,6 +42,7 @@ public class PayInternetActivity extends BaseActivity implements View.OnClickLis
     private EditText mEt01, mEt02, mEt03, mEt04;
     private TextView mOkTv, mTv05;
     private String mType;
+    private String mOrderId = "";
 
 
     @Override
@@ -150,9 +151,9 @@ public class PayInternetActivity extends BaseActivity implements View.OnClickLis
                         .setType(new boolean[]{false, true, true, false, false, false})//年月日时分秒 的显示与否，不设置则默认全部显示
                         .setLabel("", "月", "日", "", "", "")
                         .isCenterLabel(true)
-                        .setDividerColor(ContextCompat.getColor(this,R.color.C3_1))
+                        .setDividerColor(ContextCompat.getColor(this, R.color.C3_1))
                         .setContentSize(21)
-                        .setTextColorCenter(ContextCompat.getColor(this,R.color.colorAccent))
+                        .setTextColorCenter(ContextCompat.getColor(this, R.color.colorAccent))
                         .setDate(selectedDate)
                         .setRangDate(startDate, endDate)
 //                .setBackgroundId(0x00FFFFFF) //设置外部遮罩颜色
@@ -171,6 +172,7 @@ public class PayInternetActivity extends BaseActivity implements View.OnClickLis
     public void success(BaseVO vo) {
         if (vo instanceof OrderCrateVO) {
             OrderCrateVO orderCrateVO = (OrderCrateVO) vo;
+            mOrderId = orderCrateVO.getData().getOrder_id();
             pay(orderCrateVO.getData().getOut_trade_no(), orderCrateVO.getData().getPay_rmb());
         }
     }
@@ -218,12 +220,7 @@ public class PayInternetActivity extends BaseActivity implements View.OnClickLis
                             PayUtis.zhiFuBaoPay(PayInternetActivity.this, payInfo, new PayCallback() {
                                 @Override
                                 public void payResult(int type) {
-                                    ;
-                                    if (type == 1) {
-                                        payFinish();
-                                    } else {
-                                        showCustomToast("支付失败");
-                                    }
+                                    payFinish(type);
                                 }
                             });
                         }
@@ -240,19 +237,16 @@ public class PayInternetActivity extends BaseActivity implements View.OnClickLis
         });
     }
 
-    public void payFinish() {
-        showCustomToast("支付成功");
-        mOkTv.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Bundle bundle = new Bundle();
-                bundle.putString("type", mType);
-                mActivity.open(PaymentRecordsActivity.class, bundle, 0);
-                PayInternetActivity.this.finish();
-            }
-
-
-        }, 1000);
+    public void payFinish(int type) {
+        Bundle bundle = new Bundle();
+        bundle.putString("order_id", mOrderId);
+        if (type == 1) {
+            showCustomToast("支付成功");
+        } else {
+            showCustomToast("支付失败");
+        }
+        open(PayStatusActivity.class, bundle, 0);
+        this.finish();
     }
 
     public void commit() {
@@ -264,9 +258,6 @@ public class PayInternetActivity extends BaseActivity implements View.OnClickLis
             showCustomToast("请输入金额");
             return;
         }
-
-
-
 
 
         showProgressDialog();

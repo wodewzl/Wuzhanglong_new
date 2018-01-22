@@ -39,7 +39,7 @@
                 android:background="@color/C1"
                 android:gravity="right|center_vertical"
                 android:textSize="13sp"
-                />
+              />
         </LinearLayout>
 
         <LinearLayout
@@ -68,7 +68,8 @@
                 android:background="@color/C1"
                 android:gravity="right|center_vertical"
                 android:textSize="13sp"
-                android:hint="ATM/Phone Reference No."/>
+                android:hint="ATM/Phone Reference No."
+                android:inputType="number"/>
         </LinearLayout>
 
         <LinearLayout
@@ -100,7 +101,7 @@
                 android:gravity="right|center_vertical"
                 android:textSize="13sp"
                 android:hint="Meralco Reference No."
-                />
+                android:inputType="number" />
         </LinearLayout>
 
         <LinearLayout
@@ -131,13 +132,14 @@
                 android:gravity="right|center_vertical"
                 android:textColor="@color/FUBColor3"
                 android:inputType="numberDecimal"
-                android:hint="Total Amount Due"/>
+                android:hint="Total Amount Due"
+                android:paddingRight="5dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="P"
                 android:textColor="@color/FUBColor3"
-                android:layout_marginLeft="5dp"/>
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

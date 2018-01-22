@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
 
-    android:orientation="vertical">
 
-    <com.wuzhanglong.library.view.AutoSwipeRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
+    <com.wuzhanglong.library.view.ReboundScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:background="@color/C1"
+        android:fadingEdge="none"
+        android:scrollbars="none"
+
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +27,7 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true">
 
-                <TextView
+                <EditText
                     android:id="@+id/search_et"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
@@ -41,21 +40,17 @@
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:textColorHint="@color/C6"
-                    android:textSize="@dimen/sp_12"
-                    android:gravity="center_vertical"/>
+                    android:textSize="@dimen/sp_12"/>
             </LinearLayout>
-
-            <View
-                android:id="@+id/divider"
+            <com.yang.flowlayoutlibrary.FlowLayout
+                android:id="@+id/fl_keyword"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/C3"/>
-
-            <com.github.jdsjlzx.recyclerview.LuRecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                app:itemColor="@color/C7"
+                app:itemSize="12sp"/>
         </LinearLayout>
-    </com.wuzhanglong.library.view.AutoSwipeRefreshLayout>
-</LinearLayout>
+    </com.wuzhanglong.library.view.ReboundScrollView>
+

@@ -131,13 +131,14 @@
                 android:gravity="right|center_vertical"
                 android:textColor="@color/FUBColor3"
                 android:inputType="numberDecimal"
-                android:hint="输入缴费金额"/>
+                android:hint="输入缴费金额"
+                android:paddingRight="5dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="P"
                 android:textColor="@color/FUBColor3"
-                android:layout_marginLeft="5dp"/>
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

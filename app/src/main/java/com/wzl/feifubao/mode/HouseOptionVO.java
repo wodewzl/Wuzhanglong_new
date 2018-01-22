@@ -10,8 +10,9 @@ import java.util.List;
 
 public class HouseOptionVO extends BaseVO{
 
+
     /**
-     * data : {"huxing":[{"class_id":"5","name":"三室一厅"},{"class_id":"6","name":"三室两厅"},{"class_id":"55","name":"一室一厅"},{"class_id":"56","name":"两室两厅"},{"class_id":"57","name":"两室一厅"},{"class_id":"58","name":"一室0厅"}],"fukuan":[{"class_id":"12","name":"押一付三"},{"class_id":"54","name":"押一付二"},{"class_id":"59","name":"押一付一"}],"language":[{"class_id":"14","name":"菲律宾语"},{"class_id":"15","name":"英语"},{"class_id":"16","name":"中文"}],"rentingStyle":[{"class_id":"18","name":"整租"},{"class_id":"19","name":"合租"},{"class_id":"60","name":"月租"}],"decorateStyle":[{"class_id":"23","name":"普通装修"},{"class_id":"24","name":"中等装修"},{"class_id":"25","name":"精装修"}],"houseStyle":[{"class_id":"28","name":"loft"},{"class_id":"29","name":"住宅"},{"class_id":"30","name":"别墅"},{"class_id":"61","name":"公寓/酒店"}],"position":[{"class_id":"31","name":"南北通透"},{"class_id":"32","name":"正南正北"}],"tag":[{"class_id":"34","name":"配套齐全"},{"class_id":"35","name":"绿化好"},{"class_id":"36","name":"地铁近"}]}
+     * data : {"huxing":[{"class_id":"5","name":"三室一厅"},{"class_id":"6","name":"三室两厅"},{"class_id":"55","name":"一室一厅"},{"class_id":"56","name":"两室两厅"},{"class_id":"57","name":"两室一厅"},{"class_id":"58","name":"一室零厅"}],"fukuan":[{"class_id":"12","name":"押一付三"},{"class_id":"54","name":"押一付二"},{"class_id":"59","name":"押一付一"},{"class_id":"64","name":"押二付二"}],"language":[{"class_id":"14","name":"菲律宾语"},{"class_id":"15","name":"英语"},{"class_id":"16","name":"中文"}],"rentingStyle":[{"class_id":"18","name":"整租"},{"class_id":"19","name":"合租"},{"class_id":"60","name":"短租"}],"decorateStyle":[{"class_id":"23","name":"普通装修"},{"class_id":"24","name":"中等装修"},{"class_id":"25","name":"精装修"}],"houseStyle":[{"class_id":"28","name":"公寓"},{"class_id":"29","name":"Loft上下层"},{"class_id":"30","name":"别墅"},{"class_id":"61","name":"酒店"}],"position":[{"class_id":"31","name":"有阳台"},{"class_id":"32","name":"无阳台"}],"tag":[{"class_id":"34","name":"配套齐全"},{"class_id":"35","name":"绿化好"},{"class_id":"36","name":"地铁近"}],"yellowPagesClass":[]}
      */
 
     private DataBean data;
@@ -33,7 +34,7 @@ public class HouseOptionVO extends BaseVO{
         private List<HouseStyleBean> houseStyle;
         private List<PositionBean> position;
         private List<TagBean> tag;
-
+        private List<?> yellowPagesClass;
 
         public List<HuxingBean> getHuxing() {
             return huxing;
@@ -97,6 +98,14 @@ public class HouseOptionVO extends BaseVO{
 
         public void setTag(List<TagBean> tag) {
             this.tag = tag;
+        }
+
+        public List<?> getYellowPagesClass() {
+            return yellowPagesClass;
+        }
+
+        public void setYellowPagesClass(List<?> yellowPagesClass) {
+            this.yellowPagesClass = yellowPagesClass;
         }
 
         public static class HuxingBean {
@@ -232,7 +241,7 @@ public class HouseOptionVO extends BaseVO{
         public static class HouseStyleBean {
             /**
              * class_id : 28
-             * name : loft
+             * name : 公寓
              */
 
             private String class_id;
@@ -258,7 +267,7 @@ public class HouseOptionVO extends BaseVO{
         public static class PositionBean {
             /**
              * class_id : 31
-             * name : 南北通透
+             * name : 有阳台
              */
 
             private String class_id;

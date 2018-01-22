@@ -24,6 +24,7 @@ import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.constant.BaseConstant;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
@@ -33,6 +34,9 @@ import com.wzl.feifubao.adapter.YellowPagesAdapter;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.JobOffersVO;
 import com.wzl.feifubao.mode.YellowPagesVO;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -45,11 +49,11 @@ import cn.bingoogolapple.photopicker.activity.BGAPhotoPreviewActivity;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class YellowPagesActivity extends BaseActivity implements BGAOnRVItemClickListener, OnLoadMoreListener,SwipeRefreshLayout.OnRefreshListener,android.widget.TextView.OnEditorActionListener, TextWatcher {
+public class YellowPagesActivity extends BaseActivity implements BGAOnRVItemClickListener, OnLoadMoreListener,SwipeRefreshLayout.OnRefreshListener,android.widget.TextView.OnEditorActionListener, TextWatcher,View.OnClickListener {
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private LuRecyclerView mRecyclerView;
     private YellowPagesAdapter mAdapter;
-    private EditText mSearchEt;
+    private TextView mSearchEt;
     private String mKeyword = "";
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
@@ -85,9 +89,12 @@ public class YellowPagesActivity extends BaseActivity implements BGAOnRVItemClic
     public void bindViewsListener() {
         mRecyclerView.setOnLoadMoreListener(this);
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
-        mSearchEt.setOnEditorActionListener(this);
-        mSearchEt.addTextChangedListener(this);
+//        mSearchEt.setOnEditorActionListener(this);
+//        mSearchEt.addTextChangedListener(this);
+        mSearchEt.setOnClickListener(this);
         mAdapter.setOnRVItemClickListener(this);
+        EventBus.getDefault().register(this);
+
     }
 
     @Override
@@ -206,5 +213,27 @@ public class YellowPagesActivity extends BaseActivity implements BGAOnRVItemClic
         } else {
             EasyPermissions.requestPermissions(this, "图片预览需要以下权限:\n\n1.访问设备上的照片", PRC_PHOTO_PICKER, perms);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onEventMainThread(EBMessageVO event) {
+        if ("keyword".equals(event.getMessage())) {
+//            mAutoSwipeRefreshLayout.autoRefresh();
+            mCurrentPage=1;
+            mKeyword=event.getMsg();
+            mSearchEt.setText(mKeyword);
+            getData();
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        openActivity(KeyWrodActivity.class);
     }
 }
