@@ -55,5 +55,5 @@ public class Constant {
     public static final String  CHANGE_MONEY_URL= "api/Member/recharge";//充值
     public static final String  PASSWORD_BACK_URL= "api/Member/resetUserPassword";//找回密码
     public static final String  HOUSE_HELP_URL= "api/House/addConsult";//提交资讯;
-
+    public static final String  PAY_ORDER_URL= "api/Order/orderDetail";//支付订单
 }

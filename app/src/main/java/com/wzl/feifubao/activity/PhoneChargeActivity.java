@@ -25,7 +25,6 @@ import com.tamic.novate.Novate;
 import com.tamic.novate.Throwable;
 import com.tamic.novate.callback.RxStringCallback;
 import com.wuzhanglong.library.activity.BaseActivity;
-import com.wuzhanglong.library.cache.ACache;
 import com.wuzhanglong.library.constant.BaseConstant;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.interfaces.PayCallback;
@@ -33,7 +32,6 @@ import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.mode.PayResult;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
-import com.wuzhanglong.library.utils.NumberTypeUtil;
 import com.wuzhanglong.library.utils.PayUtis;
 import com.wzl.feifubao.R;
 import com.wzl.feifubao.adapter.MoneyAdapter;
@@ -67,6 +65,7 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
     private String mMoneyStr;
     private String mShopType = "";
     private String mPayStr = "";
+    private String mOrderId="";
 
     @Override
     public void baseSetContentView() {
@@ -217,6 +216,8 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
 
                 break;
             case R.id.ok_tv:
+
+
                 commit();
 
                 break;
@@ -239,6 +240,7 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
         if (vo instanceof OrderCrateVO) {
             OrderCrateVO orderCrateVO = (OrderCrateVO) vo;
             pay(orderCrateVO.getData().getOut_trade_no(), orderCrateVO.getData().getPay_rmb());
+            mOrderId=orderCrateVO.getData().getOrder_id();
         }
     }
 
@@ -284,12 +286,9 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
                             PayUtis.zhiFuBaoPay(PhoneChargeActivity.this, payInfo, new PayCallback() {
                                 @Override
                                 public void payResult(int type) {
-                                    ;
-                                    if (type == 1) {
-                                        payFinish();
-                                    } else {
-                                        showCustomToast("支付失败");
-                                    }
+
+                                    payFinish(type);
+
                                 }
                             });
                         }
@@ -342,7 +341,10 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
             showCustomToast("充值类型");
             return;
         }
-
+        if (TextUtils.isEmpty(mPhoneEt.getText().toString())) {
+            showCustomToast("输入充值号码");
+            return;
+        }
 
         for (int i = 0; i < mDataBean.getSku_list().size(); i++) {
             if ((mMoneyStr + ";" + mShopType).equals(mDataBean.getSku_list().get(i).getAttr_value_items())) {
@@ -358,18 +360,14 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
         HttpGetDataUtil.post(this, Constant.CHAGE_URL, map, OrderCrateVO.class, this);
     }
 
-    public void payFinish() {
-        showCustomToast("支付成功");
-        mOkTv.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Bundle bundle = new Bundle();
-                bundle.putString("type", "3");
-                mActivity.open(PaymentRecordsActivity.class, bundle, 0);
-                PhoneChargeActivity.this.finish();
-            }
-
-
-        }, 1000);
+    public void payFinish(int type) {
+        Bundle bundle=new Bundle();
+        bundle.putString("order_id",mOrderId);
+        if (type == 1) {
+            showCustomToast("支付成功");
+        } else {
+            showCustomToast("支付失败");
+        }
+        open(PayStatusActivity.class,bundle,0);
     }
 }

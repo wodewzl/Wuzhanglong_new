@@ -171,7 +171,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
             map.put("newPassword", mEt03.getText().toString());
             HttpGetDataUtil.post(this, Constant.PASSWORD_BACK_URL, map, UserInfoVO.class, this);
         }else {
-            map.put("email", mEt01.getText().toString());
+            map.put("username", mEt01.getText().toString());
             map.put("password", mEt03.getText().toString());
             HttpGetDataUtil.post(this, Constant.REGIST_URL, map, UserInfoVO.class, this);
         }

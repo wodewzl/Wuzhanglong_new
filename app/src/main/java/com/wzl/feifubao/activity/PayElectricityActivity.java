@@ -268,12 +268,7 @@ public class PayElectricityActivity extends BaseActivity implements View.OnClick
                             PayUtis.zhiFuBaoPay(PayElectricityActivity.this, payInfo, new PayCallback() {
                                 @Override
                                 public void payResult(int type) {
-                                    ;
-                                    if (type == 1) {
-                                        payFinish();
-                                    } else {
-                                        showCustomToast("支付失败");
-                                    }
+//                                    payFinish(type)
                                 }
                             });
                         }
@@ -290,19 +285,15 @@ public class PayElectricityActivity extends BaseActivity implements View.OnClick
         });
     }
 
-    public void payFinish() {
-        showCustomToast("支付成功");
-        mOkTv.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Bundle bundle = new Bundle();
-                bundle.putString("type", mType);
-                mActivity.open(PaymentRecordsActivity.class, bundle, 0);
-                PayElectricityActivity.this.finish();
-            }
-
-
-        }, 1000);
+    public void payFinish(int type) {
+        Bundle bundle=new Bundle();
+        bundle.putString("order_id",mOrderId);
+        if (type == 1) {
+            showCustomToast("支付成功");
+        } else {
+            showCustomToast("支付失败");
+        }
+        open(PayStatusActivity.class,bundle,0);
     }
 
     public void commit() {
