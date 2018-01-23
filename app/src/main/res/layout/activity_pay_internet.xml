@@ -14,6 +14,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/layout_01"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:background="@color/C1"
@@ -21,25 +22,25 @@
             android:orientation="horizontal"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:drawableLeft="@drawable/fee_1"
                 android:drawablePadding="8dp"
-                android:text="缴费单位："
+                android:text="所属供应商："
                 android:textColor="@color/C5" />
 
-            <EditText
-                android:id="@+id/et_01"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/C1"
-                android:gravity="right|center_vertical"
-                android:textSize="13sp"
-                />
+            <TextView
+                android:id="@+id/tv_01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/my_go"
+                android:gravity="center_vertical"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -67,8 +68,9 @@
                 android:layout_weight="1"
                 android:background="@color/C1"
                 android:gravity="right|center_vertical"
-                android:textSize="13sp"
-                android:hint="仅支持Globle网费"/>
+                android:hint="Account Number"
+                android:inputType="number"
+                android:textSize="13sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -80,16 +82,16 @@
             android:orientation="horizontal"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/C1"
                 android:drawableLeft="@drawable/fee_3"
                 android:drawablePadding="8dp"
                 android:text="账单号："
-                android:textColor="@color/C5"
-                android:background="@color/C1"/>
+                android:textColor="@color/C5" />
 
             <EditText
                 android:id="@+id/et_03"
@@ -98,9 +100,9 @@
                 android:layout_weight="1"
                 android:background="@color/C1"
                 android:gravity="right|center_vertical"
-                android:textSize="13sp"
-                android:hint="Meralco Reference No."
-                />
+                android:hint="Telephone Number"
+                android:inputType="number"
+                android:textSize="13sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -129,17 +131,18 @@
                 android:layout_weight="1"
                 android:background="@color/C1"
                 android:gravity="right|center_vertical"
-                android:textColor="@color/FUBColor3"
-                android:inputType="numberDecimal"
                 android:hint="输入缴费金额"
-                android:paddingRight="5dp"/>
+                android:inputType="numberDecimal"
+                android:paddingRight="5dp"
+                android:textColor="@color/FUBColor3" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="P"
-                android:textColor="@color/FUBColor3"
-                />
+                android:textColor="@color/FUBColor3" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="44dp"
@@ -166,9 +169,10 @@
                 android:layout_weight="1"
                 android:background="@color/C1"
                 android:gravity="right|center_vertical"
-                android:textSize="13sp"
-                android:hint="Due Date"/>
+                android:hint="Due Date"
+                android:textSize="13sp" />
         </LinearLayout>
+
         <include layout="@layout/pay_type_view" />
 
         <TextView
@@ -181,7 +185,6 @@
             android:gravity="center"
             android:text="立即支付"
             android:textColor="@color/C1"
-            android:textSize="15sp"
-            />
+            android:textSize="15sp" />
     </LinearLayout>
 </com.wuzhanglong.library.view.ReboundScrollView>

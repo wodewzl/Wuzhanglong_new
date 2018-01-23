@@ -230,7 +230,7 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
     public void totalMoney(){
         for (int i = 0; i < mDataBean.getSku_list().size(); i++) {
             if ((mMoneyStr + ";" + mShopType).equals(mDataBean.getSku_list().get(i).getAttr_value_items())) {
-                BaseCommonUtils.setTextTwoBefore(PhoneChargeActivity.this, mRmbTv, mDataBean.getSku_list().get(i).getPrice_rmb(), "P", R.color.FUBColor3, 1.7f);
+                BaseCommonUtils.setTextTwoBefore(PhoneChargeActivity.this, mRmbTv, mDataBean.getSku_list().get(i).getPrice_rmb(), "元", R.color.FUBColor3, 1.7f);
             }
         }
     }

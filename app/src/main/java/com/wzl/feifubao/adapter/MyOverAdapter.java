@@ -32,7 +32,7 @@ public class MyOverAdapter extends RecyclerBaseAdapter<MyoverVO.DataBeanX.DataBe
         if(money<0){
             helper.setText(R.id.money_tv, vo.getNumber() );
         }else {
-            helper.setText(R.id.money_tv, "+"+vo.getNumber() );
+            helper.setText(R.id.money_tv, "+"+vo.getCurrent_balance() );
         }
 
         helper.setText(R.id.over_tv,"余额："+vo.getNumber());

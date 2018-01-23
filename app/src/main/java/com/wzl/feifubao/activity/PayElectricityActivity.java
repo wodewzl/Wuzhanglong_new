@@ -93,9 +93,13 @@ public class PayElectricityActivity extends BaseActivity implements View.OnClick
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String rate = ACache.get(PayElectricityActivity.this).getAsString("rate");
-                String money = NumberTypeUtil.mul(Double.parseDouble(mEt04.getText().toString()), Double.parseDouble(rate)) + "";
-                BaseCommonUtils.setTextThree(PayElectricityActivity.this, mMoneTv, "应付：", money, "元", R.color.FUBColor3, 1.5f);
+                if(TextUtils.isEmpty(s)){
+                    BaseCommonUtils.setTextThree(PayElectricityActivity.this, mMoneTv, "应付：", "0", "元", R.color.FUBColor3, 1.5f);
+                }else {
+                    String rate = ACache.get(PayElectricityActivity.this).getAsString("rate");
+                    String money = NumberTypeUtil.mul(Double.parseDouble(mEt04.getText().toString()), Double.parseDouble(rate)) + "";
+                    BaseCommonUtils.setTextThree(PayElectricityActivity.this, mMoneTv, "应付：", money, "元", R.color.FUBColor3, 1.5f);
+                }
 
             }
 
@@ -161,7 +165,7 @@ public class PayElectricityActivity extends BaseActivity implements View.OnClick
                 break;
 
             case R.id.base_ok_tv:
-                String url = ACache.get(this).getAsString("electricity_bill");
+                String url = ACache.get(this).getAsString("internet_information");
                 Bundle bundle = new Bundle();
                 bundle.putString("url", url);
                 bundle.putString("title", "文章详情");
@@ -325,9 +329,9 @@ public class PayElectricityActivity extends BaseActivity implements View.OnClick
         HashMap<String, Object> map = new HashMap<>();
         map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
         map.put("type", "1");
-        map.put("bill_num", mEt02.getText().toString());
+        map.put("bill_num", mEt03.getText().toString());
         map.put("payment", mEt04.getText().toString());
-        map.put("account_number", mEt03.getText().toString());
+        map.put("account_number", mEt02.getText().toString());
         map.put("stoptime", mTv05.getText().toString());
         HttpGetDataUtil.post(this, Constant.CHAGE_URL, map, OrderCrateVO.class, this);
     }

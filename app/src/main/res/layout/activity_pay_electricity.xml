@@ -69,7 +69,8 @@
                 android:gravity="right|center_vertical"
                 android:textSize="13sp"
                 android:hint="ATM/Phone Reference No."
-                android:inputType="number"/>
+                android:inputType="number"
+                android:maxLength="16"/>
         </LinearLayout>
 
         <LinearLayout
@@ -101,7 +102,8 @@
                 android:gravity="right|center_vertical"
                 android:textSize="13sp"
                 android:hint="Meralco Reference No."
-                android:inputType="number" />
+                android:inputType="number"
+                android:maxLength="26"/>
         </LinearLayout>
 
         <LinearLayout
