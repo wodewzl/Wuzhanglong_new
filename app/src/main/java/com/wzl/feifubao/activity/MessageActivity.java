@@ -1,32 +1,24 @@
 package com.wzl.feifubao.activity;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
-import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
-import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import com.wzl.feifubao.R;
-import com.wzl.feifubao.adapter.JobOffersAdapter;
 import com.wzl.feifubao.adapter.MessageAdapter;
 import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
-import com.wzl.feifubao.mode.LifeVO;
 import com.wzl.feifubao.mode.MessageVO;
-import com.wzl.feifubao.mode.PaymentRecordsVO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -47,7 +39,7 @@ public class MessageActivity extends BaseActivity implements BGAOnRVItemClickLis
 
     @Override
     public void initView() {
-        mBaseTitleTv.setText("消息");
+        mBaseTitleTv.setText("菲度消息");
 
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);

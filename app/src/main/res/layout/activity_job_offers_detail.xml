@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:background="@color/C1"
-                android:paddingLeft="20dp"
+
                 android:text="岗位职责："
                 android:textColor="@color/C5"
                 android:textSize="11sp" />
@@ -187,7 +187,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="0.5dp"
                 android:layout_weight="1"
-                android:drawableLeft="@drawable/login_pwd"
+                android:drawableLeft="@drawable/house_6"
                 android:drawablePadding="5dp"
                 android:gravity="center"
                 android:text="拨打电话"

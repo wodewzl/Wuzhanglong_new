@@ -7,8 +7,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -16,12 +14,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alipay.android.phone.mrpc.core.ThreadUtil;
 import com.dou361.dialogui.DialogUIUtils;
 import com.dou361.dialogui.bean.BuildBean;
 import com.nanchen.compresshelper.CompressHelper;
 import com.squareup.picasso.Picasso;
-
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.constant.BaseConstant;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
@@ -32,16 +28,11 @@ import com.wzl.feifubao.R;
 import com.wzl.feifubao.application.AppApplication;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.UserInfoVO;
-import com.yalantis.ucrop.UCrop;
-import com.yalantis.ucrop.UCropActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import cn.bingoogolapple.baseadapter.BGABaseAdapterUtil;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
@@ -49,15 +40,12 @@ import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
 import cn.bingoogolapple.photopicker.imageloader.BGAImage;
 import cn.bingoogolapple.photopicker.util.BGAPhotoHelper;
 import cn.bingoogolapple.photopicker.util.BGAPhotoPickerUtil;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
-
-import static com.wuzhanglong.library.http.NetWorkHelper.uri;
 
 public class UserInfoActivity extends BaseActivity implements View.OnClickListener, PostCallback {
     private static final int PRC_PHOTO_PICKER = 1;
@@ -274,7 +262,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         DialogUIUtils.init(UserInfoActivity.this);
         View rootView = View.inflate(UserInfoActivity.this, R.layout.custom_dialog_layout, null);
         final EditText nickName = rootView.findViewById(R.id.nick_name_tv);
-
+        nickName.setText(mTextView03.getText().toString());
         TextView cancelTv = rootView.findViewById(R.id.cancle_tv);
         TextView okTv = rootView.findViewById(R.id.ok_tv);
         final BuildBean buildBean = DialogUIUtils.showCustomAlert(UserInfoActivity.this, rootView);

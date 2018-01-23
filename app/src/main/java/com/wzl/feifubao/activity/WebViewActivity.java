@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,14 +20,8 @@ import android.widget.ProgressBar;
 
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.mode.BaseVO;
-import com.wuzhanglong.library.mode.EBMessageVO;
-import com.wuzhanglong.library.utils.ShareUtil;
 import com.wuzhanglong.library.utils.WebViewPictureUtil;
 import com.wzl.feifubao.R;
-import com.wzl.feifubao.application.AppApplication;
-
-
-import org.greenrobot.eventbus.EventBus;
 
 import static com.wuzhanglong.library.utils.WebviewUtil.SetWebview;
 
@@ -87,7 +80,7 @@ public class WebViewActivity extends BaseActivity implements OnClickListener, On
     @Override
     public void bindViewsListener() {
         mBaseBackTv.setOnClickListener(this);
-        mWebView.setOnLongClickListener(this);
+//        mWebView.setOnLongClickListener(this);
         mWebView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {

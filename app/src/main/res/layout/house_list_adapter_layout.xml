@@ -61,7 +61,8 @@
                     android:paddingTop="2dp"
                     android:text="语种"
                     android:textColor="@color/C1"
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/language2_tv"

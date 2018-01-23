@@ -125,7 +125,7 @@ public class HouseDetailActivity extends BaseActivity implements View.OnClickLis
 
 
         mTimeTv.setText(dataBean.getHouse_createtime());
-        BaseCommonUtils.setTextTwoBefore(this, mMoneyTv, dataBean.getHouse_price(), "月/元", R.color.FUBColor3, 1.5f);
+        BaseCommonUtils.setTextTwoBefore(this, mMoneyTv, dataBean.getHouse_price(), "P/元", R.color.FUBColor3, 1.5f);
         mPayTypeTv.setText(dataBean.getPay_class());
 
         mApartmentTv.setText(dataBean.getApartment());

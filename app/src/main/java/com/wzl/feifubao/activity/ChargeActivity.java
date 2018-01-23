@@ -42,6 +42,7 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void initView() {
+        mBaseTitleTv.setText("充值");
         mEt01=getViewById(R.id.et_01);
         mPayCb1 = getViewById(R.id.pay_cb_1);
         mPayCb2 = getViewById(R.id.pay_cb_2);

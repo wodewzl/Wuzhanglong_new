@@ -48,13 +48,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -206,7 +203,6 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
                 for (int j = 0; j < mOptionDataBean.getLanguage().size(); j++) {
                     if (bean.getHouse_language().split(",")[i].equals(mOptionDataBean.getLanguage().get(i).getClass_id())) {
                         sb.append(mOptionDataBean.getLanguage().get(i).getName()).append("、");
-                        ;
                         break;
                     }
                 }
@@ -574,7 +570,10 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
     public void success(BaseVO vo) {
         if (vo instanceof HouseAddVO) {
             HouseAddVO.DataBean dataBean = ((HouseAddVO) vo).getData();
-            showPayDialog(dataBean);
+            if ("2".equals(this.getIntent().getStringExtra("type"))) {
+                showPayDialog(dataBean);
+            }
+
         }
     }
 

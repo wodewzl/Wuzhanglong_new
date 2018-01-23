@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
@@ -86,6 +88,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     showCustomToast("请输入邮箱");
                     return;
                 }
+
+                if(!isEmail(mPhoneTv.getText().toString())){
+                    showCustomToast("请输入正确邮箱");
+                    return;
+                }
                 if (TextUtils.isEmpty(mPasswordTv.getText().toString())) {
                     showCustomToast("请输入密码");
                     return;
@@ -141,5 +148,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             startActivity(intent);
             this.finish();
         }
+    }
+
+
+    public static boolean isEmail(String email){
+        if (null==email || "".equals(email)) return false;
+        Pattern p =  Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");//复杂匹配
+        Matcher m = p.matcher(email);
+        return m.matches();
     }
 }
