@@ -178,7 +178,7 @@ public class PayInternetActivity extends BaseActivity implements View.OnClickLis
             case R.id.ok_tv:
                 commit();
             case R.id.base_ok_tv:
-                String url = ACache.get(this).getAsString("electricity_bill");
+                String url = ACache.get(this).getAsString("internet_information");
                 Bundle bundle = new Bundle();
                 bundle.putString("url", url);
                 bundle.putString("title", "文章详情");

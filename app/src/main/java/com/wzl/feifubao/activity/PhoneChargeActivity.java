@@ -147,7 +147,7 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
             if (i == 0){
                 moneyVO.setStatus("1");
                 mSelectVO=moneyVO;
-                BaseCommonUtils.setTextTwoBefore(this, mPhpTv, mDataBean.getSpec_list().get(1).getValue().get(0).getSpec_value_name(), "P", R.color.FUBColor3, 1.7f);
+//                BaseCommonUtils.setTextTwoBefore(this, mPhpTv, mDataBean.getSpec_list().get(1).getValue().get(0).getSpec_value_name(), "P", R.color.FUBColor3, 1.7f);
                 mShopType = mDataBean.getSpec_list().get(0).getValue().get(0).getSpec_id() + ":" + mDataBean.getSpec_list().get(0).getValue().get(0).getSpec_value_id();
                 mMoneyStr = mDataBean.getSpec_list().get(1).getValue().get(0).getSpec_id() + ":" + mDataBean.getSpec_list().get(1).getValue().get(0).getSpec_value_id();
 
@@ -186,7 +186,7 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
 
         mMoneyStr = mSelectVO.getId();
 
-        BaseCommonUtils.setTextTwoBefore(this, mPhpTv, mSelectVO.getMoney(), "P", R.color.FUBColor3, 1.7f);
+//        BaseCommonUtils.setTextTwoBefore(this, mPhpTv, mSelectVO.getMoney(), "P", R.color.FUBColor3, 1.7f);
         totalMoney();
     }
 
@@ -206,6 +206,7 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
                         String str = (String) text;
                         mTypeTv.setText(str);
                         mShopType = mDataBean.getSpec_list().get(0).getValue().get(position).getSpec_id() + ":" + mDataBean.getSpec_list().get(0).getValue().get(position).getSpec_value_id();
+                        mMoneyStr = mDataBean.getSpec_list().get(1).getValue().get(position).getSpec_id() + ":" + mDataBean.getSpec_list().get(1).getValue().get(position).getSpec_value_id();
 
                         totalMoney();
                     }
@@ -231,6 +232,8 @@ public class PhoneChargeActivity extends BaseActivity implements BGAOnRVItemClic
         for (int i = 0; i < mDataBean.getSku_list().size(); i++) {
             if ((mMoneyStr + ";" + mShopType).equals(mDataBean.getSku_list().get(i).getAttr_value_items())) {
                 BaseCommonUtils.setTextTwoBefore(PhoneChargeActivity.this, mRmbTv, mDataBean.getSku_list().get(i).getPrice_rmb(), "元", R.color.FUBColor3, 1.7f);
+                BaseCommonUtils.setTextTwoBefore(this, mPhpTv,mDataBean.getSku_list().get(i).getMember_price(), "P", R.color.FUBColor3, 1.7f);
+
             }
         }
     }

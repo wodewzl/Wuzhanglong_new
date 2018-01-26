@@ -22,6 +22,7 @@ import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
@@ -31,6 +32,8 @@ import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.HouseListVO;
 import com.wzl.feifubao.mode.JobOffersVO;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,11 +41,12 @@ import cn.bingoogolapple.baseadapter.BGADivider;
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 import cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout;
 
-public class JobOffersActivity extends BaseActivity implements OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, BGAOnRVItemClickListener, android.widget.TextView.OnEditorActionListener, TextWatcher {
+public class JobOffersActivity extends BaseActivity implements OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, BGAOnRVItemClickListener, android.widget.TextView.OnEditorActionListener, TextWatcher,View.OnClickListener
+{
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private LuRecyclerView mRecyclerView;
     private JobOffersAdapter mAdapter;
-    private EditText mSearchEt;
+    private TextView mSearchEt;
     private String mKeyword = "";
     private String mCompnayId = "";
 
@@ -81,9 +85,11 @@ public class JobOffersActivity extends BaseActivity implements OnLoadMoreListene
     public void bindViewsListener() {
         mRecyclerView.setOnLoadMoreListener(this);
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
-        mSearchEt.setOnEditorActionListener(this);
-        mSearchEt.addTextChangedListener(this);
+//        mSearchEt.setOnEditorActionListener(this);
+//        mSearchEt.addTextChangedListener(this);
         mAdapter.setOnRVItemClickListener(this);
+        mSearchEt.setOnClickListener(this);
+
     }
 
     @Override
@@ -182,6 +188,22 @@ public class JobOffersActivity extends BaseActivity implements OnLoadMoreListene
     @Override
     public void afterTextChanged(Editable editable) {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        openActivity(KeyWrodActivity.class);
+    }
+
+    @Subscribe
+    public void onEventMainThread(EBMessageVO event) {
+        if ("keyword".equals(event.getMessage())) {
+//            mAutoSwipeRefreshLayout.autoRefresh();
+            mCurrentPage=1;
+            mKeyword=event.getMsg();
+            mSearchEt.setText(mKeyword);
+            getData();
+        }
     }
 
 }

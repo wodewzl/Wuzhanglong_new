@@ -123,8 +123,8 @@ public class AddressAddActivity extends BaseActivity implements View.OnClickList
                     public void onOptionsSelect(int options1, int option2, int options3, View v) {
                         //返回的分别是三个级别的选中位置
                         String tx = options1Items.get(options1).getProvince_name()
-                                + options2Items.get(options1).get(option2).getCity_name()
-                                + options3Items.get(options1).get(option2).get(options3).getDistrict_name();
+                                + "-"+options2Items.get(options1).get(option2).getCity_name()
+                                + "-"+options3Items.get(options1).get(option2).get(options3).getDistrict_name();
                         mTv03.setText(tx);
 
                         mProvinceId = options1Items.get(options1).getProvince_id();

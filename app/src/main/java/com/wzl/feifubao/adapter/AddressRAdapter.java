@@ -39,7 +39,7 @@ public class AddressRAdapter extends RecyclerBaseAdapter<AddressVO.DataBean> {
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
         AddressVO.DataBean vo = (AddressVO.DataBean) model;
         helper.setText(R.id.name_tv, vo.getConsigner());
-        helper.setText(R.id.phone_tv, vo.getPhone());
+        helper.setText(R.id.phone_tv, vo.getMobile());
         helper.setText(R.id.address_tv, vo.getAddress_info() + vo.getAddress());
         if ("1".equals(vo.getIs_default())) {
             helper.setImageResource(R.id.check_img, R.drawable.check_select);

@@ -2,6 +2,7 @@ package com.wzl.feifubao.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Environment;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,11 @@ import java.util.List;
 
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
+import cn.bingoogolapple.photopicker.imageloader.BGAImage;
+import cn.bingoogolapple.photopicker.imageloader.BGAImageLoader;
+import cn.bingoogolapple.photopicker.util.BGAAsyncTask;
+import cn.bingoogolapple.photopicker.util.BGAPhotoPickerUtil;
+import cn.bingoogolapple.photopicker.util.BGASavePhotoTask;
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import okhttp3.MediaType;
@@ -59,7 +65,7 @@ import okhttp3.RequestBody;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class HouseAddActivity extends BaseActivity implements BGASortableNinePhotoLayout.Delegate, View.OnClickListener, PostCallback {
+public class HouseAddActivity extends BaseActivity implements BGASortableNinePhotoLayout.Delegate, View.OnClickListener, PostCallback, BGAAsyncTask.Callback<Void> {
     private static final int PRC_PHOTO_PICKER = 1;
     private static final int RC_CHOOSE_PHOTO = 1;
     private static final int RC_PHOTO_PREVIEW = 2;
@@ -70,13 +76,16 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
     private EditText mParams1Et, mParams3Et, mParams5Et, mParams8Et, mParams14Et, mParams15Et;
     private TextView mParams2Tv, mParams4Tv, mParams6Tv, mParams7Tv, mParams9Tv, mParams10Tv, mParams11Tv, mParams12Tv, mParams13Tv;
     private String mParams2 = "", mParams3 = "", mParams4 = "", mParams5 = "", mParams6 = "", mParams7 = "", mParams9 = "", mParams10 = "", mParams11 = "", mParams12 = "", mParams13 = "";
-    private String mType = "2";
+    private String mType = "1";
     private ArrayList<CityVO.DataBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<CityVO.DataBean.CitysBean>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<CityVO.DataBean.CitysBean.DistrictsBean>>> options3Items = new ArrayList<>();
     private String mProvinceId = "", mCityId = "", mAreaId = "";
     private String mHouseId = "";
     private BottomSheetDialog mDialog;
+    public ArrayList<String> mOldList = new ArrayList<>();
+    public ArrayList<String> mOldLocalList = new ArrayList<>();
+    private BGASavePhotoTask mSavePhotoTask;
 
     @Override
     public void baseSetContentView() {
@@ -217,12 +226,20 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
             mProvinceId = bean.getProvince_id();
 
             mParams13Tv.setText(bean.getArea());
+
+
+            mOldList =new ArrayList<>();
+            mOldList.add(bean.getHouse_pic());
+//            mPhotoLayout.setData(mOldList);
+
+            for (int i = 0; i < mOldList.size(); i++) {
+                savePic(mOldList.get(i));
+            }
         } else {
             mBaseTitleTv.setText("发布租房信息");
         }
-
-
     }
+
 
     @Override
     public void noData(BaseVO vo) {
@@ -272,9 +289,9 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
             Intent photoPickerIntent = new BGAPhotoPickerActivity.IntentBuilder(activity)
                     .cameraFileDir(takePhotoDir) // 拍照后照片的存放目录，改成你自己拍照后要存放照片的目录。如果不传递该参数的话则不开启图库里的拍照功能
                     .maxChooseCount(9) // 图片选择张数的最大值
-                    .selectedPhotos(null) // 当前已选中的图片路径集合
+                    .selectedPhotos("2".equals(this.getIntent().getStringExtra("type"))?mOldLocalList:null) // 当前已选中的图片路径集合
                     .pauseOnScroll(false)
-                    .selectedPhotos(mSelectList)
+//                    .selectedPhotos(mSelectList)
 
 
                     // 滚动列表时是否暂停加载图片
@@ -285,6 +302,31 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
         }
     }
 
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (resultCode == RESULT_OK && requestCode == RC_CHOOSE_PHOTO) {
+//            //是否单选，单选走true 语句，多选走false语句，这么默认false
+////            List<String> selectedPhotos = BGAPhotoPickerActivity.getSelectedPhotos(data);
+//            mSelectList = BGAPhotoPickerActivity.getSelectedPhotos(data);
+//            mPhotoLayout.setData(mSelectList);
+//        } else if (requestCode == RC_PHOTO_PREVIEW) {
+//            // 在预览界面按返回也会回传预览界面已选择的图片集合
+////            List<String> selectedPhotos = BGAPhotoPickerPreviewActivity.getSelectedPhotos(data);
+////            mPhotoLayout.setData(BGAPhotoPickerPreviewActivity.getSelectedPhotos(data));
+//            mSelectList = BGAPhotoPickerPreviewActivity.getSelectedPhotos(data);
+//            mPhotoLayout.setData(mSelectList);
+//        }
+//
+//        mOneFiles.clear();
+//        for (int i = 0; i < mPhotoLayout.getData().size(); i++) {
+//            File file = new File(mPhotoLayout.getData().get(i));
+//            File newFile = CompressHelper.getDefault(HouseAddActivity.this).compressToFile(file);
+//            mOneFiles.add(newFile);
+//        }
+//    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -292,14 +334,15 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
         if (resultCode == RESULT_OK && requestCode == RC_CHOOSE_PHOTO) {
             //是否单选，单选走true 语句，多选走false语句，这么默认false
 //            List<String> selectedPhotos = BGAPhotoPickerActivity.getSelectedPhotos(data);
-            mSelectList = BGAPhotoPickerActivity.getSelectedPhotos(data);
-            mPhotoLayout.setData(mSelectList);
+            mOldLocalList = BGAPhotoPickerActivity.getSelectedPhotos(data);
+            mPhotoLayout.setData(mOldLocalList);
         } else if (requestCode == RC_PHOTO_PREVIEW) {
             // 在预览界面按返回也会回传预览界面已选择的图片集合
 //            List<String> selectedPhotos = BGAPhotoPickerPreviewActivity.getSelectedPhotos(data);
 //            mPhotoLayout.setData(BGAPhotoPickerPreviewActivity.getSelectedPhotos(data));
-            mSelectList = BGAPhotoPickerPreviewActivity.getSelectedPhotos(data);
-            mPhotoLayout.setData(mSelectList);
+            mOldLocalList = BGAPhotoPickerPreviewActivity.getSelectedPhotos(data);
+            mPhotoLayout.setData(mOldLocalList);
+
         }
 
         mOneFiles.clear();
@@ -309,6 +352,7 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
             mOneFiles.add(newFile);
         }
     }
+
 
     @Override
     public void onClick(View v) {
@@ -384,8 +428,8 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
                     public void onOptionsSelect(int options1, int option2, int options3, View v) {
                         //返回的分别是三个级别的选中位置
                         String tx = options1Items.get(options1).getProvince_name()
-                                + options2Items.get(options1).get(option2).getCity_name()
-                                + options3Items.get(options1).get(option2).get(options3).getDistrict_name();
+                                + "-" + options2Items.get(options1).get(option2).getCity_name()
+                                + "-" + options3Items.get(options1).get(option2).get(options3).getDistrict_name();
                         mParams13Tv.setText(tx);
                         mProvinceId = options1Items.get(options1).getProvince_id();
                         mCityId = options2Items.get(options1).get(option2).getCity_id();
@@ -507,11 +551,11 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
                         break;
                     case "7":
                         mParams7Tv.setText(str);
-                        mParams7 = str;
+                        mParams7 = datas.get(position).getId() + "";
                         break;
                     case "9":
                         mParams9Tv.setText(str);
-                        mParams9 = str;
+                        mParams9 =  datas.get(position).getId() + "";
                         break;
 
                     case "10":
@@ -570,8 +614,11 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
     public void success(BaseVO vo) {
         if (vo instanceof HouseAddVO) {
             HouseAddVO.DataBean dataBean = ((HouseAddVO) vo).getData();
-            if ("2".equals(this.getIntent().getStringExtra("type"))) {
+            if (!"2".equals(this.getIntent().getStringExtra("type"))) {
                 showPayDialog(dataBean);
+            }else {
+                mActivity.openActivity(MyHouseActivity.class);
+                HouseAddActivity.this.finish();
             }
 
         }
@@ -622,6 +669,7 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
                                     ;
                                     if (type == 1) {
                                         mActivity.openActivity(MyHouseActivity.class);
+                                        HouseAddActivity.this.finish();
                                     } else {
                                         mActivity.showCustomToast("支付失败");
                                     }
@@ -690,5 +738,64 @@ public class HouseAddActivity extends BaseActivity implements BGASortableNinePho
         });
 
         payCb1.setChecked(true);
+    }
+
+
+    private synchronized void savePic(String url) {
+        final File file;
+        // 通过MD5加密url生成文件名，避免多次保存同一张图片
+        final File downloadDir = new File(Environment.getExternalStorageDirectory(), BaseConstant.SDCARD_CACHE);
+        file = new File(downloadDir, BGAPhotoPickerUtil.md5(url) + ".png");
+        if (file.exists()) {
+//            BGAPhotoPickerUtil.showSafe(getString(cn.bingoogolapple.photopicker.R.string.bga_pp_save_img_success_folder, downloadDir.getAbsolutePath()));
+            if (!mOldLocalList.contains(file.getAbsolutePath())) {
+                mOldLocalList.add(file.getAbsolutePath());
+            }
+            if (mOldLocalList.size() == mOldList.size()) {
+                HouseAddActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPhotoLayout.setData(mOldLocalList);
+                    }
+                });
+
+            }
+            return;
+        }
+
+        mSavePhotoTask = new BGASavePhotoTask(this, HouseAddActivity.this, file);
+        BGAImage.download(url, new BGAImageLoader.DownloadDelegate() {
+            @Override
+            public void onSuccess(String url, Bitmap bitmap) {
+                if (!mOldLocalList.contains(file.getAbsolutePath())) {
+                    mOldLocalList.add(file.getAbsolutePath());
+                }
+                if (mOldLocalList.size() == mOldList.size()) {
+                    mPhotoLayout.setData(mOldLocalList);
+
+                }
+                if (mSavePhotoTask != null) {
+                    mSavePhotoTask.setBitmapAndPerform(bitmap);
+                }
+            }
+
+            @Override
+            public void onFailed(String url) {
+                mSavePhotoTask = null;
+
+            }
+        });
+
+    }
+
+
+    @Override
+    public void onPostExecute(Void aVoid) {
+        mSavePhotoTask = null;
+    }
+
+    @Override
+    public void onTaskCancelled() {
+        mSavePhotoTask = null;
     }
 }

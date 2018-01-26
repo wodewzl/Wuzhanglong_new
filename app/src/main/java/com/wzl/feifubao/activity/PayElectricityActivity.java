@@ -165,7 +165,7 @@ public class PayElectricityActivity extends BaseActivity implements View.OnClick
                 break;
 
             case R.id.base_ok_tv:
-                String url = ACache.get(this).getAsString("internet_information");
+                String url = ACache.get(this).getAsString("electricity_bill");
                 Bundle bundle = new Bundle();
                 bundle.putString("url", url);
                 bundle.putString("title", "文章详情");

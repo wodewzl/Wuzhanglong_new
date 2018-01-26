@@ -35,7 +35,7 @@ public class YellowPagesAdapter extends RecyclerBaseAdapter<YellowPagesVO.DataBe
         helper.setText(R.id.address_tv, "地址：" + vo.getLinkman_address());
         helper.setText(R.id.name_tv, "联系人：" + vo.getLinkman_name());
         helper.setText(R.id.phone_tv, vo.getLinkman_tel());
-        helper.getTextView(R.id.phone_tv).setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.colorAccent, R.color.colorAccent));
+        helper.getTextView(R.id.phone_tv).setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.colorAccent, R.color.C1));
         helper.getTextView(R.id.type_tv).setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.C3_1, R.color.C1));
         helper.getTextView(R.id.phone_tv).setOnClickListener(new View.OnClickListener() {
             @Override

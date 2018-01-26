@@ -25,17 +25,17 @@ public class MyOverAdapter extends RecyclerBaseAdapter<MyoverVO.DataBeanX.DataBe
     @Override
     public void initData(final BGAViewHolderHelper helper, int position, Object model) {
         final MyoverVO.DataBeanX.DataBean vo = (MyoverVO.DataBeanX.DataBean) model;
-        helper.setText(R.id.type_tv,vo.getText());
+        helper.setText(R.id.type_tv,vo.getType_name());
         helper.setText(R.id.desc_tv,vo.getCreate_time());
         double money=Double.parseDouble(vo.getNumber());
 
         if(money<0){
             helper.setText(R.id.money_tv, vo.getNumber() );
         }else {
-            helper.setText(R.id.money_tv, "+"+vo.getCurrent_balance() );
+            helper.setText(R.id.money_tv, "+"+vo.getNumber() );
         }
 
-        helper.setText(R.id.over_tv,"余额："+vo.getNumber());
+        helper.setText(R.id.over_tv,"余额："+vo.getCurrent_balance());
     }
 
 }

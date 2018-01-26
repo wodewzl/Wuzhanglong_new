@@ -22,6 +22,7 @@ import com.wzl.feifubao.mode.HouseDetailVO;
 import com.wzl.feifubao.mode.UserInfoVO;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.HashMap;
@@ -97,12 +98,18 @@ public class HouseDetailActivity extends BaseActivity implements View.OnClickLis
                         Picasso.with(context).load(bannerVO).into(imageView);
                 }
             });
+            mBanner.setOnBannerListener(new OnBannerListener() {
+                @Override
+                public void OnBannerClick(int position) {
+
+                }
+            });
             mBanner.start();
         }
         mTitleTv.setText(dataBean.getHouse_name());
         List<String> language = dataBean.getHouse_language_names();
         for (int i = 0; i <language.size() ; i++) {
-            switch (0) {
+            switch (i) {
                 case 0:
                     mTag1Tv.setBackground(BaseCommonUtils.setBackgroundShap(this, 0, R.color.FUBColor3, R.color.C1));
                     mTag1Tv.setText(language.get(i));
@@ -111,7 +118,7 @@ public class HouseDetailActivity extends BaseActivity implements View.OnClickLis
                 case 1:
                     mTag2Tv.setBackground(BaseCommonUtils.setBackgroundShap(this, 0, R.color.FUBColor3, R.color.C1));
                     mTag2Tv.setText(language.get(i));
-                    mTag1Tv.setVisibility(View.VISIBLE);
+                    mTag2Tv.setVisibility(View.VISIBLE);
                     break;
                 case 2:
                     mTag3Tv.setBackground(BaseCommonUtils.setBackgroundShap(this, 0, R.color.FUBColor3, R.color.C1));
