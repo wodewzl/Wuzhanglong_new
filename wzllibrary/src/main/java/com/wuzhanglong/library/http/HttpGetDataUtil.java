@@ -100,14 +100,12 @@ public class HttpGetDataUtil {
                     public void onError(Object o, Throwable throwable) {
                         System.out.println("===========");
                         activity.dismissProgressDialog();
-
                     }
 
                     @Override
                     public void onCancel(Object o, Throwable throwable) {
                         System.out.println("===========");
                         activity.dismissProgressDialog();
-
                     }
                 });
     }
@@ -134,7 +132,6 @@ public class HttpGetDataUtil {
                 activity.dismissProgressDialog();
 
             }
-
             @Override
             public void onNext(Object o, String s) {
                 activity.dismissProgressDialog();
