@@ -1,22 +1,34 @@
 package com.wzl.feifubao.activity;
 
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
+import com.github.jdsjlzx.recyclerview.LuRecyclerView;
+import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
+import com.github.jdsjlzx.recyclerview.ProgressStyle;
+import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.utils.DividerUtil;
+import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import com.wzl.feifubao.R;
+import com.wzl.feifubao.adapter.LifeAdapter;
+import com.wzl.feifubao.adapter.RateQueryAdapter;
 import com.wzl.feifubao.constant.Constant;
 import com.wzl.feifubao.mode.RateQueryVO;
 
 import java.util.HashMap;
 
 public class RateQueryActivity extends BaseActivity implements View.OnClickListener {
-    private TextView mTitle1, mTitle2, mCnyTv, mUsdTv, mJpyTv, mHkdTv, mEurTv, mGbpTv;
+    private TextView mTitle1, mTitle2;
     private RateQueryVO.DataBean mTodayBean, mYestadyBean;
     private String mTag = "";
+
+    private LuRecyclerView mRecyclerView;
+    private RateQueryAdapter mAdapter;
 
     @Override
     public void baseSetContentView() {
@@ -29,13 +41,15 @@ public class RateQueryActivity extends BaseActivity implements View.OnClickListe
         mBaseOkTv.setText("汇率计算");
         mTitle1 = getViewById(R.id.title1);
         mTitle2 = getViewById(R.id.title2);
-        mCnyTv = getViewById(R.id.cny_tv);
-        mUsdTv = getViewById(R.id.usd_tv);
-        mJpyTv = getViewById(R.id.jpy_tv);
-        mHkdTv = getViewById(R.id.hkd_tv);
-        mEurTv = getViewById(R.id.eur_tv);
-        mGbpTv = getViewById(R.id.gbp_tv);
-//        mBaseOkTv.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.login_pwd,0);
+
+        mRecyclerView = getViewById(R.id.recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
+        DividerDecoration divider = DividerUtil.linnerDivider(this, R.dimen.dp_1, R.color.C3);
+        mRecyclerView.addItemDecoration(divider);
+        mAdapter = new RateQueryAdapter(mRecyclerView);
+        LuRecyclerViewAdapter adapter = new LuRecyclerViewAdapter(mAdapter);
+        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setLoadMoreEnabled(false);
     }
 
     @Override
@@ -56,22 +70,18 @@ public class RateQueryActivity extends BaseActivity implements View.OnClickListe
     public void hasData(BaseVO vo) {
         RateQueryVO rateQueryVO = (RateQueryVO) vo;
         RateQueryVO.DataBean dataBean = rateQueryVO.getData();
-        update(dataBean);
-        if ("old".equals(mTag)) {
+
+        if ("local".equals(mTag)) {
             mYestadyBean = dataBean;
+            mAdapter.updateData(mYestadyBean.getRate());
         } else {
             mTodayBean = dataBean;
+            mAdapter.updateData(mTodayBean.getRate());
         }
+
     }
 
-    public void update(RateQueryVO.DataBean dataBean) {
-        mCnyTv.setText(dataBean.getCNY());
-        mUsdTv.setText(dataBean.getUSD());
-        mJpyTv.setText(dataBean.getJPY());
-        mHkdTv.setText(dataBean.getHKD());
-        mEurTv.setText(dataBean.getEUR());
-        mGbpTv.setText(dataBean.getGBP());
-    }
+
 
     @Override
     public void noData(BaseVO vo) {
@@ -93,10 +103,11 @@ public class RateQueryActivity extends BaseActivity implements View.OnClickListe
                 mTitle2.setBackgroundResource(R.drawable.corners_tab_right_normal);
                 mTitle2.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
                 if (mYestadyBean == null) {
-                    mTag = "old";
+                    mTag = "local";
                     getData();
                 } else {
-                    update(mYestadyBean);
+                    mAdapter.updateData(mYestadyBean.getRate());
+
                 }
                 break;
             case R.id.title2:
@@ -104,7 +115,13 @@ public class RateQueryActivity extends BaseActivity implements View.OnClickListe
                 mTitle2.setTextColor(ContextCompat.getColor(this, R.color.C1));
                 mTitle1.setBackgroundResource(R.drawable.corners_tab_left_normal);
                 mTitle1.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
-                update(mTodayBean);
+                if (mTodayBean == null) {
+                    mTag = "now";
+                    getData();
+                } else {
+                    mAdapter.updateData(mTodayBean.getRate());
+
+                }
                 break;
             case R.id.base_ok_tv:
                 openActivity(RateExchageActivity.class);

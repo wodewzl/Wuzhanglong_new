@@ -39,7 +39,7 @@ public class MyHouseAdapter extends RecyclerBaseAdapter<MyHouseVO.DataBean.House
         helper.setText(R.id.desc_tv, bean.getApartment() + "/" + bean.getHouse_area() + "㎡" + "/" + bean.getHouse_face());
 //        helper.setText(R.id.address_tv,bean.getArea());
         helper.setText(R.id.money_tv,bean.getHouse_price()+"/月");
-
+        helper.setText(R.id.address_tv, bean.getArea());
         helper.getTextView(R.id.language1_tv).setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 3, R.color.FUBColor12, R.color.FUBColor12));
 
         if (bean.getHouse_language_names() != null && bean.getHouse_language_names().size() > 0) {
@@ -89,7 +89,7 @@ public class MyHouseAdapter extends RecyclerBaseAdapter<MyHouseVO.DataBean.House
         });
         TextView payTv= helper.getTextView(R.id.pay_tv);
         if("0".equals(bean.getPay_status())){
-            payTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity,15,R.color.colorAccent,R.color.C1));
+            payTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity,15,R.color.colorAccent,R.color.colorAccent));
             payTv.setVisibility(View.VISIBLE);
         }else {
             payTv.setVisibility(View.GONE);

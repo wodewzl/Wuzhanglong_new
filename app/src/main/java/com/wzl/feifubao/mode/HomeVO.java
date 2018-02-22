@@ -38,6 +38,7 @@ public class HomeVO extends BaseVO{
 
         private String msgStatus;
         private String electricity_bill;
+        private String  internet_information;
         private String rate;
         private String kefu;
         private List<AdvsBean> advs;
@@ -46,6 +47,14 @@ public class HomeVO extends BaseVO{
         private List<?> goods;
         private List<HouseBean> house;
         private List<TishiBean> tishi;
+
+        public String getInternet_information() {
+            return internet_information;
+        }
+
+        public void setInternet_information(String internet_information) {
+            this.internet_information = internet_information;
+        }
 
         public String getMsgStatus() {
             return msgStatus;

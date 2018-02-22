@@ -49,9 +49,9 @@ public class PaymentRecordAdapter extends RecyclerBaseAdapter<PaymentRecordsVO.D
             if ("1".equals(type)) {
                 helper.setImageResource(R.id.type_img, R.drawable.pay_record_type1);
             } else if ("2".equals(type)) {
-                helper.setImageResource(R.id.type_img, R.drawable.pay_record_type2);
-            } else if ("3".equals(type)) {
                 helper.setImageResource(R.id.type_img, R.drawable.pay_record_type3);
+            } else if ("3".equals(type)) {
+                helper.setImageResource(R.id.type_img, R.drawable.pay_record_type2);
             }
             final TextView statusTv = helper.getTextView(R.id.type_tv);
 

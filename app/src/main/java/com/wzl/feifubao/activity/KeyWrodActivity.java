@@ -22,6 +22,7 @@ import com.yang.flowlayoutlibrary.FlowLayout;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -73,13 +74,15 @@ public class KeyWrodActivity extends BaseActivity {
     @Override
     public void hasData(BaseVO vo) {
         HouseOptionVO houseOptionVO = (HouseOptionVO) vo;
-        mFlowLayout.setFlowLayout((List<String>) houseOptionVO.getData().getYellowPagesClass(), new FlowLayout.OnItemClickListener() {
+        List<String> list=new ArrayList<>();
+        for (int i = 0; i < houseOptionVO.getData().getYellowPagesClass().size(); i++) {
+            list.add(houseOptionVO.getData().getYellowPagesClass().get(i).getName());
+        }
+        mFlowLayout.setFlowLayout(list, new FlowLayout.OnItemClickListener() {
             @Override
             public void onItemClick(String content) {
                 mKeyword = content;
-//                Bundle bundle = new Bundle();
-//                bundle.putString("keyword", mKeyword);
-//                open(YellowPagesActivity.class, bundle, 0);
+
              EBMessageVO ebMessageVO=   new EBMessageVO("keyword");
                 ebMessageVO.setMsg(mKeyword);
                 EventBus.getDefault().post(ebMessageVO);

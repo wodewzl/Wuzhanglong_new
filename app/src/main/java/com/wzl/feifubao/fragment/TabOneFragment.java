@@ -198,6 +198,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
         ACache.get(mActivity).put("electricity_bill", mDataBean.getElectricity_bill());
 
+        ACache.get(mActivity).put("internet_information", mDataBean.getInternet_information());
         ACache.get(mActivity).put("rate", mDataBean.getRate());
         EventBus.getDefault().post(new EBMessageVO("load"));
     }

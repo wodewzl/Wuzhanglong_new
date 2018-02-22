@@ -105,6 +105,15 @@ public class MyoverVO extends BaseVO{
             private String user_email;
             private String user_headimg;
             private String type_name;
+            private String current_balance;
+
+            public String getCurrent_balance() {
+                return current_balance;
+            }
+
+            public void setCurrent_balance(String current_balance) {
+                this.current_balance = current_balance;
+            }
 
             public String getId() {
                 return id;
