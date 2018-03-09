@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#EA3A45</color>
+
+    <style name="AppThemeSnatch" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColor">@color/C4</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
+    </style>
+</resources>

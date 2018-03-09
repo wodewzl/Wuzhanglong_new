@@ -63,10 +63,8 @@ public class HttpGetDataUtil {
 
         if (params == null || params.size() == 0) {
             Log.i("get_url", BaseConstant.DOMAIN_NAME + url);
-
         } else {
             Log.i("get_url", BaseConstant.DOMAIN_NAME + url + BaseCommonUtils.getUrl((HashMap<String, Object>) params));
-
         }
 
         new Novate.Builder(activity)

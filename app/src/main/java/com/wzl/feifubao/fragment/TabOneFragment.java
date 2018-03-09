@@ -240,8 +240,6 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mType5DescTv = header.findViewById(R.id.typ5_desc_tv);
         mType5BuyTv = header.findViewById(R.id.type5_buy_tv);
         mType5GoodsImg = header.findViewById(R.id.type5_googs_tv);
-
-
         return header;
     }
 
