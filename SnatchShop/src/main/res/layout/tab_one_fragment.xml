@@ -7,11 +7,23 @@
               android:background="@color/C1"
               android:orientation="vertical">
 
-    <com.wuzhanglong.library.view.AutoSwipeRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
+    <LinearLayout
+        android:id="@+id/title_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="44dp"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="全民疯抢"
+            android:textColor="@color/C1"
+            android:textSize="16sp" />
+    </LinearLayout>
+
 
         <com.cpoopc.scrollablelayoutlib.ScrollableLayout
             android:id="@+id/scrollable_layout"
@@ -39,7 +51,6 @@
 
             </LinearLayout>
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,5 +70,5 @@
                 android:layout_height="match_parent"/>
 
         </com.cpoopc.scrollablelayoutlib.ScrollableLayout>
-    </com.wuzhanglong.library.view.AutoSwipeRefreshLayout>
+
 </LinearLayout>

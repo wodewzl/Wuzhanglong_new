@@ -12,13 +12,10 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
 import com.beisheng.snatch.R;
-import com.beisheng.snatch.constant.Constant;
-import com.beisheng.snatch.model.HomeVO;
 import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.vondear.rxtools.view.RxTextviewVertical;
 import com.wuzhanglong.library.fragment.BaseFragment;
-import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.WidthHigthUtil;
 
@@ -34,7 +31,6 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class TabOneFragment extends BaseFragment implements View.OnClickListener, ScrollableHelper.ScrollableContainer {
     private String[] mTitleDataList = {"人气", "最新", "进度", "总需人次"};
@@ -51,8 +47,8 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void initView(View view) {
-        mActivity.mBaseHeadLayout.setVisibility(View.VISIBLE);
-        mActivity.mBaseTitleTv.setText("全民疯抢");
+        mActivity.mBaseHeadLayout.setVisibility(View.GONE);
+
         mScrollableLayout = getViewById(R.id.scrollable_layout);
         mScrollableLayout.getHelper().setCurrentScrollableContainer(this);
 
@@ -155,10 +151,11 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void getData() {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("wuzhanglong","牛逼");
-        map.put("jinrenzheng","傻逼");
-        BSHttpUtils.post(mActivity, this, Constant.HOME_URL, map, HomeVO.class);
+//        HashMap<String, Object> map = new HashMap<>();
+//        map.put("wuzhanglong","牛逼");
+//        map.put("jinrenzheng","傻逼");
+//        BSHttpUtils.post(mActivity, this, Constant.HOME_URL, map, HomeVO.class);
+       showView();
     }
 
     @Override

@@ -8,7 +8,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppThemeSnatch">
-
         <activity
             android:name=".activity.LogoActivity"
             android:launchMode="singleTop"
@@ -16,16 +15,20 @@
             android:theme="@style/AppStartLogo"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.HomeActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".activity.LotteryingActivity">
+        </activity>
+        <activity android:name=".activity.DailyTaskActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -5,7 +5,10 @@ import android.content.Intent;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.application.AppApplication;
+import com.beisheng.snatch.fragment.TabFourFragment;
 import com.beisheng.snatch.fragment.TabOneFragment;
+import com.beisheng.snatch.fragment.TabThreeFragment;
+import com.beisheng.snatch.fragment.TabTwoFragment;
 import com.wuzhanglong.library.activity.BaseLogoActivity;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.mode.EBMessageVO;
@@ -31,13 +34,13 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
 //        initPermissions();
         list = new ArrayList<>();
         TabOneFragment one = new TabOneFragment();
-//        TabTwoFragment two = new TabTwoFragment();
-//        TabThreeFragment three = new TabThreeFragment();
-//        TabFourragment four = new TabFourragment();
+        TabTwoFragment two = new TabTwoFragment();
+        TabThreeFragment three = new TabThreeFragment();
+        TabFourFragment four = new TabFourFragment();
         list.add(one);
-        list.add(one);
-        list.add(one);
-        list.add(one);
+        list.add(two);
+        list.add(three);
+        list.add(four);
         list.add(one);
     }
 
@@ -82,6 +85,9 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
             Intent intent = new Intent();
             intent.putExtra("fragment_list", (Serializable) list);
             intent.setClass(this, HomeActivity.class);
+//            intent.setClass(this, LotteryingActivity.class);
+
+
 //            if (AppApplication.getInstance().getUserInfoVO() != null) {
 //                intent.putExtra("fragment_list", (Serializable) list);
 //                intent.setClass(this, HomeActivity.class);
