@@ -57,12 +57,8 @@ dependencies {
 
     // -------------------- 九宫格图片选择显示----------------------------
 
-    //    compile 'cn.bingoogolapple:bga-adapter:1.1.9'
-
     //动态获取权限
     compile 'pub.devrel:easypermissions:0.4.0'
-
-    //    compile 'pub.devrel:easypermissions:1.1.1'
 
     //viewPager 指示器
     compile 'me.relex:circleindicator:1.2.2'
@@ -100,7 +96,7 @@ dependencies {
     compile 'com.github.hackware1993:MagicIndicator:1.5.0'
 
     //上滑隐藏toolbar
-    compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
+//    compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
 
     //自定义editext
     compile 'net.anumbrella:customedittext:1.0.0'
@@ -177,5 +173,5 @@ dependencies {
 //    compile 'com.dou361.dialogui:jjdxm-dialogui:x.x.x'
     //多样式Dialog
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
-
+    compile 'com.github.iwgang:countdownview:2.1.6'//倒计时
 }
