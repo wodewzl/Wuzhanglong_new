@@ -207,13 +207,13 @@ public abstract class BaseActivity extends AppCompatActivity implements UpdateCa
     }
 
     // 显示ShortToast
-    public void showCustomToast(String pMsg) {
+    public void showCustomToast(String msg) {
 //        Crouton.makeText(this, pMsg, Style.INFO, R.id.toast_conten).show();
 //        RxToast.info(this, pMsg, Toast.LENGTH_LONG, true).show();
 
 //        RxToast.error(this, "这是一个提示错误的Toast！", Toast.LENGTH_SHORT, true).show();
 //
-        RxToast.success(this, "这是一个提示成功的Toast!", Toast.LENGTH_SHORT, true).show();
+        RxToast.success(this, msg, Toast.LENGTH_SHORT, true).show();
 //
 //        RxToast.info(this, "这是一个提示信息的Toast.", Toast.LENGTH_SHORT, true).show();
 //
@@ -223,6 +223,14 @@ public abstract class BaseActivity extends AppCompatActivity implements UpdateCa
 
 //        Drawable icon = getResources().getDrawable(R.drawable.set);
 //        RxToast.normal(this, "这是一个普通的包含ICON的Toast", icon).show();
+    }
+
+    public void showSuccessToast(String msg){
+        RxToast.success(this, msg, Toast.LENGTH_SHORT, true).show();
+    }
+
+    public void showFailToast(String msg){
+        RxToast.error(this, msg, Toast.LENGTH_SHORT, true).show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)

@@ -10,14 +10,23 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
 
 import com.beisheng.snatch.R;
+import com.beisheng.snatch.constant.Constant;
+import com.beisheng.snatch.model.HomeVO;
 import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
+import com.squareup.picasso.Picasso;
 import com.vondear.rxtools.view.RxTextviewVertical;
 import com.wuzhanglong.library.fragment.BaseFragment;
+import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.WidthHigthUtil;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
+import com.youth.banner.loader.ImageLoader;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -31,6 +40,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TabOneFragment extends BaseFragment implements View.OnClickListener, ScrollableHelper.ScrollableContainer {
     private String[] mTitleDataList = {"人气", "最新", "进度", "总需人次"};
@@ -39,6 +49,8 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     private RxTextviewVertical mRxText;
     private ViewPager mViewPager;
     private ArrayList<TabOneChildFragment> mFragmentList;
+    private Banner mBanner;
+    private ImageView mOneImg;
 
     @Override
     public void setContentView() {
@@ -48,12 +60,13 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void initView(View view) {
         mActivity.mBaseHeadLayout.setVisibility(View.GONE);
-
+        mBanner = getViewById(R.id.banner);
+        mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         mScrollableLayout = getViewById(R.id.scrollable_layout);
         mScrollableLayout.getHelper().setCurrentScrollableContainer(this);
-
+        mOneImg = getViewById(R.id.one_img);
         mRxText = (RxTextviewVertical) getViewById(R.id.rx_text);
-        mViewPager=getViewById(R.id.view_pager);
+        mViewPager = getViewById(R.id.view_pager);
         initMagicIndicator();
     }
 
@@ -151,16 +164,31 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void getData() {
-//        HashMap<String, Object> map = new HashMap<>();
-//        map.put("wuzhanglong","牛逼");
-//        map.put("jinrenzheng","傻逼");
-//        BSHttpUtils.post(mActivity, this, Constant.HOME_URL, map, HomeVO.class);
-       showView();
+        HashMap<String, Object> map = new HashMap<>();
+        BSHttpUtils.get(mActivity, this, Constant.HOME_TITLE_URL, map, HomeVO.class);
     }
 
     @Override
     public void hasData(BaseVO vo) {
+        HomeVO homeVO = (HomeVO) vo;
+        mBanner.setImages(homeVO.getData().getMulti_adv());
+        mBanner.setImageLoader(new ImageLoader() {
+            @Override
+            public void displayImage(Context context, Object o, ImageView imageView) {
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                HomeVO.DataBean.MultiAdvBean bannerVO = (HomeVO.DataBean.MultiAdvBean) o;
+                Picasso.with(context).load(bannerVO.getAdv_image()).into(imageView);
+            }
+        });
+        mBanner.setOnBannerListener(new OnBannerListener() {
 
+            @Override
+            public void OnBannerClick(int position) {
+
+            }
+        });
+        mBanner.start();
+        Picasso.with(mActivity).load(homeVO.getData().getSingle_adv().getAdv_image()).into(mOneImg);
         ArrayList<String> list = new ArrayList<>();
         list.add("走过路过不要错过，美女多多");
         list.add("走过路过不要错过，美女多多");
@@ -198,7 +226,6 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
                 break;
         }
     }
-
 
 
     public void showActivity(String type, String id, String url) {

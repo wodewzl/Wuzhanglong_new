@@ -31,6 +31,93 @@ import rx.schedulers.Schedulers;
  */
 
 public class BSHttpUtils {
+
+    public static <T> void get(final BaseActivity activity, final UpdateCallback callback, final String url, final Map<String, Object> params, final Class<T> className) {
+        final Gson gson = new Gson();
+        final String allUrl = BaseConstant.DOMAIN_NAME + url;
+        final String cacheStr = ACache.get(activity).getAsString(allUrl + params.toString());
+        if (className != null) {
+            final BaseVO vo = (BaseVO) gson.fromJson(cacheStr, className);
+            if (vo != null) {
+                Observable.create(new Observable.OnSubscribe<BaseVO>() {
+                    @Override
+                    public void call(Subscriber<? super BaseVO> subscriber) {
+                        subscriber.onNext(vo);
+                    }
+                }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<BaseVO>() {
+                    @Override
+                    public void call(BaseVO baseVO) {
+                        callback.baseHasData(vo);
+                    }
+                });
+
+                if (!HttpUtils.isNetworkAvailable(activity)) {
+                    return;
+                }
+            }
+        }
+
+        if (params == null || params.size() == 0) {
+            Log.i("get_url", BaseConstant.DOMAIN_NAME + url);
+        } else {
+            Log.i("get_url", BaseConstant.DOMAIN_NAME + url + BaseCommonUtils.getUrl((HashMap<String, Object>) params));
+        }
+
+        new Novate.Builder(activity)
+                .baseUrl(BaseConstant.DOMAIN_NAME)
+                .addCache(false)
+                .build()
+                .rxGet(url, params, new RxStringCallback() {
+                    @Override
+                    public void onNext(Object o, String s) {
+                        activity.dismissProgressDialog();
+                        if (s.trim().equals(cacheStr) || className == null) {
+                            System.out.println("使用缓存数据");
+                            return;
+                        }
+                        BaseVO baseVO = (BaseVO) gson.fromJson(s, className);
+                        if ("200".equals(baseVO.getCode())) {
+                            callback.baseHasData(baseVO);
+                            if (!TextUtils.isEmpty(s)) {
+                                ACache.get(activity).put(allUrl + params.toString(), s, 60 * 60 * 24);
+                            }
+                        } else if ("201".equals(baseVO.getCode())) {
+                            activity.showCustomToast(baseVO.getDesc());
+                            callback.baseHasData(baseVO);
+                            if (!TextUtils.isEmpty(s)) {
+                                ACache.get(activity).put(allUrl + params.toString(), s, 60 * 60 * 24);
+                            }
+                        } else if ("202".equals(baseVO.getCode())) {
+                            callback.baseHasData(baseVO);
+                            if (!TextUtils.isEmpty(s)) {
+                                ACache.get(activity).put(allUrl + params.toString(), s, 60 * 60 * 24);
+                            }
+                        } else if ("400".equals(baseVO.getCode())) {
+                            callback.baseNoData(baseVO);
+                            activity.showFailToast(baseVO.getDesc());
+                        } else if ("600".equals(baseVO.getCode())) {
+                            callback.baseNoNet();
+                        } else if ("300".equals(baseVO.getCode())) {
+                            callback.baseNoData(baseVO);
+                            activity.showFailToast(baseVO.getDesc());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Object o, Throwable throwable) {
+                        System.out.println("===========");
+                        activity.dismissProgressDialog();
+                    }
+
+                    @Override
+                    public void onCancel(Object o, Throwable throwable) {
+                        System.out.println("===========");
+                        activity.dismissProgressDialog();
+                    }
+                });
+    }
+
+
     public static <T> void post(final BaseActivity activity, final UpdateCallback callback, final String url, final Map<String, Object> params, final Class<T> className) {
         final Gson gson = new Gson();
         final String allUrl = BaseConstant.DOMAIN_NAME + url;
@@ -113,10 +200,12 @@ public class BSHttpUtils {
                     }
                 } else if ("400".equals(baseVO.getCode())) {
                     callback.baseNoData(baseVO);
+                    activity.showFailToast(baseVO.getDesc());
                 } else if ("600".equals(baseVO.getCode())) {
                     callback.baseNoNet();
                 } else if ("300".equals(baseVO.getCode())) {
-                    callback.baseHasData(baseVO);
+                    callback.baseNoData(baseVO);
+                    activity.showFailToast(baseVO.getDesc());
                 }
             }
         });

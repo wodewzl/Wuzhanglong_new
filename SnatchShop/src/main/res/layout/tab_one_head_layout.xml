@@ -6,21 +6,32 @@
               android:orientation="vertical"
     android:background="@color/C1">
 
-    <com.youth.banner.Banner
-        android:id="@+id/banner"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:visibility="gone"
-        app:indicator_drawable_selected="@drawable/selected_radius"
-        app:indicator_drawable_unselected="@drawable/unselected_radius"
-        app:indicator_height="8dp"
-        app:indicator_margin="4dp"
-        app:indicator_width="8dp"/>
+        android:layout_height="wrap_content">
 
-    <ImageView
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            app:indicator_drawable_selected="@drawable/selected_radius"
+            app:indicator_drawable_unselected="@drawable/unselected_radius"
+            app:indicator_height="8dp"
+            app:indicator_margin="4dp"
+            app:indicator_width="8dp"
+            app:title_height="80dp"
+     />
+
+    <com.wuzhanglong.library.view.ArcImageView
+        android:id="@+id/one_img"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/home_img_bg"/>
+        android:layout_height="150dp"
+        android:layout_marginTop="130dp"
+        app:arcHeight="20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo"
+        />
+    </FrameLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

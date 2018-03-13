@@ -21,54 +21,45 @@
             android:gravity="center"
             android:text="全民疯抢"
             android:textColor="@color/C1"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
     </LinearLayout>
 
 
-        <com.cpoopc.scrollablelayoutlib.ScrollableLayout
-            android:id="@+id/scrollable_layout"
+    <com.cpoopc.scrollablelayoutlib.ScrollableLayout
+        android:id="@+id/scrollable_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+
+
+            <include layout="@layout/tab_one_head_layout"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/C3"
             android:orientation="vertical">
 
-            <LinearLayout
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:id="@+id/magic_indicator"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="visible"
-                >
+                android:layout_height="40dp"
+                />
+        </LinearLayout>
 
-                <com.youth.banner.Banner
-                    android:id="@+id/banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    android:visibility="gone"
-                    app:indicator_drawable_selected="@drawable/selected_radius"
-                    app:indicator_drawable_unselected="@drawable/unselected_radius"
-                    app:indicator_height="8dp"
-                    app:indicator_margin="4dp"
-                    app:indicator_width="8dp"/>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/C3"
-                android:orientation="vertical">
-
-                <net.lucode.hackware.magicindicator.MagicIndicator
-                    android:id="@+id/magic_indicator"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    />
-            </LinearLayout>
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </com.cpoopc.scrollablelayoutlib.ScrollableLayout>
+    </com.cpoopc.scrollablelayoutlib.ScrollableLayout>
 
 </LinearLayout>
