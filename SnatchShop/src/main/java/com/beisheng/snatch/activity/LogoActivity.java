@@ -84,8 +84,8 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
         if (EasyPermissions.hasPermissions(this, perms)) {
             Intent intent = new Intent();
             intent.putExtra("fragment_list", (Serializable) list);
-            intent.setClass(this, HomeActivity.class);
-//            intent.setClass(this, LotteryingActivity.class);
+//            intent.setClass(this, HomeActivity.class);
+            intent.setClass(this, TestActivity.class);
 
 
 //            if (AppApplication.getInstance().getUserInfoVO() != null) {

@@ -11,20 +11,20 @@ import java.util.List;
 public class HomeVO extends BaseVO{
 
     /**
-     * data : {"multi_adv":[{"adv_title":"app夺宝首页轮播广告位默认图","adv_url":"","adv_image":"http://qmfq.baonongkang.cn/public/static/images/default_img_url/waplunbo.png","adv_width":"320",
-     * "adv_height":"175"}],"single_adv":{"adv_title":"app夺宝单图广告位默认图","adv_url":"","adv_image":"http://qmfq.baonongkang.cn/public/static/images/default_img_url/wapshangchengremai.png",
-     * "adv_width":"750","adv_height":"200"},"nav_list":[{"nav_title":"商品分类","nav_icon":"http://qmfq.baonongkang.cn/upload/common/1520850337.png","nav_url":""},{"nav_title":"优选商品",
-     * "nav_icon":"http://qmfq.baonongkang.cn/upload/common/1520850320.png","nav_url":""},{"nav_title":"每日任务","nav_icon":"http://qmfq.baonongkang.cn/upload/common/1520850328.png","nav_url":""},
-     * {"nav_title":"邀一得二","nav_icon":"http://qmfq.baonongkang.cn/upload/common/1520850307.png","nav_url":""}],"order1_list":[{"id":"2","goods_name":"14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1",
+     * data : {"multi_adv":[{"adv_image":"http://qmfq.baonongkang.cn/upload/image_collection/1520932803.jpg","adv_title":"s1","adv_url":"11111"},{"adv_image":"http://qmfq.baonongkang
+     * .cn/upload/image_collection/1520932832.png","adv_title":"s2","adv_url":"2222"}],"single_adv":{"adv_title":"app夺宝单图广告位默认图","adv_url":"","adv_image":"http://qmfq.baonongkang
+     * .cn/public/static/images/default_img_url/wapshangchengremai.png"},"nav_list":[{"nav_title":"商品分类","nav_icon":"http://qmfq.baonongkang.cn/upload/common/1520850337.png","nav_url":""},
+     * {"nav_title":"优选商品","nav_icon":"http://qmfq.baonongkang.cn/upload/common/1520850320.png","nav_url":""},{"nav_title":"每日任务","nav_icon":"http://qmfq.baonongkang
+     * .cn/upload/common/1520850328.png","nav_url":""},{"nav_title":"邀一得二","nav_icon":"http://qmfq.baonongkang.cn/upload/common/1520850307.png","nav_url":""}],"record_list":[{"pid":"0",
+     * "goods_name":"夏普电视机","nickname":"疯抢用户10004","is_ture":"0","prise_desc":"恭喜疯抢用户10004获得了夏普电视机"}],"order1_list":[{"id":"2","goods_name":"14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1","total_count":"5600",
+     * "remain_count":"5600","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/14993421511182.jpg"},{"id":"3","goods_name":"夏普电视机","total_count":"8000","remain_count":"8000",
+     * "percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/1499340186842.jpg"}],"order2_list":[{"id":"3","goods_name":"夏普电视机","total_count":"8000","remain_count":"8000",
+     * "percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/1499340186842.jpg"},{"id":"2","goods_name":"14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1","total_count":"5600",
+     * "remain_count":"5600","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/14993421511182.jpg"}],"order3_list":[{"id":"2","goods_name":"14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1",
      * "total_count":"5600","remain_count":"5600","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/14993421511182.jpg"},{"id":"3","goods_name":"夏普电视机","total_count":"8000",
-     * "remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/1499340186842.jpg"}],"order2_list":[{"id":"3","goods_name":"夏普电视机","total_count":"8000",
+     * "remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/1499340186842.jpg"}],"order4_list":[{"id":"3","goods_name":"夏普电视机","total_count":"8000",
      * "remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/1499340186842.jpg"},{"id":"2","goods_name":"14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1",
-     * "total_count":"5600","remain_count":"5600","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/14993421511182.jpg"}],"order3_list":[{"id":"2",
-     * "goods_name":"14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1","total_count":"5600","remain_count":"5600","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/14993421511182.jpg"},
-     * {"id":"3","goods_name":"夏普电视机","total_count":"8000","remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/1499340186842.jpg"}],"order4_list":[{"id":"3",
-     * "goods_name":"夏普电视机","total_count":"8000","remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/1499340186842.jpg"},{"id":"2",
-     * "goods_name":"14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1","total_count":"5600","remain_count":"5600","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/14993421511182.jpg"}],
-     * "page":"1","count":"2"}
+     * "total_count":"5600","remain_count":"5600","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/14993421511182.jpg"}],"page":"1","count":"2"}
      */
 
     private DataBean data;
@@ -39,12 +39,13 @@ public class HomeVO extends BaseVO{
 
     public static class DataBean {
         /**
-         * multi_adv : [{"adv_title":"app夺宝首页轮播广告位默认图","adv_url":"","adv_image":"http://qmfq.baonongkang.cn/public/static/images/default_img_url/waplunbo.png","adv_width":"320","adv_height":"175"}]
-         * single_adv : {"adv_title":"app夺宝单图广告位默认图","adv_url":"","adv_image":"http://qmfq.baonongkang.cn/public/static/images/default_img_url/wapshangchengremai.png","adv_width":"750",
-         * "adv_height":"200"}
+         * multi_adv : [{"adv_image":"http://qmfq.baonongkang.cn/upload/image_collection/1520932803.jpg","adv_title":"s1","adv_url":"11111"},{"adv_image":"http://qmfq.baonongkang
+         * .cn/upload/image_collection/1520932832.png","adv_title":"s2","adv_url":"2222"}]
+         * single_adv : {"adv_title":"app夺宝单图广告位默认图","adv_url":"","adv_image":"http://qmfq.baonongkang.cn/public/static/images/default_img_url/wapshangchengremai.png"}
          * nav_list : [{"nav_title":"商品分类","nav_icon":"http://qmfq.baonongkang.cn/upload/common/1520850337.png","nav_url":""},{"nav_title":"优选商品","nav_icon":"http://qmfq.baonongkang
          * .cn/upload/common/1520850320.png","nav_url":""},{"nav_title":"每日任务","nav_icon":"http://qmfq.baonongkang.cn/upload/common/1520850328.png","nav_url":""},{"nav_title":"邀一得二",
          * "nav_icon":"http://qmfq.baonongkang.cn/upload/common/1520850307.png","nav_url":""}]
+         * record_list : [{"pid":"0","goods_name":"夏普电视机","nickname":"疯抢用户10004","is_ture":"0","prise_desc":"恭喜疯抢用户10004获得了夏普电视机"}]
          * order1_list : [{"id":"2","goods_name":"14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1","total_count":"5600","remain_count":"5600","percent":"0","goods_image":"http://qmfq.baonongkang
          * .cn/upload/goods/14993421511182.jpg"},{"id":"3","goods_name":"夏普电视机","total_count":"8000","remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang
          * .cn/upload/goods/1499340186842.jpg"}]
@@ -66,6 +67,7 @@ public class HomeVO extends BaseVO{
         private String count;
         private List<MultiAdvBean> multi_adv;
         private List<NavListBean> nav_list;
+        private List<RecordListBean> record_list;
         private List<Order1ListBean> order1_list;
         private List<Order2ListBean> order2_list;
         private List<Order3ListBean> order3_list;
@@ -111,6 +113,14 @@ public class HomeVO extends BaseVO{
             this.nav_list = nav_list;
         }
 
+        public List<RecordListBean> getRecord_list() {
+            return record_list;
+        }
+
+        public void setRecord_list(List<RecordListBean> record_list) {
+            this.record_list = record_list;
+        }
+
         public List<Order1ListBean> getOrder1_list() {
             return order1_list;
         }
@@ -148,15 +158,11 @@ public class HomeVO extends BaseVO{
              * adv_title : app夺宝单图广告位默认图
              * adv_url :
              * adv_image : http://qmfq.baonongkang.cn/public/static/images/default_img_url/wapshangchengremai.png
-             * adv_width : 750
-             * adv_height : 200
              */
 
             private String adv_title;
             private String adv_url;
             private String adv_image;
-            private String adv_width;
-            private String adv_height;
 
             public String getAdv_title() {
                 return adv_title;
@@ -180,39 +186,27 @@ public class HomeVO extends BaseVO{
 
             public void setAdv_image(String adv_image) {
                 this.adv_image = adv_image;
-            }
-
-            public String getAdv_width() {
-                return adv_width;
-            }
-
-            public void setAdv_width(String adv_width) {
-                this.adv_width = adv_width;
-            }
-
-            public String getAdv_height() {
-                return adv_height;
-            }
-
-            public void setAdv_height(String adv_height) {
-                this.adv_height = adv_height;
             }
         }
 
         public static class MultiAdvBean {
             /**
-             * adv_title : app夺宝首页轮播广告位默认图
-             * adv_url :
-             * adv_image : http://qmfq.baonongkang.cn/public/static/images/default_img_url/waplunbo.png
-             * adv_width : 320
-             * adv_height : 175
+             * adv_image : http://qmfq.baonongkang.cn/upload/image_collection/1520932803.jpg
+             * adv_title : s1
+             * adv_url : 11111
              */
 
+            private String adv_image;
             private String adv_title;
             private String adv_url;
-            private String adv_image;
-            private String adv_width;
-            private String adv_height;
+
+            public String getAdv_image() {
+                return adv_image;
+            }
+
+            public void setAdv_image(String adv_image) {
+                this.adv_image = adv_image;
+            }
 
             public String getAdv_title() {
                 return adv_title;
@@ -228,30 +222,6 @@ public class HomeVO extends BaseVO{
 
             public void setAdv_url(String adv_url) {
                 this.adv_url = adv_url;
-            }
-
-            public String getAdv_image() {
-                return adv_image;
-            }
-
-            public void setAdv_image(String adv_image) {
-                this.adv_image = adv_image;
-            }
-
-            public String getAdv_width() {
-                return adv_width;
-            }
-
-            public void setAdv_width(String adv_width) {
-                this.adv_width = adv_width;
-            }
-
-            public String getAdv_height() {
-                return adv_height;
-            }
-
-            public void setAdv_height(String adv_height) {
-                this.adv_height = adv_height;
             }
         }
 
@@ -288,6 +258,62 @@ public class HomeVO extends BaseVO{
 
             public void setNav_url(String nav_url) {
                 this.nav_url = nav_url;
+            }
+        }
+
+        public static class RecordListBean {
+            /**
+             * pid : 0
+             * goods_name : 夏普电视机
+             * nickname : 疯抢用户10004
+             * is_ture : 0
+             * prise_desc : 恭喜疯抢用户10004获得了夏普电视机
+             */
+
+            private String pid;
+            private String goods_name;
+            private String nickname;
+            private String is_ture;
+            private String prise_desc;
+
+            public String getPid() {
+                return pid;
+            }
+
+            public void setPid(String pid) {
+                this.pid = pid;
+            }
+
+            public String getGoods_name() {
+                return goods_name;
+            }
+
+            public void setGoods_name(String goods_name) {
+                this.goods_name = goods_name;
+            }
+
+            public String getNickname() {
+                return nickname;
+            }
+
+            public void setNickname(String nickname) {
+                this.nickname = nickname;
+            }
+
+            public String getIs_ture() {
+                return is_ture;
+            }
+
+            public void setIs_ture(String is_ture) {
+                this.is_ture = is_ture;
+            }
+
+            public String getPrise_desc() {
+                return prise_desc;
+            }
+
+            public void setPrise_desc(String prise_desc) {
+                this.prise_desc = prise_desc;
             }
         }
 

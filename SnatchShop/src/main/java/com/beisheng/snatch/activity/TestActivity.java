@@ -1,5 +1,4 @@
-package com.beisheng.snatch.fragment;
-
+package com.beisheng.snatch.activity;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -14,11 +13,12 @@ import android.widget.ImageView;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.constant.Constant;
+import com.beisheng.snatch.fragment.TabOneChildFragment;
 import com.beisheng.snatch.model.HomeVO;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.squareup.picasso.Picasso;
 import com.vondear.rxtools.view.RxTextviewVertical;
-import com.wuzhanglong.library.fragment.BaseFragment;
+import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.WidthHigthUtil;
@@ -41,7 +41,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.Simple
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TabOneFragment extends BaseFragment implements View.OnClickListener {
+public class TestActivity extends BaseActivity {
     private String[] mTitleDataList = {"人气", "最新", "进度", "总需人次"};
     private ScrollableLayout mScrollableLayout;
 
@@ -52,12 +52,12 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     private ImageView mOneImg;
 
     @Override
-    public void setContentView() {
+    public void baseSetContentView() {
         contentInflateView(R.layout.tab_one_fragment);
     }
 
     @Override
-    public void initView(View view) {
+    public void initView() {
         mActivity.mBaseHeadLayout.setVisibility(View.GONE);
         mBanner = getViewById(R.id.banner);
         mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
@@ -67,7 +67,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mOneImg = getViewById(R.id.one_img);
         mRxText = (RxTextviewVertical) getViewById(R.id.rx_text);
         mViewPager = getViewById(R.id.view_pager);
-        initMagicIndicator();
+
     }
 
     @Override
@@ -138,12 +138,11 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     public void initViewPagerData() {
         mFragmentList = new ArrayList<>();
         for (int i = 0; i < mTitleDataList.length; i++) {
-            TabOneChildFragment fragment =  TabOneChildFragment.newInstance();
+            TabOneChildFragment fragment = (TabOneChildFragment) TabOneChildFragment.newInstance();
             fragment.setType((i + 1) + "");
             mFragmentList.add(fragment);
         }
 
-        mScrollableLayout.getHelper().setCurrentScrollableContainer(mFragmentList.get(0));
         mViewPager.setOffscreenPageLimit(mTitleDataList.length);
         mViewPager.setAdapter(new FragmentPagerAdapter(mActivity.getSupportFragmentManager()) {
             @Override
@@ -163,12 +162,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
             }
         });
 
-        mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                mScrollableLayout.getHelper().setCurrentScrollableContainer(mFragmentList.get(position));
-            }
-        });
+
     }
 
     @Override
@@ -215,6 +209,15 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
             }
         });
         mRxText.startAutoScroll();
+
+        initMagicIndicator();
+        mScrollableLayout.getHelper().setCurrentScrollableContainer(mFragmentList.get(0));
+        mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                mScrollableLayout.getHelper().setCurrentScrollableContainer(mFragmentList.get(position));
+            }
+        });
     }
 
     @Override
@@ -228,15 +231,6 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     }
 
 
-    @Override
-    public void onClick(View v) {
-        Bundle bundle = new Bundle();
-        switch (v.getId()) {
-
-            default:
-                break;
-        }
-    }
 
 
 }

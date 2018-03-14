@@ -3,8 +3,8 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical"
-    android:background="@color/C1">
+              android:background="@color/C3"
+              android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -13,86 +13,93 @@
         <com.youth.banner.Banner
             android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="140dp"
             app:indicator_drawable_selected="@drawable/selected_radius"
             app:indicator_drawable_unselected="@drawable/unselected_radius"
             app:indicator_height="8dp"
             app:indicator_margin="4dp"
             app:indicator_width="8dp"
             app:title_height="80dp"
-     />
+            />
 
-    <com.wuzhanglong.library.view.ArcImageView
-        android:id="@+id/one_img"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="130dp"
-        app:arcHeight="20dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/logo"
-        />
+        <com.wuzhanglong.library.view.ArcImageView
+            android:id="@+id/one_img"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="120dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo"
+            app:arcHeight="10dp"
+            />
     </FrameLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginTop="10dp"
+        android:background="@color/C1"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
         <TextView
             android:id="@+id/type_01_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="5dp"
-            android:drawableTop="@drawable/tab_one_menu_1"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:clickable="true"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/tab_one_menu_1"
             android:gravity="center"
-            android:text="手机充值" />
+            android:text="手机充值"/>
 
         <TextView
             android:id="@+id/type_02_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="5dp"
-            android:drawableTop="@drawable/tab_one_menu_1"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:clickable="true"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/tab_one_menu_1"
             android:gravity="center"
-            android:text="缴纳电费" />
+            android:text="缴纳电费"/>
 
         <TextView
             android:id="@+id/type_03_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="5dp"
-            android:drawableTop="@drawable/tab_one_menu_1"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:clickable="true"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/tab_one_menu_1"
             android:gravity="center"
-            android:text="缴纳网费" />
+            android:text="缴纳网费"/>
 
         <TextView
             android:id="@+id/type_04_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="5dp"
-            android:drawableTop="@drawable/tab_one_menu_1"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:clickable="true"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/tab_one_menu_1"
             android:gravity="center"
-            android:text="菲度锦囊" />
+            android:text="菲度锦囊"/>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/text_layout"
         style="@style/padding_15_10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:background="@color/C1"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="10dp">
+        android:gravity="center_vertical">
 
         <ImageView
             android:layout_width="wrap_content"

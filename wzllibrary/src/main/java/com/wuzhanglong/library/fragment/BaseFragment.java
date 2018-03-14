@@ -114,7 +114,7 @@ public abstract class BaseFragment extends Fragment implements UpdateCallback, S
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mActivity.showProgressDialog();
+//        mActivity.showProgressDialog();
     }
 
     public void baseInitView(View view) {

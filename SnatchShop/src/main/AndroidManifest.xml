@@ -29,6 +29,8 @@
         </activity>
         <activity android:name=".activity.DailyTaskActivity">
         </activity>
+        <activity android:name=".activity.TestActivity">
+        </activity>
     </application>
 
 </manifest>
