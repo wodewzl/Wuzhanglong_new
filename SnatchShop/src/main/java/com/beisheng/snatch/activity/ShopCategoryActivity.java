@@ -1,16 +1,17 @@
 package com.beisheng.snatch.activity;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.adapter.ShopCategoryLeftAdapter;
 import com.beisheng.snatch.adapter.ShopCategoryRightAdapter;
 import com.beisheng.snatch.constant.Constant;
-import com.beisheng.snatch.model.NeaybyVO;
 import com.beisheng.snatch.model.ShopCategoryLeftVO;
 import com.beisheng.snatch.model.ShopCategoryRightVO;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
@@ -36,7 +37,8 @@ import cn.bingoogolapple.baseadapter.BGADivider;
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 
 
-public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLeftAdapter.OnLeftSelectedListener, BGAOnRVItemClickListener, OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLeftAdapter.OnLeftSelectedListener, BGAOnRVItemClickListener, OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener,
+        View.OnClickListener {
     private String mKeyword = "";
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private RecyclerView mLeftRecyclerView;//左侧菜单栏
@@ -50,7 +52,8 @@ public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLe
     private String mOrderType = "1";
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
-    private boolean mFistFlag=true;
+    private boolean mFistFlag = true;
+    private TextView mTitle01Tv, mTitle02Tv, mTitle03Tv, mTitle04Tv;
 
     @Override
     public void baseSetContentView() {
@@ -63,6 +66,12 @@ public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLe
         mBaseTitleTv.setText("商品分类");
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
+
+        mTitle01Tv = getViewById(R.id.title_01_tv);
+        mTitle02Tv = getViewById(R.id.title_02_tv);
+        mTitle03Tv = getViewById(R.id.title_03_tv);
+        mTitle04Tv = getViewById(R.id.title_04_tv);
+
         mLeftRecyclerView = getViewById(R.id.left_recyclerview);
         mLeftLayoutManger = new LinearLayoutManager(mActivity);
         mLeftRecyclerView.setLayoutManager(mLeftLayoutManger);
@@ -89,14 +98,18 @@ public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLe
         mRightAdapter.setOnRVItemClickListener(this);
         mRightRecyclerView.setOnLoadMoreListener(this);
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
+        mTitle01Tv.setOnClickListener(this);
+        mTitle02Tv.setOnClickListener(this);
+        mTitle03Tv.setOnClickListener(this);
+        mTitle04Tv.setOnClickListener(this);
     }
 
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        if(mFistFlag){
+        if (mFistFlag) {
             BSHttpUtils.get(mActivity, this, Constant.SHOP_CATEGORY_URL, map, ShopCategoryLeftVO.class);
-            mFistFlag=false;
+            mFistFlag = false;
         }
         map.put("category_id", mCategoryId);
         map.put("order_type", mOrderType);
@@ -116,9 +129,7 @@ public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLe
             list.addAll(mLeftVO.getData().getCategory_list());
             mLeftAdapter.updateData(list);
         } else {
-//        updateChild(mNeaybyVO.getData().get(0));
             mRightVO = (ShopCategoryRightVO) vo;
-
             if (BaseCommonUtils.parseInt(mRightVO.getData().getCount()) == 1) {
                 mRightRecyclerView.setLoadMoreEnabled(false);
             }
@@ -138,7 +149,6 @@ public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLe
             }
             mAutoSwipeRefreshLayout.setRefreshing(false);
         }
-
     }
 
     @Override
@@ -154,6 +164,7 @@ public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLe
     public void onLeftItemSelected(ShopCategoryLeftVO.DataBean.CategoryListBean leftVO) {
         mCategoryId = leftVO.getCategory_id();
         mAutoSwipeRefreshLayout.autoRefresh();
+        mOrderType = "1";
     }
 
     @Override
@@ -164,10 +175,6 @@ public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLe
             int top = mLeftRecyclerView.getChildAt(position - firstPosition).getTop();
             mLeftRecyclerView.smoothScrollBy(0, top);
         }
-    }
-
-    public void updateChild(NeaybyVO vo) {
-        mRightAdapter.updateData(vo.getList());
     }
 
     @Override
@@ -184,7 +191,6 @@ public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLe
     @Override
     public void onRefresh() {
         mCurrentPage = 1;
-        mOrderType="1";
         getData();
     }
 
@@ -192,5 +198,47 @@ public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLe
     public void onLoadMore() {
         isLoadMore = true;
         getData();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.title_01_tv:
+            case R.id.title_02_tv:
+            case R.id.title_03_tv:
+            case R.id.title_04_tv:
+                setTitleStyle(v.getId());
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void setTitleStyle(int id) {
+        if (id == R.id.title_01_tv) {
+            mTitle01Tv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+            mOrderType = "1";
+        } else {
+            mTitle01Tv.setTextColor(ContextCompat.getColor(this, R.color.C5));
+        }
+        if (id == R.id.title_02_tv) {
+            mTitle02Tv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+            mOrderType = "2";
+        } else {
+            mTitle02Tv.setTextColor(ContextCompat.getColor(this, R.color.C5));
+        }
+        if (id == R.id.title_03_tv) {
+            mTitle03Tv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+            mOrderType = "3";
+        } else {
+            mTitle03Tv.setTextColor(ContextCompat.getColor(this, R.color.C5));
+        }
+        if (id == R.id.title_04_tv) {
+            mTitle04Tv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+            mOrderType = "3";
+        } else {
+            mTitle04Tv.setTextColor(ContextCompat.getColor(this, R.color.C5));
+        }
+        mAutoSwipeRefreshLayout.autoRefresh();
     }
 }

@@ -12,7 +12,8 @@
         android:id="@+id/shop_img"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:background="@color/colorAccent"/>
+        android:background="@color/C1"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,9 +26,9 @@
             android:id="@+id/title_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="菜单"
-            android:textColor="@color/C5"
-            />
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="菜单"/>
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -35,8 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/snatch_bt"
             android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@id/snatch_bt"
             android:progress="40"
             android:progressDrawable="@drawable/progressbar_horizontal_white"/>
 
@@ -59,7 +60,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:text="强暴进度1"
-                    android:textColor="@color/C7"
+                    android:textColor="@color/C5"
                     android:textSize="11sp"/>
 
                 <TextView
@@ -68,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/total_count_tv"
                     android:text="强暴进度2"
-                    android:textColor="@color/C7"
+                    android:textColor="@color/C5"
                     android:textSize="11sp"/>
             </LinearLayout>
 

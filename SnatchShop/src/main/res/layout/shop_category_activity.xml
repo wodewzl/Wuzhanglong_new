@@ -28,12 +28,63 @@
                 android:background="@color/C3">
             </android.support.v7.widget.RecyclerView>
 
-            <com.github.jdsjlzx.recyclerview.LuRecyclerView
-                android:id="@+id/right_recyclerview"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/white"/>
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/C1">
+
+                    <TextView
+                        android:id="@+id/title_01_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="最热"
+                        android:textColor="@color/colorAccent"/>
+
+                    <TextView
+                        android:id="@+id/title_02_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="最新"
+                        android:textColor="@color/C5"/>
+
+                    <TextView
+                        android:id="@+id/title_03_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="最快"
+                        android:textColor="@color/C5"/>
+
+                    <TextView
+                        android:id="@+id/title_04_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="价值"
+                        android:textColor="@color/C5"/>
+                </LinearLayout>
+
+                <com.github.jdsjlzx.recyclerview.LuRecyclerView
+                    android:id="@+id/right_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"/>
+            </LinearLayout>
+
+
         </LinearLayout>
     </com.wuzhanglong.library.view.AutoSwipeRefreshLayout>
 </LinearLayout>

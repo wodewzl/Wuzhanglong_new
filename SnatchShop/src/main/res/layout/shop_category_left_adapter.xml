@@ -15,7 +15,7 @@
         android:gravity="center"
         android:text="菜单"
         android:textColor="@color/C4"
-        android:textSize="14sp"/>
+        android:textSize="13sp"/>
     <View
         android:id="@+id/left_view"
         android:layout_width="4dp"
