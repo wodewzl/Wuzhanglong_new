@@ -17,7 +17,7 @@ import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
  * Created by ${Wuzhanglong} on 2018/3/8.
  */
 
-public class HomeAdapter extends RecyclerBaseAdapter<HomeChildVO.DataBean.ListBean> {
+public class HomeAdapter extends RecyclerBaseAdapter {
 
     public HomeAdapter(RecyclerView recyclerView) {
         super(recyclerView, R.layout.home_adapter);
@@ -34,6 +34,4 @@ public class HomeAdapter extends RecyclerBaseAdapter<HomeChildVO.DataBean.ListBe
         TextView tv=helper.getTextView(R.id.progress_tv);
         BaseCommonUtils.setTextThree(mContext,tv,"剩余：","","次",R.color.colorAccent,1.3f);
     }
-
-
 }

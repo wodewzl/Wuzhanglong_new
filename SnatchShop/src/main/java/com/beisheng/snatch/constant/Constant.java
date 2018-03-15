@@ -4,5 +4,7 @@ public class Constant {
     //get 最后加 &
     public static final String HOME_TITLE_URL = "Api/Dbindex/index";//首页
     public static final String HOME_LIST_URL = "Api/Dbindex/get_more";//首页
+    public static final String SHOP_CATEGORY_URL = "Api/Dbindex/categorys";//商品分类
+
 }
 

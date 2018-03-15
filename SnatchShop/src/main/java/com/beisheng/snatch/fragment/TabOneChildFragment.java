@@ -31,6 +31,7 @@ public class TabOneChildFragment extends BaseFragment implements OnLoadMoreListe
     private boolean isLoadMore = true;
     private String type = "1";//1-人气 2-最新 3-进度 4-总需从大到小 5-总需从小到大
 
+
     public static TabOneChildFragment newInstance() {
         TabOneChildFragment fragment = new TabOneChildFragment();
         return fragment;

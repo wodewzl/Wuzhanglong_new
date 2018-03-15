@@ -1,0 +1,196 @@
+package com.beisheng.snatch.activity;
+
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.beisheng.snatch.R;
+import com.beisheng.snatch.adapter.ShopCategoryLeftAdapter;
+import com.beisheng.snatch.adapter.ShopCategoryRightAdapter;
+import com.beisheng.snatch.constant.Constant;
+import com.beisheng.snatch.model.NeaybyVO;
+import com.beisheng.snatch.model.ShopCategoryLeftVO;
+import com.beisheng.snatch.model.ShopCategoryRightVO;
+import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
+import com.github.jdsjlzx.recyclerview.LuRecyclerView;
+import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
+import com.github.jdsjlzx.recyclerview.ProgressStyle;
+import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
+import com.wuzhanglong.library.activity.BaseActivity;
+import com.wuzhanglong.library.http.BSHttpUtils;
+import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.mode.EBMessageVO;
+import com.wuzhanglong.library.utils.BaseCommonUtils;
+import com.wuzhanglong.library.utils.DividerUtil;
+import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import cn.bingoogolapple.baseadapter.BGADivider;
+import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
+
+
+public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLeftAdapter.OnLeftSelectedListener, BGAOnRVItemClickListener, OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+    private String mKeyword = "";
+    private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
+    private RecyclerView mLeftRecyclerView;//左侧菜单栏
+    private LuRecyclerView mRightRecyclerView;//右侧菜单栏
+    private ShopCategoryLeftAdapter mLeftAdapter;
+    private ShopCategoryRightAdapter mRightAdapter;
+    private ShopCategoryLeftVO mLeftVO;
+    private ShopCategoryRightVO mRightVO;
+    private LinearLayoutManager mLeftLayoutManger;
+    private String mCategoryId = "0";
+    private String mOrderType = "1";
+    private int mCurrentPage = 1;
+    private boolean isLoadMore = true;
+    private boolean mFistFlag=true;
+
+    @Override
+    public void baseSetContentView() {
+        contentInflateView(R.layout.shop_category_activity);
+    }
+
+    @Override
+    public void initView() {
+        mBaseHeadLayout.setBackgroundResource(R.color.colorAccent);
+        mBaseTitleTv.setText("商品分类");
+        mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
+        mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
+        mLeftRecyclerView = getViewById(R.id.left_recyclerview);
+        mLeftLayoutManger = new LinearLayoutManager(mActivity);
+        mLeftRecyclerView.setLayoutManager(mLeftLayoutManger);
+        DividerDecoration divider = DividerUtil.linnerDivider(mActivity, R.dimen.dp_1, R.color.C3);
+        mLeftRecyclerView.addItemDecoration(divider);
+        mLeftAdapter = new ShopCategoryLeftAdapter(mLeftRecyclerView);
+        mLeftRecyclerView.setAdapter(mLeftAdapter);
+
+        //右边recyclerview
+        mRightRecyclerView = getViewById(R.id.right_recyclerview);
+        BGADivider divideRight = DividerUtil.bagDivider(15, 0);
+        mRightRecyclerView.addItemDecoration(divideRight);
+        mRightAdapter = new ShopCategoryRightAdapter(mRightRecyclerView);
+        LuRecyclerViewAdapter adapter = new LuRecyclerViewAdapter(mRightAdapter);
+        mRightRecyclerView.setAdapter(adapter);
+        mRightRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
+        mRightRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        mRightRecyclerView.setLoadMoreEnabled(true);
+    }
+
+    @Override
+    public void bindViewsListener() {
+        mLeftAdapter.setListener(this);
+        mRightAdapter.setOnRVItemClickListener(this);
+        mRightRecyclerView.setOnLoadMoreListener(this);
+        mAutoSwipeRefreshLayout.setOnRefreshListener(this);
+    }
+
+    @Override
+    public void getData() {
+        HashMap<String, Object> map = new HashMap<>();
+        if(mFistFlag){
+            BSHttpUtils.get(mActivity, this, Constant.SHOP_CATEGORY_URL, map, ShopCategoryLeftVO.class);
+            mFistFlag=false;
+        }
+        map.put("category_id", mCategoryId);
+        map.put("order_type", mOrderType);
+        BSHttpUtils.get(mActivity, this, Constant.HOME_LIST_URL, map, ShopCategoryRightVO.class);
+
+    }
+
+    @Override
+    public void hasData(BaseVO vo) {
+        if (vo instanceof ShopCategoryLeftVO) {
+            mLeftVO = (ShopCategoryLeftVO) vo;
+            List<ShopCategoryLeftVO.DataBean.CategoryListBean> list = new ArrayList();
+            ShopCategoryLeftVO.DataBean.CategoryListBean allVO = new ShopCategoryLeftVO.DataBean.CategoryListBean();
+            allVO.setCategory_name("全部分类");
+            allVO.setCategory_id("0");
+            list.add(allVO);
+            list.addAll(mLeftVO.getData().getCategory_list());
+            mLeftAdapter.updateData(list);
+        } else {
+//        updateChild(mNeaybyVO.getData().get(0));
+            mRightVO = (ShopCategoryRightVO) vo;
+
+            if (BaseCommonUtils.parseInt(mRightVO.getData().getCount()) == 1) {
+                mRightRecyclerView.setLoadMoreEnabled(false);
+            }
+            if (mCurrentPage == BaseCommonUtils.parseInt(mRightVO.getData().getCount())) {
+                mRightRecyclerView.setNoMore(true);
+            } else {
+                mRightRecyclerView.setNoMore(false);
+            }
+            List<ShopCategoryRightVO.DataBean.ListBean> list = mRightVO.getData().getList();
+            if (isLoadMore) {
+                mRightAdapter.updateDataLast(list);
+                isLoadMore = false;
+                mCurrentPage++;
+            } else {
+                mCurrentPage++;
+                mRightAdapter.updateData(list);
+            }
+            mAutoSwipeRefreshLayout.setRefreshing(false);
+        }
+
+    }
+
+    @Override
+    public void noData(BaseVO vo) {
+    }
+
+    @Override
+    public void noNet() {
+
+    }
+
+    @Override
+    public void onLeftItemSelected(ShopCategoryLeftVO.DataBean.CategoryListBean leftVO) {
+        mCategoryId = leftVO.getCategory_id();
+        mAutoSwipeRefreshLayout.autoRefresh();
+    }
+
+    @Override
+    public void moveToTop(View view, int position) {
+        int firstPosition = mLeftLayoutManger.findFirstVisibleItemPosition();
+        int lastPosition = mLeftLayoutManger.findLastVisibleItemPosition();
+        if (position <= lastPosition) {
+            int top = mLeftRecyclerView.getChildAt(position - firstPosition).getTop();
+            mLeftRecyclerView.smoothScrollBy(0, top);
+        }
+    }
+
+    public void updateChild(NeaybyVO vo) {
+        mRightAdapter.updateData(vo.getList());
+    }
+
+    @Override
+    public void onRVItemClick(ViewGroup viewGroup, View view, int i) {
+        if (mRightAdapter.getData().size() == 0)
+            return;
+
+        EBMessageVO ebMessageVO = new EBMessageVO("back_car_address");
+        ebMessageVO.setObject(mRightAdapter.getData().get(i));
+        EventBus.getDefault().post(ebMessageVO);
+        this.finish();
+    }
+
+    @Override
+    public void onRefresh() {
+        mCurrentPage = 1;
+        mOrderType="1";
+        getData();
+    }
+
+    @Override
+    public void onLoadMore() {
+        isLoadMore = true;
+        getData();
+    }
+}
