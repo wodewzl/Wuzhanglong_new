@@ -2,13 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:background="@color/C3">
+              android:background="@color/C3"
+              android:orientation="vertical">
+    <!--<com.github.jdsjlzx.recyclerview.LuRecyclerView-->
+        <!--android:id="@id/recycler_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--/>-->
 
-        <com.github.jdsjlzx.recyclerview.LuRecyclerView
-            android:id="@id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-           />
-
+    <com.github.jdsjlzx.recyclerview.LuRecyclerView
+        android:id="@id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"/>
 </LinearLayout>

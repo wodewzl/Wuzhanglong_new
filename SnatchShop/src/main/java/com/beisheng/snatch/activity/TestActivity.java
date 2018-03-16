@@ -212,12 +212,12 @@ public class TestActivity extends BaseActivity {
 
         initMagicIndicator();
         mScrollableLayout.getHelper().setCurrentScrollableContainer(mFragmentList.get(0));
-        mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                mScrollableLayout.getHelper().setCurrentScrollableContainer(mFragmentList.get(position));
-            }
-        });
+//        mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+//            @Override
+//            public void onPageSelected(int position) {
+//                mScrollableLayout.getHelper().setCurrentScrollableContainer(mFragmentList.get(position));
+//            }
+//        });
     }
 
     @Override
