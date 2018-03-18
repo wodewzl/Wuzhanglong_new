@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.beisheng.snatch">
+    package="com.beisheng.snatch">
 
     <application
         android:allowBackup="true"
@@ -15,25 +15,24 @@
             android:theme="@style/AppStartLogo"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.HomeActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".activity.LotteryingActivity">
-        </activity>
-        <activity android:name=".activity.DailyTaskActivity">
-        </activity>
-        <activity android:name=".activity.TestActivity">
-        </activity>
-        <activity android:name=".activity.ShopCategoryActivity">
-        </activity>
-
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activity.LotteryingActivity" />
+        <activity android:name=".activity.DailyTaskActivity" />
+        <activity android:name=".activity.TestActivity" />
+        <activity android:name=".activity.ShopCategoryActivity" />
+        <activity android:name=".activity.PersonalCenterActivity" />
+        <activity android:name=".activity.DailyTaskDetailActivity" />
+        <activity android:name=".activity.ShowDetailActivity" />
+        <activity android:name=".activity.ShopDetailActivity"></activity>
     </application>
 
 </manifest>
