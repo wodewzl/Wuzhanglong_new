@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/C1"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/margin_15_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shop_detail_type2_corners1"
+            android:orientation="horizontal"
+            style="@style/padding_15_10">
+
+            <TextView
+                android:id="@+id/win_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+                android:text="幸运号码：3333333454"
+                android:textColor="@color/C1" />
+
+            <TextView
+                android:id="@+id/run_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:text="计算详情"
+                android:textColor="@color/C1"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/shop_detail_type2_corners2"
+            android:orientation="horizontal"
+            style="@style/padding_15_10">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="你抢购了20次，号码如下"/>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/my_number_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    style="@style/padding_15_10"
+                    android:textColor="@color/C5"
+                    android:background="@color/C1"
+                    android:maxLines="3"/>
+                <TextView
+                    android:id="@+id/all_number_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    style="@style/padding_15_10"
+                    android:textColor="@color/C5"
+                    android:background="@color/C1"
+                    android:visibility="gone"/>
+            </FrameLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -15,7 +15,7 @@ import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
 public class ShopDetailAdapter extends RecyclerBaseAdapter<HomeVO> {
 
     public ShopDetailAdapter(RecyclerView recyclerView) {
-        super(recyclerView, R.layout.show_detail_adapter);
+        super(recyclerView, R.layout.shop_detail_adapter);
     }
 
 
@@ -34,7 +34,7 @@ public class ShopDetailAdapter extends RecyclerBaseAdapter<HomeVO> {
 
     @Override
     public int getItemViewType(int position) {
-        return R.layout.show_detail_adapter;
+        return R.layout.shop_detail_adapter;
     }
 
     @Override
