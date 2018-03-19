@@ -63,7 +63,6 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
 //        mBanner.setIndicatorGravity(BannerConfig.RIGHT);
         mScrollableLayout = getViewById(R.id.scrollable_layout);
-
         mOneImg = getViewById(R.id.one_img);
         mRxText = (RxTextviewVertical) getViewById(R.id.rx_text);
         mViewPager = getViewById(R.id.view_pager);

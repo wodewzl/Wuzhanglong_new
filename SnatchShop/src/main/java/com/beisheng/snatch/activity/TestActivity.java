@@ -12,10 +12,13 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
 import com.beisheng.snatch.R;
+import com.beisheng.snatch.adapter.DailyTaskAdapter;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.fragment.TabOneChildFragment;
 import com.beisheng.snatch.model.HomeVO;
+import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
+import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.squareup.picasso.Picasso;
 import com.vondear.rxtools.view.RxTextviewVertical;
 import com.wuzhanglong.library.activity.BaseActivity;
@@ -41,7 +44,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.Simple
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TestActivity extends BaseActivity {
+public class TestActivity extends BaseActivity implements ScrollableHelper.ScrollableContainer {
     private String[] mTitleDataList = {"人气", "最新", "进度", "总需人次"};
     private ScrollableLayout mScrollableLayout;
 
@@ -50,10 +53,11 @@ public class TestActivity extends BaseActivity {
     private ArrayList<TabOneChildFragment> mFragmentList;
     private Banner mBanner;
     private ImageView mOneImg;
-
+    private LuRecyclerView mRecyclerView;
+    private DailyTaskAdapter mAdapter;
     @Override
     public void baseSetContentView() {
-        contentInflateView(R.layout.tab_one_fragment);
+        contentInflateView(R.layout.test_layout);
     }
 
     @Override
@@ -63,7 +67,7 @@ public class TestActivity extends BaseActivity {
         mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
 //        mBanner.setIndicatorGravity(BannerConfig.RIGHT);
         mScrollableLayout = getViewById(R.id.scrollable_layout);
-
+        mScrollableLayout.getHelper().setCurrentScrollableContainer(this);
         mOneImg = getViewById(R.id.one_img);
         mRxText = (RxTextviewVertical) getViewById(R.id.rx_text);
         mViewPager = getViewById(R.id.view_pager);
@@ -138,7 +142,7 @@ public class TestActivity extends BaseActivity {
     public void initViewPagerData() {
         mFragmentList = new ArrayList<>();
         for (int i = 0; i < mTitleDataList.length; i++) {
-            TabOneChildFragment fragment = (TabOneChildFragment) TabOneChildFragment.newInstance();
+            TabOneChildFragment fragment =  TabOneChildFragment.newInstance();
             fragment.setType((i + 1) + "");
             mFragmentList.add(fragment);
         }
@@ -212,12 +216,12 @@ public class TestActivity extends BaseActivity {
 
         initMagicIndicator();
         mScrollableLayout.getHelper().setCurrentScrollableContainer(mFragmentList.get(0));
-//        mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-//            @Override
-//            public void onPageSelected(int position) {
-//                mScrollableLayout.getHelper().setCurrentScrollableContainer(mFragmentList.get(position));
-//            }
-//        });
+        mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                mScrollableLayout.getHelper().setCurrentScrollableContainer(mFragmentList.get(position));
+            }
+        });
     }
 
     @Override
@@ -231,6 +235,8 @@ public class TestActivity extends BaseActivity {
     }
 
 
-
-
+    @Override
+    public View getScrollableView() {
+        return mRecyclerView;
+    }
 }

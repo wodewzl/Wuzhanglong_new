@@ -4,15 +4,9 @@
               android:layout_height="match_parent"
               android:background="@color/C3"
               android:orientation="vertical">
-    <!--<com.github.jdsjlzx.recyclerview.LuRecyclerView-->
-        <!--android:id="@id/recycler_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--/>-->
-
     <com.github.jdsjlzx.recyclerview.LuRecyclerView
-        android:id="@id/recycler_view"
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="4dp"/>
 </LinearLayout>
