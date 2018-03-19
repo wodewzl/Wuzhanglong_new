@@ -11,6 +11,7 @@ import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
+import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
@@ -19,8 +20,6 @@ import com.wuzhanglong.library.utils.DividerUtil;
 
 import java.util.HashMap;
 import java.util.List;
-
-import cn.bingoogolapple.baseadapter.BGAGridDivider;
 
 public class TabOneChildFragment extends BaseFragment implements OnLoadMoreListener, ScrollableHelper.ScrollableContainer {
     private LuRecyclerView mRecyclerView;
@@ -51,31 +50,30 @@ public class TabOneChildFragment extends BaseFragment implements OnLoadMoreListe
     public void initView(View view) {
         mRecyclerView = getViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
-
-        BGAGridDivider divider = DividerUtil.bgaGridDivider(R.dimen.dp_2);
+        DividerDecoration divider = DividerUtil.linnerDivider(mActivity, R.dimen.dp_4, R.color.C3);
         mRecyclerView.addItemDecoration(divider);
         mAdapter = new HomeAdapter(mRecyclerView);
         mLuAdapter = new LuRecyclerViewAdapter(mAdapter);
         mRecyclerView.setAdapter(mLuAdapter);
-        mRecyclerView.setLoadMoreEnabled(false);
+        mRecyclerView.setLoadMoreEnabled(true);
         GridLayoutManager layoutManager = new GridLayoutManager(mActivity, 2);
         mRecyclerView.setLayoutManager(layoutManager);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (mAdapter.getData().size() == 0) {
+                if (mAdapter.getData().size() == 0 || position == mAdapter.getData().size()) {
                     return 2;
                 } else {
                     return 1;
                 }
             }
         });
+
     }
 
     @Override
     public void bindViewsListener() {
         mRecyclerView.setOnLoadMoreListener(this);
-
     }
 
     @Override
@@ -116,10 +114,8 @@ public class TabOneChildFragment extends BaseFragment implements OnLoadMoreListe
     @Override
     public void onLoadMore() {
         isLoadMore = true;
-
+        getData();
     }
-
-
 
     @Override
     public void onDestroy() {
