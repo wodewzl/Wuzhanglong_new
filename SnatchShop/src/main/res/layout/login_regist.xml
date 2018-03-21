@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/C1"
+              android:orientation="vertical">
+
+    <TextView
+        style="@style/padding_15_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="手机号登录"
+        android:textSize="14sp"/>
+
+    <LinearLayout
+        style="@style/margin_15_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/frame_kongxin_white_gray"
+        android:orientation="vertical"
+        android:paddingBottom="1dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="1dp"
+        android:visibility="gone">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/C1"
+            android:drawableLeft="@drawable/my_go"
+            android:drawablePadding="10dp"
+            android:hint="输入手机号"/>
+
+        <View
+            style="@style/view_divider"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/C1"
+            android:drawableLeft="@drawable/my_go"
+            android:drawablePadding="10dp"
+            android:hint="输入密码"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        style="@style/margin_15_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/frame_kongxin_white_gray"
+        android:paddingBottom="1dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="1dp">
+
+        <EditText
+            android:id="@+id/phone_tv"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/C1"
+            android:drawableLeft="@drawable/my_go"
+            android:drawablePadding="10dp"
+            android:hint="输入手机号"/>
+
+        <View
+            android:id="@+id/divider_v"
+            style="@style/view_divider"
+            android:layout_below="@id/phone_tv"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_below="@id/divider_v"
+            android:background="@color/C1"
+            android:drawableLeft="@drawable/my_go"
+            android:drawablePadding="10dp"
+            android:hint="输入密码"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="2dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="2dp"
+            android:text="获取验证码"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="15dp"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="登录"
+        android:textColor="@color/C1"
+        />
+
+    <com.rey.material.widget.CheckBox
+        android:id="@+id/check_box"
+        style="@style/SnatchShopCheckBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="我同意《服务条款》和《隐私权相关政策》"
+        android:textColor="@color/C5"
+        android:textSize="11sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="20dp"/>
+</LinearLayout>
