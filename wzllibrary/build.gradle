@@ -1,9 +1,16 @@
 apply plugin: 'com.android.library'
 //apply plugin: 'com.android.application'
 android {
+    signingConfigs {
+        release {
+            keyAlias 'wzl'
+            keyPassword 'wuzhanglong'
+            storeFile file('D:/studio_project/Wuzhanglong_new/wzllibrary/wodewzl.jks')
+            storePassword 'wuzhanglong'
+        }
+    }
     compileSdkVersion 27
     buildToolsVersion '27.0.1'
-
     defaultConfig {
 
 //        applicationId "com.wuzhanglong.baselibrary"
@@ -15,12 +22,15 @@ android {
 //        multiDexEnabled true
     }
     buildTypes {
-            release {
+        release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.release
         }
     }
-
     configurations.all {
         resolutionStrategy.eachDependency { DependencyResolveDetails details ->
             def requested = details.requested
@@ -31,8 +41,6 @@ android {
             }
         }
     }
-
-
 }
 
 dependencies {
@@ -51,7 +59,6 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
 
     // -------------------- 九宫格图片选择显示 ----------------------------
-
     compile 'cn.bingoogolapple:bga-photopicker:1.2.6'
     compile 'cn.bingoogolapple:bga-baseadapter:1.2.7'
 
@@ -69,7 +76,7 @@ dependencies {
     //    compile 'com.zhy:base-adapter:3.0.3'//万能ListView Adapter
 
     //        compile 'com.zhy:base-rvadapter:3.0.3'//万能RecyclerView Adapter
-    compile 'com.github.jdsjlzx:LRecyclerView:1.4.3'
+    compile 'com.github.jdsjlzx:LRecyclerView:1.5.0'
 
     //新布局constraint
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -96,7 +103,8 @@ dependencies {
     compile 'com.github.hackware1993:MagicIndicator:1.5.0'
 
     //上滑隐藏toolbar
-//    compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
+
+    //    compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
 
     //自定义editext
     compile 'net.anumbrella:customedittext:1.0.0'
@@ -140,29 +148,40 @@ dependencies {
     compile 'com.github.alidili:FlowLayout:v1.1'
 
     //关键字搜索
+
     //    compile 'com.github.chengzipi:Searchbox:v1.0.0'//关键字搜索
     compile 'com.github.zcweng:switch-button:0.0.3@aar'
 
     //开关
+
     //    compile 'com.lzy.widget:view-core:0.2.1'//viewpager 头部
     compile 'com.github.cpoopc:scrollablelayoutlib:1.0.1'
 
     //viewpager 头部
+
     //    compile 'ren.qinc.numberbutton:numberbutton:0.0.1'//购物车加减
+
     //    compile 'sing.stickyrecyclerview:library:1.0.1'//悬浮库
+
     //    compile 'com.android.support:multidex:1.0.1'//分包
 
     //定位
     compile 'com.amap.api:location:latest.integration'
 
     //CollapsingToolbarLayout的下拉缩放
-    //    compile 'com.github.anzewei.design:androidDesignEx:0.4'
-    //        compile 'com.github.EthanCo:PasswordInput:1.5.0'
-    //        compile 'com.amap.api:map2d:latest.integration'//地图map
-//    compile 'com.amap.api:3dmap:latest.integration'
-//    compile 'com.amap.api:search:latest.integration'  //地图搜索
 
-    compile 'com.tamic.novate:novate:1.5.4.5'  //Retrofit2.0与rxjava结合的产物
+    //    compile 'com.github.anzewei.design:androidDesignEx:0.4'
+
+    //        compile 'com.github.EthanCo:PasswordInput:1.5.0'
+
+    //        compile 'com.amap.api:map2d:latest.integration'//地图map
+
+    //    compile 'com.amap.api:3dmap:latest.integration'
+
+    //    compile 'com.amap.api:search:latest.integration'  //地图搜索
+    compile 'com.tamic.novate:novate:1.5.4.5'
+
+    //Retrofit2.0与rxjava结合的产物
 
     //沉浸式状态栏
     compile 'com.jaeger.statusbarutil:library:1.4.0'
@@ -170,8 +189,11 @@ dependencies {
 // exclude group: 'com.android.support', module: 'support-v7'
 // exclude group: 'com.android.support', module: 'design'
     }
-//    compile 'com.dou361.dialogui:jjdxm-dialogui:x.x.x'
+
+    //    compile 'com.dou361.dialogui:jjdxm-dialogui:x.x.x'
+
     //多样式Dialog
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     compile 'com.github.iwgang:countdownview:2.1.6'//倒计时
+    compile 'com.hyman:flowlayout-lib:1.1.2'//hongyang 流布局类似关键字
 }
