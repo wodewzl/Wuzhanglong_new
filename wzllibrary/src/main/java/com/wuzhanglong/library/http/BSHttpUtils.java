@@ -10,6 +10,7 @@ import com.tamic.novate.callback.RxStringCallback;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.cache.ACache;
 import com.wuzhanglong.library.constant.BaseConstant;
+import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.interfaces.UpdateCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
@@ -211,6 +212,61 @@ public class BSHttpUtils {
         });
     }
 
+    public static <T> void postCallBack(final BaseActivity activity, final String url, final Map<String, Object> params, final Class<T> className, final PostCallback postCallback) {
+        final Gson gson = new Gson();
+        final String allUrl = BaseConstant.DOMAIN_NAME + url;
+
+        if (params == null || params.size() == 0) {
+            Log.i("get_url", BaseConstant.DOMAIN_NAME + url);
+        } else {
+            Log.i("get_url", BaseConstant.DOMAIN_NAME + url + BaseCommonUtils.getUrl((HashMap<String, Object>) params));
+        }
+
+        params.put("timestamp", System.currentTimeMillis() / 1000);
+        Map<String, Object> resultMap = sortMapByKey(params);
+        StringBuffer signSb = new StringBuffer();
+        for (Map.Entry<String, Object> entry : resultMap.entrySet()) {
+            signSb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+        }
+        signSb.append(BaseConstant.APP_KEY);
+        String sign = MD5.Md5(signSb.toString());
+        params.put("sign", sign);
+        new Novate.Builder(activity)
+                .baseUrl(BaseConstant.DOMAIN_NAME)
+                .addCache(false)
+                .build().rxPost(url, params, new RxStringCallback() {
+
+            @Override
+            public void onError(Object o, Throwable throwable) {
+                activity.dismissProgressDialog();
+            }
+
+            @Override
+            public void onCancel(Object o, Throwable throwable) {
+                activity.dismissProgressDialog();
+
+            }
+
+            @Override
+            public void onNext(Object o, String s) {
+                activity.dismissProgressDialog();
+                BaseVO baseVO = (BaseVO) gson.fromJson(s, className);
+                if ("200".equals(baseVO.getCode())) {
+                    postCallback.success(baseVO);
+                } else if ("201".equals(baseVO.getCode())) {
+                    activity.showCustomToast(baseVO.getDesc());
+                    postCallback.success(baseVO);
+                } else if ("202".equals(baseVO.getCode())) {
+                    postCallback.success(baseVO);
+                } else if ("400".equals(baseVO.getCode())) {
+                    activity.showFailToast(baseVO.getDesc());
+                } else if ("600".equals(baseVO.getCode())) {
+                } else if ("300".equals(baseVO.getCode())) {
+                    activity.showFailToast(baseVO.getDesc());
+                }
+            }
+        });
+    }
 
     public static Map<String, Object> sortMapByKey(Map<String, Object> map) {
         if (map == null || map.isEmpty()) {
