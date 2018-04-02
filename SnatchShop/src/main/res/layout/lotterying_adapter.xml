@@ -8,11 +8,11 @@
 
 
     <LinearLayout
+        style="@style/padding_15_10"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="@color/C1"
-        style="@style/padding_15_10"
+        android:orientation="vertical"
         >
 
         <ImageView
@@ -20,7 +20,7 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_gravity="center"
-            android:background="@color/colorAccent"/>
+            />
 
         <TextView
             android:id="@+id/name_tv"
@@ -29,45 +29,48 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:ellipsize="end"
-            android:lines="1"
-            android:maxLines="1"
+            android:lines="2"
+            android:maxLines="2"
             android:text="强暴进度"
             android:textSize="13sp"
-            android:layout_gravity="center"/>
+            />
+
         <TextView
             android:id="@+id/number_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:layout_gravity="center"
-            android:text="七号:"/>
+            android:layout_marginTop="5dp"
+            android:text="七号:"
+            android:textSize="11sp"
+            android:textColor="@color/C5"/>
 
         <TextView
             android:id="@+id/lottery_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:layout_gravity="center"
             android:drawableLeft="@drawable/my_go"
             android:drawablePadding="8dp"
-            android:text="即将揭晓"/>
+            android:text="即将揭晓"
+            android:textSize="11sp"
+            android:textColor="@color/colorAccent"/>
+
         <cn.iwgang.countdownview.CountdownView
             android:id="@+id/countdown_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
             app:isHideTimeBackground="true"
             app:isShowDay="false"
             app:isShowHour="true"
+            app:isShowMillisecond="true"
             app:isShowMinute="true"
             app:isShowSecond="true"
-            app:isShowMillisecond="true"
-            app:timeTextColor="@color/colorAccent"
-            app:timeTextSize="20sp"
             app:isTimeTextBold="true"
             app:suffixGravity="bottom"
             app:suffixTextColor="@color/colorAccent"
             app:suffixTextSize="12sp"
+            app:timeTextColor="@color/colorAccent"
+            app:timeTextSize="20sp"
 
             />
     </LinearLayout>

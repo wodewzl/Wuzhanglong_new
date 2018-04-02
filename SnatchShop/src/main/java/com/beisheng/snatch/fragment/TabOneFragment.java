@@ -4,6 +4,7 @@ package com.beisheng.snatch.fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
@@ -17,9 +18,9 @@ import android.widget.TextView;
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.activity.DailyTaskActivity;
 import com.beisheng.snatch.activity.KeywordActivity;
-import com.beisheng.snatch.activity.PersonalCenterActivity;
 import com.beisheng.snatch.activity.ShopCategoryActivity;
 import com.beisheng.snatch.activity.ShopChoseActivity;
+import com.beisheng.snatch.activity.SignActivity;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.HomeVO;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
@@ -61,7 +62,8 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     private Banner mBanner;
     private ImageView mOneImg, mOrderImg, mSearchImg;
     private String mStatus = "4";//4为升序5为降序
-    private TextView mMenu01Tv,mMenu02Tv,mMenu03Tv,mMenu04Tv;
+    private TextView mMenu01Tv, mMenu02Tv, mMenu03Tv, mMenu04Tv;
+    private FloatingActionButton mFab;
 
     @Override
     public void setContentView() {
@@ -80,11 +82,14 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mViewPager = getViewById(R.id.view_pager);
         mOrderImg = getViewById(R.id.order_img);
         mSearchImg = getViewById(R.id.search_img);
-        mMenu01Tv=getViewById(R.id.menu_01_tv);
-        mMenu02Tv=getViewById(R.id.menu_02_tv);
-        mMenu03Tv=getViewById(R.id.menu_03_tv);
-        mMenu04Tv=getViewById(R.id.menu_04_tv);
+        mMenu01Tv = getViewById(R.id.menu_01_tv);
+        mMenu02Tv = getViewById(R.id.menu_02_tv);
+        mMenu03Tv = getViewById(R.id.menu_03_tv);
+        mMenu04Tv = getViewById(R.id.menu_04_tv);
+        mFab = getViewById(R.id.fab);
         initMagicIndicator();
+
+
     }
 
     @Override
@@ -95,7 +100,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mMenu02Tv.setOnClickListener(this);
         mMenu03Tv.setOnClickListener(this);
         mMenu04Tv.setOnClickListener(this);
-
+        mFab.setOnClickListener(this);
     }
 
     private void initMagicIndicator() {
@@ -115,9 +120,9 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
                 simplePagerTitleView.setText(mTitleDataList[index]);
                 simplePagerTitleView.setWidth((WidthHigthUtil.getScreenWidth(mActivity) - 100) / 4);
                 simplePagerTitleView.setTextSize(14);
-                simplePagerTitleView.setNormalColor(ContextCompat.getColor(mActivity,R.color.C5));
+                simplePagerTitleView.setNormalColor(ContextCompat.getColor(mActivity, R.color.C5));
 
-                simplePagerTitleView.setSelectedColor(ContextCompat.getColor(mActivity,R.color.colorAccent));
+                simplePagerTitleView.setSelectedColor(ContextCompat.getColor(mActivity, R.color.colorAccent));
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -134,7 +139,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
                 indicator.setEndInterpolator(new DecelerateInterpolator(1.6f));
 //                indicator.setYOffset(UIUtil.dip2px(context, 39));
                 indicator.setLineHeight(UIUtil.dip2px(context, 2));
-                indicator.setColors(ContextCompat.getColor(mActivity,R.color.colorAccent));
+                indicator.setColors(ContextCompat.getColor(mActivity, R.color.colorAccent));
 //                LinePagerIndicator indicator = new LinePagerIndicator(context);
 //                indicator.setColors(Color.parseColor("#40c4ff"));
                 return indicator;
@@ -149,6 +154,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
                 } else {
                     return 1.0f;
                 }
+
             }
         });
 
@@ -202,7 +208,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void hasData(BaseVO vo) {
-        HomeVO homeVO = (HomeVO) vo;
+        final HomeVO homeVO = (HomeVO) vo;
         mBanner.setImages(homeVO.getData().getMulti_adv());
         mBanner.setImageLoader(new ImageLoader() {
             @Override
@@ -216,7 +222,13 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
             @Override
             public void OnBannerClick(int position) {
+                Bundle bundle= new Bundle();
 
+                if("1".equals(homeVO.getData().getMulti_adv().get(position).getJump_type())){
+                    bundle.putString("keyword",homeVO.getData().getMulti_adv().get(position).getAdv_url());
+                }else {
+                    bundle.putString("url",homeVO.getData().getMulti_adv().get(position).getAdv_url());
+                }
             }
         });
         mBanner.start();
@@ -281,10 +293,11 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
             case R.id.menu_04_tv:
                 mActivity.openActivity(ShopCategoryActivity.class);
                 break;
+            case R.id.fab:
+                mActivity.openActivity(SignActivity.class);
+                break;
             default:
                 break;
         }
     }
-
-
 }

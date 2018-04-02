@@ -4,9 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 
 import com.beisheng.snatch.R;
-import com.beisheng.snatch.model.HomeVO;
 import com.beisheng.snatch.model.LotteryingVO;
-import com.beisheng.snatch.model.ShopCatVO;
 import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
@@ -24,7 +22,6 @@ public class LotteryingAdapter extends RecyclerBaseAdapter {
         super(recyclerView, R.layout.lotterying_adapter);
     }
 
-
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
         LotteryingVO.DataBean.ListBean dataBean = (LotteryingVO.DataBean.ListBean) model;
@@ -33,7 +30,6 @@ public class LotteryingAdapter extends RecyclerBaseAdapter {
         helper.setText(R.id.name_tv, dataBean.getGoods_name());
         CountdownView mCvCountdownView = helper.getView(R.id.countdown_view);
         mCvCountdownView.start(BaseCommonUtils.parseLong(dataBean.getSeconds_remain())*1000); // Millisecond
-        BaseCommonUtils.setTextThree(mContext, helper.getTextView(R.id.number_tv), "期号:第", dataBean.getFront_issue_no(), "期", R.color.C7, 1.0f);
+        BaseCommonUtils.setTextThree(mContext, helper.getTextView(R.id.number_tv), "期号:第", dataBean.getFront_issue_no(), "期", R.color.C7, 1.3f);
     }
-
 }

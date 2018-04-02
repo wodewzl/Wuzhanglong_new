@@ -11,15 +11,16 @@
         android:id="@+id/login_tv"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:text="登录"
-        android:background="@drawable/frame_kongxin_white_gray"
-        android:textColor="@color/colorAccent"
         android:layout_margin="15dp"
-        android:gravity="center"/>
+        android:background="@drawable/frame_kongxin_white_gray"
+        android:gravity="center"
+        android:text="登录"
+        android:textColor="@color/colorAccent"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
->
+        >
 
         <TextView
             android:id="@+id/tvv"
@@ -31,8 +32,8 @@
             android:id="@+id/tvvv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="222222222"
-            android:layout_below="@id/tvv"/>
+            android:layout_below="@id/tvv"
+            android:text="222222222"/>
 
     </RelativeLayout>
 </LinearLayout>

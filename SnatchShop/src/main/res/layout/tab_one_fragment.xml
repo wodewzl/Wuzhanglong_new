@@ -41,6 +41,24 @@
             android:layout_centerVertical="true"/>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="120dp"
+            android:src="@drawable/ic_launcher"
+            app:backgroundTint="@color/colorAccent"
+            app:borderWidth="0.0dip"
+            app:elevation="5.0dip"
+            app:fabSize="mini"
+            app:layout_anchorGravity="right|bottom"
+            app:pressedTranslationZ="10.0dip"
+            app:rippleColor="#a6a6a6"
+            android:layout_alignParentRight="true"/>
     <com.cpoopc.scrollablelayoutlib.ScrollableLayout
         android:id="@+id/scrollable_layout"
         android:layout_width="match_parent"
@@ -74,10 +92,15 @@
                 android:src="@drawable/order_high"
                 android:layout_marginRight="10dp"/>
         </RelativeLayout>
+
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.cpoopc.scrollablelayoutlib.ScrollableLayout>
+
+    </RelativeLayout>
+
+
 
 </LinearLayout>
