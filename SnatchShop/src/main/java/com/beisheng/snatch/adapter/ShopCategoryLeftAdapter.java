@@ -22,6 +22,7 @@ public class ShopCategoryLeftAdapter extends RecyclerBaseAdapter {
 
     public interface OnLeftSelectedListener {
         void onLeftItemSelected(ShopCategoryLeftVO.DataBean.CategoryListBean leftVO);
+
         void moveToTop(View view, int position);
     }
 
@@ -37,17 +38,23 @@ public class ShopCategoryLeftAdapter extends RecyclerBaseAdapter {
         if (mSelectVO == null && position == 0) {
             mSelectVO = vo;
             vo.setSelect(true);
-            helper.setVisibility(R.id.left_view, View.VISIBLE);
-            leftMenu.setBackgroundColor(mContext.getResources().getColor(R.color.C3));
+//            helper.setVisibility(R.id.left_view, View.VISIBLE);
+//            leftMenu.setBackgroundColor(mContext.getResources().getColor(R.color.C3));
+            helper.setBackgroundRes(R.id.left_menu_textview, R.drawable.corners_30_red);
+            helper.setTextColorRes(R.id.left_menu_textview, R.color.C1);
         }
 
         if (vo.isSelect()) {
-            helper.setVisibility(R.id.left_view, View.VISIBLE);
-            helper.setBackgroundColorRes(R.id.left_menu_textview, R.color.C1);
-            helper.setTextColorRes(R.id.left_menu_textview, R.color.C4);
+//            helper.setVisibility(R.id.left_view, View.VISIBLE);
+//            helper.setBackgroundColorRes(R.id.left_menu_textview, R.color.C1);
+//            helper.setTextColorRes(R.id.left_menu_textview, R.color.C4);
+            helper.setBackgroundRes(R.id.left_menu_textview, R.drawable.corners_30_red);
+            helper.setTextColorRes(R.id.left_menu_textview, R.color.C1);
         } else {
-            helper.setVisibility(R.id.left_view, View.GONE);
-            helper.setBackgroundColorRes(R.id.left_menu_textview, R.color.C3);
+//            helper.setVisibility(R.id.left_view, View.GONE);
+//            helper.setBackgroundColorRes(R.id.left_menu_textview, R.color.C3);
+//            helper.setTextColorRes(R.id.left_menu_textview, R.color.C5);
+            helper.setBackgroundColorRes(R.id.left_menu_textview, R.color.C1);
             helper.setTextColorRes(R.id.left_menu_textview, R.color.C5);
         }
 
@@ -60,7 +67,7 @@ public class ShopCategoryLeftAdapter extends RecyclerBaseAdapter {
                 mSelectVO.setSelect(true);
                 notifyDataSetChanged();
                 listener.onLeftItemSelected(vo);
-                listener.moveToTop(view,position);
+                listener.moveToTop(view, position);
             }
         });
 

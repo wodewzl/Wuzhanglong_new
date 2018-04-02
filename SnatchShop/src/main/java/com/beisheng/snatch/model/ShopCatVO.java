@@ -10,158 +10,144 @@ import java.util.List;
 
 public class ShopCatVO extends BaseVO {
 
-    private ShopCatVO data;
-    private List<ShopCatVO> cart;
-    private List<ShopCatVO> tuijian;
 
-    private String cart_id;
-    private String goods_id;
-    private String goods_name;
-    private String sku_id;
-    private String sku_name;
-    private String num;
-    private String stock;
-    private String picture;
-    private String price;
-    private String promotion_price;
-    private String description;
-    private String pic_cover_small;
-    private String type;
-    private boolean isCheck = false;
+    /**
+     * data : {"list":[{"cart_id":"4","panic_id":"8","goods_id":"62","goods_name":"ThinkPad 联想 E570系列 15.6英寸大屏游戏商务办公手提商用笔记本电脑","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/5bd7f37bda4b7b02f411b99ebf8dac692.jpg","category_id":"3","num":"1","max_count":"5000","is_valid":"1"},{"cart_id":"3","panic_id":"15","goods_id":"57","goods_name":"14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1","goods_image":"http://qmfq.baonongkang.cn/upload/goods/14993421511182.jpg","category_id":"3","num":"1","max_count":"5439","is_valid":"1"},{"cart_id":"5","panic_id":"2","goods_id":"57","goods_name":"14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1","goods_image":"http://qmfq.baonongkang.cn/upload/goods/14993421511182.jpg","category_id":"3","num":"0","max_count":"0","is_valid":"0"}]}
+     */
 
-    public boolean isCheck() {
-        return isCheck;
-    }
+    private DataBean data;
 
-    public void setCheck(boolean check) {
-        isCheck = check;
-    }
-
-    public ShopCatVO getData() {
+    public DataBean getData() {
         return data;
     }
 
-    public void setData(ShopCatVO data) {
+    public void setData(DataBean data) {
         this.data = data;
     }
 
-    public List<ShopCatVO> getCart() {
-        return cart;
-    }
+    public static class DataBean {
+        private List<ListBean> list;
 
-    public void setCart(List<ShopCatVO> cart) {
-        this.cart = cart;
-    }
+        public List<ListBean> getList() {
+            return list;
+        }
 
-    public List<ShopCatVO> getTuijian() {
-        return tuijian;
-    }
+        public void setList(List<ListBean> list) {
+            this.list = list;
+        }
 
-    public void setTuijian(List<ShopCatVO> tuijian) {
-        this.tuijian = tuijian;
-    }
+        public static class ListBean {
+            /**
+             * cart_id : 4
+             * panic_id : 8
+             * goods_id : 62
+             * goods_name : ThinkPad 联想 E570系列 15.6英寸大屏游戏商务办公手提商用笔记本电脑
+             * goods_image : http://qmfq.baonongkang.cn/upload/goods/20180315/5bd7f37bda4b7b02f411b99ebf8dac692.jpg
+             * category_id : 3
+             * num : 1
+             * max_count : 5000
+             * is_valid : 1
+             */
 
-    public String getCart_id() {
-        return cart_id;
-    }
+            private String cart_id;
+            private String panic_id;
+            private String goods_id;
+            private String goods_name;
+            private String goods_image;
+            private String category_id;
+            private String num;
+            private String max_count;
+            private String is_valid;
+            private String validedCount;
+            private boolean longClick;
 
-    public void setCart_id(String cart_id) {
-        this.cart_id = cart_id;
-    }
+            public boolean isLongClick() {
+                return longClick;
+            }
 
-    public String getGoods_id() {
-        return goods_id;
-    }
+            public void setLongClick(boolean longClick) {
+                this.longClick = longClick;
+            }
 
-    public void setGoods_id(String goods_id) {
-        this.goods_id = goods_id;
-    }
+            public String getValidedCount() {
+                return validedCount;
+            }
 
-    public String getGoods_name() {
-        return goods_name;
-    }
+            public void setValidedCount(String validedCount) {
+                this.validedCount = validedCount;
+            }
 
-    public void setGoods_name(String goods_name) {
-        this.goods_name = goods_name;
-    }
+            public String getCart_id() {
+                return cart_id;
+            }
 
-    public String getSku_id() {
-        return sku_id;
-    }
+            public void setCart_id(String cart_id) {
+                this.cart_id = cart_id;
+            }
 
-    public void setSku_id(String sku_id) {
-        this.sku_id = sku_id;
-    }
+            public String getPanic_id() {
+                return panic_id;
+            }
 
-    public String getSku_name() {
-        return sku_name;
-    }
+            public void setPanic_id(String panic_id) {
+                this.panic_id = panic_id;
+            }
 
-    public void setSku_name(String sku_name) {
-        this.sku_name = sku_name;
-    }
+            public String getGoods_id() {
+                return goods_id;
+            }
 
-    public String getNum() {
-        return num;
-    }
+            public void setGoods_id(String goods_id) {
+                this.goods_id = goods_id;
+            }
 
-    public void setNum(String num) {
-        this.num = num;
-    }
+            public String getGoods_name() {
+                return goods_name;
+            }
 
-    public String getStock() {
-        return stock;
-    }
+            public void setGoods_name(String goods_name) {
+                this.goods_name = goods_name;
+            }
 
-    public void setStock(String stock) {
-        this.stock = stock;
-    }
+            public String getGoods_image() {
+                return goods_image;
+            }
 
-    public String getPicture() {
-        return picture;
-    }
+            public void setGoods_image(String goods_image) {
+                this.goods_image = goods_image;
+            }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
+            public String getCategory_id() {
+                return category_id;
+            }
 
-    public String getPrice() {
-        return price;
-    }
+            public void setCategory_id(String category_id) {
+                this.category_id = category_id;
+            }
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
+            public String getNum() {
+                return num;
+            }
 
-    public String getPromotion_price() {
-        return promotion_price;
-    }
+            public void setNum(String num) {
+                this.num = num;
+            }
 
-    public void setPromotion_price(String promotion_price) {
-        this.promotion_price = promotion_price;
-    }
+            public String getMax_count() {
+                return max_count;
+            }
 
-    public String getDescription() {
-        return description;
-    }
+            public void setMax_count(String max_count) {
+                this.max_count = max_count;
+            }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+            public String getIs_valid() {
+                return is_valid;
+            }
 
-    public String getPic_cover_small() {
-        return pic_cover_small;
-    }
-
-    public void setPic_cover_small(String pic_cover_small) {
-        this.pic_cover_small = pic_cover_small;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+            public void setIs_valid(String is_valid) {
+                this.is_valid = is_valid;
+            }
+        }
     }
 }

@@ -36,17 +36,17 @@ public class HomeActivity extends HomeFragmentActivity {
 
         mBottomNavigationBar
                 .setActiveColor(R.color.C1)
-                .setInActiveColor(R.color.colorAccent)
+                .setInActiveColor(R.color.C5)
                 .setBarBackgroundColor(R.color.colorAccent);
 //                .setActiveColor(R.color.XJColor2)
 //                .setInActiveColor(R.color.XJColor8)
 //                .setBarBackgroundColor(R.color.C1);
 
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.home_1, "首页"))
-                .addItem(new BottomNavigationItem(R.drawable.home_4, "最新"))
+                .addItem(new BottomNavigationItem(R.drawable.home_2, "最新"))
                 .addItem(new BottomNavigationItem(R.drawable.home_3, "发现"))
-                .addItem(new BottomNavigationItem(R.drawable.home_3, "清单"))
-                .addItem(new BottomNavigationItem(R.drawable.home_3, "个人"))
+                .addItem(new BottomNavigationItem(R.drawable.home_4, "清单"))
+                .addItem(new BottomNavigationItem(R.drawable.home_5, "个人"))
 //                .setFirstSelectedPosition(0)
                 .initialise();
 //        mBottomNavigationBar.selectTab(0);

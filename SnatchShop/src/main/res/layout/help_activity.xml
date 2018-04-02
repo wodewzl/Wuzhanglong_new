@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wuzhanglong.library.view.ReboundScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/C3"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/C3"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/C1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/padding_15_13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/C1"
+                android:drawableLeft="@drawable/my_go"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/my_go"
+                android:gravity="center_vertical"
+                android:text="一键加群" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:layout_marginLeft="21dp"
+                android:background="@color/C3_1" />
+
+            <TextView
+                style="@style/padding_15_13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/C1"
+                android:drawableLeft="@drawable/my_go"
+                android:drawablePadding="8dp"
+                android:drawableRight="@drawable/my_go"
+                android:gravity="center_vertical"
+                android:text="疯抢客服" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:layout_marginLeft="21dp"
+                android:background="@color/C3_1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingRight="15dp">
+
+                <TextView
+                    style="@style/padding_15_13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/C1"
+                    android:drawableLeft="@drawable/my_go"
+                    android:drawablePadding="8dp"
+                    android:gravity="center_vertical"
+                    android:text="客服热线" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="18602727134" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</com.wuzhanglong.library.view.ReboundScrollView>

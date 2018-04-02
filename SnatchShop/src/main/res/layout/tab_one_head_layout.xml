@@ -43,7 +43,7 @@
         android:paddingBottom="10dp">
 
         <TextView
-            android:id="@+id/type_01_tv"
+            android:id="@+id/menu_01_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -52,10 +52,10 @@
             android:drawablePadding="5dp"
             android:drawableTop="@drawable/tab_one_menu_1"
             android:gravity="center"
-            android:text="手机充值"/>
+            android:text="商品分类"/>
 
         <TextView
-            android:id="@+id/type_02_tv"
+            android:id="@+id/menu_02_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -64,10 +64,10 @@
             android:drawablePadding="5dp"
             android:drawableTop="@drawable/tab_one_menu_1"
             android:gravity="center"
-            android:text="缴纳电费"/>
+            android:text="优选商品"/>
 
         <TextView
-            android:id="@+id/type_03_tv"
+            android:id="@+id/menu_03_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -76,10 +76,10 @@
             android:drawablePadding="5dp"
             android:drawableTop="@drawable/tab_one_menu_1"
             android:gravity="center"
-            android:text="缴纳网费"/>
+            android:text="每日任务"/>
 
         <TextView
-            android:id="@+id/type_04_tv"
+            android:id="@+id/menu_04_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -88,7 +88,7 @@
             android:drawablePadding="5dp"
             android:drawableTop="@drawable/tab_one_menu_1"
             android:gravity="center"
-            android:text="菲度锦囊"/>
+            android:text="邀一得二"/>
     </LinearLayout>
 
     <LinearLayout
@@ -104,7 +104,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/one_order_04"
+            android:src="@drawable/notify_img"
             />
 
         <com.vondear.rxtools.view.RxTextviewVertical

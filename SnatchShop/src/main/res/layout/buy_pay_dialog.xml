@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/C3"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/padding_15_13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/C1"
+        android:drawableLeft="@drawable/my_go"
+        android:drawablePadding="8dp"
+
+        android:text="选择支付方式" />
+
+    <LinearLayout
+        android:id="@+id/pay_layout_01"
+        style="@style/padding_15_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/C1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:src="@drawable/zhifubao" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:text="支付宝支付"
+            android:textSize="13sp" />
+
+        <com.rey.material.widget.CheckBox
+            android:id="@+id/pay_cb_1"
+            style="@style/SnatchShopCheckBox2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/pay_layout_02"
+        style="@style/padding_15_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_1"
+        android:background="@color/C1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:src="@drawable/weixin" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:text="微信支付"
+            android:textSize="13sp" />
+
+        <com.rey.material.widget.CheckBox
+            android:id="@+id/pay_cb_2"
+            style="@style/SnatchShopCheckBox2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/pay_layout_03"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_1"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="30dp"
+        android:background="@color/C1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="visible"
+>
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:src="@drawable/weixin" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:text="第四方支付"
+            android:textSize="13sp" />
+
+        <com.rey.material.widget.CheckBox
+            android:id="@+id/pay_cb_3"
+            style="@style/SnatchShopCheckBox2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+    </LinearLayout>
+</LinearLayout>

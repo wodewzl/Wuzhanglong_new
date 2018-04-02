@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/C3"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/C1"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="抢购有风险，参与需谨慎！"
+        />
+
+    <TextView
+        style="@style/padding_15_13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/C1"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="您抢购了200次"
+        android:textColor="@color/C5" />
+
+    <LinearLayout
+        style="@style/padding_15_13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/C1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支付方式"
+            android:textColor="@color/C5" />
+
+        <TextView
+            android:id="@+id/pay_type_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawablePadding="8dp"
+            android:drawableRight="@drawable/my_go"
+            android:gravity="right"
+
+            android:text="支付方式" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/padding_15_13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/C1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="红包"
+            android:textColor="@color/C5" />
+
+        <TextView
+            android:id="@+id/red_money_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="8dp"
+            android:drawableRight="@drawable/my_go"
+            android:gravity="right"
+            android:text="2个红包可用"
+            android:textColor="@color/colorAccent" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/padding_15_13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/C1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/corners_5_red"
+            android:gravity="center"
+            android:text="立即抢购"
+            android:textColor="@color/C1" />
+
+        <TextView
+            style="@style/padding_15_13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/C1"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="(如果本期次数被抢光，参与次数自动返还账户)"
+            android:textColor="@color/colorAccent" />
+    </LinearLayout>
+</LinearLayout>

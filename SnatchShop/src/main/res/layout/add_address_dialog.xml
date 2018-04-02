@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/C1"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/C1"
+        android:drawableLeft="@drawable/my_go"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:text="新建地址"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"/>
+
+    <View style="@style/view_divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_marginTop="10dp">
+
+        <EditText
+            android:id="@+id/name_et"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@drawable/frame_kongxin_white_gray"
+            android:hint="收货人姓名（请使用真实姓名）"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/frame_kongxin_white_gray"
+            android:hint="手机号"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp" />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/frame_kongxin_white_gray"
+            android:hint="所在区域"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/frame_kongxin_white_gray"
+            android:hint="街道、小区门牌等详细地址"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp" />
+
+        <com.rey.material.widget.CheckBox
+            android:id="@+id/check_box"
+            style="@style/SnatchShopCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="设为默认地址"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text="保存"
+        android:background="@color/colorAccent"
+        android:textColor="@color/C1"
+        />
+</LinearLayout>

@@ -36,7 +36,7 @@ public class TestActivity extends BaseActivity {
     public void showPayDialog() {
         mDialog = new BottomSheetDialog(mActivity);
 //        View dialogView = View.inflate(mActivity, R.layout.login_layout, null);
-        View dialogView = View.inflate(mActivity, R.layout.login_regist, null);
+        View dialogView = View.inflate(mActivity, R.layout.quick_buy, null);
         mDialog.contentView(dialogView)
                 .heightParam(ViewGroup.LayoutParams.WRAP_CONTENT)
                 .inDuration(500)

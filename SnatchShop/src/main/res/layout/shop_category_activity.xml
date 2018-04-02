@@ -25,8 +25,12 @@
                 android:id="@+id/left_recyclerview"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@color/C3">
+                    android:background="@color/C1">
             </android.support.v7.widget.RecyclerView>
+            <View
+                android:layout_width="0.8sp"
+                android:layout_height="match_parent"
+                android:background="@color/C3"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,6 +50,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="最热"
+                        android:textSize="14sp"
                         android:textColor="@color/colorAccent"/>
 
                     <TextView
@@ -55,6 +60,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="最新"
+                        android:textSize="14sp"
                         android:textColor="@color/C5"/>
 
                     <TextView
@@ -64,6 +70,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="最快"
+                        android:textSize="14sp"
                         android:textColor="@color/C5"/>
 
                     <TextView
@@ -73,6 +80,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="价值"
+                        android:textSize="14sp"
                         android:textColor="@color/C5"/>
                 </LinearLayout>
 

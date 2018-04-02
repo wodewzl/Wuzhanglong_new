@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/left_menu_item"
-              style="@style/padding_15_10"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@color/C1"
-              android:clickable="true"
-              android:orientation="horizontal">
+    android:id="@+id/left_menu_item"
+    style="@style/padding_15_10"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/C1"
+    android:clickable="true"
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/shop_img"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:background="@color/C1"
-        />
+        android:background="@color/C1" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +27,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="菜单"/>
+            android:text="菜单" />
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -37,15 +36,15 @@
             android:layout_height="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
-            android:layout_toLeftOf="@id/snatch_bt"
             android:progress="40"
-            android:progressDrawable="@drawable/progressbar_horizontal_white"/>
+            android:progressDrawable="@drawable/progressbar_horizontal_white" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -61,7 +60,7 @@
                     android:layout_alignParentTop="true"
                     android:text="强暴进度1"
                     android:textColor="@color/C5"
-                    android:textSize="11sp"/>
+                    android:textSize="11sp" />
 
                 <TextView
                     android:id="@+id/remain_count_tv"
@@ -70,17 +69,21 @@
                     android:layout_below="@id/total_count_tv"
                     android:text="强暴进度2"
                     android:textColor="@color/C5"
-                    android:textSize="11sp"/>
+                    android:textSize="11sp" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/snatch_bt"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@color/colorAccent"
-                android:textSize="11sp"/>
+            <TextView
+                android:id="@+id/snatch_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="6dp"
+                android:paddingLeft="6dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:background="@drawable/frame_kongxin_white_red"
+                android:text="立即抢购"
+                android:textColor="@color/colorAccent"
+                android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

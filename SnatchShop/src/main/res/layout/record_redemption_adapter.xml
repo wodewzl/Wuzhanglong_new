@@ -101,7 +101,6 @@
                     android:layout_height="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
-                    android:layout_toLeftOf="@id/snatch_bt"
                     android:progress="40"
                     android:progressDrawable="@drawable/progressbar_horizontal_white" />
 

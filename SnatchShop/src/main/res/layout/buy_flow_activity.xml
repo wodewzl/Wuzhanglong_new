@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wuzhanglong.library.view.ReboundScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/C3"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:background="@color/colorAccent" />
+
+        <TextView
+            style="@style/padding_15_13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/C1"
+            android:text="选择购买:20M流量" />
+
+        <TextView
+            style="@style/padding_15_13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:text="选择购买:20M流量" />
+
+        <com.github.jdsjlzx.recyclerview.LuRecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1" />
+
+        <include layout="@layout/pay_type_view" />
+
+        <TextView
+            android:id="@+id/ok_tv"
+            android:layout_width="140dp"
+            android:layout_height="35dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="50dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="立即支付"
+            android:textColor="@color/C1"
+            android:textSize="15sp" />
+    </LinearLayout>
+</com.wuzhanglong.library.view.ReboundScrollView>

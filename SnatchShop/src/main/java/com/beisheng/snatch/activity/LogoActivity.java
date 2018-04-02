@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.application.AppApplication;
+import com.beisheng.snatch.fragment.TabFiveFragment;
 import com.beisheng.snatch.fragment.TabFourFragment;
 import com.beisheng.snatch.fragment.TabOneFragment;
 import com.beisheng.snatch.fragment.TabThreeFragment;
@@ -27,6 +28,7 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
     private static final int REQUEST_PERMISSIONS = 1;
     public List<BaseFragment> list = new ArrayList<>();
     private boolean mFlag = false;
+
     @Override
     public void initLogo() {
         EventBus.getDefault().register(this);
@@ -37,11 +39,12 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
         TabTwoFragment two = new TabTwoFragment();
         TabThreeFragment three = new TabThreeFragment();
         TabFourFragment four = new TabFourFragment();
+        TabFiveFragment five = new TabFiveFragment();
         list.add(one);
         list.add(two);
         list.add(three);
         list.add(four);
-        list.add(one);
+        list.add(five);
     }
 
 
@@ -84,12 +87,24 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
         if (EasyPermissions.hasPermissions(this, perms)) {
             Intent intent = new Intent();
             intent.putExtra("fragment_list", (Serializable) list);
-//            intent.setClass(this, HomeActivity.class);
-            intent.setClass(this, TestActivity.class);
+            intent.setClass(this, HomeActivity.class);
+//            intent.setClass(this, TestActivity.class);
 //            intent.setClass(this, ShopCategoryActivity.class);
 //            intent.setClass(this, PersonalCenterActivity.class);
 //            intent.setClass(this, DailyTaskDetailActivity.class);
 //            intent.setClass(this, ShowDetailActivity.class);
+//            intent.setClass(this, NumberTrendActivity.class);
+//            intent.setClass(this, KeywordActivity.class);
+//            intent.setClass(this, RechargeRecordActivity.class);
+//            intent.setClass(this, BuyFlowActivity.class);
+//            intent.setClass(this, HelpActivity.class);
+//            intent.setClass(this, SettingActivity.class);
+//            intent.setClass(this, MyMessageActivity.class);
+//            intent.setClass(this, MyFlowActivity.class);
+//            intent.setClass(this, MyRedMoneyActivity.class);
+//            intent.setClass(this, MyScortActivity.class);
+//            intent.setClass(this, NameConfirmActivity.class);
+//            intent.setClass(this, SignActivity.class);
 
 //            if (AppApplication.getInstance().getUserInfoVO() != null) {
 //                intent.putExtra("fragment_list", (Serializable) list);
@@ -97,7 +112,6 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
 //            } else {
 ////                intent.setClass(this, LoginActivity.class);
 //            }
-
             startActivity(intent);
             this.finish();
         } else {

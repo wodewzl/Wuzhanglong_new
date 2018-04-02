@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wuzhanglong.library.view.ReboundScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/C3"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/padding_15_13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/C1"
+            android:drawableLeft="@drawable/my_go"
+            android:drawablePadding="8dp"
+            android:drawableRight="@drawable/my_go"
+            android:gravity="center_vertical"
+            android:text="实名认证" />
+
+        <TextView
+            style="@style/padding_15_13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:drawableLeft="@drawable/my_go"
+            android:drawablePadding="8dp"
+            android:drawableRight="@drawable/my_go"
+            android:gravity="center_vertical"
+            android:text="关于我们" />
+
+        <TextView
+            style="@style/padding_15_13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:drawableLeft="@drawable/my_go"
+            android:drawablePadding="8dp"
+            android:drawableRight="@drawable/my_go"
+            android:gravity="center_vertical"
+            android:text="联系我们" />
+
+        <TextView
+            style="@style/padding_15_13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:drawableLeft="@drawable/my_go"
+            android:drawablePadding="8dp"
+            android:drawableRight="@drawable/my_go"
+            android:gravity="center_vertical"
+            android:text="服务协议" />
+
+        <TextView
+            style="@style/padding_15_13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:drawableLeft="@drawable/my_go"
+            android:drawablePadding="8dp"
+            android:drawableRight="@drawable/my_go"
+            android:gravity="center_vertical"
+            android:text="隐私协议" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/C1"
+            android:orientation="horizontal"
+            android:paddingRight="15dp">
+
+            <TextView
+                style="@style/padding_15_13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/C1"
+                android:drawableLeft="@drawable/my_go"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:text="版本检测" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18602727134" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/padding_15_13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:drawableLeft="@drawable/my_go"
+            android:drawablePadding="8dp"
+            android:drawableRight="@drawable/my_go"
+            android:gravity="center_vertical"
+            android:text="清除缓存" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="15dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="@color/C1" />
+
+    </LinearLayout>
+
+</com.wuzhanglong.library.view.ReboundScrollView>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/C1"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/C1"
+        android:drawableLeft="@drawable/my_go"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="收货地址" />
+
+    <View style="@style/view_divider" />
+
+    <com.github.jdsjlzx.recyclerview.LuRecyclerView
+        android:id="@+id/dialog_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="170dp" />
+
+    <TextView
+        android:id="@+id/add_address_tv"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/C1"
+        android:drawablePadding="8dp"
+        android:drawableRight="@drawable/my_go"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="新建地址"
+        android:onClick="onAddressClick"/>
+</LinearLayout>

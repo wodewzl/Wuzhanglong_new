@@ -16,7 +16,7 @@
         >
 
         <ImageView
-            android:id="@+id/img"
+            android:id="@+id/shop_img"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_gravity="center"
@@ -34,18 +34,25 @@
             android:text="强暴进度"
             android:textSize="13sp"
             android:layout_gravity="center"/>
-
         <TextView
-            android:id="@+id/price_tv"
+            android:id="@+id/number_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorAccent"
             android:layout_gravity="center"
-            android:textSize="16sp"
-            android:ellipsize="end"
-            android:lines="1"
-            android:maxLines="1"/>
+            android:text="七号:"/>
+
+        <TextView
+            android:id="@+id/lottery_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/my_go"
+            android:drawablePadding="8dp"
+            android:text="即将揭晓"/>
         <cn.iwgang.countdownview.CountdownView
+            android:id="@+id/countdown_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -56,7 +63,7 @@
             app:isShowSecond="true"
             app:isShowMillisecond="true"
             app:timeTextColor="@color/colorAccent"
-            app:timeTextSize="22sp"
+            app:timeTextSize="20sp"
             app:isTimeTextBold="true"
             app:suffixGravity="bottom"
             app:suffixTextColor="@color/colorAccent"

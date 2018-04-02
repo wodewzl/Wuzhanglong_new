@@ -15,6 +15,7 @@ import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
+import com.rey.material.app.BottomSheetDialog;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.constant.BaseConstant;
@@ -35,6 +36,7 @@ public class ShowDetailActivity extends BaseActivity  implements BGANinePhotoLay
     private LuRecyclerView mRecyclerView;
     private ShowDetailAdapter mAdapter;
     private ScrollableLayout mScrollableLayout;
+    private BottomSheetDialog mDialog;
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.show_detail_activity);

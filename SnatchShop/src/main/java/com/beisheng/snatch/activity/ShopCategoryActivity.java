@@ -75,8 +75,8 @@ public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLe
         mLeftRecyclerView = getViewById(R.id.left_recyclerview);
         mLeftLayoutManger = new LinearLayoutManager(mActivity);
         mLeftRecyclerView.setLayoutManager(mLeftLayoutManger);
-        DividerDecoration divider = DividerUtil.linnerDivider(mActivity, R.dimen.dp_1, R.color.C3);
-        mLeftRecyclerView.addItemDecoration(divider);
+//        DividerDecoration divider = DividerUtil.linnerDivider(mActivity, R.dimen.dp_1, R.color.C3);
+//        mLeftRecyclerView.addItemDecoration(divider);
         mLeftAdapter = new ShopCategoryLeftAdapter(mLeftRecyclerView);
         mLeftRecyclerView.setAdapter(mLeftAdapter);
 

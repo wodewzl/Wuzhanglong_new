@@ -8,10 +8,131 @@
     android:background="@color/C3"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:id="@+id/head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/back_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/base_ic_head_back"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textColor="@color/C1"
+            android:textSize="18dp" />
+
+        <ImageView
+            android:id="@+id/home_img"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="15dp"
+            android:src="@drawable/ic_share"
+            android:layout_alignParentRight="true"/>
+
+        <ImageView
+            android:id="@+id/share_img"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="15dp"
+            android:src="@drawable/ic_share"
+            android:layout_toLeftOf="@id/home_img"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/head_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="鲸喜购详情"
+                android:textColor="@color/C1"
+                android:textSize="@dimen/sp_16" />
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/C3" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:background="@color/C1"
+                android:src="@drawable/my_go" />
+
+            <ImageView
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:background="@color/C1"
+                android:src="@drawable/my_go" />
+
+            <TextView
+                android:id="@+id/jion_cart_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@color/color_yellow"
+                android:gravity="center"
+                android:text="加入购物车"
+                android:textColor="@color/C1" />
+
+            <TextView
+                android:id="@+id/quick_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:text="立即抢购"
+                android:textColor="@color/C1" />
+
+        </LinearLayout>
+    </LinearLayout>
+
     <com.cpoopc.scrollablelayoutlib.ScrollableLayout
         android:id="@+id/scrollable_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/bottom_layout"
+        android:layout_below="@id/head_layout"
+        android:layout_weight="1"
+        android:background="@color/C3"
         android:orientation="vertical">
 
         <LinearLayout
@@ -22,9 +143,8 @@
             <ImageView
                 android:id="@+id/detail_img"
                 android:layout_width="match_parent"
-                android:layout_height="256dp"
-                android:background="@color/C1"
-                 />
+                android:layout_height="180dp"
+                android:background="@color/C1" />
 
             <View style="@style/view_divider" />
 
@@ -54,8 +174,7 @@
 
                 <include
                     android:id="@+id/layout_type1"
-                    layout="@layout/shop_detail_type1"
-                  />
+                    layout="@layout/shop_detail_type1" />
 
                 <include
                     android:id="@+id/layout_type2"
@@ -69,6 +188,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/number_trend_layout"
                 style="@style/padding_15_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,20 +217,23 @@
                     android:textColor="@color/colorAccent"
                     android:textSize="11sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
                 android:background="@color/C1"
-                android:orientation="vertical"
-                android:layout_marginTop="1dp">
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/lineChart"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_centerInParent="true"
-                style="@style/margin_15_10"
-                android:background="@color/C1"/>
+                android:orientation="vertical">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChart"
+                    style="@style/margin_15_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_centerInParent="true"
+                    android:background="@color/C1" />
             </LinearLayout>
+
             <LinearLayout
                 style="@style/padding_15_10"
                 android:layout_width="match_parent"
@@ -285,6 +408,7 @@
                 style="@style/padding_15_13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="1dp"
                 android:background="@color/C1"
                 android:drawablePadding="5dp"
@@ -297,7 +421,6 @@
             style="@style/padding_15_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:background="@color/C1"
             android:orientation="horizontal">
 
@@ -318,118 +441,10 @@
         <com.github.jdsjlzx.recyclerview.LuRecyclerView
             android:id="@id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1" />
     </com.cpoopc.scrollablelayoutlib.ScrollableLayout>
 
-    <LinearLayout
-        android:id="@+id/head_layout"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#30000000"
-            android:orientation="horizontal"
-            android:paddingTop="25dp">
-
-            <TextView
-                android:id="@+id/back_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:drawableLeft="@drawable/base_ic_head_back"
-                android:drawablePadding="5dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:textColor="@color/C1"
-                android:textSize="18dp" />
-
-            <TextView
-                android:id="@+id/head_tv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="鲸喜购详情"
-                android:textColor="@color/C1"
-                android:textSize="@dimen/sp_16" />
-
-            <ImageView
-                android:id="@+id/share_img"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:padding="15dp"
-                android:src="@drawable/ic_share" />
-
-            <ImageView
-                android:id="@+id/home_img"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:padding="15dp"
-                android:src="@drawable/ic_share" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/bottom_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/C3" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:background="@color/C1"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="44dp"
-                android:layout_height="wrap_content"
-                android:background="@color/C1"
-                android:src="@drawable/my_go" />
-
-            <ImageView
-                android:layout_width="44dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="1dp"
-                android:background="@color/C1"
-                android:src="@drawable/my_go" />
-
-            <TextView
-                android:id="@+id/jion_cart_tv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginLeft="1dp"
-                android:layout_weight="1"
-                android:background="@color/colorAccent"
-                android:gravity="center"
-                android:text="加入购物车"
-                android:textColor="@color/C1" />
-
-            <TextView
-                android:id="@+id/quick_tv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
-                android:layout_weight="1"
-                android:background="@color/colorAccent"
-                android:gravity="center"
-                android:text="立即抢购"
-                android:textColor="@color/C1" />
-
-        </LinearLayout>
-    </LinearLayout>
 </RelativeLayout>

@@ -2,11 +2,13 @@ package com.beisheng.snatch.fragment;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.beisheng.snatch.R;
+import com.beisheng.snatch.activity.ShopDetailActivity;
 import com.beisheng.snatch.adapter.HomeAdapter;
 import com.beisheng.snatch.constant.Constant;
-import com.beisheng.snatch.model.HomeChildVO;
+import com.beisheng.snatch.model.ShopVO;
 import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
@@ -15,13 +17,19 @@ import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class TabOneChildFragment extends BaseFragment implements OnLoadMoreListener, ScrollableHelper.ScrollableContainer {
+import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
+
+public class TabOneChildFragment extends BaseFragment implements OnLoadMoreListener, ScrollableHelper.ScrollableContainer, BGAOnRVItemClickListener {
     private LuRecyclerView mRecyclerView;
     private HomeAdapter mAdapter;
     private LuRecyclerViewAdapter mLuAdapter;
@@ -74,18 +82,20 @@ public class TabOneChildFragment extends BaseFragment implements OnLoadMoreListe
     @Override
     public void bindViewsListener() {
         mRecyclerView.setOnLoadMoreListener(this);
+        EventBus.getDefault().register(this);
+        mAdapter.setOnRVItemClickListener(this);
     }
 
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("order_type", this.getType());
-        BSHttpUtils.get(mActivity, this, Constant.HOME_LIST_URL, map, HomeChildVO.class);
+        BSHttpUtils.get(mActivity, this, Constant.HOME_LIST_URL, map, ShopVO.class);
     }
 
     @Override
     public void hasData(BaseVO vo) {
-        HomeChildVO homeChildVO = (HomeChildVO) vo;
+        ShopVO homeChildVO = (ShopVO) vo;
         if (BaseCommonUtils.parseInt(homeChildVO.getData().getCount()) == 1) {
             mRecyclerView.setLoadMoreEnabled(false);
         }
@@ -94,7 +104,7 @@ public class TabOneChildFragment extends BaseFragment implements OnLoadMoreListe
         } else {
             mRecyclerView.setNoMore(false);
         }
-        List<HomeChildVO.DataBean.ListBean> list = homeChildVO.getData().getList();
+        List<ShopVO.DataBean.ListBean> list = homeChildVO.getData().getList();
         if (isLoadMore) {
             mAdapter.updateDataLast(list);
             isLoadMore = false;
@@ -120,7 +130,7 @@ public class TabOneChildFragment extends BaseFragment implements OnLoadMoreListe
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        EventBus.getDefault().unregister(this);
     }
 
     public String getType() {
@@ -134,5 +144,25 @@ public class TabOneChildFragment extends BaseFragment implements OnLoadMoreListe
     @Override
     public View getScrollableView() {
         return mRecyclerView;
+    }
+
+    @Subscribe
+    public void onEventMainThread(EBMessageVO event) {
+        if ("4".equals(type) || "5".equals(type)) {
+            if ("order_low".equals(event.getMessage())) {
+                type = "5";
+                getData();
+            } else if ("order_high".equals(event.getMessage())) {
+                type = "4";
+                getData();
+            }
+        }
+    }
+
+    @Override
+    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+        if (mAdapter.getItemCount() == 0)
+            return;
+        mActivity.openActivity(ShopDetailActivity.class);
     }
 }

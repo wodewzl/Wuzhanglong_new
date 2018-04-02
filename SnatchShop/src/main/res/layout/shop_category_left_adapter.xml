@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/left_menu_item"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
+              android:layout_width="90dp"
+              android:layout_height="50dp"
               android:background="@color/C1"
               android:clickable="true"
               android:gravity="center"
+
               android:orientation="horizontal">
 
     <TextView
         android:id="@+id/left_menu_textview"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
+        android:layout_width="70dp"
+        android:layout_height="25dp"
         android:gravity="center"
         android:text="菜单"
         android:textColor="@color/C4"
-        android:textSize="13sp"/>
+        android:textSize="13sp"
+        android:layout_gravity="center"/>
     <View
         android:id="@+id/left_view"
         android:layout_width="4dp"

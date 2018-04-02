@@ -6,7 +6,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.beisheng.snatch.R;
-import com.beisheng.snatch.model.HomeChildVO;
+import com.beisheng.snatch.model.ShopVO;
 import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
@@ -25,13 +25,13 @@ public class HomeAdapter extends RecyclerBaseAdapter {
 
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
-        HomeChildVO.DataBean.ListBean bean = (HomeChildVO.DataBean.ListBean) model;
+        ShopVO.DataBean.ListBean bean = (ShopVO.DataBean.ListBean) model;
         if (!TextUtils.isEmpty(bean.getGoods_image()))
             Picasso.with(mContext).load(bean.getGoods_image()).into(helper.getImageView(R.id.img));
         helper.setText(R.id.name, bean.getGoods_name());
         ProgressBar pb = helper.getView(R.id.progress_bar);
         pb.setProgress(BaseCommonUtils.parseInt(bean.getPercent()));
         TextView tv=helper.getTextView(R.id.progress_tv);
-        BaseCommonUtils.setTextThree(mContext,tv,"剩余：","","次",R.color.colorAccent,1.3f);
+        BaseCommonUtils.setTextThree(mContext,tv,"剩余：",bean.getRemain_count(),"次",R.color.colorAccent,1.3f);
     }
 }

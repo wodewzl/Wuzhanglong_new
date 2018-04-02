@@ -6,13 +6,20 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.beisheng.snatch.R;
+import com.beisheng.snatch.activity.DailyTaskActivity;
+import com.beisheng.snatch.activity.KeywordActivity;
+import com.beisheng.snatch.activity.PersonalCenterActivity;
+import com.beisheng.snatch.activity.ShopCategoryActivity;
+import com.beisheng.snatch.activity.ShopChoseActivity;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.HomeVO;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
@@ -21,6 +28,7 @@ import com.vondear.rxtools.view.RxTextviewVertical;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wuzhanglong.library.utils.WidthHigthUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -38,6 +46,8 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -49,7 +59,9 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     private ViewPager mViewPager;
     private ArrayList<TabOneChildFragment> mFragmentList;
     private Banner mBanner;
-    private ImageView mOneImg;
+    private ImageView mOneImg, mOrderImg, mSearchImg;
+    private String mStatus = "4";//4为升序5为降序
+    private TextView mMenu01Tv,mMenu02Tv,mMenu03Tv,mMenu04Tv;
 
     @Override
     public void setContentView() {
@@ -66,11 +78,23 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mOneImg = getViewById(R.id.one_img);
         mRxText = (RxTextviewVertical) getViewById(R.id.rx_text);
         mViewPager = getViewById(R.id.view_pager);
+        mOrderImg = getViewById(R.id.order_img);
+        mSearchImg = getViewById(R.id.search_img);
+        mMenu01Tv=getViewById(R.id.menu_01_tv);
+        mMenu02Tv=getViewById(R.id.menu_02_tv);
+        mMenu03Tv=getViewById(R.id.menu_03_tv);
+        mMenu04Tv=getViewById(R.id.menu_04_tv);
         initMagicIndicator();
     }
 
     @Override
     public void bindViewsListener() {
+        mOrderImg.setOnClickListener(this);
+        mSearchImg.setOnClickListener(this);
+        mMenu01Tv.setOnClickListener(this);
+        mMenu02Tv.setOnClickListener(this);
+        mMenu03Tv.setOnClickListener(this);
+        mMenu04Tv.setOnClickListener(this);
 
     }
 
@@ -89,11 +113,11 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
             public IPagerTitleView getTitleView(Context context, final int index) {
                 SimplePagerTitleView simplePagerTitleView = new ColorTransitionPagerTitleView(context);
                 simplePagerTitleView.setText(mTitleDataList[index]);
-                simplePagerTitleView.setWidth(WidthHigthUtil.getScreenWidth(mActivity) / 4);
+                simplePagerTitleView.setWidth((WidthHigthUtil.getScreenWidth(mActivity) - 100) / 4);
                 simplePagerTitleView.setTextSize(14);
-                simplePagerTitleView.setNormalColor(Color.parseColor("#616161"));
+                simplePagerTitleView.setNormalColor(ContextCompat.getColor(mActivity,R.color.C5));
 
-                simplePagerTitleView.setSelectedColor(Color.parseColor("#f57c00"));
+                simplePagerTitleView.setSelectedColor(ContextCompat.getColor(mActivity,R.color.colorAccent));
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -110,7 +134,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
                 indicator.setEndInterpolator(new DecelerateInterpolator(1.6f));
 //                indicator.setYOffset(UIUtil.dip2px(context, 39));
                 indicator.setLineHeight(UIUtil.dip2px(context, 2));
-                indicator.setColors(Color.parseColor("#f57c00"));
+                indicator.setColors(ContextCompat.getColor(mActivity,R.color.colorAccent));
 //                LinePagerIndicator indicator = new LinePagerIndicator(context);
 //                indicator.setColors(Color.parseColor("#40c4ff"));
                 return indicator;
@@ -137,7 +161,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     public void initViewPagerData() {
         mFragmentList = new ArrayList<>();
         for (int i = 0; i < mTitleDataList.length; i++) {
-            TabOneChildFragment fragment =  TabOneChildFragment.newInstance();
+            TabOneChildFragment fragment = TabOneChildFragment.newInstance();
             fragment.setType((i + 1) + "");
             mFragmentList.add(fragment);
         }
@@ -226,12 +250,37 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
     }
 
-
     @Override
     public void onClick(View v) {
         Bundle bundle = new Bundle();
         switch (v.getId()) {
+            case R.id.order_img:
+                if ("5".equals(mStatus)) {
+                    EventBus.getDefault().post(new EBMessageVO("order_high"));
+                    mOrderImg.setImageResource(R.drawable.order_high);
+                    mStatus = "4";
+                } else {
+                    EventBus.getDefault().post(new EBMessageVO("order_low"));
+                    mOrderImg.setImageResource(R.drawable.order_low);
+                    mStatus = "5";
+                }
+                break;
 
+            case R.id.search_img:
+                mActivity.openActivity(KeywordActivity.class);
+                break;
+            case R.id.menu_01_tv:
+                mActivity.openActivity(ShopCategoryActivity.class);
+                break;
+            case R.id.menu_02_tv:
+                mActivity.openActivity(ShopChoseActivity.class);
+                break;
+            case R.id.menu_03_tv:
+                mActivity.openActivity(DailyTaskActivity.class);
+                break;
+            case R.id.menu_04_tv:
+                mActivity.openActivity(ShopCategoryActivity.class);
+                break;
             default:
                 break;
         }

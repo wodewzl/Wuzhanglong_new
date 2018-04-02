@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/C1"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <com.rey.material.widget.CheckBox
+        android:id="@+id/check_box"
+        style="@style/SnatchShopCheckBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/C5"
+        android:textSize="11sp"
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="验证成功" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="我爱你都看得见看得见的肯定觉得肯定就拉打飞机啊看房价放假啊的弗兰卡弗兰卡"
+        android:layout_margin="30dp"
+        android:textColor="@color/C5"
+        android:textSize="11sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="40dp"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="登录"
+        android:textColor="@color/C1"/>
+</LinearLayout>

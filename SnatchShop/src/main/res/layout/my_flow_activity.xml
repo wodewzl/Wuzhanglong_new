@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wuzhanglong.library.view.ReboundScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/C3"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/C1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/bg_circle_01"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的流量"
+                    android:textColor="@color/C5" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorAccent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="550M"
+                    android:textColor="@color/colorAccent" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="积累100.00M即可兑换"
+                android:textColor="@color/C1" />
+        </LinearLayout>
+
+
+        <EditText
+            style="@style/margin_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@drawable/frame_kongxin_white_gray"
+            android:hint="请输入您兑换的手机号码"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="选择兑换流量：" />
+
+        <com.github.jdsjlzx.recyclerview.LuRecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/C3" />
+
+        <TextView
+            style="@style/padding_15_13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="注意事项" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/C3" />
+
+        <TextView
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1.此流量为全国通用，兑换后24小时之内到账仅限兑换当月使用\n2.兑换时间为：每天9:00-21:00\n3.此流量兑换为第三方充值，请正确仔细填写您的手机号码，确认兑换后，不可撤销。本平台不承担相关责任"
+            android:textColor="@color/C5" />
+
+        <TextView
+            android:id="@+id/ok_tv"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="立即支付"
+            android:textColor="@color/C1"
+            android:textSize="15sp" />
+    </LinearLayout>
+</com.wuzhanglong.library.view.ReboundScrollView>
