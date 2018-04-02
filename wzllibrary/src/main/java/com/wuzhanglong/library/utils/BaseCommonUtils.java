@@ -847,6 +847,13 @@ public class BaseCommonUtils {
         return Integer.parseInt(str);
     }
 
+    public static Long parseLong(String str) {
+        if ("".equals(str) || "暂无".equals(str) || str == null) {
+            return 0l;
+        }
+        return Long.parseLong(str);
+    }
+
     // 下标从0开始的有序，id是数据自带的
     public static ArrayList<TreeVO> getOneLeveTreeVoZero(String[] array, String[] itemId) {
         ArrayList<TreeVO> list = new ArrayList<TreeVO>();
