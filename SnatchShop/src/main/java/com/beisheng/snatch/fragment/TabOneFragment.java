@@ -18,9 +18,11 @@ import android.widget.TextView;
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.activity.DailyTaskActivity;
 import com.beisheng.snatch.activity.KeywordActivity;
+import com.beisheng.snatch.activity.SearchShopActivity;
 import com.beisheng.snatch.activity.ShopCategoryActivity;
 import com.beisheng.snatch.activity.ShopChoseActivity;
 import com.beisheng.snatch.activity.SignActivity;
+import com.beisheng.snatch.activity.WebViewActivity;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.HomeVO;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
@@ -223,12 +225,14 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
             @Override
             public void OnBannerClick(int position) {
                 Bundle bundle= new Bundle();
-
                 if("1".equals(homeVO.getData().getMulti_adv().get(position).getJump_type())){
                     bundle.putString("keyword",homeVO.getData().getMulti_adv().get(position).getAdv_url());
+                    mActivity.open(SearchShopActivity.class,bundle,0);
                 }else {
                     bundle.putString("url",homeVO.getData().getMulti_adv().get(position).getAdv_url());
+                    mActivity.open(WebViewActivity.class,bundle,0);
                 }
+
             }
         });
         mBanner.start();

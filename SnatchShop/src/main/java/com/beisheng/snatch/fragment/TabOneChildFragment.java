@@ -1,5 +1,6 @@
 package com.beisheng.snatch.fragment;
 
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
@@ -163,6 +164,9 @@ public class TabOneChildFragment extends BaseFragment implements OnLoadMoreListe
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
         if (mAdapter.getItemCount() == 0)
             return;
-        mActivity.openActivity(ShopDetailActivity.class);
+        ShopVO.DataBean.ListBean vo = (ShopVO.DataBean.ListBean) mAdapter.getItem(position);
+        Bundle bundle = new Bundle();
+        bundle.putString("id", vo.getId());
+        mActivity.open(ShopDetailActivity.class, bundle, 0);
     }
 }

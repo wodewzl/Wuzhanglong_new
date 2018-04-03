@@ -28,7 +28,7 @@
                 android:textSize="11sp"/>
 
             <com.suke.widget.SwitchButton
-                android:id="@+id/switch_button1"
+                android:id="@+id/switch_button"
                 android:layout_width="35dp"
                 android:layout_height="20dp"
                 app:sb_show_indicator="false"/>
@@ -46,7 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="我的流量"
+                android:text="我的积分"
                 android:textColor="@color/colorAccent"/>
 
             <View
@@ -63,6 +63,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="550M"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 android:textColor="@color/colorAccent"/>
         </LinearLayout>
 
@@ -349,6 +351,7 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/gift_img"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@color/C1"/>
@@ -356,16 +359,15 @@
 
         <TextView
             android:id="@+id/sign_status_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/day_layout"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:paddingBottom="2dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
             android:paddingTop="2dp"
-            android:text="已签到"
+            android:text="签到"
+            android:gravity="center"
             android:textColor="@color/C5"/>
     </RelativeLayout>
 

@@ -18,6 +18,10 @@ public class Constant {
     public static final String DAILY_TASK_URL = "/index.php/Api/Task/index";//首页任务列表
     public static final String DAILY_TASK_DETAIL_URL = "/index.php/Api/Task/details";//任务详情
     public static final String SIGN_DATA_URL = "/index.php/Api/Account/signin_index";//获取签到数据
-
+    public static final String SIGN_URL = "/index.php/Api/Account/make_signin";//签到
+    public static final String SIGN_GIFT_URL = "/index.php/Api/Account/get_signin_package";//获取签到数据
+    public static final String SIGN_NOTIFY_URL = "/index.php/Api/Account/set_signin_notify";//签到提醒
+    public static final String SHOP_DETAIL_URL = "/index.php/Api/Dbindex/details";//商品详情
+    public static final String SHOP_BUY_LIST_URL = "/index.php/Api/Dbindex/get_join_list";//商品详情谋其抢购列表
 }
 

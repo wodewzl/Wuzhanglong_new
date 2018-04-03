@@ -62,6 +62,7 @@ public class MyMessageActivity extends BaseActivity implements BGAOnRVItemClickL
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("user_no", "10005");
+        map.put("curpage", mCurrentPage+"");
         BSHttpUtils.get(mActivity, this, Constant.MY_MESSAGE_URL, map, MyMessageVO.class);
     }
 

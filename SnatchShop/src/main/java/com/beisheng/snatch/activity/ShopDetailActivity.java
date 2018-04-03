@@ -1,10 +1,9 @@
 package com.beisheng.snatch.activity;
 
-import android.app.Application;
+import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,12 +12,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.beisheng.snatch.R;
-import com.beisheng.snatch.adapter.RecordAwardAdapter;
 import com.beisheng.snatch.adapter.ShopDetailAdapter;
-import com.beisheng.snatch.adapter.ShowDetailAdapter;
 import com.beisheng.snatch.application.AppApplication;
+import com.beisheng.snatch.constant.Constant;
+import com.beisheng.snatch.model.ShopDetailListVO;
+import com.beisheng.snatch.model.ShopDetailVO;
 import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
+import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.mikephil.charting.animation.Easing;
@@ -30,27 +31,47 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.rey.material.app.BottomSheetDialog;
+import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
+import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
-public class ShopDetailActivity extends BaseActivity implements ScrollableHelper.ScrollableContainer, View.OnClickListener {
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class ShopDetailActivity extends BaseActivity implements ScrollableHelper.ScrollableContainer, View.OnClickListener, OnLoadMoreListener {
     private LuRecyclerView mRecyclerView;
     private ShopDetailAdapter mAdapter;
     private LinearLayout mBottomLayout, mNumberTrendLayout;
     private RelativeLayout mHeadLayout;
     private TextView mTitleTv, mBackTv;
-    private ImageView mHomeImg, mShareImg, mDetaiImg;
+    private ImageView mHomeImg, mShareImg;
     private LineChart mLineChart;
     private ScrollableLayout mScrollableLayout;
     private TextView mJoinCartTv, mQuckBuyTv;
     private BottomSheetDialog mDialog;
+    private ShopDetailVO.DataBean mShopDetailVO;
+    private Banner mBanner;
+    private TextView mDescTv, mStatusTv, mHonor1GradeTv, mHonor1NameTv, mHonor1CountTv, mHonor2GradeTv, mHonor2NameTv, mHonor2CountTv, mHonor3GradeTv, mHonor3NameTv, mHonor3CountTv;
+    private View mLayoutType1, mLayoutType2, mLayoutType3;
+    private TextView mType1NameTv, mType1NumberTv, mType1BuyCoutTv, mType1TimeTv, mType1UserNoTv, mType1WinTv;
+    private CircleImageView mType1HeadImg, mHonor1HeadImg, mHonor2HeadImg, mHonor3HeadImg;
+    private int mCurrentPage = 1;
+    private boolean isLoadMore = true;
+    private TextView mPublishTimeTv;
+    private String[] mXData = new String[]{"开始", "中前", "中间", "中后", "疯抢",};
 
     @Override
     public void baseSetContentView() {
@@ -73,15 +94,42 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mAdapter = new ShopDetailAdapter(mRecyclerView);
         LuRecyclerViewAdapter luAdapter = new LuRecyclerViewAdapter(mAdapter);
         mRecyclerView.setAdapter(luAdapter);
-        mRecyclerView.setLoadMoreEnabled(false);
+        mRecyclerView.setLoadMoreEnabled(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         mBottomLayout = getViewById(R.id.bottom_layout);
         mNumberTrendLayout = getViewById(R.id.number_trend_layout);
         mJoinCartTv = getViewById(R.id.jion_cart_tv);
         mQuckBuyTv = getViewById(R.id.quick_tv);
-        mLineChart = (LineChart) findViewById(R.id.lineChart);
-        initLineChart();
+        mLineChart = getViewById(R.id.lineChart);
+//        initLineChart();
 
+        mBanner = getViewById(R.id.banner);
+        mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        mDescTv = getViewById(R.id.desc_tv);
+        mStatusTv = getViewById(R.id.status_tv);
+        mLayoutType1 = getViewById(R.id.layout_type1);
+        mLayoutType2 = getViewById(R.id.layout_type2);
+        mLayoutType3 = getViewById(R.id.layout_type3);
+        mType1NameTv = getViewById(R.id.type1_name_tv);
+        mType1NumberTv = getViewById(R.id.type1_number_tv);
+        mType1BuyCoutTv = getViewById(R.id.type1_buy_cout);
+        mType1TimeTv = getViewById(R.id.type1_time_tv);
+        mType1HeadImg = getViewById(R.id.type1_head_img);
+        mType1UserNoTv = getViewById(R.id.type1_user_no_tv);
+        mType1WinTv = getViewById(R.id.win_tv);
+        mHonor1HeadImg = getViewById(R.id.honor1_head_img);
+        mHonor2HeadImg = getViewById(R.id.honor1_head_img);
+        mHonor3HeadImg = getViewById(R.id.honor1_head_img);
+        mHonor1GradeTv = getViewById(R.id.honor1_grade_tv);
+        mHonor2GradeTv = getViewById(R.id.honor1_grade_tv);
+        mHonor3GradeTv = getViewById(R.id.honor1_grade_tv);
+        mHonor1NameTv = getViewById(R.id.honor1_name_tv);
+        mHonor2NameTv = getViewById(R.id.honor2_name_tv);
+        mHonor3NameTv = getViewById(R.id.honor3_name_tv);
+        mHonor1CountTv = getViewById(R.id.honor1_count_tv);
+        mHonor2CountTv = getViewById(R.id.honor2_count_tv);
+        mHonor3CountTv = getViewById(R.id.honor3_count_tv);
+        mPublishTimeTv = getViewById(R.id.publish_time_tv);
     }
 
     public void initLineChart() {
@@ -111,14 +159,18 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mLineChart.animateXY(1500, 1500, Easing.EasingOption.EaseInSine, Easing.EasingOption.EaseInSine);
 
 
-//        ArrayList<String> list = getList(position);
-//        //自定义设置横坐标
-//        IAxisValueFormatter xValueFormatter = new FastBrowserXValueFormatter(list);
 
 
         //X轴
         XAxis xAxis = mLineChart.getXAxis();
-
+//        final List<String> list = Arrays.asList(mXData);
+//        //自定义设置横坐标
+//        xAxis.setValueFormatter(new IAxisValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float value, AxisBase axis) {
+//                return list.get((int) value);
+//            }
+//        });
 
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//值：BOTTOM,BOTH_SIDED,BOTTOM_INSIDE,TOP,TOP_INSIDE
         xAxis.setLabelRotationAngle(-60);
@@ -152,14 +204,16 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         xAxis.setAxisLineWidth(1f);
         mLineChart.invalidate();
 
+
+        final List<String> list = Arrays.asList(mXData);
+
         YAxis leftAxis = mLineChart.getAxisLeft();
         leftAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                return "中间";
+                return list.get((int)value);
             }
         });
-
         //设置从Y轴发出横向直线(网格线)
         leftAxis.setDrawGridLines(false);
         //设置网格线的颜色
@@ -207,21 +261,170 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
 //        xAxis.setLabelRotationAngle(-60);
     }
 
+    public void showLineChart(List<Integer> xAxisValues, List<Integer> yAxisValues, String label) {
+        initLineChart();
+        ArrayList<Entry> entries = new ArrayList<>();
+        for (int i = 0; i < xAxisValues.size(); i++) {
+            entries.add(new Entry(xAxisValues.get(i), yAxisValues.get(i)));
+        }
+        // 每一个LineDataSet代表一条线
+        LineDataSet lineDataSet = new LineDataSet(entries, label);
+
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(lineDataSet);
+        LineData data = new LineData(dataSets);
+        //设置X轴的刻度数
+//        xAxis.setLabelCount(xAxisValues.size(), true);
+        mLineChart.setData(data);
+    }
+
+
+
     @Override
     public void bindViewsListener() {
         mNumberTrendLayout.setOnClickListener(this);
         mJoinCartTv.setOnClickListener(this);
         mQuckBuyTv.setOnClickListener(this);
+        mRecyclerView.setOnLoadMoreListener(this);
     }
 
     @Override
     public void getData() {
-        showView();
+        HashMap<String, Object> map = new HashMap<>();
+//        map.put("user_no", "10005");
+//        map.put("id", this.getIntent().getStringExtra("id"));
+        map.put("id", "2");
+        BSHttpUtils.post(mActivity, this, Constant.SHOP_DETAIL_URL, map, ShopDetailVO.class);
+        HashMap<String, Object> mapList = new HashMap<>();
+        mapList.put("curpage", mCurrentPage + "");
+        mapList.put("id", "2");
+        BSHttpUtils.post(mActivity, this, Constant.SHOP_BUY_LIST_URL, mapList, ShopDetailListVO.class);
     }
 
     @Override
     public void hasData(BaseVO vo) {
+        if (vo instanceof ShopDetailVO) {
+            ShopDetailVO shopDetailVO = (ShopDetailVO) vo;
+            mShopDetailVO = shopDetailVO.getData();
+            mBanner.setImages(mShopDetailVO.getImg_list());
+            mBanner.setImageLoader(new ImageLoader() {
+                @Override
+                public void displayImage(Context context, Object o, ImageView imageView) {
+                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                    String url = (String) o;
+                    Picasso.with(context).load(url).into(imageView);
+                }
+            });
+            mBanner.start();
+            mDescTv.setText(mShopDetailVO.getGoods_name());
+            switch (mShopDetailVO.getPrise_status()) {
+                case "1":
 
+                    break;
+                case "2":
+
+                    break;
+                case "3":
+                    mStatusTv.setText(mShopDetailVO.getStatus_text());
+                    mStatusTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 30, R.color.snatch_02, R.color.snatch_02));
+                    mStatusTv.setTextColor(ContextCompat.getColor(this, R.color.C1));
+                    mLayoutType3.setVisibility(View.VISIBLE);
+                    if (!TextUtils.isEmpty(mShopDetailVO.getLucky_user().getAvatar()))
+                        Picasso.with(this).load(mShopDetailVO.getLucky_user().getAvatar()).into(mType1HeadImg);
+                    mType1NumberTv.setText("期号：" + mShopDetailVO.getIssue_no());
+                    mType1NameTv.setText("获奖者：" + mShopDetailVO.getLucky_user().getNickname());
+                    mType1UserNoTv.setText("用户ID：" + mShopDetailVO.getLucky_user().getUser_no());
+                    mType1BuyCoutTv.setText("抢购次数：" + mShopDetailVO.getLucky_user().getBuy_count() + "次");
+                    mType1TimeTv.setText("揭晓时间：" + mShopDetailVO.getLucky_user().getPublish_time());
+                    mType1WinTv.setText("幸运号码：" + mShopDetailVO.getLucky_user().getPrise_code());
+                    break;
+                case "4":
+
+                    break;
+                case "5":
+
+                    break;
+                default:
+                    break;
+            }
+
+
+            if (mShopDetailVO.getDfw_data() != null) {
+                if (!TextUtils.isEmpty(mShopDetailVO.getDfw_data().getAvatar()))
+                    Picasso.with(this).load(mShopDetailVO.getDfw_data().getAvatar()).into(mHonor1HeadImg);
+                mHonor1GradeTv.setText("大富翁");
+                mHonor1GradeTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.colorAccent, R.color.colorAccent));
+                mHonor1NameTv.setText(mShopDetailVO.getDfw_data().getNickname());
+                BaseCommonUtils.setTextThree(this, mHonor1CountTv, "参与", mShopDetailVO.getDfw_data().getTotal_buy(), "人次", R.color.colorAccent, 1.3f);
+            } else {
+                mHonor1GradeTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.C3, R.color.C3));
+                mHonor1NameTv.setText("虚拟待位");
+            }
+
+
+            if (mShopDetailVO.getEdj_data() != null) {
+                if (!TextUtils.isEmpty(mShopDetailVO.getEdj_data().getAvatar()))
+                    Picasso.with(this).load(mShopDetailVO.getEdj_data().getAvatar()).into(mHonor2HeadImg);
+                mHonor2GradeTv.setText("二当家");
+                mHonor2GradeTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.colorAccent, R.color.colorAccent));
+                mHonor2NameTv.setText(mShopDetailVO.getEdj_data().getNickname());
+                mHonor2CountTv.setText("第一个参与");
+            } else {
+                mHonor2GradeTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.C3, R.color.C3));
+                mHonor2NameTv.setText("虚拟待位");
+                mHonor2CountTv.setText("第一个参与");
+            }
+
+            if (mShopDetailVO.getXdz_data() != null) {
+                if (!TextUtils.isEmpty(mShopDetailVO.getXdz_data().getAvatar()))
+                    Picasso.with(this).load(mShopDetailVO.getDfw_data().getAvatar()).into(mHonor3HeadImg);
+                mHonor3GradeTv.setText("小地主");
+                mHonor3GradeTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.colorAccent, R.color.colorAccent));
+                mHonor3NameTv.setText(mShopDetailVO.getDfw_data().getNickname());
+                mHonor3CountTv.setText("最后一个参与");
+            } else {
+                mHonor3GradeTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.C3, R.color.C3));
+                mHonor3NameTv.setText("虚拟待位");
+                mHonor3CountTv.setText("最后一个参与");
+            }
+
+            initLineChart();
+            ArrayList<Entry> entries = new ArrayList<>();
+            for (int i = 0; i < mShopDetailVO.getChart_data().size(); i++) {
+                entries.add(new Entry(i, Integer.parseInt(mShopDetailVO.getChart_data().get(i).getBuy_period())));
+            }
+            // 每一个LineDataSet代表一条线
+            LineDataSet lineDataSet = new LineDataSet(entries, "");
+
+            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+            dataSets.add(lineDataSet);
+            LineData data = new LineData(dataSets);
+            //设置X轴的刻度数
+//        xAxis.setLabelCount(xAxisValues.size(), true);
+            mLineChart.setData(data);
+
+        } else {
+            ShopDetailListVO mShopDetailListVO = (ShopDetailListVO) vo;
+            mPublishTimeTv.setText(mShopDetailListVO.getData().getStart_time());
+            if (BaseCommonUtils.parseInt(mShopDetailListVO.getData().getCount()) == 1) {
+                mRecyclerView.setLoadMoreEnabled(false);
+            }
+            if (mCurrentPage == BaseCommonUtils.parseInt(mShopDetailListVO.getData().getCount())) {
+                mRecyclerView.setNoMore(true);
+            } else {
+                mRecyclerView.setNoMore(false);
+            }
+            List<ShopDetailListVO.DataBean.ListBean> list = mShopDetailListVO.getData().getList();
+            if (isLoadMore) {
+                mAdapter.updateDataLast(list);
+                isLoadMore = false;
+                mCurrentPage++;
+            } else {
+                mCurrentPage++;
+                mAdapter.updateData(list);
+            }
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -284,5 +487,11 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onLoadMore() {
+        isLoadMore = true;
+        getData();
     }
 }
