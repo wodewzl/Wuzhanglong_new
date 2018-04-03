@@ -1,6 +1,7 @@
 package com.beisheng.snatch.activity;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -19,6 +20,7 @@ import com.beisheng.snatch.model.ShopDetailListVO;
 import com.beisheng.snatch.model.ShopDetailVO;
 import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
+import com.github.jdsjlzx.interfaces.OnItemClickListener;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
@@ -49,9 +51,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ShopDetailActivity extends BaseActivity implements ScrollableHelper.ScrollableContainer, View.OnClickListener, OnLoadMoreListener {
+public class ShopDetailActivity extends BaseActivity implements ScrollableHelper.ScrollableContainer, View.OnClickListener, OnLoadMoreListener, BGAOnRVItemClickListener {
     private LuRecyclerView mRecyclerView;
     private ShopDetailAdapter mAdapter;
     private LinearLayout mBottomLayout, mNumberTrendLayout;
@@ -116,13 +119,13 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mType1TimeTv = getViewById(R.id.type1_time_tv);
         mType1HeadImg = getViewById(R.id.type1_head_img);
         mType1UserNoTv = getViewById(R.id.type1_user_no_tv);
-        mType1WinTv = getViewById(R.id.win_tv);
+        mType1WinTv = getViewById(R.id.type1_win_tv);
         mHonor1HeadImg = getViewById(R.id.honor1_head_img);
-        mHonor2HeadImg = getViewById(R.id.honor1_head_img);
-        mHonor3HeadImg = getViewById(R.id.honor1_head_img);
+        mHonor2HeadImg = getViewById(R.id.honor2_head_img);
+        mHonor3HeadImg = getViewById(R.id.honor3_head_img);
         mHonor1GradeTv = getViewById(R.id.honor1_grade_tv);
-        mHonor2GradeTv = getViewById(R.id.honor1_grade_tv);
-        mHonor3GradeTv = getViewById(R.id.honor1_grade_tv);
+        mHonor2GradeTv = getViewById(R.id.honor2_grade_tv);
+        mHonor3GradeTv = getViewById(R.id.honor3_grade_tv);
         mHonor1NameTv = getViewById(R.id.honor1_name_tv);
         mHonor2NameTv = getViewById(R.id.honor2_name_tv);
         mHonor3NameTv = getViewById(R.id.honor3_name_tv);
@@ -149,31 +152,34 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mLineChart.setPinchZoom(true);
         //设置背景颜色
         mLineChart.setBackgroundColor(ContextCompat.getColor(this, R.color.C1));
-        //设置一页最大显示个数为6，超出部分就滑动
-        float ratio = (float) 15 / (float) 6;
-        //显示的时候是按照多大的比率缩放显示,1f表示不放大缩小
-        mLineChart.zoom(ratio, 1f, 0, 0);
+//        //设置一页最大显示个数为6，超出部分就滑动
+//        float ratio = (float) 15 / (float) 6;
+//        //显示的时候是按照多大的比率缩放显示,1f表示不放大缩小
+//        mLineChart.zoom(ratio, 1f, 0, 0);
         //设置从X轴出来的动画时间
-        //mLineChart.animateX(1500);
         //设置XY轴动画
         mLineChart.animateXY(1500, 1500, Easing.EasingOption.EaseInSine, Easing.EasingOption.EaseInSine);
-
-
 
 
         //X轴
         XAxis xAxis = mLineChart.getXAxis();
 //        final List<String> list = Arrays.asList(mXData);
 //        //自定义设置横坐标
-//        xAxis.setValueFormatter(new IAxisValueFormatter() {
-//            @Override
-//            public String getFormattedValue(float value, AxisBase axis) {
-//                return list.get((int) value);
-//            }
-//        });
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                int index = (int) value;
+                if (index == 0) {
+                    return "100";
+                } else {
+                    return mShopDetailVO.getChart_data().get(index - 1).getPf_no();
+                }
+
+            }
+        });
 
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//值：BOTTOM,BOTH_SIDED,BOTTOM_INSIDE,TOP,TOP_INSIDE
-        xAxis.setLabelRotationAngle(-60);
+//        xAxis.setLabelRotationAngle(-60);
 
         //设置线为虚线
         //xAxis.enableGridDashedLine(10f, 10f, 0f);
@@ -193,9 +199,9 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         //设置自定义X轴值
 //        xAxis.setValueFormatter(xValueFormatter);
         //一个界面显示6个Lasble，那么这里要设置11个
-        xAxis.setLabelCount(6, true);
+//        xAxis.setLabelCount(6, true);
         //设置最小间隔，防止当放大时出现重复标签
-        xAxis.setGranularity(1f);
+//        xAxis.setGranularity(1f);
         //设置为true当一个页面显示条目过多，X轴值隔一个显示一个
         xAxis.setGranularityEnabled(true);
         //设置X轴的颜色
@@ -211,7 +217,14 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         leftAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                return list.get((int)value);
+                int yIndex = (int) value;
+//                return list.get((int)value);
+                if (yIndex == 0) {
+                    return "";
+                } else {
+                    return list.get(yIndex - 1);
+
+                }
             }
         });
         //设置从Y轴发出横向直线(网格线)
@@ -245,15 +258,15 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         //显示边界
         mLineChart.setDrawBorders(false);
         //设置数据
-        List<Entry> entries = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+//        List<Entry> entries = new ArrayList<>();
+//        for (int i = 0; i < 10; i++) {
+////            entries.add(new Entry(i, (float) (Math.random()) * 80));
 //            entries.add(new Entry(i, (float) (Math.random()) * 80));
-            entries.add(new Entry(i, (float) (Math.random()) * 80));
-        }
-        //一个LineDataSet就是一条线
-        LineDataSet lineDataSet = new LineDataSet(entries, "温度");
-        LineData data = new LineData(lineDataSet);
-        mLineChart.setData(data);
+//        }
+//        //一个LineDataSet就是一条线
+//        LineDataSet lineDataSet = new LineDataSet(entries, "温度");
+//        LineData data = new LineData(lineDataSet);
+//        mLineChart.setData(data);
 
 //        XAxis xAxis = mLineChart.getXAxis();
 //        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//值：BOTTOM,BOTH_SIDED,BOTTOM_INSIDE,TOP,TOP_INSIDE
@@ -279,13 +292,13 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     }
 
 
-
     @Override
     public void bindViewsListener() {
         mNumberTrendLayout.setOnClickListener(this);
         mJoinCartTv.setOnClickListener(this);
         mQuckBuyTv.setOnClickListener(this);
         mRecyclerView.setOnLoadMoreListener(this);
+        mAdapter.setOnRVItemClickListener(this);
     }
 
     @Override
@@ -390,12 +403,13 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
 
             initLineChart();
             ArrayList<Entry> entries = new ArrayList<>();
+            entries.add(new Entry(0, 1));
             for (int i = 0; i < mShopDetailVO.getChart_data().size(); i++) {
-                entries.add(new Entry(i, Integer.parseInt(mShopDetailVO.getChart_data().get(i).getBuy_period())));
+                entries.add(new Entry(i + 1, Integer.parseInt(mShopDetailVO.getChart_data().get(i).getBuy_period())));
+//                entries.add(new Entry(i, mShopDetailVO.getChart_data().size()));
             }
             // 每一个LineDataSet代表一条线
-            LineDataSet lineDataSet = new LineDataSet(entries, "");
-
+            LineDataSet lineDataSet = new LineDataSet(entries, "用户");
             ArrayList<ILineDataSet> dataSets = new ArrayList<>();
             dataSets.add(lineDataSet);
             LineData data = new LineData(dataSets);
@@ -423,6 +437,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 mCurrentPage++;
                 mAdapter.updateData(list);
             }
+
             mAdapter.notifyDataSetChanged();
         }
     }
@@ -493,5 +508,16 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     public void onLoadMore() {
         isLoadMore = true;
         getData();
+    }
+
+
+    @Override
+    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+        if (mAdapter.getData().size() == 0)
+            return;
+        Bundle bundle = new Bundle();
+        ShopDetailListVO.DataBean.ListBean vo = (ShopDetailListVO.DataBean.ListBean) mAdapter.getItem(position);
+        bundle.putString("id", vo.getUid());
+        open(PersonalCenterActivity.class, bundle, 0);
     }
 }
