@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/C1"
@@ -21,12 +21,13 @@
             android:padding="20dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/head_img"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:src="@drawable/user_icon_def"
-                app:civ_border_color="#50FF4081"
-                app:civ_border_width="2dp" />
+                app:civ_border_color="#EF8788"
+                app:civ_border_width="3dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,6 +36,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="百思不得其解"
@@ -42,6 +44,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/user_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"

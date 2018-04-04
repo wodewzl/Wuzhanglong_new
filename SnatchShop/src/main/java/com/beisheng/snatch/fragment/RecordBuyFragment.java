@@ -4,28 +4,34 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.beisheng.snatch.R;
-import com.beisheng.snatch.adapter.RecordRedemptionAdapter;
+import com.beisheng.snatch.adapter.RecordBuyAdapter;
+import com.beisheng.snatch.constant.Constant;
+import com.beisheng.snatch.model.TABuyVO;
 import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.fragment.BaseFragment;
+import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
 
-public class RecordRedemptionFragment extends BaseFragment implements OnLoadMoreListener, ScrollableHelper.ScrollableContainer {
+import java.util.HashMap;
+import java.util.List;
+
+public class RecordBuyFragment extends BaseFragment implements OnLoadMoreListener, ScrollableHelper.ScrollableContainer {
     private LuRecyclerView mRecyclerView;
-    private RecordRedemptionAdapter mAdapter;
+    private RecordBuyAdapter mAdapter;
     private LuRecyclerViewAdapter mLuAdapter;
     private String state;
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
-    private String type = "1";//1-人气 2-最新 3-进度 4-总需从大到小 5-总需从小到大
 
 
-    public static RecordRedemptionFragment newInstance() {
-        RecordRedemptionFragment fragment = new RecordRedemptionFragment();
+    public static RecordBuyFragment newInstance() {
+        RecordBuyFragment fragment = new RecordBuyFragment();
         return fragment;
     }
 
@@ -45,7 +51,7 @@ public class RecordRedemptionFragment extends BaseFragment implements OnLoadMore
         mRecyclerView.setHasFixedSize(true);
         DividerDecoration divider = DividerUtil.linnerDivider(mActivity, R.dimen.dp_1, R.color.C3);
         mRecyclerView.addItemDecoration(divider);
-        mAdapter = new RecordRedemptionAdapter(mRecyclerView);
+        mAdapter = new RecordBuyAdapter(mRecyclerView);
         mLuAdapter = new LuRecyclerViewAdapter(mAdapter);
         mRecyclerView.setAdapter(mLuAdapter);
         mRecyclerView.setLoadMoreEnabled(false);
@@ -55,38 +61,36 @@ public class RecordRedemptionFragment extends BaseFragment implements OnLoadMore
     @Override
     public void bindViewsListener() {
         mRecyclerView.setOnLoadMoreListener(this);
-
     }
 
     @Override
     public void getData() {
-//        HashMap<String, Object> map = new HashMap<>();
-//        map.put("order_type", this.getType());
-//        BSHttpUtils.get(mActivity, this, Constant.HOME_LIST_URL, map, ShopVO.class);
-        showView();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("uid", mActivity.getIntent().getStringExtra("id"));
+        BSHttpUtils.get(mActivity, this, Constant.OTHER_TAB_ONE_URL, map, TABuyVO.class);
     }
 
     @Override
     public void hasData(BaseVO vo) {
-//        ShopVO homeChildVO = (ShopVO) vo;
-//        if (BaseCommonUtils.parseInt(homeChildVO.getData().getCount()) == 1) {
-//            mRecyclerView.setLoadMoreEnabled(false);
-//        }
-//        if (mCurrentPage == BaseCommonUtils.parseInt(homeChildVO.getData().getCount())) {
-//            mRecyclerView.setNoMore(true);
-//        } else {
-//            mRecyclerView.setNoMore(false);
-//        }
-//        List<ShopVO.DataBean.ListBean> list = homeChildVO.getData().getList();
-//        if (isLoadMore) {
-//            mAdapter.updateDataLast(list);
-//            isLoadMore = false;
-//            mCurrentPage++;
-//        } else {
-//            mCurrentPage++;
-//            mAdapter.updateData(list);
-//        }
-//        mAdapter.notifyDataSetChanged();
+        TABuyVO bean = (TABuyVO) vo;
+        if (BaseCommonUtils.parseInt(bean.getData().getCount()) == 1) {
+            mRecyclerView.setLoadMoreEnabled(false);
+        }
+        if (mCurrentPage == BaseCommonUtils.parseInt(bean.getData().getCount())) {
+            mRecyclerView.setNoMore(true);
+        } else {
+            mRecyclerView.setNoMore(false);
+        }
+        List<TABuyVO.DataBean.ListBean> list = bean.getData().getList();
+        if (isLoadMore) {
+            mAdapter.updateDataLast(list);
+            isLoadMore = false;
+            mCurrentPage++;
+        } else {
+            mCurrentPage++;
+            mAdapter.updateData(list);
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -97,23 +101,13 @@ public class RecordRedemptionFragment extends BaseFragment implements OnLoadMore
     @Override
     public void onLoadMore() {
         isLoadMore = true;
-
+        getData();
     }
-
 
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     @Override

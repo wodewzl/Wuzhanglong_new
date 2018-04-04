@@ -5,14 +5,21 @@ import android.view.View;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.adapter.RecordAwardAdapter;
+import com.beisheng.snatch.constant.Constant;
+import com.beisheng.snatch.model.TAAwardVO;
 import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.fragment.BaseFragment;
+import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class RecordAwardFragment extends BaseFragment implements OnLoadMoreListener, ScrollableHelper.ScrollableContainer {
     private LuRecyclerView mRecyclerView;
@@ -20,7 +27,6 @@ public class RecordAwardFragment extends BaseFragment implements OnLoadMoreListe
     private String state;
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
-    private String type = "1";//1-人气 2-最新 3-进度 4-总需从大到小 5-总需从小到大
 
 
     public static RecordAwardFragment newInstance() {
@@ -60,33 +66,33 @@ public class RecordAwardFragment extends BaseFragment implements OnLoadMoreListe
 
     @Override
     public void getData() {
-//        HashMap<String, Object> map = new HashMap<>();
-//        map.put("order_type", this.getType());
-//        BSHttpUtils.get(mActivity, this, Constant.HOME_LIST_URL, map, ShopVO.class);
-        showView();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("uid", mActivity.getIntent().getStringExtra("id"));
+        BSHttpUtils.get(mActivity, this, Constant.OTHER_TAB_TWO_URL, map, TAAwardVO.class);
+
     }
 
     @Override
     public void hasData(BaseVO vo) {
-//        ShopVO homeChildVO = (ShopVO) vo;
-//        if (BaseCommonUtils.parseInt(homeChildVO.getData().getCount()) == 1) {
-//            mRecyclerView.setLoadMoreEnabled(false);
-//        }
-//        if (mCurrentPage == BaseCommonUtils.parseInt(homeChildVO.getData().getCount())) {
-//            mRecyclerView.setNoMore(true);
-//        } else {
-//            mRecyclerView.setNoMore(false);
-//        }
-//        List<ShopVO.DataBean.ListBean> list = homeChildVO.getData().getList();
-//        if (isLoadMore) {
-//            mAdapter.updateDataLast(list);
-//            isLoadMore = false;
-//            mCurrentPage++;
-//        } else {
-//            mCurrentPage++;
-//            mAdapter.updateData(list);
-//        }
-//        mAdapter.notifyDataSetChanged();
+        TAAwardVO bean = (TAAwardVO) vo;
+        if (BaseCommonUtils.parseInt(bean.getData().getCount()) == 1) {
+            mRecyclerView.setLoadMoreEnabled(false);
+        }
+        if (mCurrentPage == BaseCommonUtils.parseInt(bean.getData().getCount())) {
+            mRecyclerView.setNoMore(true);
+        } else {
+            mRecyclerView.setNoMore(false);
+        }
+        List<TAAwardVO.DataBean.ListBean> list = bean.getData().getList();
+        if (isLoadMore) {
+            mAdapter.updateDataLast(list);
+            isLoadMore = false;
+            mCurrentPage++;
+        } else {
+            mCurrentPage++;
+            mAdapter.updateData(list);
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -97,7 +103,7 @@ public class RecordAwardFragment extends BaseFragment implements OnLoadMoreListe
     @Override
     public void onLoadMore() {
         isLoadMore = true;
-
+        getData();
     }
 
 
@@ -108,13 +114,6 @@ public class RecordAwardFragment extends BaseFragment implements OnLoadMoreListe
 
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     @Override
     public View getScrollableView() {

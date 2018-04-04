@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/C3"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/C3"
+              android:orientation="vertical">
 
     <TextView
+        android:id="@+id/title_tv"
         style="@style/padding_15_13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/C1"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="中了大奖" />
+        android:text="中了大奖"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,25 +27,27 @@
             android:id="@+id/shop_img"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:background="@color/colorAccent" />
+            android:background="@color/colorAccent"/>
 
         <TextView
+            android:id="@+id/content_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/shop_img"
             android:text="ddddddddddddd"
             android:textColor="@color/C5"
-            android:textSize="11sp" />
+            android:textSize="11sp"/>
 
         <TextView
+            android:id="@+id/time_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/shop_img"
             android:layout_alignParentRight="true"
             android:text="2018-3-17"
             android:textColor="@color/C6"
-            android:textSize="10sp" />
+            android:textSize="10sp"/>
 
     </RelativeLayout>
 

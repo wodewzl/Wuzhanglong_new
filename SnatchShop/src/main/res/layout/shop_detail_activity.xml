@@ -191,7 +191,7 @@
                 <include
                     android:id="@+id/layout_type1"
                     layout="@layout/shop_detail_type1"
-                    android:visibility="gone"/>
+                   />
 
                 <include
                     android:id="@+id/layout_type2"
@@ -201,7 +201,7 @@
                 <include
                     android:id="@+id/layout_type3"
                     layout="@layout/shop_detail_type3"
-                    />
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <LinearLayout

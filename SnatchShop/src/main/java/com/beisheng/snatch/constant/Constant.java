@@ -23,5 +23,9 @@ public class Constant {
     public static final String SIGN_NOTIFY_URL = "/index.php/Api/Account/set_signin_notify";//签到提醒
     public static final String SHOP_DETAIL_URL = "/index.php/Api/Dbindex/details";//商品详情
     public static final String SHOP_BUY_LIST_URL = "/index.php/Api/Dbindex/get_join_list";//商品详情谋其抢购列表
+    public static final String OTHER_HEAD_URL = "/index.php/Api/User/user_info";//TA个人中心头部信息
+    public static final String OTHER_TAB_ONE_URL = "/index.php/Api/User/buy_list";//TA个人中心购买记录
+    public static final String OTHER_TAB_TWO_URL = "/index.php/Api/User/lucky_record";//TA个人中心购买记录
+    public static final String OTHER_TAB_THREE_URL = "/index.php/Api/User/evaluate_list";//TA个人中心晒单
 }
 

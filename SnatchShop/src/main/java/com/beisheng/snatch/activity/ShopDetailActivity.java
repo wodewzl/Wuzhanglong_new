@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,7 +21,6 @@ import com.beisheng.snatch.model.ShopDetailListVO;
 import com.beisheng.snatch.model.ShopDetailVO;
 import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
-import com.github.jdsjlzx.interfaces.OnItemClickListener;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
@@ -69,12 +69,14 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     private Banner mBanner;
     private TextView mDescTv, mStatusTv, mHonor1GradeTv, mHonor1NameTv, mHonor1CountTv, mHonor2GradeTv, mHonor2NameTv, mHonor2CountTv, mHonor3GradeTv, mHonor3NameTv, mHonor3CountTv;
     private View mLayoutType1, mLayoutType2, mLayoutType3;
-    private TextView mType1NameTv, mType1NumberTv, mType1BuyCoutTv, mType1TimeTv, mType1UserNoTv, mType1WinTv;
+    private TextView mType3NameTv, mType3NumberTv, mType3BuyCoutTv, mType3TimeTv, mType3UserNoTv, mType1WinTv;
+    private TextView mType1NumberTv, mType1JoinCountTv, mType1TotalCountTv;
     private CircleImageView mType1HeadImg, mHonor1HeadImg, mHonor2HeadImg, mHonor3HeadImg;
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
     private TextView mPublishTimeTv;
     private String[] mXData = new String[]{"开始", "中前", "中间", "中后", "疯抢",};
+    private ProgressBar mProgressBar;
 
     @Override
     public void baseSetContentView() {
@@ -113,13 +115,17 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mLayoutType1 = getViewById(R.id.layout_type1);
         mLayoutType2 = getViewById(R.id.layout_type2);
         mLayoutType3 = getViewById(R.id.layout_type3);
-        mType1NameTv = getViewById(R.id.type1_name_tv);
         mType1NumberTv = getViewById(R.id.type1_number_tv);
-        mType1BuyCoutTv = getViewById(R.id.type1_buy_cout);
-        mType1TimeTv = getViewById(R.id.type1_time_tv);
-        mType1HeadImg = getViewById(R.id.type1_head_img);
-        mType1UserNoTv = getViewById(R.id.type1_user_no_tv);
-        mType1WinTv = getViewById(R.id.type1_win_tv);
+        mType1JoinCountTv = getViewById(R.id.type1_join_count_tv);
+        mType1TotalCountTv = getViewById(R.id.type1_total_count_tv);
+        mProgressBar = getViewById(R.id.progress_bar);
+        mType3NameTv = getViewById(R.id.type3_name_tv);
+        mType3NumberTv = getViewById(R.id.type3_number_tv);
+        mType3BuyCoutTv = getViewById(R.id.type3_buy_cout);
+        mType3TimeTv = getViewById(R.id.type3_time_tv);
+        mType1HeadImg = getViewById(R.id.type3_head_img);
+        mType3UserNoTv = getViewById(R.id.type3_user_no_tv);
+        mType1WinTv = getViewById(R.id.type3_win_tv);
         mHonor1HeadImg = getViewById(R.id.honor1_head_img);
         mHonor2HeadImg = getViewById(R.id.honor2_head_img);
         mHonor3HeadImg = getViewById(R.id.honor3_head_img);
@@ -332,7 +338,10 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
             mDescTv.setText(mShopDetailVO.getGoods_name());
             switch (mShopDetailVO.getPrise_status()) {
                 case "1":
-
+                    mType1NumberTv.setText(mShopDetailVO.getIssue_no());
+                    BaseCommonUtils.setTextThree(this, mType1JoinCountTv, "已参与", mShopDetailVO.getBuy_count(), "次", R.color.C4, 1.3f);
+                    BaseCommonUtils.setTextThree(this, mType1TotalCountTv, "剩余", mShopDetailVO.getRemain_count(), "人次", R.color.C4, 1.3f);
+                    mProgressBar.setProgress(BaseCommonUtils.parseInt(mShopDetailVO.getPercent()));
                     break;
                 case "2":
 
@@ -344,11 +353,11 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                     mLayoutType3.setVisibility(View.VISIBLE);
                     if (!TextUtils.isEmpty(mShopDetailVO.getLucky_user().getAvatar()))
                         Picasso.with(this).load(mShopDetailVO.getLucky_user().getAvatar()).into(mType1HeadImg);
-                    mType1NumberTv.setText("期号：" + mShopDetailVO.getIssue_no());
-                    mType1NameTv.setText("获奖者：" + mShopDetailVO.getLucky_user().getNickname());
-                    mType1UserNoTv.setText("用户ID：" + mShopDetailVO.getLucky_user().getUser_no());
-                    mType1BuyCoutTv.setText("抢购次数：" + mShopDetailVO.getLucky_user().getBuy_count() + "次");
-                    mType1TimeTv.setText("揭晓时间：" + mShopDetailVO.getLucky_user().getPublish_time());
+                    mType3NumberTv.setText("期号：" + mShopDetailVO.getIssue_no());
+                    mType3NameTv.setText("获奖者：" + mShopDetailVO.getLucky_user().getNickname());
+                    mType3UserNoTv.setText("用户ID：" + mShopDetailVO.getLucky_user().getUser_no());
+                    mType3BuyCoutTv.setText("抢购次数：" + mShopDetailVO.getLucky_user().getBuy_count() + "次");
+                    mType3TimeTv.setText("揭晓时间：" + mShopDetailVO.getLucky_user().getPublish_time());
                     mType1WinTv.setText("幸运号码：" + mShopDetailVO.getLucky_user().getPrise_code());
                     break;
                 case "4":
