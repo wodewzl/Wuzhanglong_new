@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -22,87 +22,38 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/corners_tab_left_normal"
+            android:background="@drawable/corners_tab_left_select"
             android:gravity="center"
             android:text="待领取"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/C1"/>
 
         <TextView
             android:id="@+id/title2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/corners_tab_right_select"
+            android:background="@drawable/corners_tab_right_normal"
             android:gravity="center"
             android:text="已领取"
-            android:textColor="@color/C1" />
+
+            android:textColor="@color/colorAccent"/>
     </LinearLayout>
 
-    <com.wuzhanglong.library.view.AutoSwipeRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/title_layout"
-        android:layout_marginBottom="47dp"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/C3"
-            android:orientation="vertical">
-
-            <com.github.jdsjlzx.recyclerview.LuRecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="1dp"
-                android:layout_weight="1" />
-        </LinearLayout>
-    </com.wuzhanglong.library.view.AutoSwipeRefreshLayout>
 
     <LinearLayout
-        android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/C1"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:visibility="visible">
+        android:layout_height="match_parent"
+        android:background="@color/C3"
+        android:orientation="vertical"
+        android:layout_weight="1">
 
-        <FrameLayout
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_home"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"/>
 
-            <com.rey.material.widget.CheckBox
-                android:id="@+id/check_box"
-                style="@style/SnatchShopCheckBox1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:paddingBottom="15dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="15dp"
-                android:paddingTop="15dp" />
-
-            <View
-                android:id="@+id/view_check"
-                android:layout_width="65dp"
-                android:layout_height="65dp" />
-        </FrameLayout>
-
-
-        <TextView
-            android:id="@+id/ok_tv"
-            style="@style/Material.Drawable.Ripple.Wave.Light"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent"
-            android:gravity="center"
-            android:text="确认信息"
-            android:textColor="@color/C1"
-            android:textSize="13sp" />
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

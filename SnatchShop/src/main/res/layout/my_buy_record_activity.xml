@@ -48,12 +48,13 @@
             android:background="@color/C3"
             android:orientation="vertical">
 
-            <com.github.jdsjlzx.recyclerview.LuRecyclerView
-                android:id="@+id/recycler_view"
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_home"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="1dp"
-                android:layout_weight="1" />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"/>
+
         </LinearLayout>
     </com.wuzhanglong.library.view.AutoSwipeRefreshLayout>
 </LinearLayout>

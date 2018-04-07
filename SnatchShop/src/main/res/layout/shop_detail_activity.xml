@@ -85,17 +85,23 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="55dp"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:background="@color/C1"
-                android:src="@drawable/my_go"/>
+                android:src="@drawable/customer_img"/>
+
+            <View
+                android:layout_width="0.8dp"
+                android:layout_height="match_parent"
+                android:background="@color/C3"/>
 
             <ImageView
-                android:layout_width="55dp"
+                android:id="@+id/add_favor_img"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="1dp"
                 android:background="@color/C1"
-                android:src="@drawable/my_go"/>
+                android:src="@drawable/collect_img_normal"/>
 
             <TextView
                 android:id="@+id/jion_cart_tv"
@@ -191,12 +197,12 @@
                 <include
                     android:id="@+id/layout_type1"
                     layout="@layout/shop_detail_type1"
-                   />
+                    android:visibility="gone"/>
 
                 <include
                     android:id="@+id/layout_type2"
                     layout="@layout/shop_detail_type2"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <include
                     android:id="@+id/layout_type3"
@@ -429,6 +435,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/discuss_tv"
                 style="@style/padding_15_13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -440,6 +447,7 @@
                 android:text="用户评论"/>
 
             <TextView
+                android:id="@+id/past_buy_tv"
                 style="@style/padding_15_13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

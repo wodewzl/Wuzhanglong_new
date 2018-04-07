@@ -18,8 +18,7 @@ import com.beisheng.snatch.R;
 import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.UserInfoVO;
-import com.dou361.dialogui.DialogUIUtils;
-import com.dou361.dialogui.bean.BuildBean;
+
 import com.nanchen.compresshelper.CompressHelper;
 import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.activity.BaseActivity;
@@ -79,12 +78,12 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         mTextView02 = (TextView) findViewById(R.id.tv_02);
         mTextView03 = (TextView) findViewById(R.id.tv_03);
         mHeadImg = (CircleImageView) findViewById(R.id.head_img);
-        if (AppApplication.getInstance().getUserInfoVO() != null) {
-            if (!TextUtils.isEmpty(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()))
-                Picasso.with(mActivity).load(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()).into(mHeadImg);
-            mTextView02.setText(AppApplication.getInstance().getUserInfoVO().getData().getUser_name());
-            mTextView03.setText(AppApplication.getInstance().getUserInfoVO().getData().getNick_name());
-        }
+//        if (AppApplication.getInstance().getUserInfoVO() != null) {
+//            if (!TextUtils.isEmpty(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()))
+//                Picasso.with(mActivity).load(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()).into(mHeadImg);
+//            mTextView02.setText(AppApplication.getInstance().getUserInfoVO().getData().getUser_name());
+//            mTextView03.setText(AppApplication.getInstance().getUserInfoVO().getData().getNick_name());
+//        }
 
         File takePhotoDir = new File(Environment.getExternalStorageDirectory(), BaseConstant.SDCARD_CACHE);
         mPhotoHelper = new BGAPhotoHelper(takePhotoDir);

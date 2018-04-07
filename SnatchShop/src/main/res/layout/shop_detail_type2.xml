@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/C1"
@@ -13,67 +14,93 @@
         android:orientation="vertical">
 
         <LinearLayout
+            style="@style/padding_15_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/shop_detail_type2_corners1"
-            android:orientation="horizontal"
-            style="@style/padding_15_10">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/win_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_weight="1"
-                android:text="幸运号码：3333333454"
-                android:textColor="@color/C1" />
-
-            <TextView
-                android:id="@+id/run_tv"
+                android:id="@+id/type2_time_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp"
-                android:text="计算详情"
-                android:textColor="@color/C1"
-                android:visibility="visible" />
+                android:drawableLeft="@drawable/time_img"
+                android:drawablePadding="5dp"
+
+                android:text="揭晓时间："
+                android:textColor="@color/C1" />
+
+            <cn.iwgang.countdownview.CountdownView
+                android:id="@+id/type2_countdown_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:isHideTimeBackground="true"
+                app:isShowDay="false"
+                app:isShowHour="true"
+                app:isShowMillisecond="true"
+                app:isShowMinute="true"
+                app:isShowSecond="true"
+                app:isTimeTextBold="true"
+                app:suffixGravity="bottom"
+                app:suffixTextColor="@color/C1"
+                app:suffixTextSize="12sp"
+                app:timeTextColor="@color/C1"
+                app:timeTextSize="15sp"
+
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/type2_run_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:text="计算详情"
+
+                    android:textColor="@color/C1"
+                    android:visibility="visible" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
+            style="@style/padding_15_10"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/shop_detail_type2_corners2"
-            android:orientation="horizontal"
-            style="@style/padding_15_10">
+            android:orientation="vertical">
+
             <TextView
+                android:id="@+id/type2_my_cout_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="你抢购了20次，号码如下"/>
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/my_number_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    style="@style/padding_15_10"
-                    android:textColor="@color/C5"
-                    android:background="@color/C1"
-                    android:maxLines="3"/>
-                <TextView
-                    android:id="@+id/all_number_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    style="@style/padding_15_10"
-                    android:textColor="@color/C5"
-                    android:background="@color/C1"
-                    android:visibility="gone"/>
-            </FrameLayout>
+                android:text="你抢购了20次，号码如下"
+                android:textColor="@color/C5" />
 
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/number_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                zhy:max_select="-1">
+
+            </com.zhy.view.flowlayout.TagFlowLayout>
+            <ImageView
+                android:id="@+id/type2_more_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/more_img"
+                android:layout_marginTop="10dp"/>
         </LinearLayout>
+
+
     </LinearLayout>
 </LinearLayout>

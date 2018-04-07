@@ -113,14 +113,14 @@ public class AddressActivity extends BaseActivity implements View.OnClickListene
     public void onMessageEvent(EBMessageVO event) {
         if ("address_delete".equals(event.getMessage())) {
             HashMap<String, Object> map = new HashMap<>();
-            map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
+            map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
             map.put("id", event.getMsg());
             HttpGetDataUtil.post(this, Constant.ADDRESS_DELETE_URL, map, this);
         } else if ("address_edit".equals(event.getMessage())) {
             getData();
         }else if("address_defalut".equals(event.getMessage())) {
             HashMap<String, Object> map = new HashMap<>();
-            map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUid());
+            map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
             map.put("id", event.getMsg());
             HttpGetDataUtil.post(this, Constant.ADDRESS_SET_URL, map, this);
         }else if("refresh".equals(event.getMessage())){

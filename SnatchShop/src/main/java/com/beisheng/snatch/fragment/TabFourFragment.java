@@ -21,6 +21,7 @@ import com.rey.material.app.BottomSheetDialog;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.BSHttpUtils;
+import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.BottomDialogUtil;
@@ -34,8 +35,9 @@ import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 import cn.bingoogolapple.baseadapter.BGAOnRVItemLongClickListener;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class TabFourFragment extends BaseFragment implements View.OnClickListener, BGAOnRVItemClickListener,SwipeRefreshLayout.OnRefreshListener,BGAOnRVItemLongClickListener{
+public class TabFourFragment extends BaseFragment implements View.OnClickListener, BGAOnRVItemClickListener, SwipeRefreshLayout.OnRefreshListener, BGAOnRVItemLongClickListener, ShopCatAdapter.ShopCatListener, PostCallback {
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private LuRecyclerView mRecyclerView;
     private ShopCatAdapter mAdapter;
@@ -43,6 +45,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
     private boolean isLoadMore = true;
     private TextView mOkTv;
     private TextView mPayTypeTv, mRedMoneyTv;
+    private ShopCatVO.DataBean mDataBean;
 
     @Override
     public void setContentView() {
@@ -58,6 +61,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
 
         mAdapter = new ShopCatAdapter(mRecyclerView);
+        mAdapter.setShopCatListener(this);
         LuRecyclerViewAdapter adapter = new LuRecyclerViewAdapter(mAdapter);
         mRecyclerView.setAdapter(adapter);
         DividerDecoration divider = DividerUtil.linnerDivider(mActivity, R.dimen.dp_1, R.color.C3);
@@ -88,6 +92,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void hasData(BaseVO vo) {
         ShopCatVO shopCatVO = (ShopCatVO) vo;
+        mDataBean = ((ShopCatVO) vo).getData();
         List<ShopCatVO.DataBean.ListBean> list = shopCatVO.getData().getList();
 
         List<ShopCatVO.DataBean.ListBean> listOne = new ArrayList<>();//可购买的
@@ -161,11 +166,68 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public boolean onRVItemLongClick(ViewGroup parent, View itemView, int position) {
-        if(mAdapter.getData().size()==0)
+        if (mAdapter.getData().size() == 0)
             return false;
-        ShopCatVO.DataBean.ListBean vo= (ShopCatVO.DataBean.ListBean) mAdapter.getItem(position);
+        ShopCatVO.DataBean.ListBean vo = (ShopCatVO.DataBean.ListBean) mAdapter.getItem(position);
         vo.setLongClick(true);
         mAdapter.notifyDataSetChanged();
         return false;
+    }
+
+    @Override
+    public void moneyChage() {
+
+    }
+
+    @Override
+    public void allCheck(boolean isCheck) {
+
+    }
+
+    @Override
+    public void cartDelete() {
+
+    }
+
+    @Override
+    public void deleteOne(final ShopCatVO.DataBean.ListBean bean) {
+        new SweetAlertDialog(mActivity, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("确定要删除?")
+                .setConfirmText("确定")
+                .setCancelText("取消")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        mAdapter.getData().remove(bean);
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("cart_id", bean.getCart_id());
+                        BSHttpUtils.postCallBack(mActivity, Constant.SHOPCART_DELETE_ONE_ULR, map, BaseVO.class, TabFourFragment.this);
+                        mAdapter.notifyDataSetChanged();
+                        sDialog.dismissWithAnimation();//直接消失
+                    }
+                })
+                .show();
+
+
+    }
+
+    @Override
+    public void deleteAll() {
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("del_invalid", "1");
+        BSHttpUtils.postCallBack(mActivity, Constant.SHOPCART_DELETE_ONE_ULR, map, BaseVO.class, this);
+
+        for (int i = 0; i < mDataBean.getList().size(); i++) {
+            if ("0".equals(mDataBean.getList().get(i).getIs_valid())) {
+                mAdapter.getData().remove(mDataBean.getList().get(i));
+            }
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void success(BaseVO vo) {
+
     }
 }

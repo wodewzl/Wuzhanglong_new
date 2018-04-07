@@ -3,20 +3,28 @@ package com.beisheng.snatch.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Environment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.adapter.AddressDialogAdapter;
 import com.beisheng.snatch.adapter.MyBuyRecordAdapter;
+import com.beisheng.snatch.constant.Constant;
+import com.beisheng.snatch.fragment.MyLuckyRecordFragment;
+import com.beisheng.snatch.model.MyLuckyRecordVO;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.nanchen.compresshelper.CompressHelper;
 import com.rey.material.app.BottomSheetDialog;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
 import com.wuzhanglong.library.constant.BaseConstant;
+import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BottomDialogUtil;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
@@ -24,6 +32,7 @@ import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
@@ -40,10 +49,9 @@ public class MyLuckyRecordActivity extends BaseActivity implements View.OnClickL
     private BGASortableNinePhotoLayout mPhotoLayout;
     public ArrayList<String> mSelectList = new ArrayList<>();
     private List<File> mOneFiles = new ArrayList<>();
-    private TextView mTitle1, mTitle2, mOkTv;
-    private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
-    private LuRecyclerView mRecyclerView;
-    private RecyclerBaseAdapter mAdapter;
+    private TextView mTitle1, mTitle2;
+    public ViewPager mViewPager;
+    private List<MyLuckyRecordFragment> mList = new ArrayList<>();
 
     @Override
     public void baseSetContentView() {
@@ -55,20 +63,14 @@ public class MyLuckyRecordActivity extends BaseActivity implements View.OnClickL
         mBaseTitleTv.setText("幸运记录");
         mTitle1 = getViewById(R.id.title1);
         mTitle2 = getViewById(R.id.title2);
-        mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
-        mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
-        mRecyclerView = getViewById(R.id.recycler_view);
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
-//        DividerDecoration divider = DividerUtil.linnerDivider(this, R.dimen.dp_1, R.color.C3);
-//        mRecyclerView.addItemDecoration(divider);
-//        mAdapter = new MyBuyRecordAdapter(mRecyclerView);
-//        LuRecyclerViewAdapter adapter = new LuRecyclerViewAdapter(mAdapter);
-//        mRecyclerView.setAdapter(adapter);
-//        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
-//        mRecyclerView.setLoadMoreEnabled(true);
-        mAdapter = new MyBuyRecordAdapter(mRecyclerView);
-        RecyclerViewUtil.initRecyclerViewLinearLayout(this, mRecyclerView, mAdapter, R.dimen.dp_1, R.color.C3, true);
-        mOkTv = getViewById(R.id.ok_tv);
+        MyLuckyRecordFragment one = MyLuckyRecordFragment.newInstance();
+        one.setType("0");
+        MyLuckyRecordFragment two = MyLuckyRecordFragment.newInstance();
+        two.setType("1");
+        mList.add(one);
+        mList.add(two);
+        mViewPager = (ViewPager) findViewById(com.wuzhanglong.library.R.id.vp_home);
+        mViewPager.setOffscreenPageLimit(2);
 
     }
 
@@ -76,8 +78,45 @@ public class MyLuckyRecordActivity extends BaseActivity implements View.OnClickL
     public void bindViewsListener() {
         mTitle1.setOnClickListener(this);
         mTitle2.setOnClickListener(this);
-        mOkTv.setOnClickListener(this);
-        mAdapter.setOnRVItemClickListener(this);
+        mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+
+                return mList.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return mList.size();
+            }
+        });
+
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position==0){
+                    mTitle1.setBackgroundResource(R.drawable.corners_tab_left_select);
+                    mTitle1.setTextColor(ContextCompat.getColor(MyLuckyRecordActivity.this, R.color.C1));
+                    mTitle2.setBackgroundResource(R.drawable.corners_tab_right_normal);
+                    mTitle2.setTextColor(ContextCompat.getColor(MyLuckyRecordActivity.this, R.color.colorAccent));
+                }else {
+                    mTitle2.setBackgroundResource(R.drawable.corners_tab_right_select);
+                    mTitle2.setTextColor(ContextCompat.getColor(MyLuckyRecordActivity.this, R.color.C1));
+                    mTitle1.setBackgroundResource(R.drawable.corners_tab_left_normal);
+                    mTitle1.setTextColor(ContextCompat.getColor(MyLuckyRecordActivity.this, R.color.colorAccent));
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
@@ -108,33 +147,14 @@ public class MyLuckyRecordActivity extends BaseActivity implements View.OnClickL
                 mTitle1.setTextColor(ContextCompat.getColor(this, R.color.C1));
                 mTitle2.setBackgroundResource(R.drawable.corners_tab_right_normal);
                 mTitle2.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
-//                if (mYestadyBean == null) {
-//                    mTag = "local";
-//                    getData();
-//                } else {
-//                    mAdapter.updateData(mYestadyBean.getRate());
-//
-//                }
+                mViewPager.setCurrentItem(0);
                 break;
             case R.id.title2:
                 mTitle2.setBackgroundResource(R.drawable.corners_tab_right_select);
                 mTitle2.setTextColor(ContextCompat.getColor(this, R.color.C1));
                 mTitle1.setBackgroundResource(R.drawable.corners_tab_left_normal);
                 mTitle1.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
-//                if (mTodayBean == null) {
-//                    mTag = "now";
-//                    getData();
-//                } else {
-//                    mAdapter.updateData(mTodayBean.getRate());
-//
-//                }
-                break;
-
-            case R.id.ok_tv:
-                BottomSheetDialog dialog = BottomDialogUtil.initBottomDialog(this, R.layout.address_list_dialog);
-                LuRecyclerView recyclerView = dialog.getWindow().getDecorView().findViewById(R.id.dialog_recycler_view);
-                AddressDialogAdapter dialogAdapter = new AddressDialogAdapter(recyclerView);
-                RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, recyclerView, dialogAdapter, R.dimen.dp_1, R.color.C3, false);
+                mViewPager.setCurrentItem(1);
                 break;
 
             default:
@@ -142,19 +162,6 @@ public class MyLuckyRecordActivity extends BaseActivity implements View.OnClickL
         }
     }
 
-    public void onAddressClick(View v) {
-        switch (v.getId()) {
-            case R.id.add_address_tv:
-                System.out.println("=========>");
-                BottomSheetDialog dialog = BottomDialogUtil.initBottomDialog(this, R.layout.add_address_dialog);
-                break;
-            case R.id.check_img:
-                System.out.println("=========>");
-                break;
-            default:
-                break;
-        }
-    }
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {

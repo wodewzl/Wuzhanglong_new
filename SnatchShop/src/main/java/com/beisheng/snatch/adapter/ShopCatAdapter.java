@@ -18,6 +18,7 @@ import com.wuzhanglong.library.utils.BaseCommonUtils;
 
 import cn.bingoogolapple.baseadapter.BGAOnItemChildClickListener;
 import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 //import ren.qinc.numberbutton.NumberButton;
@@ -27,15 +28,26 @@ import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
  */
 
 public class ShopCatAdapter extends RecyclerBaseAdapter {
-    private OnMoneyChageListener moneyChageListener;
+    private ShopCatListener shopCatListener;
 
+    public ShopCatListener getShopCatListener() {
+        return shopCatListener;
+    }
 
-    public interface OnMoneyChageListener {
+    public void setShopCatListener(ShopCatListener shopCatListener) {
+        this.shopCatListener = shopCatListener;
+    }
+
+    public interface ShopCatListener {
         void moneyChage();
 
         void allCheck(boolean isCheck);
 
         void cartDelete();
+
+        void deleteOne(ShopCatVO.DataBean.ListBean bean);
+
+        void deleteAll();
     }
 
     public ShopCatAdapter(RecyclerView recyclerView) {
@@ -71,53 +83,72 @@ public class ShopCatAdapter extends RecyclerBaseAdapter {
 //                    activity.countPrice();
                 }
             });
-            final LinearLayout layout = helper.getView(R.id.menu_layout);
-            if (dataBean.isLongClick()) {
-                layout.setVisibility(View.VISIBLE);
-            } else {
-                layout.setVisibility(View.GONE);
-            }
+//            final LinearLayout layout = helper.getView(R.id.menu_layout);
+//            if (dataBean.isLongClick()) {
+//                layout.setVisibility(View.VISIBLE);
+//            } else {
+//                layout.setVisibility(View.GONE);
+//            }
             helper.getTextView(R.id.collect_tv).setBackground(BaseCommonUtils.setBackgroundShap(mContext, 100, R.color.C1, R.color.C1));
             helper.getTextView(R.id.see_same_tv).setBackground(BaseCommonUtils.setBackgroundShap(mContext, 100, R.color.color_yellow, R.color.color_yellow));
             helper.getTextView(R.id.delete_tv).setBackground(BaseCommonUtils.setBackgroundShap(mContext, 100, R.color.colorAccent, R.color.colorAccent));
             helper.setItemChildClickListener(R.id.collect_tv);
             helper.setItemChildClickListener(R.id.see_same_tv);
             helper.setItemChildClickListener(R.id.delete_tv);
-            helper.setOnItemChildClickListener(new BGAOnItemChildClickListener() {
-                @Override
-                public void onItemChildClick(ViewGroup parent, View v, int position) {
-                    ShopCatVO.DataBean.ListBean dataBean = (ShopCatVO.DataBean.ListBean) ShopCatAdapter.this.getItem(position);
-                    switch (v.getId()) {
-                        case R.id.collect_tv:
-                            layout.setVisibility(View.GONE);
-                            dataBean.setLongClick(false);
-                            break;
-                        case R.id.see_same_tv:
-                            layout.setVisibility(View.GONE);
-                            dataBean.setLongClick(false);
-                            break;
-                        case R.id.delete_tv:
-                            layout.setVisibility(View.GONE);
-                            dataBean.setLongClick(false);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            });
+
 
         } else if ("0".equals(dataBean.getIs_valid())) {
             if (!TextUtils.isEmpty(dataBean.getGoods_image()))
                 Picasso.with(mActivity).load(dataBean.getGoods_image()).into(helper.getImageView(R.id.shop_img));
             helper.setText(R.id.name_tv, dataBean.getGoods_name());
             helper.getTextView(R.id.status_tv).setBackground(BaseCommonUtils.setBackgroundShap(mContext, 30, R.color.C6, R.color.C6));
-
+            helper.setItemChildClickListener(R.id.delete_one_tv);
         } else {
-
             BaseCommonUtils.setTextThree(mContext, helper.getTextView(R.id.title_tv), "失效宝贝", dataBean.getValidedCount() + "", "件", R.color.colorAccent, 1.3f);
+            helper.setItemChildClickListener(R.id.clean_tv);
         }
 
+        helper.setOnItemChildClickListener(new BGAOnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(ViewGroup parent, View v, final int position) {
+                final ShopCatVO.DataBean.ListBean dataBean = (ShopCatVO.DataBean.ListBean) ShopCatAdapter.this.getItem(position);
+                switch (v.getId()) {
+                    case R.id.collect_tv:
+//                            layout.setVisibility(View.GONE);
+//                            dataBean.setLongClick(false);
+                        break;
+                    case R.id.see_same_tv:
+//                            layout.setVisibility(View.GONE);
+//                            dataBean.setLongClick(false);
+                        break;
+                    case R.id.delete_tv:
+//                            layout.setVisibility(View.GONE);
+//                            dataBean.setLongClick(false);
+                        break;
+                    case R.id.clean_tv:
+                        new SweetAlertDialog(mContext, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("确定要清空?")
+                                .setConfirmText("确定")
+                                .setCancelText("取消")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        shopCatListener.deleteAll();
+                                        sDialog.dismissWithAnimation();//直接消失
+                                    }
+                                })
+                                .show();
+                        break;
 
+                    case R.id.delete_one_tv:
+                        shopCatListener.deleteOne(dataBean);
+
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
     @Override

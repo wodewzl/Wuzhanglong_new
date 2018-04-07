@@ -1,12 +1,16 @@
 package com.beisheng.snatch.activity;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -19,6 +23,7 @@ import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.ShopDetailListVO;
 import com.beisheng.snatch.model.ShopDetailVO;
+import com.beisheng.snatch.model.UserInfoVO;
 import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
@@ -35,16 +40,22 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.rey.material.app.BottomSheetDialog;
+import com.rey.material.widget.CheckBox;
 import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.BSHttpUtils;
+import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
+import com.wuzhanglong.library.utils.BottomDialogUtil;
 import com.wuzhanglong.library.utils.DividerUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
+import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,9 +63,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
+import cn.iwgang.countdownview.CountdownView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ShopDetailActivity extends BaseActivity implements ScrollableHelper.ScrollableContainer, View.OnClickListener, OnLoadMoreListener, BGAOnRVItemClickListener {
+public class ShopDetailActivity extends BaseActivity implements ScrollableHelper.ScrollableContainer, View.OnClickListener, OnLoadMoreListener, BGAOnRVItemClickListener, PostCallback {
     private LuRecyclerView mRecyclerView;
     private ShopDetailAdapter mAdapter;
     private LinearLayout mBottomLayout, mNumberTrendLayout;
@@ -77,6 +89,22 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     private TextView mPublishTimeTv;
     private String[] mXData = new String[]{"开始", "中前", "中间", "中后", "疯抢",};
     private ProgressBar mProgressBar;
+    private TagFlowLayout mType2NumberLayout;
+    private TextView mType2MyBuyCoutTv, mType2TimeTv, mType2RunTv;
+    private CountdownView mType2CountdownView;
+    private ImageView mType2MoreImg;
+    private TextView mDiscussTv, mPastBuyTv;
+    private TextView mRegistOkTv, mRegistGetMsgCodeTv, mLoginOkTv, mLoginBackPasswordTv, mLoginChangeLoginTypeTv, mLoginTypeTv, mLoginMsgPhoneEt, mLoginMsgCodeEt, mLoginMsgGetCodeTv;
+    private EditText mRegistCodeEt, mRegistPhoneEt, mRegistPaswrodEt, mLoginPhoneEt, mLoginPasswordEt;
+    private boolean mRegistCodeStae = true;
+    private String mSuccessType = "";//1注册验证码2注册3手机号登陆4短信登陆
+    private String mLoginType = "1";//1手机号登陆2短信登陆
+    private CheckBox mRegistCheckBox;
+    private BottomSheetDialog mRegistDialog, mLoginTypeDialog, mLoginDialog;
+    private View mLoginPasswrodLayout, mLoginMsgLayout;
+    private ImageView mAddFavorImg;
+    private String mIsFavor = "0";
+
 
     @Override
     public void baseSetContentView() {
@@ -139,6 +167,15 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mHonor2CountTv = getViewById(R.id.honor2_count_tv);
         mHonor3CountTv = getViewById(R.id.honor3_count_tv);
         mPublishTimeTv = getViewById(R.id.publish_time_tv);
+        mType2NumberLayout = getViewById(R.id.number_layout);
+        mType2MyBuyCoutTv = getViewById(R.id.type2_my_cout_tv);
+        mType2TimeTv = getViewById(R.id.type2_time_tv);
+        mType2RunTv = getViewById(R.id.type2_run_tv);
+        mType2CountdownView = getViewById(R.id.type2_countdown_view);
+        mType2MoreImg = getViewById(R.id.type2_more_img);
+        mDiscussTv = getViewById(R.id.discuss_tv);
+        mPastBuyTv = getViewById(R.id.past_buy_tv);
+        mAddFavorImg = getViewById(R.id.add_favor_img);
     }
 
     public void initLineChart() {
@@ -305,12 +342,17 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mQuckBuyTv.setOnClickListener(this);
         mRecyclerView.setOnLoadMoreListener(this);
         mAdapter.setOnRVItemClickListener(this);
+        mType2MoreImg.setOnClickListener(this);
+        mPastBuyTv.setOnClickListener(this);
+        mDiscussTv.setOnClickListener(this);
+        mAddFavorImg.setOnClickListener(this);
     }
 
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-//        map.put("user_no", "10005");
+        if (AppApplication.getInstance().getUserInfoVO() != null)
+            map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
 //        map.put("id", this.getIntent().getStringExtra("id"));
         map.put("id", "2");
         BSHttpUtils.post(mActivity, this, Constant.SHOP_DETAIL_URL, map, ShopDetailVO.class);
@@ -336,21 +378,43 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
             });
             mBanner.start();
             mDescTv.setText(mShopDetailVO.getGoods_name());
+            mType1NumberTv.setText(mShopDetailVO.getIssue_no());
+
+
             switch (mShopDetailVO.getPrise_status()) {
                 case "1":
-                    mType1NumberTv.setText(mShopDetailVO.getIssue_no());
+                    mLayoutType1.setVisibility(View.VISIBLE);
+                    mStatusTv.setText(mShopDetailVO.getStatus_text());
+                    mStatusTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.colorAccent, R.color.C1));
+                    mStatusTv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
                     BaseCommonUtils.setTextThree(this, mType1JoinCountTv, "已参与", mShopDetailVO.getBuy_count(), "次", R.color.C4, 1.3f);
                     BaseCommonUtils.setTextThree(this, mType1TotalCountTv, "剩余", mShopDetailVO.getRemain_count(), "人次", R.color.C4, 1.3f);
                     mProgressBar.setProgress(BaseCommonUtils.parseInt(mShopDetailVO.getPercent()));
                     break;
                 case "2":
+                    mLayoutType2.setVisibility(View.VISIBLE);
+                    mStatusTv.setText(mShopDetailVO.getStatus_text());
+                    mStatusTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.colorAccent, R.color.C1));
+                    mStatusTv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+                    BaseCommonUtils.setTextThree(this, mType2MyBuyCoutTv, "你抢购了", mShopDetailVO.getUser_data().getBuy_count(), "次(抢购号码如下)", R.color.colorAccent, 1.3f);
 
+                    List<String> allList = (List<String>) mShopDetailVO.getUser_data().getBuy_codes();
+                    mType2NumberLayout.setAdapter(new TagAdapter<String>(allList.subList(0, 12)) {
+                        @Override
+                        public View getView(FlowLayout parent, int position, String s) {
+                            TextView tv = new TextView(ShopDetailActivity.this);
+                            tv.setText(s);
+                            return tv;
+                        }
+                    });
+                    mType2CountdownView.start(BaseCommonUtils.parseLong(mShopDetailVO.getCreate_time()) * 1000); // Millisecond
+                    mType2RunTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.C1, R.color.colorAccent));
                     break;
                 case "3":
-                    mStatusTv.setText(mShopDetailVO.getStatus_text());
-                    mStatusTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 30, R.color.snatch_02, R.color.snatch_02));
-                    mStatusTv.setTextColor(ContextCompat.getColor(this, R.color.C1));
                     mLayoutType3.setVisibility(View.VISIBLE);
+                    mStatusTv.setText(mShopDetailVO.getStatus_text());
+                    mStatusTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.snatch_02, R.color.C1));
+                    mStatusTv.setTextColor(ContextCompat.getColor(this, R.color.snatch_02));
                     if (!TextUtils.isEmpty(mShopDetailVO.getLucky_user().getAvatar()))
                         Picasso.with(this).load(mShopDetailVO.getLucky_user().getAvatar()).into(mType1HeadImg);
                     mType3NumberTv.setText("期号：" + mShopDetailVO.getIssue_no());
@@ -426,6 +490,13 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
 //        xAxis.setLabelCount(xAxisValues.size(), true);
             mLineChart.setData(data);
 
+            if ("1".equals(mShopDetailVO.getIs_favor())) {
+                mAddFavorImg.setImageResource(R.drawable.collect_img_select);
+            } else {
+                mAddFavorImg.setImageResource(R.drawable.collect_img_normal);
+            }
+
+            mIsFavor = mShopDetailVO.getIs_favor();
         } else {
             ShopDetailListVO mShopDetailListVO = (ShopDetailListVO) vo;
             mPublishTimeTv.setText(mShopDetailListVO.getData().getStart_time());
@@ -468,45 +539,217 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
 
     @Override
     public void onClick(View v) {
+        Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.number_trend_layout:
                 openActivity(NumberTrendActivity.class);
                 break;
             case R.id.jion_cart_tv:
                 if (AppApplication.getInstance().getUserInfoVO() == null) {
-                    showCustomDialog(R.layout.login_type);
+//                    showCustomDialog(R.layout.login_type);
+                    mLoginTypeDialog = BottomDialogUtil.initBottomDialog(this, R.layout.login_type);
                     return;
                 }
                 break;
             case R.id.quick_tv:
 
                 break;
+
+            case R.id.type2_more_img:
+                List<String> allList = (List<String>) mShopDetailVO.getUser_data().getBuy_codes();
+                mType2NumberLayout.setAdapter(new TagAdapter<String>(allList) {
+                    @Override
+                    public View getView(FlowLayout parent, int position, String s) {
+                        TextView tv = new TextView(ShopDetailActivity.this);
+                        tv.setText(s);
+                        return tv;
+                    }
+                });
+                v.setVisibility(View.GONE);
+                break;
+            case R.id.discuss_tv:
+                bundle.putString("id", mShopDetailVO.getGoods_id());
+                open(DisscussActivity.class, bundle, 0);
+                break;
+            case R.id.past_buy_tv:
+                bundle.putString("id", mShopDetailVO.getGoods_id());
+                open(PastBuyActivity.class, bundle, 0);
+                break;
+            case R.id.regist_get_msge_code_tv:
+
+                if (mRegistCodeStae) {
+                    if (TextUtils.isEmpty(mRegistPhoneEt.getText().toString())) {
+                        showCustomToast("请填写手机号");
+                        return;
+                    }
+                    HashMap<String, Object> registMsgMap = new HashMap<>();
+                    registMsgMap.put("mobile", mRegistPhoneEt.getText().toString());
+                    registMsgMap.put("type", "1");// 1-注册验证码 2-验证码登录 3-修改密码
+                    mRegistGetMsgCodeTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 30, R.color.C6, R.color.C6));
+                    BSHttpUtils.postCallBack(mActivity, Constant.GET_MSG_CODE_URL, registMsgMap, BaseVO.class, this);
+                    daoJishi(mRegistGetMsgCodeTv);
+                    mRegistCodeStae = false;
+                }
+
+                break;
+
+            case R.id.register_ok_tv:
+                if (TextUtils.isEmpty(mRegistPhoneEt.getText().toString())) {
+                    showCustomToast("请填写手机号");
+                    return;
+                }
+                if (TextUtils.isEmpty(mRegistCodeEt.getText().toString())) {
+                    showCustomToast("请填验证码");
+                    return;
+                }
+                if (TextUtils.isEmpty(mRegistPaswrodEt.getText().toString())) {
+                    showCustomToast("请填写注册密码");
+                    return;
+                }
+
+                if (!mRegistCheckBox.isChecked()) {
+                    showCustomToast("请同意服务条款与隐私相关权限");
+                    return;
+                }
+                mSuccessType = "2";
+                HashMap<String, Object> registMap = new HashMap<>();
+                registMap.put("mobile", mRegistPhoneEt.getText().toString());
+                registMap.put("sms_code", mRegistCodeEt.getText().toString());
+                registMap.put("password", mRegistPaswrodEt.getText().toString());
+                BSHttpUtils.postCallBack(mActivity, Constant.REGIST_URL, registMap, BaseVO.class, this);
+                break;
+
+            case R.id.login_back_passwrod_tv:
+                mSuccessType = "3";
+                break;
+            case R.id.login_change_login_type_tv:
+                if ("1".equals(mLoginType)) {
+                    mLoginType = "2";
+                    mLoginMsgLayout.setVisibility(View.VISIBLE);
+                    mLoginPasswrodLayout.setVisibility(View.GONE);
+                    mLoginChangeLoginTypeTv.setText("使用短信登陆");
+                } else {
+                    mLoginType = "1";
+                    mLoginMsgLayout.setVisibility(View.GONE);
+                    mLoginPasswrodLayout.setVisibility(View.VISIBLE);
+                    mLoginChangeLoginTypeTv.setText("使用密码登陆");
+                }
+
+                break;
+            case R.id.login_ok_tv:
+                if ("2".equals(mLoginType)) {
+                    if (TextUtils.isEmpty(mLoginMsgPhoneEt.getText().toString())) {
+                        showCustomToast("请填写手机号");
+                        return;
+                    }
+
+                    if (TextUtils.isEmpty(mLoginMsgCodeEt.getText().toString())) {
+                        showCustomToast("请填验证码");
+                        return;
+                    }
+
+                } else {
+                    if (TextUtils.isEmpty(mLoginPhoneEt.getText().toString())) {
+                        showCustomToast("请填写手机号");
+                        return;
+                    }
+                    if (TextUtils.isEmpty(mLoginPasswordEt.getText().toString())) {
+                        showCustomToast("请填写注册密码");
+                        return;
+                    }
+                }
+
+                HashMap<String, Object> loginMap = new HashMap<>();
+                if ("1".equals(mLoginType)) {
+                    loginMap.put("username", mLoginPhoneEt.getText().toString());
+                    loginMap.put("password", mLoginPasswordEt.getText().toString());
+                    BSHttpUtils.postCallBack(mActivity, Constant.LOGIN_PASSWORD_URL, loginMap, UserInfoVO.class, this);
+                    mSuccessType = "3";
+                } else {
+                    loginMap.put("mobile", mLoginMsgPhoneEt.getText().toString());
+                    loginMap.put("sms_code", mLoginMsgCodeEt.getText().toString());
+                    BSHttpUtils.postCallBack(mActivity, Constant.LOGIN_MSG_URL, loginMap, UserInfoVO.class, this);
+                    mSuccessType = "4";
+                }
+
+                break;
+
+            case R.id.login_get_msg_code_tv:
+                if (mRegistCodeStae) {
+                    if (TextUtils.isEmpty(mLoginMsgPhoneEt.getText().toString())) {
+                        showCustomToast("请填写手机号");
+                        return;
+                    }
+                    mSuccessType = "1";
+                    HashMap<String, Object> registMsgMap = new HashMap<>();
+                    registMsgMap.put("mobile", mLoginMsgPhoneEt.getText().toString());
+                    registMsgMap.put("type", "2");// 1-注册验证码 2-验证码登录 3-修改密码
+                    mLoginMsgGetCodeTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 30, R.color.C6, R.color.C6));
+                    BSHttpUtils.postCallBack(mActivity, Constant.GET_MSG_CODE_URL, registMsgMap, BaseVO.class, this);
+                    daoJishi(mLoginMsgGetCodeTv);
+                    mRegistCodeStae = false;
+                }
+                break;
+
+            case R.id.add_favor_img:
+                if (AppApplication.getInstance().getUserInfoVO() == null) {
+                    mLoginTypeDialog = BottomDialogUtil.initBottomDialog(this, R.layout.login_type);
+                    return;
+                }
+                HashMap<String, Object> favorMap = new HashMap<>();
+                favorMap.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+
+                if ("1".equals(mIsFavor)) {
+                    mIsFavor = "0";
+                    mAddFavorImg.setImageResource(R.drawable.collect_img_normal);
+                    favorMap.put("fav_id", mShopDetailVO.getId());
+                    BSHttpUtils.postCallBack(mActivity, Constant.FAVOR_CANCEL_URL, favorMap, BaseVO.class, this);
+                } else {
+                    mIsFavor = "1";
+                    mAddFavorImg.setImageResource(R.drawable.collect_img_select);
+                    favorMap.put("id", mShopDetailVO.getId());
+                    BSHttpUtils.postCallBack(mActivity, Constant.FAVOR_ADD_URL, favorMap, BaseVO.class, this);
+                }
+                break;
+
             default:
 
                 break;
         }
     }
 
-    public void showCustomDialog(int layoutId) {
-//        BottomSheetDialog dialog = new BottomSheetDialog(mActivity);
-        BottomSheetDialog dialog = new BottomSheetDialog(mActivity);
-        View dialogView = View.inflate(mActivity, layoutId, null);
-        dialog.contentView(dialogView)
-                .heightParam(ViewGroup.LayoutParams.WRAP_CONTENT)
-                .inDuration(500)
-                .cancelable(true)
-                .show();
-    }
-
     public void onLoginClick(View v) {
         switch (v.getId()) {
             case R.id.login_tv:
-                System.out.println("=========>");
-                showCustomDialog(R.layout.login_layout);
+                mLoginType = "1";
+                mLoginDialog = BottomDialogUtil.initBottomDialog(this, R.layout.login_layout);
+                mLoginPhoneEt = mLoginDialog.findViewById(R.id.login_phone_et);
+                mLoginPasswordEt = mLoginDialog.findViewById(R.id.login_password_et);
+                mLoginBackPasswordTv = mLoginDialog.findViewById(R.id.login_back_passwrod_tv);
+                mLoginChangeLoginTypeTv = mLoginDialog.findViewById(R.id.login_change_login_type_tv);
+                mLoginOkTv = mLoginDialog.findViewById(R.id.login_ok_tv);
+                mLoginPasswrodLayout = mLoginDialog.findViewById(R.id.login_passwrod_layout);
+                mLoginMsgLayout = mLoginDialog.findViewById(R.id.Login_msg_layout);
+                mLoginTypeTv = mLoginDialog.findViewById(R.id.login_type_tv);
+                mLoginMsgPhoneEt = mLoginDialog.findViewById(R.id.login_msg_phone_et);
+                mLoginMsgCodeEt = mLoginDialog.findViewById(R.id.login_msg_code_et);
+                mLoginMsgGetCodeTv = mLoginDialog.findViewById(R.id.login_get_msg_code_tv);
+                mLoginMsgGetCodeTv.setOnClickListener(this);
+                mLoginChangeLoginTypeTv.setOnClickListener(this);
+                mLoginBackPasswordTv.setOnClickListener(this);
+                mLoginOkTv.setOnClickListener(this);
                 break;
             case R.id.regist_tv:
                 System.out.println("=========>");
-                showCustomDialog(R.layout.login_regist);
+                mRegistDialog = BottomDialogUtil.initBottomDialog(this, R.layout.login_regist);
+                mRegistCodeEt = mRegistDialog.findViewById(R.id.regist_msg_et);
+                mRegistPhoneEt = mRegistDialog.findViewById(R.id.regist_phone_et);
+                mRegistPaswrodEt = mRegistDialog.findViewById(R.id.regist_password_et);
+                mRegistCheckBox = mRegistDialog.findViewById(R.id.regist_check_box);
+                mRegistOkTv = mRegistDialog.findViewById(R.id.register_ok_tv);
+                mRegistGetMsgCodeTv = mRegistDialog.findViewById(R.id.regist_get_msge_code_tv);
+                mRegistGetMsgCodeTv.setOnClickListener(this);
+                mRegistOkTv.setOnClickListener(this);
                 break;
             default:
                 break;
@@ -528,5 +771,36 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         ShopDetailListVO.DataBean.ListBean vo = (ShopDetailListVO.DataBean.ListBean) mAdapter.getItem(position);
         bundle.putString("id", vo.getUid());
         open(PersonalCenterActivity.class, bundle, 0);
+    }
+
+    public void daoJishi(final TextView tv) {
+        final CountDownTimer timer = new CountDownTimer(60 * 1000, 1000) {
+            @Override
+            public void onTick(long arg0) {
+                tv.setText(arg0 / 1000 + "s后重发 ");
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onFinish() {
+                tv.setText("获取验证码");
+                mRegistCodeStae = true;
+                tv.setBackground(BaseCommonUtils.setBackgroundShap(ShopDetailActivity.this, 30, R.color.color_yellow, R.color.color_yellow));
+            }
+        };
+        timer.start();
+    }
+
+    @Override
+    public void success(BaseVO vo) {
+        showSuccessToast(vo.getDesc());
+        if ("2".equals(mSuccessType)) {
+            mRegistDialog.dismiss();
+        } else if ("3".equals(mSuccessType) || "4".equals(mSuccessType)) {
+            UserInfoVO userInfoVO = (UserInfoVO) vo;
+            AppApplication.getInstance().saveUserInfoVO(userInfoVO);
+            mLoginDialog.dismiss();
+            mLoginTypeDialog.dismiss();
+        }
     }
 }

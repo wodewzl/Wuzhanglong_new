@@ -23,7 +23,7 @@ public class MyRedMoneyHaveFragment extends BaseFragment implements OnLoadMoreLi
     private String state;
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
-    private String type = "1";//1-人气 2-最新 3-进度 4-总需从大到小 5-总需从小到大
+    private String type = "1";
 
 
     public static MyRedMoneyHaveFragment newInstance() {
