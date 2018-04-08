@@ -2,12 +2,20 @@ package com.beisheng.snatch.activity;
 
 import android.Manifest;
 import android.os.Environment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.adapter.ShowAdapter;
 import com.beisheng.snatch.adapter.ShowDetailAdapter;
+import com.beisheng.snatch.constant.Constant;
+import com.beisheng.snatch.model.MyCollectVO;
+import com.beisheng.snatch.model.MyMessageVO;
+import com.beisheng.snatch.model.ShopCatVO;
+import com.beisheng.snatch.model.ShopVO;
+import com.beisheng.snatch.model.ShowVO;
 import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
@@ -15,20 +23,28 @@ import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.constant.BaseConstant;
+import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.utils.BaseCommonUtils;
+import com.wuzhanglong.library.utils.RecyclerViewUtil;
+import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
+import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPreviewActivity;
 import cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class ShowActivity extends BaseActivity  implements OnLoadMoreListener{
+public class ShowActivity extends BaseActivity  implements BGAOnRVItemClickListener, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener{
     private LuRecyclerView mRecyclerView;
+    private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private ShowAdapter mAdapter;
-
+    private int mCurrentPage = 1;
+    private boolean isLoadMore = true;
 
     @Override
     public void baseSetContentView() {
@@ -38,32 +54,51 @@ public class ShowActivity extends BaseActivity  implements OnLoadMoreListener{
     @Override
     public void initView() {
         mBaseTitleTv.setText("晒单详情");
+        mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
+        mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
         mRecyclerView = getViewById(R.id.recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
-//        DividerDecoration divider = DividerUtil.linnerDivider(mActivity, R.dimen.dp_1, R.color.C3);
-//        mRecyclerView.addItemDecoration(divider);
         mAdapter = new ShowAdapter(mRecyclerView);
-        LuRecyclerViewAdapter luAdapter = new LuRecyclerViewAdapter(mAdapter);
-        mRecyclerView.setAdapter(luAdapter);
-        mRecyclerView.setLoadMoreEnabled(false);
-
-
+        RecyclerViewUtil.initRecyclerViewLinearLayout(this, mRecyclerView, mAdapter, R.dimen.dp_1, R.color.C5, true);
     }
 
     @Override
     public void bindViewsListener() {
-
+        mAutoSwipeRefreshLayout.setOnRefreshListener(this);
+        mAdapter.setOnRVItemClickListener(this);
+        mRecyclerView.setOnLoadMoreListener(this);
     }
 
     @Override
     public void getData() {
-        showView();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("user_no", "10002");
+        map.put("curpage", mCurrentPage + "");
+        BSHttpUtils.get(mActivity, this, Constant.MY_ORDER_SHOW, map, ShowVO.class);
+
     }
 
     @Override
     public void hasData(BaseVO vo) {
-
+        ShowVO bean = (ShowVO) vo;
+        if (BaseCommonUtils.parseInt(bean.getData().getCount()) == 1) {
+            mRecyclerView.setLoadMoreEnabled(false);
+        }
+        if (mCurrentPage == BaseCommonUtils.parseInt(bean.getData().getCount())) {
+            mRecyclerView.setNoMore(true);
+        } else {
+            mRecyclerView.setNoMore(false);
+        }
+        List<ShowVO.DataBean.ListBean> list = bean.getData().getList();
+        if (isLoadMore) {
+            mAdapter.updateDataLast(list);
+            isLoadMore = false;
+            mCurrentPage++;
+        } else {
+            mCurrentPage++;
+            mAdapter.updateData(list);
+        }
+        mAdapter.notifyDataSetChanged();
+        mAutoSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -77,8 +112,21 @@ public class ShowActivity extends BaseActivity  implements OnLoadMoreListener{
     }
 
     @Override
-    public void onLoadMore() {
+    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+        if (mAdapter.getData().size() == 0)
+            return;
+    }
 
+    @Override
+    public void onRefresh() {
+        mCurrentPage = 1;
+        getData();
+    }
+
+    @Override
+    public void onLoadMore() {
+        isLoadMore = true;
+        getData();
     }
 
 }

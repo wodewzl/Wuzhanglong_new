@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.activity.AddressActivity;
 import com.beisheng.snatch.activity.BuyFlowActivity;
+import com.beisheng.snatch.activity.HelpActivity;
 import com.beisheng.snatch.activity.MyBuyRecordActivity;
 import com.beisheng.snatch.activity.MyCollectActivity;
 import com.beisheng.snatch.activity.MyFlowActivity;
@@ -139,7 +140,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
                 mActivity.openActivity(AddressActivity.class);
                 break;
             case R.id.item_07_tv:
-
+                mActivity.openActivity(HelpActivity.class);
                 break;
             case R.id.buy_flow_tv:
                 mActivity.openActivity(BuyFlowActivity.class);

@@ -57,6 +57,7 @@
                         android:text="真实姓名：" />
 
                     <EditText
+                        android:id="@+id/name_et"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -81,6 +82,7 @@
                         android:text="证件号码：" />
 
                     <EditText
+                        android:id="@+id/number_et"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -89,14 +91,15 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/ok_tv"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="30dp"
-                    android:background="@color/colorAccent"
+                    android:background="@drawable/corners_5_red"
                     android:gravity="center"
-                    android:text="登录"
+                    android:text="立即验证"
                     android:textColor="@color/C1" />
             </LinearLayout>
 
@@ -108,7 +111,7 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:paddingBottom="30dp"
-                android:visibility="gone">
+              >
 
                 <com.rey.material.widget.CheckBox
                     android:id="@+id/check_box"
@@ -116,7 +119,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="60dp"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -132,6 +136,7 @@
                     android:textSize="11sp" />
 
                 <TextView
+                    android:id="@+id/name_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
@@ -139,6 +144,7 @@
                     android:text="真实姓名：李" />
 
                 <TextView
+                    android:id="@+id/number_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
@@ -165,7 +171,7 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:paddingBottom="30dp"
-                >
+                android:visibility="gone">
 
                 <com.rey.material.widget.CheckBox
                     style="@style/SnatchShopCheckBox2"

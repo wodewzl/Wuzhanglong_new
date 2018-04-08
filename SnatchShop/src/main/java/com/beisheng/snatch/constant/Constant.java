@@ -39,5 +39,8 @@ public class Constant {
     public static final String SHOPCART_DELETE_ONE_ULR = "/index.php/Api/Member/del_cart";//删除单个清单
     public static final String MY_LUCKY_RECORD_URL = "/index.php/Api/Member/lucky_record";//幸运记录
     public static final String MY_BUY_RECORD_URL = "/index.php/Api/Member/buy_list";//购买记录
+    public static final String NAME_CONFIRM_INFO_URL = "/index.php/Api/Account/getSmrzInfo";//获取实名认证
+    public static final String NAME_CONFIRM_URL = "/index.php/Api/Account/smrz";//实名认证
+    public static final String MY_ORDER_SHOW = "/index.php/Api/Member/my_evaluate";//我的晒单
 }
 

@@ -616,6 +616,8 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 registMap.put("mobile", mRegistPhoneEt.getText().toString());
                 registMap.put("sms_code", mRegistCodeEt.getText().toString());
                 registMap.put("password", mRegistPaswrodEt.getText().toString());
+                registMap.put("platform", "1");
+
                 BSHttpUtils.postCallBack(mActivity, Constant.REGIST_URL, registMap, BaseVO.class, this);
                 break;
 

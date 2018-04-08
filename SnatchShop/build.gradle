@@ -1,10 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        realse {
+            keyAlias 'wzl'
+            keyPassword 'wuzhanglong'
+            storeFile file('D:/studio_project/Wuzhanglong_new/wzllibrary/wodewzl.jks')
+            storePassword 'wuzhanglong'
+        }
+    }
     compileSdkVersion 26
-
-
-
     defaultConfig {
         applicationId "com.beisheng.snatch"
         minSdkVersion 21
@@ -15,7 +20,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
-
     buildTypes {
         release {
             minifyEnabled false
