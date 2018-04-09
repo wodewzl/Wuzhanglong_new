@@ -11,8 +11,6 @@ import com.beisheng.snatch.R;
 import com.beisheng.snatch.adapter.RedMoneyAdapter;
 import com.beisheng.snatch.adapter.ShopCatAdapter;
 import com.beisheng.snatch.constant.Constant;
-import com.beisheng.snatch.model.HomeVO;
-import com.beisheng.snatch.model.SearchShopVO;
 import com.beisheng.snatch.model.ShopCatVO;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
@@ -23,7 +21,6 @@ import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
-import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.BottomDialogUtil;
 import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
@@ -35,7 +32,6 @@ import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 import cn.bingoogolapple.baseadapter.BGAOnRVItemLongClickListener;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class TabFourFragment extends BaseFragment implements View.OnClickListener, BGAOnRVItemClickListener, SwipeRefreshLayout.OnRefreshListener, BGAOnRVItemLongClickListener, ShopCatAdapter.ShopCatListener, PostCallback {
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
@@ -191,24 +187,9 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void deleteOne(final ShopCatVO.DataBean.ListBean bean) {
-        new SweetAlertDialog(mActivity, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("确定要删除?")
-                .setConfirmText("确定")
-                .setCancelText("取消")
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        mAdapter.getData().remove(bean);
-                        HashMap<String, Object> map = new HashMap<>();
-                        map.put("cart_id", bean.getCart_id());
-                        BSHttpUtils.postCallBack(mActivity, Constant.SHOPCART_DELETE_ONE_ULR, map, BaseVO.class, TabFourFragment.this);
-                        mAdapter.notifyDataSetChanged();
-                        sDialog.dismissWithAnimation();//直接消失
-                    }
-                })
-                .show();
-
-
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("cart_id", bean.getCart_id());
+        BSHttpUtils.postCallBack(mActivity, Constant.SHOPCART_DELETE_ONE_ULR, map, BaseVO.class, TabFourFragment.this);
     }
 
     @Override

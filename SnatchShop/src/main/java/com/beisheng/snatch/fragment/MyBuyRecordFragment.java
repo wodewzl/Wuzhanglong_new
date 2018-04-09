@@ -2,20 +2,16 @@ package com.beisheng.snatch.fragment;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.adapter.AddressDialogAdapter;
+import com.beisheng.snatch.adapter.LoveAdapter;
 import com.beisheng.snatch.adapter.MyBuyRecordAdapter;
-import com.beisheng.snatch.adapter.MyLuckyRecordAdapter;
 import com.beisheng.snatch.constant.Constant;
-import com.beisheng.snatch.model.MyLuckyRecordVO;
+import com.beisheng.snatch.model.MyBuyRecordVO;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.rey.material.app.BottomSheetDialog;
-import com.rey.material.widget.CheckBox;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
@@ -27,18 +23,18 @@ import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import java.util.HashMap;
 import java.util.List;
 
-public class MyBuyRecordFragment extends BaseFragment implements OnLoadMoreListener, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, MyLuckyRecordAdapter.MyLuckyRecordListener, CompoundButton.OnCheckedChangeListener {
+import static com.beisheng.snatch.R.color.C3;
+
+public class MyBuyRecordFragment extends BaseFragment implements OnLoadMoreListener, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
-    private LuRecyclerView mRecyclerView;
+    private LuRecyclerView mRecyclerView, mRecyclerViewLove;
     private MyBuyRecordAdapter mAdapter;
+    private LoveAdapter mAdapterLove;
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
     private String type = "1";
-    private TextView mOkTv;
-    private LinearLayout mBottomLayout;
-    private int mSelectCount = 0;
-    private CheckBox mCheckBox;
-    private TextView mTotalCountTv;
+    private boolean mFlag = true;
+
 
     public static MyBuyRecordFragment newInstance() {
         MyBuyRecordFragment fragment = new MyBuyRecordFragment();
@@ -62,22 +58,17 @@ public class MyBuyRecordFragment extends BaseFragment implements OnLoadMoreListe
         mRecyclerView = getViewById(R.id.recycler_view);
         mAdapter = new MyBuyRecordAdapter(mRecyclerView);
         mAdapter.setType(type);
-        RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, mRecyclerView, mAdapter, R.dimen.dp_1, R.color.C3, true);
-        mOkTv = getViewById(R.id.ok_tv);
-        mBottomLayout = getViewById(R.id.bottom_layout);
-        if ("0".equals(type)) {
-            mBottomLayout.setVisibility(View.VISIBLE);
-        } else {
-            mBottomLayout.setVisibility(View.GONE);
-        }
-        mCheckBox = getViewById(R.id.check_box);
-        mTotalCountTv = getViewById(R.id.total_count_tv);
+        RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, mRecyclerView, mAdapter, R.dimen.dp_1, C3, true);
+
+        mRecyclerViewLove = getViewById(R.id.recycler_view_love);
+        mAdapterLove = new LoveAdapter(mRecyclerViewLove);
+        RecyclerViewUtil.initRecyclerViewLinearLayoutHorizontal(mActivity, mRecyclerViewLove, mAdapterLove, R.dimen.dp_1, C3);
+
     }
 
     @Override
     public void bindViewsListener() {
         mRecyclerView.setOnLoadMoreListener(this);
-        mOkTv.setOnClickListener(this);
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
     }
 
@@ -92,29 +83,31 @@ public class MyBuyRecordFragment extends BaseFragment implements OnLoadMoreListe
 
     @Override
     public void hasData(BaseVO vo) {
-//        MyBuyRecordVO bean = (MyBuyRecordVO) vo;
-//        if (BaseCommonUtils.parseInt(bean.getData().getCount()) == 1) {
-//            mRecyclerView.setLoadMoreEnabled(false);
-//        }
-//        if (mCurrentPage == BaseCommonUtils.parseInt(bean.getData().getCount())) {
-//            mRecyclerView.setNoMore(true);
-//        } else {
-//            mRecyclerView.setNoMore(false);
-//        }
-//        List<MyLuckyRecordVO.DataBean.ListBean> list = bean.getData().getList();
-//        if (isLoadMore) {
-//            mAdapter.updateDataLast(list);
-//            isLoadMore = false;
-//            mCurrentPage++;
-//        } else {
-//            mCurrentPage++;
-//            mAdapter.updateData(list);
-//        }
-//        mAdapter.notifyDataSetChanged();
-//        count();
-//        if (mAdapter.getData().size() == 0)
-//            mBottomLayout.setVisibility(View.GONE);
-//        mAutoSwipeRefreshLayout.setRefreshing(false);
+        MyBuyRecordVO bean = (MyBuyRecordVO) vo;
+        if (BaseCommonUtils.parseInt(bean.getData().getCount()) == 1) {
+            mRecyclerView.setLoadMoreEnabled(false);
+        }
+        if (mCurrentPage == BaseCommonUtils.parseInt(bean.getData().getCount())) {
+            mRecyclerView.setNoMore(true);
+        } else {
+            mRecyclerView.setNoMore(false);
+        }
+        List<MyBuyRecordVO.DataBean.ListBean> list = bean.getData().getList();
+        if (isLoadMore) {
+            mAdapter.updateDataLast(list);
+            isLoadMore = false;
+            mCurrentPage++;
+        } else {
+            mCurrentPage++;
+            mAdapter.updateData(list);
+        }
+        mAdapter.notifyDataSetChanged();
+        mAutoSwipeRefreshLayout.setRefreshing(false);
+        if (mFlag) {
+            mFlag = false;
+            List<MyBuyRecordVO.DataBean.GuessLikeBean> loveList = bean.getData().getGuess_like();
+            mAdapterLove.updateData(loveList);
+        }
     }
 
     @Override
@@ -156,7 +149,7 @@ public class MyBuyRecordFragment extends BaseFragment implements OnLoadMoreListe
                 BottomSheetDialog dialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.address_list_dialog);
                 LuRecyclerView recyclerView = dialog.getWindow().getDecorView().findViewById(R.id.dialog_recycler_view);
                 AddressDialogAdapter dialogAdapter = new AddressDialogAdapter(recyclerView);
-                RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, recyclerView, dialogAdapter, R.dimen.dp_1, R.color.C3, false);
+                RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, recyclerView, dialogAdapter, R.dimen.dp_1, C3, false);
                 break;
 
             default:
@@ -179,29 +172,4 @@ public class MyBuyRecordFragment extends BaseFragment implements OnLoadMoreListe
         }
     }
 
-    @Override
-    public void count() {
-        for (int i = 0; i < mAdapter.getData().size(); i++) {
-            MyLuckyRecordVO.DataBean.ListBean bean = (MyLuckyRecordVO.DataBean.ListBean) mAdapter.getData().get(i);
-            if (bean.isCheck()) {
-                mSelectCount = +1;
-            }
-        }
-        mTotalCountTv.setText("(" + mSelectCount + ")");
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        for (int i = 0; i < mAdapter.getData().size(); i++) {
-            MyLuckyRecordVO.DataBean.ListBean bean = (MyLuckyRecordVO.DataBean.ListBean) mAdapter.getData().get(i);
-            bean.setCheck(b);
-        }
-        mAdapter.notifyDataSetChanged();
-        if (b) {
-            mSelectCount = mAdapter.getData().size();
-            mTotalCountTv.setText("(" + mSelectCount + ")");
-        } else {
-            mTotalCountTv.setText("(" + 0 + ")");
-        }
-    }
 }

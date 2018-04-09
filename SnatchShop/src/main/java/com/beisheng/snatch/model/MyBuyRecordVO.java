@@ -1,4 +1,4 @@
-package com.beisheng.snatch.fragment;
+package com.beisheng.snatch.model;
 
 import com.wuzhanglong.library.mode.BaseVO;
 

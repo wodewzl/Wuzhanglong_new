@@ -4,33 +4,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
 import com.beisheng.snatch.R;
-import com.beisheng.snatch.adapter.MyBuyRecordAdapter;
-import com.beisheng.snatch.adapter.MyMesssageAdapter;
 import com.beisheng.snatch.fragment.MyBuyRecordFragment;
-import com.beisheng.snatch.fragment.MyLuckyRecordFragment;
-import com.github.jdsjlzx.recyclerview.LuRecyclerView;
-import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
-import com.github.jdsjlzx.recyclerview.ProgressStyle;
-import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.mode.BaseVO;
-import com.wuzhanglong.library.utils.DividerUtil;
-import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyBuyRecordActivity extends BaseActivity implements View.OnClickListener{
+public class MyBuyRecordActivity extends BaseActivity implements View.OnClickListener {
     private TextView mTitle1, mTitle2;
     public ViewPager mViewPager;
     private List<MyBuyRecordFragment> mList = new ArrayList<>();
+
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.my_buy_record_activity);
@@ -76,12 +65,12 @@ public class MyBuyRecordActivity extends BaseActivity implements View.OnClickLis
 
             @Override
             public void onPageSelected(int position) {
-                if(position==0){
+                if (position == 0) {
                     mTitle1.setBackgroundResource(R.drawable.corners_tab_left_select);
                     mTitle1.setTextColor(ContextCompat.getColor(MyBuyRecordActivity.this, R.color.C1));
                     mTitle2.setBackgroundResource(R.drawable.corners_tab_right_normal);
                     mTitle2.setTextColor(ContextCompat.getColor(MyBuyRecordActivity.this, R.color.colorAccent));
-                }else {
+                } else {
                     mTitle2.setBackgroundResource(R.drawable.corners_tab_right_select);
                     mTitle2.setTextColor(ContextCompat.getColor(MyBuyRecordActivity.this, R.color.C1));
                     mTitle1.setBackgroundResource(R.drawable.corners_tab_left_normal);

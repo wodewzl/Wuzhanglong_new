@@ -71,7 +71,6 @@
             app:suffixTextSize="12sp"
             app:timeTextColor="@color/colorAccent"
             app:timeTextSize="20sp"
-
             />
     </LinearLayout>
 

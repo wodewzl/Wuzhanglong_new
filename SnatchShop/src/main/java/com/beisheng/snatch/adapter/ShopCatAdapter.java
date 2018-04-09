@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.model.ShopCatVO;
@@ -141,8 +140,20 @@ public class ShopCatAdapter extends RecyclerBaseAdapter {
                         break;
 
                     case R.id.delete_one_tv:
-                        shopCatListener.deleteOne(dataBean);
-
+                        new SweetAlertDialog(mActivity, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("确定要删除?")
+                                .setConfirmText("确定")
+                                .setCancelText("取消")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                       ShopCatAdapter.this.getData().remove(position);
+                                        shopCatListener.deleteOne(dataBean);
+                                        ShopCatAdapter.this.notifyDataSetChanged();
+                                        sDialog.dismissWithAnimation();//直接消失
+                                    }
+                                })
+                                .show();
                         break;
                     default:
                         break;
