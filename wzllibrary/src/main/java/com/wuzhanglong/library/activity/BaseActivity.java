@@ -209,11 +209,11 @@ public abstract class BaseActivity extends AppCompatActivity implements UpdateCa
     // 显示ShortToast
     public void showCustomToast(String msg) {
 //        Crouton.makeText(this, pMsg, Style.INFO, R.id.toast_conten).show();
-//        RxToast.info(this, pMsg, Toast.LENGTH_LONG, true).show();
+        RxToast.info(this, msg, Toast.LENGTH_LONG, true).show();
 
 //        RxToast.error(this, "这是一个提示错误的Toast！", Toast.LENGTH_SHORT, true).show();
 //
-        RxToast.success(this, msg, Toast.LENGTH_SHORT, true).show();
+//        RxToast.success(this, msg, Toast.LENGTH_SHORT, true).show();
 //
 //        RxToast.info(this, "这是一个提示信息的Toast.", Toast.LENGTH_SHORT, true).show();
 //

@@ -42,5 +42,8 @@ public class Constant {
     public static final String NAME_CONFIRM_INFO_URL = "/index.php/Api/Account/getSmrzInfo";//获取实名认证
     public static final String NAME_CONFIRM_URL = "/index.php/Api/Account/smrz";//实名认证
     public static final String MY_ORDER_SHOW = "/index.php/Api/Member/my_evaluate";//我的晒单
+    public static final String SCORT_DETAIL_URL = "/index.php/Api/Account/score_log";//积分明细
+    public static final String MY_SCORT_URL = "/index.php/Api/Account/score_index";//我的积分
+
 }
 

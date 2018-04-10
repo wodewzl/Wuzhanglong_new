@@ -102,7 +102,7 @@ public class MyRedMoneyUsedFragment extends BaseFragment implements OnLoadMoreLi
     @Override
     public void onLoadMore() {
         isLoadMore = true;
-
+        getData();
     }
 
 

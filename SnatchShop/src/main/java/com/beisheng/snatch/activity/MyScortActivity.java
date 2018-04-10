@@ -10,13 +10,18 @@ import com.beisheng.snatch.R;
 import com.beisheng.snatch.adapter.MyMesssageAdapter;
 import com.beisheng.snatch.adapter.MyScortAdapter;
 import com.beisheng.snatch.adapter.ScortDetailAdapter;
+import com.beisheng.snatch.constant.Constant;
+import com.beisheng.snatch.model.ScortDetailVO;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
+import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.DividerUtil;
+
+import java.util.HashMap;
 
 public class MyScortActivity extends BaseActivity implements View.OnClickListener{
     private LuRecyclerView mRecyclerView;
@@ -49,7 +54,9 @@ public class MyScortActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void getData() {
-        showView();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("user_no", "10005");
+        BSHttpUtils.post(mActivity, this, Constant.MY_SCORT_URL, map, ScortDetailVO.class);
     }
 
     @Override

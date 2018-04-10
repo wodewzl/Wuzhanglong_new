@@ -64,6 +64,7 @@
             app:bga_npl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
             app:bga_npl_showAsLargeWhenOnlyOne="false" />
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

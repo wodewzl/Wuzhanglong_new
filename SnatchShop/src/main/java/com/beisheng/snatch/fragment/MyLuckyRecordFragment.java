@@ -130,7 +130,7 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
     @Override
     public void onLoadMore() {
         isLoadMore = true;
-
+        getData();
     }
 
     @Override

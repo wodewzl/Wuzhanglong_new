@@ -67,7 +67,7 @@ public class AddressAdapter extends RecyclerBaseAdapter<AddressVO.DataBean> {
                                         EBMessageVO ebMessageVO = new EBMessageVO("address_delete", vo.getId());
                                         EventBus.getDefault().post(ebMessageVO);
                                         mData.remove(i);
-//                                        AddressRAdapter.this.notifyDataSetChanged();
+                                        AddressAdapter.this.notifyDataSetChanged();
                                     }
                                 })
                                 .show();
@@ -114,13 +114,4 @@ public class AddressAdapter extends RecyclerBaseAdapter<AddressVO.DataBean> {
     }
 
 
-    @Override
-    public int getItemCount() {
-        return 20;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return R.layout.address_adapter;
-    }
 }

@@ -13,36 +13,40 @@
         android:layout_height="wrap_content"
         android:background="@color/C1">
 
-        <ImageView
-            android:id="@+id/shop_img"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@color/colorAccent" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/head_img"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/user_icon_def"
+            app:civ_border_color="@color/C3"
+            app:civ_border_width="2dp"/>
 
         <TextView
             android:id="@+id/name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="16dp"
-            android:layout_toRightOf="@id/shop_img"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/head_img"
             android:text="吴章龙"
             android:textSize="13sp" />
 
         <TextView
+            android:id="@+id/status_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/name_tv"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"
-            android:text="2018-3-17"
-            android:textColor="@color/C6"
-            android:textSize="10sp" />
+            android:text="再次抢购"
+            android:textColor="@color/colorAccent"
+             android:drawableLeft="@drawable/rebuy"
+            android:drawablePadding="5dp"/>
 
         <TextView
             android:id="@+id/content_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/shop_img"
+            android:layout_below="@id/head_img"
             android:layout_marginTop="10dp"
             android:text="我爱你我爱你我爱你我我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你爱你我爱你我爱你"
             android:textColor="@color/C5"
@@ -59,7 +63,7 @@
             app:bga_npl_itemCornerRadius="0dp"
             app:bga_npl_itemSpanCount="3"
             app:bga_npl_itemWhiteSpacing="4dp"
-            app:bga_npl_itemWidth="0dp"
+            app:bga_npl_itemWidth="80dp"
             app:bga_npl_otherWhiteSpacing="0dp"
             app:bga_npl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
             app:bga_npl_showAsLargeWhenOnlyOne="false" />
@@ -72,34 +76,38 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/agree_count_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:drawableLeft="@drawable/agree"
+                android:drawablePadding="5dp"
+                android:text="3"
+                android:textColor="@color/C5"
+                android:textSize="11sp"
+                />
+
+            <TextView
+                android:id="@+id/comment_count_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:drawableLeft="@drawable/comment"
+                android:drawablePadding="5dp"
                 android:text="3"
                 android:textColor="@color/C5"
                 android:textSize="11sp" />
 
             <TextView
+                android:id="@+id/share_count_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="3"
-                android:textColor="@color/C5"
-                android:textSize="11sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:drawableLeft="@drawable/share_img"
+                android:drawablePadding="5dp"
                 android:text="3"
                 android:textColor="@color/C5"
                 android:textSize="11sp" />
         </LinearLayout>
     </RelativeLayout>
-
-    <View
-        style="@style/view_divider"
-        android:layout_alignBottom="@id/content_tv"
-        android:layout_marginLeft="75dp"
-        android:layout_marginRight="15dp" />
 </LinearLayout>

@@ -20,7 +20,9 @@ import com.beisheng.snatch.activity.MyRedMoneyActivity;
 import com.beisheng.snatch.activity.MyScortActivity;
 import com.beisheng.snatch.activity.MyShowActivity;
 import com.beisheng.snatch.activity.SettingActivity;
+import com.beisheng.snatch.activity.UserInfoActivity;
 import com.beisheng.snatch.adapter.FindAdapter;
+import com.beisheng.snatch.model.UserInfoVO;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
@@ -31,11 +33,14 @@ import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class TabFiveFragment extends BaseFragment implements View.OnClickListener {
     private ImageView mMessageImg, mSettingImg;
     private TextView mItem01Tv, mItem02Tv, mItem03Tv, mItem04Tv, mItem05Tv, mItem06Tv, mItem07Tv;
     private TextView mBuyFlowTv;
     private LinearLayout mMyFlowLayout, mMyRedMoneyLayout, mMyScortLayout;
+    private CircleImageView mHeadImg;
 
     @Override
     public void setContentView() {
@@ -58,6 +63,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
         mItem07Tv = getViewById(R.id.item_07_tv);
         mBuyFlowTv = getViewById(R.id.buy_flow_tv);
         mBuyFlowTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.C1, R.color.color_black));
+        mHeadImg = getViewById(R.id.head_img);
     }
 
     @Override
@@ -75,6 +81,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
         mItem06Tv.setOnClickListener(this);
         mItem07Tv.setOnClickListener(this);
         mBuyFlowTv.setOnClickListener(this);
+        mHeadImg.setOnClickListener(this);
     }
 
 
@@ -106,6 +113,9 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.head_img:
+                mActivity.openActivity(UserInfoActivity.class);
+                break;
             case R.id.msg_img:
                 mActivity.openActivity(MyMessageActivity.class);
                 break;

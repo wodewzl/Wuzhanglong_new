@@ -11,6 +11,7 @@ import java.util.List;
 
 public class AddressVO extends BaseVO implements Serializable{
 
+
     private List<DataBean> data;
 
     public List<DataBean> getData() {
@@ -21,36 +22,28 @@ public class AddressVO extends BaseVO implements Serializable{
         this.data = data;
     }
 
-    public static class DataBean  implements Serializable{
+    public static class DataBean {
         /**
-         * id : 6
-         * uid : 40
-         * consigner : 吴章龙
-         * mobile : 18602727134
-         * phone : 18602727134
-         * province : 1
-         * city : 1
-         * district : 1
-         * address : 图文信息雨无图
-         * zip_code :
-         * alias :
+         * id : 2
+         * consigner : 金仁政
+         * mobile : 18972221695
+         * province : 湖北省
+         * city : 襄阳市
+         * district : 樊城区
+         * address : 汉江创新创意产业园2楼
+         * address_info : 湖北省襄阳市樊城区汉江创新创意产业园2楼
          * is_default : 1
-         * address_info : 北京市-北京市-东城区
          */
 
         private String id;
-        private String uid;
         private String consigner;
         private String mobile;
-        private String phone;
         private String province;
         private String city;
         private String district;
         private String address;
-        private String zip_code;
-        private String alias;
-        private String is_default;
         private String address_info;
+        private String is_default;
 
         public String getId() {
             return id;
@@ -58,14 +51,6 @@ public class AddressVO extends BaseVO implements Serializable{
 
         public void setId(String id) {
             this.id = id;
-        }
-
-        public String getUid() {
-            return uid;
-        }
-
-        public void setUid(String uid) {
-            this.uid = uid;
         }
 
         public String getConsigner() {
@@ -82,14 +67,6 @@ public class AddressVO extends BaseVO implements Serializable{
 
         public void setMobile(String mobile) {
             this.mobile = mobile;
-        }
-
-        public String getPhone() {
-            return phone;
-        }
-
-        public void setPhone(String phone) {
-            this.phone = phone;
         }
 
         public String getProvince() {
@@ -124,20 +101,12 @@ public class AddressVO extends BaseVO implements Serializable{
             this.address = address;
         }
 
-        public String getZip_code() {
-            return zip_code;
+        public String getAddress_info() {
+            return address_info;
         }
 
-        public void setZip_code(String zip_code) {
-            this.zip_code = zip_code;
-        }
-
-        public String getAlias() {
-            return alias;
-        }
-
-        public void setAlias(String alias) {
-            this.alias = alias;
+        public void setAddress_info(String address_info) {
+            this.address_info = address_info;
         }
 
         public String getIs_default() {
@@ -146,14 +115,6 @@ public class AddressVO extends BaseVO implements Serializable{
 
         public void setIs_default(String is_default) {
             this.is_default = is_default;
-        }
-
-        public String getAddress_info() {
-            return address_info;
-        }
-
-        public void setAddress_info(String address_info) {
-            this.address_info = address_info;
         }
     }
 }

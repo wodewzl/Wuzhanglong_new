@@ -25,4 +25,15 @@ public class RecyclerViewUtil {
         recyclerView.setLoadMoreEnabled(loadMore);
     }
 
+    public static void initRecyclerViewLinearLayoutHorizontal(Context context, LuRecyclerView recyclerView, RecyclerBaseAdapter baseAdapter,int dividerHigh, int dividerColor){
+       LinearLayoutManager linearLayoutManager=new LinearLayoutManager(context);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        DividerDecoration divider = DividerUtil.linnerDivider(context, dividerHigh,dividerColor);
+        recyclerView.addItemDecoration(divider);
+        LuRecyclerViewAdapter adapter = new LuRecyclerViewAdapter(baseAdapter);
+        recyclerView.setAdapter(adapter);
+
+    }
+
 }

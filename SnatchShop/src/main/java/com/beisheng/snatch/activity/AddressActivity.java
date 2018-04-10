@@ -13,8 +13,10 @@ import com.beisheng.snatch.adapter.AddressAdapter;
 import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.AddressVO;
+import com.beisheng.snatch.model.ScortDetailVO;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
+import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
@@ -53,10 +55,8 @@ public class AddressActivity extends BaseActivity implements View.OnClickListene
         mAdapter = new AddressAdapter(mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
         DividerDecoration divider = DividerUtil.linnerDivider(this, R.dimen.dp_10, R.color.C3);
-        mRecyclerView.addItemDecoration(divider);
         mAddBt = getViewById(R.id.add_bt);
-        mAddBt.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.colorAccent, R.color.colorAccent));
-        //什么搞的啊啊
+        mRecyclerView.addItemDecoration(divider);
     }
 
     @Override
@@ -68,10 +68,9 @@ public class AddressActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void getData() {
-//        HashMap<String, Object> map = new HashMap<>();
-//        map.put("user_no", "10005");
-//        HttpGetDataUtil.get(mActivity, this, Constant.ADDRESS_LIST_URL, map, AddressVO.class);
-        showView();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("user_no", "10005");
+        BSHttpUtils.post(mActivity, this, Constant.ADDRESS_LIST_URL, map, AddressVO.class);
     }
 
     @Override
@@ -118,12 +117,12 @@ public class AddressActivity extends BaseActivity implements View.OnClickListene
             HttpGetDataUtil.post(this, Constant.ADDRESS_DELETE_URL, map, this);
         } else if ("address_edit".equals(event.getMessage())) {
             getData();
-        }else if("address_defalut".equals(event.getMessage())) {
+        } else if ("address_defalut".equals(event.getMessage())) {
             HashMap<String, Object> map = new HashMap<>();
             map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
             map.put("id", event.getMsg());
             HttpGetDataUtil.post(this, Constant.ADDRESS_SET_URL, map, this);
-        }else if("refresh".equals(event.getMessage())){
+        } else if ("refresh".equals(event.getMessage())) {
             getData();
         }
     }

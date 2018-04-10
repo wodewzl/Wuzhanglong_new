@@ -24,9 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dip"
         android:layout_marginRight="30dip"
-        android:background="@color/colorAccent"
-        android:text="新增收货地址"
-        android:textColor="@color/C1"
+        android:background="@drawable/frame_kongxin_white_red"
+        android:text="添加新地址"
+        android:textColor="@color/colorAccent"
         android:textSize="15sp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"/>
