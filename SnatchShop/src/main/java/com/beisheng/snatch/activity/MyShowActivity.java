@@ -4,25 +4,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
 import com.beisheng.snatch.R;
-import com.beisheng.snatch.adapter.MyBuyRecordAdapter;
-import com.beisheng.snatch.adapter.MyShowAdapter;
-import com.beisheng.snatch.fragment.MyBuyRecordFragment;
 import com.beisheng.snatch.fragment.MyShowRecordFragment;
-import com.github.jdsjlzx.recyclerview.LuRecyclerView;
-import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
-import com.github.jdsjlzx.recyclerview.ProgressStyle;
-import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.mode.BaseVO;
-import com.wuzhanglong.library.utils.DividerUtil;
-import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +48,6 @@ public class MyShowActivity extends BaseActivity implements View.OnClickListener
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-
                 return mList.get(position);
             }
 

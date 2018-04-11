@@ -97,10 +97,19 @@ public class ShopDetailVO extends BaseVO{
         private String seconds_remain;
         private LuckyUserBean lucky_user;
         private String goods_detail_url;
+        private String calc_detail_url;
         private String is_hb;
         private JoinFirstPageBean join_first_page;
         private List<String> img_list;
         private List<ChartDataBean> chart_data;
+
+        public String getCalc_detail_url() {
+            return calc_detail_url;
+        }
+
+        public void setCalc_detail_url(String calc_detail_url) {
+            this.calc_detail_url = calc_detail_url;
+        }
 
         public String getId() {
             return id;

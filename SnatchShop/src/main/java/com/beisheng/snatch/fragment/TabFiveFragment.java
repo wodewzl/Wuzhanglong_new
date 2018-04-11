@@ -1,8 +1,9 @@
 package com.beisheng.snatch.fragment;
 
 
-import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,26 +22,26 @@ import com.beisheng.snatch.activity.MyScortActivity;
 import com.beisheng.snatch.activity.MyShowActivity;
 import com.beisheng.snatch.activity.SettingActivity;
 import com.beisheng.snatch.activity.UserInfoActivity;
-import com.beisheng.snatch.adapter.FindAdapter;
-import com.beisheng.snatch.model.UserInfoVO;
-import com.github.jdsjlzx.recyclerview.LuRecyclerView;
-import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
-import com.github.jdsjlzx.recyclerview.ProgressStyle;
-import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
+import com.beisheng.snatch.constant.Constant;
+import com.beisheng.snatch.model.MyCenterVO;
+import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.fragment.BaseFragment;
+import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
-import com.wuzhanglong.library.utils.DividerUtil;
-import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
+
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class TabFiveFragment extends BaseFragment implements View.OnClickListener {
+public class TabFiveFragment extends BaseFragment implements OnClickListener {
     private ImageView mMessageImg, mSettingImg;
     private TextView mItem01Tv, mItem02Tv, mItem03Tv, mItem04Tv, mItem05Tv, mItem06Tv, mItem07Tv;
     private TextView mBuyFlowTv;
     private LinearLayout mMyFlowLayout, mMyRedMoneyLayout, mMyScortLayout;
     private CircleImageView mHeadImg;
+    private TextView mNameTv,mIpTv,mFlowTv,mRedTv,mScortTv;
+    private MyCenterVO.DataBean mMyCenterVO;
 
     @Override
     public void setContentView() {
@@ -64,6 +65,11 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
         mBuyFlowTv = getViewById(R.id.buy_flow_tv);
         mBuyFlowTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.C1, R.color.color_black));
         mHeadImg = getViewById(R.id.head_img);
+        mNameTv=getViewById(R.id.name_tv);
+        mIpTv=getViewById(R.id.ip_tv);
+        mFlowTv=getViewById(R.id.flow_tv);
+        mRedTv=getViewById(R.id.red_tv);
+        mScortTv=getViewById(R.id.scort_tv);
     }
 
     @Override
@@ -87,16 +93,22 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void getData() {
-//        HashMap<String, Object> map = new HashMap<>();
-//        map.put("wuzhanglong", "牛逼");
-//        map.put("jinrenzheng", "傻逼");
-//        BSHttpUtils.post(mActivity, this, Constant.HOME_URL, map, HomeVO.class);
-        showView();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("user_no", "10005");
+        BSHttpUtils.post(mActivity, this, Constant.MY_CENTER_URL, map, MyCenterVO.class);
     }
 
     @Override
     public void hasData(BaseVO vo) {
-
+        MyCenterVO bean= (MyCenterVO) vo;
+        mMyCenterVO=bean.getData();
+        if(!TextUtils.isEmpty(mMyCenterVO.getAvatar()))
+            Picasso.with(mActivity).load(mMyCenterVO.getAvatar()).into(mHeadImg);
+        mNameTv.setText(mMyCenterVO.getNickname());
+        mIpTv.setText("ID:"+mMyCenterVO.getUser_no());
+        mFlowTv.setText(mMyCenterVO.getFlow());
+        mRedTv.setText(mMyCenterVO.getCoupon_count());
+        mScortTv.setText(mMyCenterVO.getPoint());
     }
 
     @Override

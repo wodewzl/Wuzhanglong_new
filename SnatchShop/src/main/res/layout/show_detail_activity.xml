@@ -27,6 +27,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/title_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="0.5dp"
@@ -35,14 +36,15 @@
                     android:text="拨打电话" />
 
                 <TextView
+                    android:id="@+id/buy_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="0.5dp"
-
-                    android:drawablePadding="5dp"
                     android:gravity="center"
-                    android:text="拨打电话"
+                    android:text="立即疯抢"
                     android:textColor="@color/colorAccent"
+                    android:drawableLeft="@drawable/rebuy"
+                    android:drawablePadding="5dp"
                     android:textSize="11sp" />
             </LinearLayout>
 
@@ -53,12 +55,13 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/desc_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="0.5dp"
                     android:layout_weight="1"
                     android:drawablePadding="5dp"
-                    android:text="拨打电话"
+                    android:text="立即疯抢"
                     android:textColor="@color/C5" />
 
                 <TextView
@@ -85,36 +88,49 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/buy_shop_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="我爱你杨依" />
+                    android:text="我爱你杨依"
+                    android:maxLength="1"
+                    android:ellipsize="end"
+                    android:textColor="@color/C5"/>
 
                 <TextView
+                    android:id="@+id/buy_shop_no_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="我爱你杨依" />
+                    android:text="我爱你杨依"
+                    android:textColor="@color/C5"/>
 
                 <TextView
+                    android:id="@+id/buy_shop_count_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="我爱你杨依" />
+                    android:text="我爱你杨依"
+                    android:textColor="@color/C5"/>
 
                 <TextView
+                    android:id="@+id/buy_shop_number_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="我爱你杨依" />
+                    android:text="我爱你杨依"
+                    android:textColor="@color/C5"/>
 
                 <TextView
+                    android:id="@+id/buy_shop_time_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="我爱你杨依" />
+                    android:text="我爱你杨依"
+                    android:textColor="@color/C5"/>
             </LinearLayout>
 
             <TextView
+                android:id="@+id/comment_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -148,6 +164,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="3"
+                    android:drawableLeft="@drawable/agree"
+                    android:drawablePadding="5dp"
                     android:textColor="@color/C5"
                     android:textSize="11sp" />
 
@@ -156,6 +174,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="3"
+                    android:drawableLeft="@drawable/comment"
+                    android:drawablePadding="5dp"
                     android:textColor="@color/C5"
                     android:textSize="11sp" />
 
@@ -164,12 +184,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="3"
+                    android:drawableLeft="@drawable/share_img"
+                    android:drawablePadding="5dp"
                     android:textColor="@color/C5"
                     android:textSize="11sp" />
             </LinearLayout>
         </LinearLayout>
 
         <TextView
+            android:id="@+id/discuss_title_tv"
             style="@style/padding_15_13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

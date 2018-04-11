@@ -1,8 +1,6 @@
 package com.beisheng.snatch.activity;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -31,7 +29,6 @@ import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
-import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -95,7 +92,10 @@ public class SearchShopActivity extends BaseActivity implements SwipeRefreshLayo
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("keyword", mKeyword);
+        if (!TextUtils.isEmpty(mKeyword))
+            map.put("keyword", mKeyword);
+        if (this.getIntent().getStringExtra("id") != null)
+            map.put("category_id", this.getIntent().getStringExtra("id"));
         BSHttpUtils.get(mActivity, this, Constant.KEYWORD_LIST_URL, map, SearchShopVO.class);
     }
 

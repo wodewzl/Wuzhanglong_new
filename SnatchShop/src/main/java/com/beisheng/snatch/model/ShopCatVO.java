@@ -60,6 +60,15 @@ public class ShopCatVO extends BaseVO {
             private String is_valid;
             private String validedCount;
             private boolean longClick;
+            private boolean isCheck;
+
+            public boolean isCheck() {
+                return isCheck;
+            }
+
+            public void setCheck(boolean check) {
+                isCheck = check;
+            }
 
             public boolean isLongClick() {
                 return longClick;
