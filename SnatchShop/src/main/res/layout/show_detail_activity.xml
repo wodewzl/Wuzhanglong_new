@@ -65,6 +65,7 @@
                     android:textColor="@color/C5" />
 
                 <TextView
+                    android:id="@+id/time_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="0.5dp"
