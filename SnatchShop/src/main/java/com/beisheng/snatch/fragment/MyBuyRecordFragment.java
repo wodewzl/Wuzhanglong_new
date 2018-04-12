@@ -25,7 +25,7 @@ import java.util.List;
 
 import static com.beisheng.snatch.R.color.C3;
 
-public class MyBuyRecordFragment extends BaseFragment implements OnLoadMoreListener, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class MyBuyRecordFragment extends BaseFragment implements OnLoadMoreListener,SwipeRefreshLayout.OnRefreshListener,View.OnClickListener {
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private LuRecyclerView mRecyclerView, mRecyclerViewLove;
     private MyBuyRecordAdapter mAdapter;

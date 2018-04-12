@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:qinc="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/C1"
-    android:gravity="center"
-    android:orientation="horizontal"
->
-
-
+                xmlns:qinc="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/C1"
+                android:gravity="center"
+                android:orientation="horizontal"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/C1"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="10dp"
         android:paddingLeft="5dp"
         android:paddingRight="15dp"
-        android:paddingTop="10dp"
-        android:background="@color/C1">
+        android:paddingTop="10dp">
 
         <FrameLayout
             android:layout_width="wrap_content"
@@ -30,13 +28,13 @@
                 style="@style/SnatchShopCheckBox1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center" />
+                android:gravity="center"/>
 
             <View
                 android:id="@+id/view_check"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:visibility="gone" />
+                android:visibility="gone"/>
         </FrameLayout>
 
 
@@ -45,9 +43,8 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginLeft="10dp"
-            android:background="@color/C9"
             android:gravity="center_vertical"
-            android:text="吴二少舰旗店" />
+            android:text="吴二少舰旗店"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,7 +69,7 @@
                     android:lines="2"
                     android:maxLines="2"
                     android:text="花花公子凉鞋"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -86,7 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
-                    android:text="抢购" />
+                    android:text="抢购"/>
 
                 <com.beisheng.snatch.view.NumberButton
                     android:id="@+id/number_bt"
@@ -97,13 +94,13 @@
                     qinc:editable="false"
                     qinc:textColor="@color/C5"
                     qinc:textSize="4sp"
-                    qinc:textWidth="90dp" />
+                    qinc:textWidth="90dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="次" />
+                    android:text="次"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -112,17 +109,17 @@
         android:id="@+id/menu_layout"
         android:layout_width="match_parent"
         android:layout_height="90dp"
-        android:orientation="horizontal"
         android:background="@color/alpha_60_black"
         android:gravity="center"
+        android:orientation="horizontal"
         android:visibility="gone">
 
         <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:layout_weight="1"-->
-            <!--android:gravity="center">-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_weight="1"-->
+        <!--android:gravity="center">-->
 
         <!--</LinearLayout>-->
 
@@ -130,30 +127,30 @@
             android:id="@+id/collect_tv"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:text="收藏"
-            android:textColor="@color/colorAccent"
+            android:background="@drawable/bg_circle_01"
             android:gravity="center"
-            android:background="@drawable/bg_circle_01"/>
+            android:text="收藏"
+            android:textColor="@color/colorAccent"/>
 
         <TextView
             android:id="@+id/see_same_tv"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:text="看相似"
-            android:gravity="center"
-            android:background="@drawable/bg_circle_01"
-            android:textColor="@color/C1"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"/>
+            android:layout_marginRight="30dp"
+            android:background="@drawable/bg_circle_01"
+            android:gravity="center"
+            android:text="看相似"
+            android:textColor="@color/C1"/>
 
         <TextView
             android:id="@+id/delete_tv"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:text="删除"
-            android:textColor="@color/C1"
+            android:background="@drawable/bg_circle_01"
             android:gravity="center"
-            android:background="@drawable/bg_circle_01"/>
+            android:text="删除"
+            android:textColor="@color/C1"/>
 
     </LinearLayout>
 </RelativeLayout>

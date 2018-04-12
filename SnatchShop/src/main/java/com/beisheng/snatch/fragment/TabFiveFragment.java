@@ -1,6 +1,7 @@
 package com.beisheng.snatch.fragment;
 
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,14 +21,17 @@ import com.beisheng.snatch.activity.MyScortActivity;
 import com.beisheng.snatch.activity.MyShowActivity;
 import com.beisheng.snatch.activity.SettingActivity;
 import com.beisheng.snatch.activity.UserInfoActivity;
-import com.beisheng.snatch.constant.Constant;
+import com.beisheng.snatch.adapter.FindAdapter;
 import com.beisheng.snatch.model.UserInfoVO;
+import com.github.jdsjlzx.recyclerview.LuRecyclerView;
+import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
+import com.github.jdsjlzx.recyclerview.ProgressStyle;
+import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.fragment.BaseFragment;
-import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
-
-import java.util.HashMap;
+import com.wuzhanglong.library.utils.DividerUtil;
+import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -97,6 +101,15 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void hasData(BaseVO vo) {
+        MyCenterVO bean= (MyCenterVO) vo;
+        mMyCenterVO=bean.getData();
+        if(!TextUtils.isEmpty(mMyCenterVO.getAvatar()))
+            Picasso.with(mActivity).load(mMyCenterVO.getAvatar()).into(mHeadImg);
+        mNameTv.setText(mMyCenterVO.getNickname());
+        mIpTv.setText("ID:"+mMyCenterVO.getUser_no());
+        mFlowTv.setText(mMyCenterVO.getFlow());
+        mRedTv.setText(mMyCenterVO.getCoupon_count());
+        mScortTv.setText(mMyCenterVO.getPoint());
         UserInfoVO dataBean = (UserInfoVO) vo;
         mUserInfoVO = dataBean.getData();
         mNameTv.setText(mUserInfoVO.getNickname());

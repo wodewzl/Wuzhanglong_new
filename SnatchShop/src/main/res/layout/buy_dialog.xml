@@ -17,6 +17,7 @@
         />
 
     <TextView
+        android:id="@+id/dialog_count_tv"
         style="@style/padding_15_13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -27,7 +27,7 @@ import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 
-public class DailyTaskActivity extends BaseActivity implements BGAOnRVItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class DailyTaskActivity extends BaseActivity implements BGAOnRVItemClickListener, SwipeRefreshLayout.OnRefreshListener,View.OnClickListener {
     private LuRecyclerView mRecyclerView;
     private DailyTaskAdapter mAdapter;
     private ScrollableLayout mScrollableLayout;
@@ -45,7 +45,14 @@ public class DailyTaskActivity extends BaseActivity implements BGAOnRVItemClickL
 
     @Override
     public void initView() {
-        mBaseTitleTv.setText("每日任务");
+        if(this.getIntent().getStringExtra("title")!=null){
+            mBaseTitleTv.setText("每日积分");
+            mBaseOkTv.setText("查看积分明细");
+        }else {
+            mBaseTitleTv.setText("每日任务");
+            mBaseOkTv.setVisibility(View.GONE);
+        }
+
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
 //        mScrollableLayout = getViewById(R.id.scrollable_layout);
@@ -65,7 +72,7 @@ public class DailyTaskActivity extends BaseActivity implements BGAOnRVItemClickL
     public void bindViewsListener() {
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
         mAdapter.setOnRVItemClickListener(this);
-
+        mBaseOkTv.setOnClickListener(this);
     }
 
     @Override
@@ -146,4 +153,14 @@ public class DailyTaskActivity extends BaseActivity implements BGAOnRVItemClickL
         getData();
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.base_ok_tv:
+                openActivity(ScortDetailActivity.class);
+                break;
+            default:
+                break;
+        }
+    }
 }

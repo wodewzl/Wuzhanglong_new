@@ -1,35 +1,33 @@
 package com.beisheng.snatch.fragment;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
-import android.widget.CompoundButton;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.beisheng.snatch.R;
-import com.beisheng.snatch.adapter.AddressDialogAdapter;
-import com.beisheng.snatch.adapter.MyLuckyRecordAdapter;
+import com.beisheng.snatch.activity.ShowDetailActivity;
 import com.beisheng.snatch.adapter.MyShowAdapter;
-import com.beisheng.snatch.adapter.ShowAdapter;
 import com.beisheng.snatch.constant.Constant;
-import com.beisheng.snatch.model.MyLuckyRecordVO;
+import com.beisheng.snatch.model.DiscussVO;
 import com.beisheng.snatch.model.ShowVO;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
-import com.rey.material.app.BottomSheetDialog;
-import com.rey.material.widget.CheckBox;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
-import com.wuzhanglong.library.utils.BottomDialogUtil;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreListener, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
+
+public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreListener, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener,BGAOnRVItemClickListener {
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private LuRecyclerView mRecyclerView;
     private MyShowAdapter mAdapter;
@@ -71,6 +69,7 @@ public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreList
         mRecyclerView.setOnLoadMoreListener(this);
         mOkTv.setOnClickListener(this);
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
+        mAdapter.setOnRVItemClickListener(this);
     }
 
     @Override
@@ -149,6 +148,16 @@ public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreList
                 break;
         }
 
+    }
+
+    @Override
+    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+        if (mAdapter.getData().size() == 0)
+            return;
+        DiscussVO.DataBean.ListBean vo = (DiscussVO.DataBean.ListBean) mAdapter.getItem(position);
+        Bundle bundle = new Bundle();
+        bundle.putString("id", vo.getId());
+        mActivity.open(ShowDetailActivity.class, bundle, 0);
     }
 
 }
