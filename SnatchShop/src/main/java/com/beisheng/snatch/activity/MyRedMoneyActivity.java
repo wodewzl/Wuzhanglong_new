@@ -134,7 +134,7 @@ public class MyRedMoneyActivity extends BaseActivity {
         mFragmentList = new ArrayList<>();
         final MyRedMoneyHaveFragment fragment1= MyRedMoneyHaveFragment.newInstance();
         mFragmentList.add(fragment1);
-        final MyRedMoneyUsedFragment fragment2= MyRedMoneyUsedFragment.newInstance();
+        final MyRedMoneyHaveFragment fragment2= MyRedMoneyHaveFragment.newInstance();
         mFragmentList.add(fragment2);
         mViewPager.setOffscreenPageLimit(mTitleDataList.length);
         mViewPager.setAdapter(new FragmentPagerAdapter(mActivity.getSupportFragmentManager()) {

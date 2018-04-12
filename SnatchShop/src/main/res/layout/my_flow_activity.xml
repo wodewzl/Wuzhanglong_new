@@ -13,7 +13,9 @@
         android:layout_height="match_parent"
         android:background="@color/C1"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <LinearLayout
             style="@style/padding_15_10"
@@ -62,12 +64,15 @@
 
 
         <EditText
+            android:id="@+id/phone_tv"
             style="@style/margin_15_10"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:background="@drawable/frame_kongxin_white_gray"
             android:hint="请输入您兑换的手机号码"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            android:inputType="number"
+            android:maxLength="11"/>
 
         <TextView
             style="@style/padding_15_10"
@@ -113,9 +118,9 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="20dp"
-            android:background="@color/colorAccent"
+            android:background="@drawable/corners_5_red"
             android:gravity="center"
-            android:text="立即支付"
+            android:text="确认兑换"
             android:textColor="@color/C1"
             android:textSize="15sp" />
     </LinearLayout>

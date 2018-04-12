@@ -39,8 +39,9 @@
                     android:id="@+id/head_img"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    app:civ_border_color="@color/C3_1"
-                    app:civ_border_width="2dp"/>
+                    app:civ_border_color="@color/C3"
+                    app:civ_border_width="2dp"
+                    android:src="@drawable/user_icon_def"/>
 
                 <TextView
                     android:id="@+id/tv_01"

@@ -68,7 +68,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="sddsassssss"
-                        android:textColor="@color/C5"
+                        android:textColor="@color/C6"
                         android:textSize="11sp" />
 
                     <TextView
@@ -76,7 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="sddsassssss"
-                        android:textColor="@color/C5"
+                        android:textColor="@color/C6"
                         android:textSize="11sp" />
                 </LinearLayout>
 
@@ -94,6 +94,7 @@
                     style="@style/padding_15_10"
                  android:gravity="center">
                     <TextView
+                        android:id="@+id/status_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="使用"
@@ -104,6 +105,7 @@
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"/>
                     <TextView
+                        android:id="@+id/money_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="￥5"

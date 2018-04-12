@@ -106,6 +106,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     private String mIsFavor = "0";
 
 
+
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.shop_detail_activity);
@@ -176,6 +177,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mDiscussTv = getViewById(R.id.discuss_tv);
         mPastBuyTv = getViewById(R.id.past_buy_tv);
         mAddFavorImg = getViewById(R.id.add_favor_img);
+
     }
 
     public void initLineChart() {

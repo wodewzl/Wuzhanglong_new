@@ -44,6 +44,8 @@ public class Constant {
     public static final String MY_ORDER_SHOW = "/index.php/Api/Member/my_evaluate";//我的晒单
     public static final String SCORT_DETAIL_URL = "/index.php/Api/Account/score_log";//积分明细
     public static final String MY_SCORT_URL = "/index.php/Api/Account/score_index";//我的积分
-
+    public static final String MY_RED_MONEY_URL = "/index.php/Api/Account/coupon_list";//我的积分
+    public static final String FLOW_EXCHANGE_URL = "/index.php/Api/Account/exchange_flow";//兑换流浪
+    public static final String MY_CENTER_URL = "/index.php/Api/Account/index";//兑换流浪
 }
 

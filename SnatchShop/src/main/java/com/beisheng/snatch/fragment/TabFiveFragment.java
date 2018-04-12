@@ -1,7 +1,6 @@
 package com.beisheng.snatch.fragment;
 
 
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,17 +20,14 @@ import com.beisheng.snatch.activity.MyScortActivity;
 import com.beisheng.snatch.activity.MyShowActivity;
 import com.beisheng.snatch.activity.SettingActivity;
 import com.beisheng.snatch.activity.UserInfoActivity;
-import com.beisheng.snatch.adapter.FindAdapter;
+import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.UserInfoVO;
-import com.github.jdsjlzx.recyclerview.LuRecyclerView;
-import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
-import com.github.jdsjlzx.recyclerview.ProgressStyle;
-import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.fragment.BaseFragment;
+import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
-import com.wuzhanglong.library.utils.DividerUtil;
-import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
+
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -41,6 +37,8 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
     private TextView mBuyFlowTv;
     private LinearLayout mMyFlowLayout, mMyRedMoneyLayout, mMyScortLayout;
     private CircleImageView mHeadImg;
+    private UserInfoVO.DataBean mUserInfoVO;
+    private TextView mFlowTv, mRedTv, mScortTv, mNameTv, mUserNoTv;
 
     @Override
     public void setContentView() {
@@ -64,6 +62,11 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
         mBuyFlowTv = getViewById(R.id.buy_flow_tv);
         mBuyFlowTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 5, R.color.C1, R.color.color_black));
         mHeadImg = getViewById(R.id.head_img);
+        mFlowTv = getViewById(R.id.flow_tv);
+        mRedTv = getViewById(R.id.red_tv);
+        mScortTv = getViewById(R.id.scort_tv);
+        mNameTv = getViewById(R.id.name_tv);
+        mUserNoTv = getViewById(R.id.user_no_tv);
     }
 
     @Override
@@ -87,15 +90,17 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void getData() {
-//        HashMap<String, Object> map = new HashMap<>();
-//        map.put("wuzhanglong", "牛逼");
-//        map.put("jinrenzheng", "傻逼");
-//        BSHttpUtils.post(mActivity, this, Constant.HOME_URL, map, HomeVO.class);
-        showView();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(" user_no", "10005");
+        BSHttpUtils.post(mActivity, this, Constant.MY_CENTER_URL, map, UserInfoVO.class);
     }
 
     @Override
     public void hasData(BaseVO vo) {
+        UserInfoVO dataBean = (UserInfoVO) vo;
+        mUserInfoVO = dataBean.getData();
+        mNameTv.setText(mUserInfoVO.getNickname());
+        mUserNoTv.setText("ID:"+mUserInfoVO.getUser_no());
 
     }
 
