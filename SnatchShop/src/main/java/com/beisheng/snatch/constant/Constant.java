@@ -46,7 +46,6 @@ public class Constant {
     public static final String MY_SCORT_URL = "/index.php/Api/Account/score_index";//我的积分
     public static final String MY_RED_MONEY_URL = "/index.php/Api/Account/coupon_list";//我的积分
     public static final String FLOW_EXCHANGE_URL = "/index.php/Api/Account/exchange_flow";//兑换流浪
-    public static final String MY_CENTER_URL = "/index.php/Api/Account/index";//兑换流浪
     public static final String MY_CENTER_URL = "/index.php/Api/Account/index";//我的首页数据
     public static final String SHOW_DETAIL_URL = "/index.php/Api/Dbindex/evaluate_detail";//晒单详情
     public static final String DISCUSS_LIST_URL = "/index.php/Api/Dbindex/evaluate_comments_list";//评论列表

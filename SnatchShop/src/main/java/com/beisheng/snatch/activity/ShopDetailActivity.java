@@ -81,7 +81,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     private Banner mBanner;
     private TextView mDescTv, mStatusTv, mHonor1GradeTv, mHonor1NameTv, mHonor1CountTv, mHonor2GradeTv, mHonor2NameTv, mHonor2CountTv, mHonor3GradeTv, mHonor3NameTv, mHonor3CountTv;
     private View mLayoutType1, mLayoutType2, mLayoutType3;
-    private TextView mType3NameTv, mType3NumberTv, mType3BuyCoutTv, mType3TimeTv, mType3UserNoTv,Type3RunTv, mType1WinTv;
+    private TextView mType3NameTv, mType3NumberTv, mType3BuyCoutTv, mType3TimeTv, mType3UserNoTv,mType3RunTv, mType1WinTv;
     private TextView mType1NumberTv, mType1JoinCountTv, mType1TotalCountTv;
     private CircleImageView mType1HeadImg, mHonor1HeadImg, mHonor2HeadImg, mHonor3HeadImg;
     private int mCurrentPage = 1;
@@ -176,7 +176,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mDiscussTv = getViewById(R.id.discuss_tv);
         mPastBuyTv = getViewById(R.id.past_buy_tv);
         mAddFavorImg = getViewById(R.id.add_favor_img);
-        Type3RunTv=getViewById(R.id.type3_run_tv);
+        mType3RunTv=getViewById(R.id.type3_run_tv);
 
     }
 
@@ -348,7 +348,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mPastBuyTv.setOnClickListener(this);
         mDiscussTv.setOnClickListener(this);
         mAddFavorImg.setOnClickListener(this);
-        Type3RunTv.setOnClickListener(this);
+        mType3RunTv.setOnClickListener(this);
 
     }
 
