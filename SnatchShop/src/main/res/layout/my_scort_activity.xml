@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@color/colorAccent">
+        android:background="@color/C1">
 
         <TextView
             android:id="@+id/scort_tv"

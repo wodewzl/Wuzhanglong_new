@@ -23,6 +23,7 @@ import com.beisheng.snatch.activity.MyShowActivity;
 import com.beisheng.snatch.activity.SettingActivity;
 import com.beisheng.snatch.activity.UserInfoActivity;
 import com.beisheng.snatch.adapter.FindAdapter;
+import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.UserInfoVO;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
@@ -108,6 +109,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void hasData(BaseVO vo) {
         UserInfoVO bean= (UserInfoVO) vo;
+        AppApplication.getInstance().saveUserInfoVO(bean);
         mUserInfoVO=bean.getData();
         if(!TextUtils.isEmpty(mUserInfoVO.getAvatar()))
             Picasso.with(mActivity).load(mUserInfoVO.getAvatar()).into(mHeadImg);

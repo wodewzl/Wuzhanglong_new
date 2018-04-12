@@ -51,8 +51,14 @@
                 android:gravity="center"
                 android:paddingBottom="15dp"
                 android:paddingLeft="5dp"
-                android:paddingRight="15dp"
                 android:paddingTop="15dp" />
+            <TextView
+                android:id="@+id/total_count_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginLeft="35dp"
+                android:text="全选"/>
 
             <View
                 android:id="@+id/view_check"

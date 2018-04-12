@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.beisheng.snatch.R;
@@ -66,6 +67,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     private String mStatus = "4";//4为升序5为降序
     private TextView mMenu01Tv, mMenu02Tv, mMenu03Tv, mMenu04Tv;
     private FloatingActionButton mFab;
+    private LinearLayout mHeadLayout;
 
     @Override
     public void setContentView() {
@@ -89,6 +91,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mMenu03Tv = getViewById(R.id.menu_03_tv);
         mMenu04Tv = getViewById(R.id.menu_04_tv);
         mFab = getViewById(R.id.fab);
+        mHeadLayout=getViewById(R.id.head_layouat);
         initMagicIndicator();
 
 
@@ -103,6 +106,13 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mMenu03Tv.setOnClickListener(this);
         mMenu04Tv.setOnClickListener(this);
         mFab.setOnClickListener(this);
+        mScrollableLayout.setOnScrollListener(new ScrollableLayout.OnScrollListener() {
+            @Override
+            public void onScroll(int currentY, int maxY) {
+                mHeadLayout.setTranslationY(currentY / 2);
+
+            }
+        });
     }
 
     private void initMagicIndicator() {

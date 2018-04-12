@@ -9,7 +9,7 @@
                 android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/head_layout"
+        android:id="@+id/rl_layout"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@color/colorAccent"
@@ -133,12 +133,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_layout"
-        android:layout_below="@id/head_layout"
+        android:layout_below="@id/rl_layout"
         android:layout_weight="1"
         android:background="@color/C3"
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/head_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"

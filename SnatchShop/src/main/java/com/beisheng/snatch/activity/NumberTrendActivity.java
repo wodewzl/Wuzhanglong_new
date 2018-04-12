@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.beisheng.snatch.R;
@@ -47,6 +48,7 @@ public class NumberTrendActivity extends BaseActivity implements ScrollableHelpe
     private NumberTrendAdapter mAdapter;
     private ScrollableLayout mScrollableLayout;
     private MagicIndicator magicIndicator;
+    private LinearLayout mHeadLayout;
 
     @Override
     public void baseSetContentView() {
@@ -67,6 +69,7 @@ public class NumberTrendActivity extends BaseActivity implements ScrollableHelpe
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
         mRecyclerView.setLoadMoreEnabled(true);
+        mHeadLayout=getViewById(R.id.head_layout);
         initMagicIndicator();
 
     }
@@ -144,6 +147,13 @@ public class NumberTrendActivity extends BaseActivity implements ScrollableHelpe
     @Override
     public void bindViewsListener() {
         EventBus.getDefault().register(this);
+        mScrollableLayout.setOnScrollListener(new ScrollableLayout.OnScrollListener() {
+            @Override
+            public void onScroll(int currentY, int maxY) {
+                mHeadLayout.setTranslationY(currentY / 2);
+
+            }
+        });
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.adapter.MoneyAdapter;
+import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.MyFlowVO;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
@@ -32,7 +33,7 @@ public class MyFlowActivity extends BaseActivity implements BGAOnRVItemClickList
     private LuRecyclerView mRecyclerView;
     private MoneyAdapter mAdapter;
     private MyFlowVO mSelectVO;
-    private TextView mOkTv, mPhoneTv;
+    private TextView mOkTv, mPhoneTv, mFlowTv;
 
     @Override
     public void baseSetContentView() {
@@ -51,12 +52,16 @@ public class MyFlowActivity extends BaseActivity implements BGAOnRVItemClickList
         mRecyclerView.setLoadMoreEnabled(false);
         mOkTv = getViewById(R.id.ok_tv);
         mPhoneTv = getViewById(R.id.phone_tv);
+        mFlowTv = getViewById(R.id.flow_tv);
+        mFlowTv.setText(AppApplication.getInstance().getUserInfoVO().getData().getFlow() + "M");
+        mBaseOkTv.setText("兑换记录");
     }
 
     @Override
     public void bindViewsListener() {
         mAdapter.setOnRVItemClickListener(this);
         mOkTv.setOnClickListener(this);
+        mBaseOkTv.setOnClickListener(this);
     }
 
     @Override
@@ -116,6 +121,8 @@ public class MyFlowActivity extends BaseActivity implements BGAOnRVItemClickList
                 map.put("flow_id", mSelectVO.getId());
                 map.put("mobile", mPhoneTv.getText().toString());
                 BSHttpUtils.postCallBack(mActivity, Constant.FLOW_EXCHANGE_URL, map, BaseVO.class, this);
+                break;
+            case R.id.base_ok_tv:
                 break;
             default:
                 break;

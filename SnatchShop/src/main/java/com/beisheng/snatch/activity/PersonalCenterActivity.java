@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.beisheng.snatch.R;
@@ -48,6 +49,7 @@ public class PersonalCenterActivity extends BaseActivity {
     private ScrollableLayout mScrollableLayout;
     private TextView mNameTv,mUserId;
     private CircleImageView mHeadImg;
+    private LinearLayout mHeadLayout;
 
     @Override
     public void baseSetContentView() {
@@ -62,6 +64,7 @@ public class PersonalCenterActivity extends BaseActivity {
         mHeadImg=getViewById(R.id.head_img);
         mScrollableLayout = getViewById(R.id.scrollable_layout);
         mViewPager = getViewById(R.id.view_pager);
+        mHeadLayout=getViewById(R.id.head_layout);
         initMagicIndicator();
     }
 
@@ -174,7 +177,13 @@ public class PersonalCenterActivity extends BaseActivity {
 
     @Override
     public void bindViewsListener() {
+        mScrollableLayout.setOnScrollListener(new ScrollableLayout.OnScrollListener() {
+            @Override
+            public void onScroll(int currentY, int maxY) {
+                mHeadLayout.setTranslationY(currentY / 2);
 
+            }
+        });
     }
 
     @Override

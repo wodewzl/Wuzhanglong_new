@@ -15,6 +15,7 @@
         android:layout_marginBottom="60dp">
 
         <LinearLayout
+            android:id="@+id/head_layouat"
             style="@style/padding_15_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,7 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="我爱你杨依"
-                    android:maxLength="1"
+                    android:maxLines="1"
                     android:ellipsize="end"
                     android:textColor="@color/C5"/>
 
@@ -136,15 +137,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:text="我爱你杨依我爱你杨依我爱你杨依我爱你杨爱你杨依我爱你杨依我爱你杨依"
-                android:textColor="@color/C5" />
+                android:textColor="@color/C6" />
 
             <cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout
                 android:id="@+id/photo_layout"
                 style="@style/MatchWrap"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:visibility="gone"
                 app:bga_npl_itemCornerRadius="0dp"
                 app:bga_npl_itemSpanCount="3"
@@ -213,7 +212,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="1dp"
         android:background="@color/C1"
         android:orientation="horizontal">
 
@@ -225,22 +224,26 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="11"
-                android:textColor="@color/C1" />
 
-            <TextView
-
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="11"
-                android:textColor="@color/C1" />
+                android:background="@color/C1"
+                android:src="@drawable/agree"/>
+
+            <View
+                android:layout_width="0.8dp"
+                android:layout_height="match_parent"
+                android:background="@color/C3"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="1dp"
+                android:background="@color/C1"
+                android:src="@drawable/share_img"/>
         </LinearLayout>
 
         <TextView
@@ -248,7 +251,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="0.5dp"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:background="@color/colorAccent"
             android:drawablePadding="5dp"
             android:gravity="center"

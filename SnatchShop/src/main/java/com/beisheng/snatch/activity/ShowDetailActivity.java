@@ -4,6 +4,7 @@ import android.Manifest;
 import android.os.Environment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.beisheng.snatch.R;
@@ -40,10 +41,11 @@ public class ShowDetailActivity extends BaseActivity implements BGANinePhotoLayo
     private ShowDetailAdapter mAdapter;
     private ScrollableLayout mScrollableLayout;
     private BottomSheetDialog mDialog;
-    private TextView mTitleTv, mBuyTv, mDescTv, mTimeTv, mBuyShopTv, mBuyShopNoTv, mBuyShopCountTv, mBuyShopNumberTv, mBuyShopTimeTv;
+    private TextView mTitleTv, mBuyTv, mDescTv, mTimeTv, mBuyShopTv, mBuyShopNoTv, mBuyShopCountTv, mBuyShopNumberTv, mBuyShopTimeTv,mCommentTv;
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
     private TextView mDiscussTitleTv;
+    private LinearLayout mHeadLayout;
 
     @Override
     public void baseSetContentView() {
@@ -62,6 +64,7 @@ public class ShowDetailActivity extends BaseActivity implements BGANinePhotoLayo
         LuRecyclerViewAdapter luAdapter = new LuRecyclerViewAdapter(mAdapter);
         mRecyclerView.setAdapter(luAdapter);
         mRecyclerView.setLoadMoreEnabled(false);
+
         mScrollableLayout = getViewById(R.id.scrollable_layout);
         mTitleTv = getViewById(R.id.title_tv);
         mDescTv = getViewById(R.id.desc_tv);
@@ -74,6 +77,8 @@ public class ShowDetailActivity extends BaseActivity implements BGANinePhotoLayo
         mBuyShopTimeTv = getViewById(R.id.buy_shop_time_tv);
         mPhotoLyout = getViewById(R.id.photo_layout);
         mDiscussTitleTv = getViewById(R.id.discuss_title_tv);
+        mHeadLayout=getViewById(R.id.head_layouat);
+        mCommentTv=getViewById(R.id.comment_tv);
     }
 
     @Override
@@ -81,6 +86,13 @@ public class ShowDetailActivity extends BaseActivity implements BGANinePhotoLayo
         mScrollableLayout.getHelper().setCurrentScrollableContainer(this);
         mRecyclerView.setOnLoadMoreListener(this);
         mPhotoLyout.setDelegate(this);
+        mScrollableLayout.setOnScrollListener(new ScrollableLayout.OnScrollListener() {
+            @Override
+            public void onScroll(int currentY, int maxY) {
+                mHeadLayout.setTranslationY(currentY / 2);
+
+            }
+        });
     }
 
     @Override
@@ -108,6 +120,7 @@ public class ShowDetailActivity extends BaseActivity implements BGANinePhotoLayo
             BaseCommonUtils.setTextThree(this, mBuyShopCountTv, "抢购次数：", bean.getPrise_info().getBuy_count(), "次", R.color.colorAccent, 1.3f);
             BaseCommonUtils.setTextTwoLast(this, mBuyShopNumberTv, "抢购号码：", bean.getPrise_info().getPrise_code(), R.color.C4, 1.0f);
             BaseCommonUtils.setTextTwoLast(this, mBuyShopTimeTv, "抢购时间：", bean.getPrise_info().getGet_time(), R.color.C4, 1.0f);
+            mCommentTv.setText("金任正少个字段");
             mPhotoLyout.setData((ArrayList<String>) bean.getImgs());
         } else {
             ShowDetailListVO showDetailListVO = (ShowDetailListVO) vo;

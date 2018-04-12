@@ -30,9 +30,6 @@ import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 public class DailyTaskActivity extends BaseActivity implements BGAOnRVItemClickListener, SwipeRefreshLayout.OnRefreshListener,View.OnClickListener {
     private LuRecyclerView mRecyclerView;
     private DailyTaskAdapter mAdapter;
-    private ScrollableLayout mScrollableLayout;
-    private int mCurrentPage = 1;
-    private boolean isLoadMore = false;
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
 
     /*
@@ -55,8 +52,6 @@ public class DailyTaskActivity extends BaseActivity implements BGAOnRVItemClickL
 
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
-//        mScrollableLayout = getViewById(R.id.scrollable_layout);
-//        mScrollableLayout.getHelper().setCurrentScrollableContainer(this);
         mRecyclerView = getViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         DividerDecoration divider = DividerUtil.linnerDivider(this, R.dimen.dp_1, R.color.C3);
@@ -73,6 +68,7 @@ public class DailyTaskActivity extends BaseActivity implements BGAOnRVItemClickL
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
         mAdapter.setOnRVItemClickListener(this);
         mBaseOkTv.setOnClickListener(this);
+
     }
 
     @Override
@@ -132,11 +128,6 @@ public class DailyTaskActivity extends BaseActivity implements BGAOnRVItemClickL
 
     }
 
-//    @Override
-//    public View getScrollableView() {
-//        return mRecyclerView;
-//    }
-
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
         if (mAdapter.getData().size() == 0)
@@ -149,7 +140,6 @@ public class DailyTaskActivity extends BaseActivity implements BGAOnRVItemClickL
 
     @Override
     public void onRefresh() {
-        mCurrentPage = 1;
         getData();
     }
 

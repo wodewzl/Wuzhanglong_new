@@ -70,7 +70,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     private LuRecyclerView mRecyclerView;
     private ShopDetailAdapter mAdapter;
     private LinearLayout mBottomLayout, mNumberTrendLayout;
-    private RelativeLayout mHeadLayout;
+    private LinearLayout mHeadLayout;
     private TextView mTitleTv, mBackTv;
     private ImageView mHomeImg, mShareImg;
     private LineChart mLineChart;

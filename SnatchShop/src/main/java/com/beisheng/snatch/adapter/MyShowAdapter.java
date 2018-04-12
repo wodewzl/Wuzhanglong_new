@@ -42,11 +42,13 @@ public class MyShowAdapter extends RecyclerBaseAdapter {
             Picasso.with(mActivity).load(bean.getAvatar()).into(helper.getImageView(R.id.head_img));
         if("1".equals(bean.getStatus())){
             BaseCommonUtils.setTextThree(mContext,helper.getTextView(R.id.name_tv),bean.getNickname()+"(","审核成功",")",R.color.color_green,1.0f);
-
+            helper.setText(R.id.status_tv,"再次抢购");
         }else if("2".equals(bean.getStatus())){
             BaseCommonUtils.setTextThree(mContext,helper.getTextView(R.id.name_tv),bean.getNickname()+"(","审核失败",")",R.color.colorAccent,1.0f);
+            helper.setText(R.id.status_tv,"重新提交");
         }else {
             BaseCommonUtils.setTextThree(mContext,helper.getTextView(R.id.name_tv),bean.getNickname()+"(","审核中",")",R.color.color_yellow,1.0f);
+            helper.setText(R.id.status_tv,"再次抢购");
         }
         helper.setText(R.id.content_tv, bean.getContent());
 
