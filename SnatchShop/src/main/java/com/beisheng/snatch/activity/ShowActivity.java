@@ -1,43 +1,27 @@
 package com.beisheng.snatch.activity;
 
-import android.Manifest;
-import android.os.Environment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.adapter.ShowAdapter;
-import com.beisheng.snatch.adapter.ShowDetailAdapter;
+import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
-import com.beisheng.snatch.model.MyCollectVO;
-import com.beisheng.snatch.model.MyMessageVO;
-import com.beisheng.snatch.model.ShopCatVO;
-import com.beisheng.snatch.model.ShopVO;
 import com.beisheng.snatch.model.ShowVO;
-import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
-import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
-import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.wuzhanglong.library.activity.BaseActivity;
-import com.wuzhanglong.library.constant.BaseConstant;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
-import cn.bingoogolapple.photopicker.activity.BGAPhotoPreviewActivity;
-import cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout;
-import pub.devrel.easypermissions.AfterPermissionGranted;
-import pub.devrel.easypermissions.EasyPermissions;
 
 public class ShowActivity extends BaseActivity  implements BGAOnRVItemClickListener, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener{
     private LuRecyclerView mRecyclerView;
@@ -71,7 +55,7 @@ public class ShowActivity extends BaseActivity  implements BGAOnRVItemClickListe
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("user_no", "10002");
+        map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
         map.put("curpage", mCurrentPage + "");
         BSHttpUtils.get(mActivity, this, Constant.MY_ORDER_SHOW, map, ShowVO.class);
 

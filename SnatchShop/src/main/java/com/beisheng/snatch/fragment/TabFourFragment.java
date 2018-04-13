@@ -87,7 +87,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
 //        map.put("cart_info", "");
-        map.put("user_no", "10005");
+        map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
 //        map.put(" payment_code", "");
 //        map.put("coupon_id", "");
         BSHttpUtils.get(mActivity, this, Constant.SHOP_CART_URL, map, ShopCatVO.class);

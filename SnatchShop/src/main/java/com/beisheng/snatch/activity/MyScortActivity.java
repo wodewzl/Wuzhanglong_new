@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.adapter.MyScortAdapter;
+import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.MyScortVO;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
@@ -55,7 +56,7 @@ public class MyScortActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("user_no", "10005");
+        map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
         BSHttpUtils.post(mActivity, this, Constant.MY_SCORT_URL, map, MyScortVO.class);
     }
 

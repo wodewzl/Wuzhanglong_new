@@ -41,7 +41,7 @@ public class ShowDetailActivity extends BaseActivity implements BGANinePhotoLayo
     private ShowDetailAdapter mAdapter;
     private ScrollableLayout mScrollableLayout;
     private BottomSheetDialog mDialog;
-    private TextView mTitleTv, mBuyTv, mDescTv, mTimeTv, mBuyShopTv, mBuyShopNoTv, mBuyShopCountTv, mBuyShopNumberTv, mBuyShopTimeTv,mCommentTv;
+    private TextView mTitleTv, mBuyTv, mDescTv, mTimeTv, mBuyShopTv, mBuyShopNoTv, mBuyShopCountTv, mBuyShopNumberTv, mBuyShopTimeTv, mCommentTv;
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
     private TextView mDiscussTitleTv;
@@ -77,8 +77,8 @@ public class ShowDetailActivity extends BaseActivity implements BGANinePhotoLayo
         mBuyShopTimeTv = getViewById(R.id.buy_shop_time_tv);
         mPhotoLyout = getViewById(R.id.photo_layout);
         mDiscussTitleTv = getViewById(R.id.discuss_title_tv);
-        mHeadLayout=getViewById(R.id.head_layouat);
-        mCommentTv=getViewById(R.id.comment_tv);
+        mHeadLayout = getViewById(R.id.head_layouat);
+        mCommentTv = getViewById(R.id.comment_tv);
     }
 
     @Override

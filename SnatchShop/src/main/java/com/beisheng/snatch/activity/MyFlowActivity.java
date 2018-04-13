@@ -1,7 +1,5 @@
 package com.beisheng.snatch.activity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,10 +17,8 @@ import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
-import com.wuzhanglong.library.utils.BaseCommonUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -117,7 +113,7 @@ public class MyFlowActivity extends BaseActivity implements BGAOnRVItemClickList
                     return;
                 }
                 HashMap<String, Object> map = new HashMap<>();
-                map.put("user_no", "10005");
+                map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
                 map.put("flow_id", mSelectVO.getId());
                 map.put("mobile", mPhoneTv.getText().toString());
                 BSHttpUtils.postCallBack(mActivity, Constant.FLOW_EXCHANGE_URL, map, BaseVO.class, this);

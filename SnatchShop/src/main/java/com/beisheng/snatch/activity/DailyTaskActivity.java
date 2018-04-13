@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.adapter.DailyTaskAdapter;
+import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.DailyTaskVO;
-import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
@@ -74,7 +74,7 @@ public class DailyTaskActivity extends BaseActivity implements BGAOnRVItemClickL
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("user_no", "10005");
+        map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
         BSHttpUtils.get(mActivity, this, Constant.DAILY_TASK_URL, map, DailyTaskVO.class);
     }
 

@@ -1,17 +1,12 @@
 package com.beisheng.snatch.activity;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.View;
 
 import com.beisheng.snatch.R;
-import com.beisheng.snatch.adapter.RechargeRecordAdapter;
 import com.beisheng.snatch.adapter.ScortDetailAdapter;
+import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
-import com.beisheng.snatch.model.MyLuckyRecordVO;
-import com.beisheng.snatch.model.MyMessageVO;
 import com.beisheng.snatch.model.ScortDetailVO;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
@@ -61,7 +56,7 @@ public class ScortDetailActivity extends BaseActivity implements OnLoadMoreListe
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("user_no", "10005");
+        map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
         map.put("curpage", mCurrentPage + "");
         BSHttpUtils.post(mActivity, this, Constant.SCORT_DETAIL_URL, map, ScortDetailVO.class);
     }

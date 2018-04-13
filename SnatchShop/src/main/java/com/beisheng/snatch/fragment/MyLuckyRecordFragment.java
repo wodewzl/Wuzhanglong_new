@@ -3,9 +3,7 @@ package com.beisheng.snatch.fragment;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Environment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -13,19 +11,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.beisheng.snatch.R;
-import com.beisheng.snatch.activity.MyLuckyRecordActivity;
 import com.beisheng.snatch.adapter.AddressDialogAdapter;
 import com.beisheng.snatch.adapter.MyLuckyRecordAdapter;
-import com.beisheng.snatch.adapter.MyRedMoneyAdapter;
+import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.MyLuckyRecordVO;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
-import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.nanchen.compresshelper.CompressHelper;
 import com.rey.material.app.BottomSheetDialog;
 import com.rey.material.widget.CheckBox;
-import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.constant.BaseConstant;
 import com.wuzhanglong.library.fragment.BaseFragment;
@@ -33,7 +28,6 @@ import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.BottomDialogUtil;
-import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 
@@ -113,7 +107,7 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("user_no", "10005");
+        map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
         map.put("curpage", mCurrentPage + "");
         map.put("type", this.getType());
         BSHttpUtils.get(mActivity, this, Constant.MY_LUCKY_RECORD_URL, map, MyLuckyRecordVO.class);

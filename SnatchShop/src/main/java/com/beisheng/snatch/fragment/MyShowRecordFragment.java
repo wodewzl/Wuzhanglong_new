@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.activity.ShowDetailActivity;
 import com.beisheng.snatch.adapter.MyShowAdapter;
+import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.DiscussVO;
 import com.beisheng.snatch.model.ShowVO;
@@ -75,7 +76,7 @@ public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreList
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("user_no", "10002");
+        map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
         map.put("curpage", mCurrentPage + "");
         map.put("type", this.getType());
         BSHttpUtils.get(mActivity, this, Constant.MY_ORDER_SHOW, map, ShowVO.class);

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.adapter.SignAdapter;
+import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.SignVO;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
@@ -71,7 +72,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("user_no", "10005");
+        map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
         BSHttpUtils.post(mActivity, this, Constant.SIGN_DATA_URL, map, SignVO.class);
     }
 
@@ -103,7 +104,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         switch (v.getId()) {
             case R.id.sign_status_tv:
                 HashMap<String, Object> map = new HashMap<>();
-                map.put("user_no", "10005");
+                map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
                 BSHttpUtils.postCallBack(mActivity, Constant.SIGN_URL, map, BaseVO.class, this);
                 mSignStatusTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.snatch_01, R.color.snatch_01));
                 mSignStatusTv.setTextColor(ContextCompat.getColor(this, R.color.C5));
@@ -111,7 +112,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case R.id.gift_img:
                 HashMap<String, Object> giftMap = new HashMap<>();
-                giftMap.put("user_no", "10005");
+                giftMap.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
                 BSHttpUtils.postCallBack(mActivity, Constant.SIGN_GIFT_URL, giftMap, BaseVO.class, this);
                 break;
 
@@ -128,7 +129,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void onCheckedChanged(SwitchButton v, boolean isChecked) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("user_no", "10005");
+        map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
         map.put("is_notify", isChecked ? "0" : "1");
         BSHttpUtils.postCallBack(mActivity, Constant.SIGN_NOTIFY_URL, map, BaseVO.class, this);
     }

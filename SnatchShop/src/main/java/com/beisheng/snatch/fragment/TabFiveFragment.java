@@ -1,7 +1,6 @@
 package com.beisheng.snatch.fragment;
 
 
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,21 +21,14 @@ import com.beisheng.snatch.activity.MyScortActivity;
 import com.beisheng.snatch.activity.MyShowActivity;
 import com.beisheng.snatch.activity.SettingActivity;
 import com.beisheng.snatch.activity.UserInfoActivity;
-import com.beisheng.snatch.adapter.FindAdapter;
 import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.UserInfoVO;
-import com.github.jdsjlzx.recyclerview.LuRecyclerView;
-import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
-import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.squareup.picasso.Picasso;
-import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
-import com.wuzhanglong.library.utils.DividerUtil;
-import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 
 import java.util.HashMap;
 
@@ -102,7 +94,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put(" user_no", "10005");
+        map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
         BSHttpUtils.post(mActivity, this, Constant.MY_CENTER_URL, map, UserInfoVO.class);
     }
 

@@ -13,7 +13,6 @@ import com.beisheng.snatch.adapter.AddressAdapter;
 import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.AddressVO;
-import com.beisheng.snatch.model.ScortDetailVO;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.BSHttpUtils;
@@ -21,10 +20,8 @@ import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.mode.EBMessageVO;
-import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
-
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -69,7 +66,7 @@ public class AddressActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("user_no", "10005");
+        map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
         BSHttpUtils.post(mActivity, this, Constant.ADDRESS_LIST_URL, map, AddressVO.class);
     }
 
@@ -112,24 +109,24 @@ public class AddressActivity extends BaseActivity implements View.OnClickListene
     public void onMessageEvent(EBMessageVO event) {
         if ("address_delete".equals(event.getMessage())) {
             HashMap<String, Object> map = new HashMap<>();
-            map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+            map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
             map.put("id", event.getMsg());
-            HttpGetDataUtil.post(this, Constant.ADDRESS_DELETE_URL, map, this);
+            BSHttpUtils.postCallBack(this, Constant.ADDRESS_DELETE_URL, map, BaseVO.class, this);
         } else if ("address_edit".equals(event.getMessage())) {
             getData();
         } else if ("address_defalut".equals(event.getMessage())) {
             HashMap<String, Object> map = new HashMap<>();
-            map.put("uid", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+            map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
             map.put("id", event.getMsg());
-            HttpGetDataUtil.post(this, Constant.ADDRESS_SET_URL, map, this);
+            HttpGetDataUtil.post(this, Constant.ADDRESS_SET_URL, map, BaseVO.class, this);
         } else if ("refresh".equals(event.getMessage())) {
-            getData();
+            mAutoSwipeRefreshLayout.autoRefresh();
         }
     }
 
     @Override
     public void success(BaseVO vo) {
-
+        showSuccessToast(vo.getDesc());
     }
 
     @Override
