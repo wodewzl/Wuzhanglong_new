@@ -74,6 +74,9 @@ public class WebViewActivity extends BaseActivity implements OnClickListener, On
         if (intent.getStringExtra("url") != null && !"".equals(intent.getStringExtra("url"))) {
             String url = this.getIntent().getStringExtra("url");
             mWebView.loadUrl(url);
+        } else {
+            mWebView.getSettings().setDefaultTextEncodingName("UTF-8");
+            mWebView.loadData(this.getIntent().getStringExtra("content"), "text/html", "UTF-8");
         }
     }
 

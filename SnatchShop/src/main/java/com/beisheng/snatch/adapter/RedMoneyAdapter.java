@@ -3,14 +3,10 @@ package com.beisheng.snatch.adapter;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.widget.ProgressBar;
 
 import com.beisheng.snatch.R;
-import com.beisheng.snatch.model.SearchShopVO;
-import com.squareup.picasso.Picasso;
+import com.beisheng.snatch.model.PayRedVO;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
-import com.wuzhanglong.library.utils.BaseCommonUtils;
 
 import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
 
@@ -26,15 +22,12 @@ public class RedMoneyAdapter extends RecyclerBaseAdapter {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
+        PayRedVO.DataBean.CouponListBean bean= (PayRedVO.DataBean.CouponListBean) model;
+        helper.setText(R.id.name_tv,bean.getCoupon_name());
+        helper.setText(R.id.time_tv,"使用时间:"+bean.getStart_date()+"至"+bean.getEnd_date());
+        helper.setText(R.id.desc_tv,bean.getTips());
+        helper.setText(R.id.money_tv,"￥"+bean.getMoney());
 
     }
-    @Override
-    public int getItemViewType(int position) {
-        return R.layout.red_money_adapter;
-    }
 
-    @Override
-    public int getItemCount() {
-        return 55;
-    }
 }

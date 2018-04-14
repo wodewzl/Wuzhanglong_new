@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.beisheng.snatch.R;
@@ -47,6 +46,7 @@ import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.BottomDialogUtil;
 import com.wuzhanglong.library.utils.DividerUtil;
@@ -56,6 +56,8 @@ import com.youth.banner.loader.ImageLoader;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,7 +99,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     private TextView mRegistOkTv, mRegistGetMsgCodeTv, mLoginOkTv, mLoginBackPasswordTv, mLoginChangeLoginTypeTv, mLoginTypeTv, mLoginMsgPhoneEt, mLoginMsgCodeEt, mLoginMsgGetCodeTv;
     private EditText mRegistCodeEt, mRegistPhoneEt, mRegistPaswrodEt, mLoginPhoneEt, mLoginPasswordEt;
     private boolean mRegistCodeStae = true;
-    private String mSuccessType = "";//1注册验证码2注册3手机号登陆4短信登陆
+    private String mSuccessType = "";//1注册验证码2注册3手机号登陆4短信登陆5加入购物车
     private String mLoginType = "1";//1手机号登陆2短信登陆
     private CheckBox mRegistCheckBox;
     private BottomSheetDialog mRegistDialog, mLoginTypeDialog, mLoginDialog;
@@ -213,12 +215,18 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                int index = (int) value;
-                if (index == 0) {
-                    return "100";
-                } else {
-                    return mShopDetailVO.getChart_data().get(index - 1).getPf_no();
+                if(mShopDetailVO.getChart_data().size()==0){
+                    return "";
+                }else {
+                    int index = (int) value;
+                    if (index == 0) {
+                        return "100";
+                    } else {
+                        return mShopDetailVO.getChart_data().get(index - 1).getPf_no();
+                    }
                 }
+
+
 
             }
         });
@@ -357,12 +365,14 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         HashMap<String, Object> map = new HashMap<>();
         if (AppApplication.getInstance().getUserInfoVO() != null)
             map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
-//        map.put("id", this.getIntent().getStringExtra("id"));
-        map.put("id", "2");
+        map.put("id", this.getIntent().getStringExtra("id"));
+//        map.put("id", "2");
         BSHttpUtils.post(mActivity, this, Constant.SHOP_DETAIL_URL, map, ShopDetailVO.class);
         HashMap<String, Object> mapList = new HashMap<>();
         mapList.put("curpage", mCurrentPage + "");
-        mapList.put("id", "2");
+//        mapList.put("id", "2");
+        mapList.put("id", this.getIntent().getStringExtra("id"));
+
         BSHttpUtils.post(mActivity, this, Constant.SHOP_BUY_LIST_URL, mapList, ShopDetailListVO.class);
     }
 
@@ -554,6 +564,11 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                     mLoginTypeDialog = BottomDialogUtil.initBottomDialog(this, R.layout.login_type);
                     return;
                 }
+                HashMap<String, Object> jionMap = new HashMap<>();
+                jionMap.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+                jionMap.put("panic_id", mShopDetailVO.getId());//
+                BSHttpUtils.postCallBack(mActivity, Constant.SHOPCAT_JOIN_URL, jionMap, BaseVO.class, this);
+                mSuccessType="5";
                 break;
             case R.id.quick_tv:
 
@@ -813,6 +828,8 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
             AppApplication.getInstance().saveUserInfoVO(userInfoVO);
             mLoginDialog.dismiss();
             mLoginTypeDialog.dismiss();
+        }else if("5".equals(mSuccessType)){
+            EventBus.getDefault().post(new EBMessageVO("shopcat_update"));
         }
     }
 }

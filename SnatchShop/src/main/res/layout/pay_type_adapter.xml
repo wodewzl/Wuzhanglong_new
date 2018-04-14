@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+    android:background="@color/C1">
+    <LinearLayout
+        android:id="@+id/pay_layout"
+        style="@style/padding_15_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:background="?android:attr/selectableItemBackground"
+       >
+
+
+        <ImageView
+            android:id="@+id/pay_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/zhifubao" />
+
+        <TextView
+            android:id="@+id/pay_type_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:text="支付宝支付"
+            android:textSize="13sp" />
+
+        <com.rey.material.widget.CheckBox
+            android:id="@+id/check_box"
+            style="@style/SnatchShopCheckBox2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:clickable="false"/>
+    </LinearLayout>
+</LinearLayout>

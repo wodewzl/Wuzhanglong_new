@@ -51,5 +51,10 @@ public class Constant {
     public static final String MY_CENTER_URL = "/index.php/Api/Account/index";//我的首页数据
     public static final String SHOW_DETAIL_URL = "/index.php/Api/Dbindex/evaluate_detail";//晒单详情
     public static final String DISCUSS_LIST_URL = "/index.php/Api/Dbindex/evaluate_comments_list";//评论列表
+    public static final String PAY_TYPE_LIST_URL = "/index.php/Api/Member/get_payment_list";//支付列表
+    public static final String PAY_RED_LIST_URL = "/index.php/Api/Member/get_member_coupons";//支付时可用红包
+    public static final String SHOPCAT_UPDATE_URL = "/index.php/Api/Member/update_cart";//更新购物车
+    public static final String SHOPCAT_BUY_URL = "/index.php/Api/Member/buy_from_cart";//购物车立即购买
+    public static final String SHOPCAT_JOIN_URL = "/index.php/Api/Member/add_cart";//加入购物车
 }
 

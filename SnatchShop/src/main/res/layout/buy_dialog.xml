@@ -30,12 +30,14 @@
         android:textColor="@color/C5" />
 
     <LinearLayout
-        style="@style/padding_15_13"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:layout_marginTop="1dp"
         android:background="@color/C1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,35 +52,40 @@
             android:layout_weight="1"
             android:drawablePadding="8dp"
             android:drawableRight="@drawable/my_go"
-            android:gravity="right"
-
+            android:gravity="right|center_vertical"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
             android:text="支付方式" />
     </LinearLayout>
 
     <LinearLayout
-        style="@style/padding_15_13"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:layout_marginTop="1dp"
         android:background="@color/C1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="红包"
-            android:textColor="@color/C5" />
+            android:textColor="@color/C5"
+            android:layout_gravity="center_vertical"/>
 
         <TextView
             android:id="@+id/red_money_tv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawablePadding="8dp"
             android:drawableRight="@drawable/my_go"
-            android:gravity="right"
+            android:gravity="right|center_vertical"
             android:text="2个红包可用"
-            android:textColor="@color/colorAccent" />
+            android:background="?android:attr/selectableItemBackground"
+            android:textColor="@color/C6"
+            android:clickable="false"/>
 
 
     </LinearLayout>
@@ -92,6 +99,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/buy_tv"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"

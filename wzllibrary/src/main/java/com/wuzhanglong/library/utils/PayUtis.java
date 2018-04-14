@@ -13,6 +13,7 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wuzhanglong.library.interfaces.PayCallback;
+import com.wuzhanglong.library.mode.PayInfoVO;
 import com.wuzhanglong.library.mode.PayResult;
 
 import java.util.Map;
@@ -42,6 +43,8 @@ public class PayUtis {
         Thread payThread = new Thread(payRunnable);
         payThread.start();
     }
+
+
 
 
     static Handler mHandler = new Handler() {
@@ -75,6 +78,23 @@ public class PayUtis {
         msgApi.sendReq(request);
 
     }
+
+    public static void weiXinPay(Context context, PayInfoVO.DataBean.WxpayParamsBean payResult) {
+        final IWXAPI msgApi = WXAPIFactory.createWXAPI(context, null);
+        msgApi.registerApp(payResult.getAppid());
+        PayReq request = new PayReq();
+        request.appId = payResult.getAppid();
+        request.partnerId = payResult.getPartnerid();
+        request.prepayId = payResult.getPrepayid();
+        request.packageValue = payResult.getPkg();
+        request.nonceStr = payResult.getNoncestr();
+        request.timeStamp = payResult.getTimestamp();
+        request.sign = payResult.getSign();
+        msgApi.sendReq(request);
+
+    }
+
+
 
     public void onResp(int error_code) {
         System.out.println("===========>");
