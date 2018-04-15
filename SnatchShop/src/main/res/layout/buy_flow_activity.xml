@@ -24,9 +24,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/C1"
-            android:text="选择购买:20M流量" />
+            android:text="充值1元，获得0.01M流量，获增一次疯抢资格"
+          />
 
         <TextView
+            android:id="@+id/flow_tv"
             style="@style/padding_15_13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,21 +40,33 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
             android:background="@color/C1" />
 
-        <include layout="@layout/pay_type_view" />
+        <TextView
+            style="@style/padding_15_13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="选择支付方式"
+            android:textColor="@color/C5" />
 
+        <com.github.jdsjlzx.recyclerview.LuRecyclerView
+            android:id="@+id/recycler_view_pay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/C1" />
         <TextView
             android:id="@+id/ok_tv"
-            android:layout_width="140dp"
+            android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginBottom="30dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:background="@color/colorAccent"
             android:gravity="center"
             android:text="立即支付"
             android:textColor="@color/C1"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"/>
     </LinearLayout>
 </com.wuzhanglong.library.view.ReboundScrollView>

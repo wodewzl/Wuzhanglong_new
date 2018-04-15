@@ -21,8 +21,6 @@ import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
 * */
 public abstract class RecyclerBaseAdapter<M> extends BGARecyclerViewAdapter {
     public BaseActivity mActivity;
-    public boolean mIsEmpty = true;
-
     public TextView mBaseAdapterTv;
 
 
@@ -45,11 +43,10 @@ public abstract class RecyclerBaseAdapter<M> extends BGARecyclerViewAdapter {
 
     @Override
     public int getItemViewType(int position) {
-//        &&!mIsEmpty
         if (mData.size() == 0) {
             return R.layout.base_adapter;
-        } else {
-            mIsEmpty = false;
+        }
+        else {
             return super.getItemViewType(position);
         }
 

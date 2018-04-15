@@ -43,7 +43,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onResp(BaseResp resp) {
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             if (resp.errCode == 0) {
-                EventBus.getDefault().post(new EBMessageVO("weixin_pay"));
+                EventBus.getDefault().post(new EBMessageVO("v"));
                 WXPayEntryActivity.this.finish();
             } else {
                 Toast.makeText(this,"支付失败", Toast.LENGTH_SHORT).show();

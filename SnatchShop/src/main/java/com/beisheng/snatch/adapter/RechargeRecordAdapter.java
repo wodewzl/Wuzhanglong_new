@@ -3,11 +3,11 @@ package com.beisheng.snatch.adapter;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.beisheng.snatch.R;
-import com.beisheng.snatch.model.MyFlowVO;
+import com.beisheng.snatch.model.RechargeRecordVO;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
-import com.wuzhanglong.library.utils.BaseCommonUtils;
 
 import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
 
@@ -23,15 +23,22 @@ public class RechargeRecordAdapter extends RecyclerBaseAdapter {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
-        MyFlowVO bean = (MyFlowVO) model;
-        helper.setText(R.id.money_tv, bean.getMoney());
-        if (bean.isSelect()) {
-            helper.getTextView(R.id.money_tv).setBackground(BaseCommonUtils.setBackgroundShap(mContext, 5, R.color.colorAccent, R.color.C1));
-            helper.setTextColorRes(R.id.money_tv, R.color.colorAccent);
+        RechargeRecordVO.DataBean.ListBean vo = (RechargeRecordVO.DataBean.ListBean) model;
+        helper.setText(R.id.month_tv, vo.getMonth());
+        helper.setText(R.id.month_week_tv, vo.getDate_week());
+        helper.setText(R.id.time_tv, vo.getDate_timeX());
+        helper.setText(R.id.money_tv, vo.getRecharge_money());
+        helper.setText(R.id.flow_tv, vo.getGive_flux());
+        helper.setText(R.id.count_tv, vo.getGive_number());
+        if (position == 0) {
+            helper.getView(R.id.divider_1).setVisibility(View.INVISIBLE);
+            helper.getView(R.id.divider_2).setVisibility(View.VISIBLE);
+        } else if (position == this.getData().size() - 1) {
+            helper.getView(R.id.divider_1).setVisibility(View.VISIBLE);
+            helper.getView(R.id.divider_2).setVisibility(View.INVISIBLE);
         } else {
-            helper.getTextView(R.id.money_tv).setBackground(BaseCommonUtils.setBackgroundShap(mContext, 5, R.color.C3_1, R.color.C1));
-            helper.setTextColorRes(R.id.money_tv, R.color.C4);
-
+            helper.getView(R.id.divider_1).setVisibility(View.VISIBLE);
+            helper.getView(R.id.divider_2).setVisibility(View.VISIBLE);
         }
     }
 

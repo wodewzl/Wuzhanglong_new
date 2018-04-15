@@ -27,6 +27,7 @@
             android:text="实名认证" />
 
         <TextView
+            android:id="@+id/tv_02"
             style="@style/padding_15_13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,6 +40,7 @@
             android:text="关于我们" />
 
         <TextView
+            android:id="@+id/tv_03"
             style="@style/padding_15_13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,6 +53,7 @@
             android:text="联系我们" />
 
         <TextView
+            android:id="@+id/tv_04"
             style="@style/padding_15_13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,6 +66,7 @@
             android:text="服务协议" />
 
         <TextView
+            android:id="@+id/tv_05"
             style="@style/padding_15_13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -83,6 +87,7 @@
             android:paddingRight="15dp">
 
             <TextView
+                android:id="@+id/tv_06"
                 style="@style/padding_15_13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -94,9 +99,11 @@
                 android:text="版本检测" />
 
             <TextView
+                android:id="@+id/tv_07"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="18602727134" />
+                android:text="18602727134"
+                android:textColor="@color/C6"/>
         </LinearLayout>
 
         <TextView
@@ -112,10 +119,11 @@
             android:text="清除缓存" />
 
         <TextView
+            android:id="@+id/tv_08"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_margin="15dp"
-            android:background="@color/colorAccent"
+            android:background="@drawable/corners_5_red"
             android:gravity="center"
             android:text="登录"
             android:textColor="@color/C1" />

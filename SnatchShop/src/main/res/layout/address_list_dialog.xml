@@ -33,6 +33,5 @@
         android:gravity="center_vertical"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:text="新建地址"
-        android:onClick="onAddressClick"/>
+        android:text="新建地址"/>
 </LinearLayout>

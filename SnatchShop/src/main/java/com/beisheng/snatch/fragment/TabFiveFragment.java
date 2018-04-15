@@ -19,6 +19,7 @@ import com.beisheng.snatch.activity.MyMessageActivity;
 import com.beisheng.snatch.activity.MyRedMoneyActivity;
 import com.beisheng.snatch.activity.MyScortActivity;
 import com.beisheng.snatch.activity.MyShowActivity;
+import com.beisheng.snatch.activity.RechargeRecordActivity;
 import com.beisheng.snatch.activity.SettingActivity;
 import com.beisheng.snatch.activity.UserInfoActivity;
 import com.beisheng.snatch.application.AppApplication;
@@ -156,7 +157,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
                 mActivity.openActivity(MyLuckyRecordActivity.class);
                 break;
             case R.id.item_03_tv:
-                mActivity.openActivity(BuyFlowActivity.class);
+                mActivity.openActivity(RechargeRecordActivity.class);
                 break;
             case R.id.item_04_tv:
                 mActivity.openActivity(MyShowActivity.class);

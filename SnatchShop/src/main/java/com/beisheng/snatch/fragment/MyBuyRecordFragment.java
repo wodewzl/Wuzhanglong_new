@@ -1,10 +1,13 @@
 package com.beisheng.snatch.fragment;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.beisheng.snatch.R;
-import com.beisheng.snatch.adapter.AddressDialogAdapter;
+import com.beisheng.snatch.activity.ShopCategoryActivity;
+import com.beisheng.snatch.activity.ShopDetailActivity;
 import com.beisheng.snatch.adapter.LoveAdapter;
 import com.beisheng.snatch.adapter.MyBuyRecordAdapter;
 import com.beisheng.snatch.application.AppApplication;
@@ -12,21 +15,21 @@ import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.MyBuyRecordVO;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
-import com.rey.material.app.BottomSheetDialog;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
-import com.wuzhanglong.library.utils.BottomDialogUtil;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 
 import java.util.HashMap;
 import java.util.List;
 
+import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
+
 import static com.beisheng.snatch.R.color.C3;
 
-public class MyBuyRecordFragment extends BaseFragment implements OnLoadMoreListener,SwipeRefreshLayout.OnRefreshListener,View.OnClickListener {
+public class MyBuyRecordFragment extends BaseFragment implements OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, BGAOnRVItemClickListener {
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private LuRecyclerView mRecyclerView, mRecyclerViewLove;
     private MyBuyRecordAdapter mAdapter;
@@ -71,6 +74,9 @@ public class MyBuyRecordFragment extends BaseFragment implements OnLoadMoreListe
     public void bindViewsListener() {
         mRecyclerView.setOnLoadMoreListener(this);
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
+        mAdapter.setOnRVItemClickListener(this);
+        mAdapterLove.setOnRVItemClickListener(this);
+
     }
 
     @Override
@@ -142,35 +148,24 @@ public class MyBuyRecordFragment extends BaseFragment implements OnLoadMoreListe
         this.type = type;
     }
 
-
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ok_tv:
-                BottomSheetDialog dialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.address_list_dialog);
-                LuRecyclerView recyclerView = dialog.getWindow().getDecorView().findViewById(R.id.dialog_recycler_view);
-                AddressDialogAdapter dialogAdapter = new AddressDialogAdapter(recyclerView);
-                RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, recyclerView, dialogAdapter, R.dimen.dp_1, C3, false);
-                break;
-
-            default:
-                break;
+    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+        if (parent == mRecyclerView) {
+            if (mAdapter.getItemCount() == 0)
+                return;
+            MyBuyRecordVO.DataBean.ListBean vo = (MyBuyRecordVO.DataBean.ListBean) mAdapter.getItem(position);
+            Bundle bundle = new Bundle();
+            bundle.putString("id", vo.getPanic_id());
+            mActivity.open(ShopDetailActivity.class, bundle, 0);
+        } else {
+            if (mAdapterLove.getItemCount() == 0)
+                return;
+            MyBuyRecordVO.DataBean.GuessLikeBean vo = (MyBuyRecordVO.DataBean.GuessLikeBean) mAdapterLove.getItem(position);
+            Bundle bundle = new Bundle();
+            bundle.putString("category_id", vo.getCategory_id());
+            mActivity.open(ShopCategoryActivity.class, bundle, 0);
         }
 
-    }
 
-    public void onAddressClick(View v) {
-        switch (v.getId()) {
-            case R.id.add_address_tv:
-                System.out.println("=========>");
-                BottomSheetDialog dialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.add_address_dialog);
-                break;
-            case R.id.check_img:
-                System.out.println("=========>");
-                break;
-            default:
-                break;
-        }
     }
-
 }

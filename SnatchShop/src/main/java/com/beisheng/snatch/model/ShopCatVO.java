@@ -61,6 +61,15 @@ public class ShopCatVO extends BaseVO {
             private String validedCount;
             private boolean longClick;
             private boolean isCheck;
+            private String title;
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
 
             public boolean isCheck() {
                 return isCheck;

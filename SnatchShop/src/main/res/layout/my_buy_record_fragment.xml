@@ -39,13 +39,17 @@
             style="@style/padding_15_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/C3"
+            android:background="@color/C1"
             android:text="猜你喜欢"
             android:textSize="14sp"/>
+
+        <View
+            style="@style/view_divider"/>
 
         <com.github.jdsjlzx.recyclerview.LuRecyclerView
             android:id="@+id/recycler_view_love"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            />
     </LinearLayout>
 </LinearLayout>

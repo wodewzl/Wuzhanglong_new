@@ -137,6 +137,7 @@ public class AddressAddActivity extends BaseActivity implements View.OnClickList
                 map.put("province", mProvinceId);
                 map.put("city", mCityId);
                 map.put("district", mAreaId);
+                map.put("area_info", mAddressTv.getText().toString());
                 map.put("address", mDescEt.getText().toString());
                 BSHttpUtils.postCallBack(this, mUrl, map, BaseVO.class, this);
                 break;

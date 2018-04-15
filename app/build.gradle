@@ -5,7 +5,7 @@ android {
         realse {
             keyAlias 'wzl'
             keyPassword 'wuzhanglong'
-            storeFile file('F:/Wuzhanglong/git_project/Wuzhanglong_new/wzllibrary/wodewzl.jks')
+            storeFile file('D:/studio_project/Wuzhanglong_new/wzllibrary/wodewzl.jks')
             storePassword 'wuzhanglong'
         }
     }

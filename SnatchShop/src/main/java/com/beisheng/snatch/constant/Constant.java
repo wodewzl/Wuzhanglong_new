@@ -56,5 +56,9 @@ public class Constant {
     public static final String SHOPCAT_UPDATE_URL = "/index.php/Api/Member/update_cart";//更新购物车
     public static final String SHOPCAT_BUY_URL = "/index.php/Api/Member/buy_from_cart";//购物车立即购买
     public static final String SHOPCAT_JOIN_URL = "/index.php/Api/Member/add_cart";//加入购物车
+    public static final String GET_SHOP_URL = "/index.php/Api/Member/get_prise";//领取幸运宝贝
+    public static final String SHOW_URL = "/index.php/Api/Member/evaluate";//晒单
+    public static final String RECHARGE_RECORD_URL = "/index.php/Api/Account/recharge_log";//充值记录
+
 }
 

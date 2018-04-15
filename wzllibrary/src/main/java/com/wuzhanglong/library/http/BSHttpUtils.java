@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.tamic.novate.BaseSubscriber;
 import com.tamic.novate.Novate;
 import com.tamic.novate.Throwable;
 import com.tamic.novate.callback.RxStringCallback;
@@ -21,6 +22,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -284,5 +287,39 @@ public class BSHttpUtils {
 
             return str1.compareTo(str2);
         }
+    }
+
+
+    //提交文件
+    public static <T> void post(final BaseActivity activity, final String url, RequestBody params, final Class<T> className, final PostCallback postCallback) {
+
+        final Gson gson = new Gson();
+//        final String allUrl = BaseConstant.DOMAIN_NAME + url;
+        new Novate.Builder(activity)
+                .baseUrl(BaseConstant.DOMAIN_NAME)
+                .addCache(false)
+                .build()
+                .upload(url, params, new BaseSubscriber<ResponseBody>() {
+                    @Override
+                    public void onNext(ResponseBody responseBody) {
+                        activity.dismissProgressDialog();
+                        try {
+                            String s = new String(responseBody.bytes());
+                            final BaseVO vo = (BaseVO) gson.fromJson(s, className);
+                            if ("200".equals(vo.getCode())) {
+                                postCallback.success(vo);
+                            } else {
+                                activity.showCustomToast(vo.getDesc());
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        activity.dismissProgressDialog();
+                    }
+                });
     }
 }

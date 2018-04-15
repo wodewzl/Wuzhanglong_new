@@ -28,12 +28,12 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@color/C3_1" />
+            android:background="@color/C3" />
 
         <View
             android:layout_width="7dp"
             android:layout_height="7dp"
-            android:background="@color/colorAccent" />
+            android:background="@drawable/bg_circle_02"  />
 
         <View
             android:id="@+id/divider_2"
@@ -41,7 +41,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@color/C3_1" />
+            android:background="@color/C3" />
     </LinearLayout>
 
     <LinearLayout
@@ -53,24 +53,30 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/month_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10月" />
 
         <TextView
+            android:id="@+id/month_week_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10月"
-            android:textSize="11sp" />
+            android:textSize="11sp"
+            android:textColor="@color/C6"/>
 
         <TextView
+            android:id="@+id/time_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10月"
-            android:textSize="11sp" />
+            android:textSize="11sp"
+            android:textColor="@color/C6"/>
     </LinearLayout>
 
     <TextView
+        android:id="@+id/money_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -79,6 +85,7 @@
         android:text="反订单" />
 
     <TextView
+        android:id="@+id/flow_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -86,6 +93,7 @@
         android:text="反订单" />
 
     <TextView
+        android:id="@+id/count_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -99,5 +107,5 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="3dp"
-        android:background="@color/C3_1" />
+        android:background="@color/C3" />
 </LinearLayout>

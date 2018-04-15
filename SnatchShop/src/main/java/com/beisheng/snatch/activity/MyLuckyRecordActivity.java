@@ -1,46 +1,20 @@
 package com.beisheng.snatch.activity;
 
-import android.Manifest;
 import android.content.Intent;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.beisheng.snatch.R;
-import com.beisheng.snatch.adapter.AddressDialogAdapter;
-import com.beisheng.snatch.adapter.MyBuyRecordAdapter;
-import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.fragment.MyLuckyRecordFragment;
-import com.beisheng.snatch.model.MyLuckyRecordVO;
-import com.github.jdsjlzx.recyclerview.LuRecyclerView;
-import com.nanchen.compresshelper.CompressHelper;
-import com.rey.material.app.BottomSheetDialog;
 import com.wuzhanglong.library.activity.BaseActivity;
-import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
-import com.wuzhanglong.library.constant.BaseConstant;
-import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
-import com.wuzhanglong.library.utils.BottomDialogUtil;
-import com.wuzhanglong.library.utils.RecyclerViewUtil;
-import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
-import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
-import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
-import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
-import pub.devrel.easypermissions.AfterPermissionGranted;
-import pub.devrel.easypermissions.EasyPermissions;
 
 public class MyLuckyRecordActivity extends BaseActivity implements View.OnClickListener {
 
@@ -60,6 +34,7 @@ public class MyLuckyRecordActivity extends BaseActivity implements View.OnClickL
         mTitle1 = getViewById(R.id.title1);
         mTitle2 = getViewById(R.id.title2);
         MyLuckyRecordFragment one = MyLuckyRecordFragment.newInstance();
+//        one.setType("0");
         one.setType("0");
         mTwo = MyLuckyRecordFragment.newInstance();
         mTwo.setType("1");

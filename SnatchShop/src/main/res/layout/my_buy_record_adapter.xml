@@ -22,6 +22,7 @@
             android:background="@color/C1"/>
 
         <LinearLayout
+            android:id="@+id/status_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/img"
@@ -30,7 +31,9 @@
             android:paddingBottom="2dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:paddingTop="2dp">
+            android:paddingTop="2dp"
+            android:background="@drawable/frame_kongxin_white_red"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:id="@+id/status_tv"
@@ -47,6 +50,24 @@
                 android:layout_marginTop="2dp"
                 android:text="抢购"
                 android:textSize="11sp"/>
+            <cn.iwgang.countdownview.CountdownView
+                android:id="@+id/countdown_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:isHideTimeBackground="true"
+                app:isShowDay="false"
+                app:isShowHour="true"
+                app:isShowMillisecond="true"
+                app:isShowMinute="true"
+                app:isShowSecond="true"
+                app:isTimeTextBold="true"
+                app:suffixGravity="bottom"
+                app:suffixTextColor="@color/colorAccent"
+                app:suffixTextSize="10sp"
+                app:timeTextColor="@color/colorAccent"
+                app:timeTextSize="11sp"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <LinearLayout
@@ -69,7 +90,7 @@
                     android:ellipsize="end"
                     android:lines="2"
                     android:maxLines="2"
-                    android:text="漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠"
+                    android:text="漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠漂亮的狠"
                     android:textSize="13sp"/>
 
                 <TextView

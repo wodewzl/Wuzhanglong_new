@@ -2,14 +2,17 @@ package com.beisheng.snatch.fragment;
 
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.activity.QRCodeActivity;
 import com.beisheng.snatch.activity.SearchShopActivity;
+import com.beisheng.snatch.activity.ShopChoseActivity;
 import com.beisheng.snatch.activity.WebViewActivity;
 import com.beisheng.snatch.adapter.PayTypeAdapter;
 import com.beisheng.snatch.adapter.RedMoneyAdapter;
@@ -67,6 +70,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
     private int mTotalCount = 0;
     private String mPayType = "", mRedId = "";
     private BottomSheetDialog mPayDialog;
+    private LinearLayout mBottomLayout;
 
     @Override
     public void setContentView() {
@@ -91,6 +95,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
         mAllCheck = getViewById(R.id.check_box);
         mViewCheck = getViewById(R.id.view_check);
         mEditTv = getViewById(R.id.edit_tv);
+        mBottomLayout=getViewById(R.id.bottom_layout);
     }
 
     @Override
@@ -98,6 +103,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
         mOkTv.setOnClickListener(this);
         mAdapter.setOnRVItemLongClickListener(this);
         mAdapter.setOnItemChildClickListener(this);
+        mAdapter.setOnRVItemClickListener(this);
         mViewCheck.setOnClickListener(this);
         mEditTv.setOnClickListener(this);
         EventBus.getDefault().register(this);
@@ -107,13 +113,8 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-//        map.put("cart_info", "");
         map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
-//        map.put(" payment_code", "");
-//        map.put("coupon_id", "");
         BSHttpUtils.post(mActivity, this, Constant.SHOP_CART_URL, map, ShopCatVO.class);
-
-
     }
 
     @Override
@@ -125,22 +126,33 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
         List<ShopCatVO.DataBean.ListBean> listOne = new ArrayList<>();//可购买的
         List<ShopCatVO.DataBean.ListBean> listTwo = new ArrayList<>();//失效的
         List<ShopCatVO.DataBean.ListBean> listAll = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            if ("1".equals(list.get(i).getIs_valid())) {
-                listOne.add(list.get(i));
-            } else {
-                listTwo.add(list.get(i));
+        if(shopCatVO.getData().getList().size()>0){
+            mBottomLayout.setVisibility(View.VISIBLE);
+            for (int i = 0; i < list.size(); i++) {
+                if ("1".equals(list.get(i).getIs_valid())) {
+                    listOne.add(list.get(i));
+                } else {
+                    listTwo.add(list.get(i));
+                }
             }
+            listAll.addAll(listOne);
+            if(listTwo.size()>0){
+                ShopCatVO.DataBean.ListBean titleVO = new ShopCatVO.DataBean.ListBean();
+                titleVO.setValidedCount(listTwo.size() + "");
+                titleVO.setTitle("1");
+                listAll.add(titleVO);
+                listAll.addAll(listTwo);
+            }
+
+        }else {
+            mBottomLayout.setVisibility(View.GONE);
+            ShopCatVO.DataBean.ListBean emptyVO = new ShopCatVO.DataBean.ListBean();
+            emptyVO.setTitle("0");
+            listAll.add(emptyVO);
+            listAll.addAll(listTwo);
         }
-        listAll.addAll(listOne);
-        ShopCatVO.DataBean.ListBean titleVO = new ShopCatVO.DataBean.ListBean();
-        titleVO.setValidedCount(listTwo.size() + "");
-        listAll.add(titleVO);
-        listAll.addAll(listTwo);
+
         mAdapter.updateData(listAll);
-        mAdapter.notifyDataSetChanged();
-
-
     }
 
     @Override
@@ -160,7 +172,6 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
             case R.id.ok_tv:
 
                 if ("删除".equals(mOkTv.getText().toString())) {
-
                     new SweetAlertDialog(mActivity, SweetAlertDialog.WARNING_TYPE)
                             .setTitleText("确定要删除?")
                             .setConfirmText("确定")
@@ -172,11 +183,11 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
                                     List<ShopCatVO.DataBean.ListBean> list = mDataBean.getList();
                                     for (int i = 0; i < list.size(); i++) {
                                         if (mDataBean.getList().get(i).isCheck()) {
-                                            if (i == mDataBean.getList().size() - 1) {
-                                                sb.append(mDataBean.getList().get(i).getCart_id());
-                                            } else {
-                                                sb.append(mDataBean.getList().get(i).getCart_id()).append(",");
-                                            }
+//                                            if (i == mDataBean.getList().size() - 1) {
+//                                                sb.append(mDataBean.getList().get(i).getCart_id());
+//                                            } else {
+//                                            }
+                                            sb.append(mDataBean.getList().get(i).getCart_id()).append(",");
 
                                             mAdapter.getData().remove(mDataBean.getList().get(i));
                                         }
@@ -186,7 +197,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
                                         mActivity.showCustomToast("请勾选想要删除的宝贝");
                                         return;
                                     }
-                                    delete(sb.toString());
+                                    delete(sb.toString().substring(0,sb.toString().length()-1));
                                 }
                             })
                             .show();
@@ -207,7 +218,6 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
                     mBuyTv.setOnClickListener(this);
 //                    mDialogCountTv.setText("你抢购了");
                     BaseCommonUtils.setTextThree(mActivity, mDialogCountTv, "你抢购了", mTotalCount + "", "次", R.color.colorAccent, 1.3f);
-
                     //支付方式
                     HashMap<String, Object> payTypeMap = new HashMap<>();
                     payTypeMap.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
@@ -242,10 +252,11 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
                 LuRecyclerView payTyperecyclerView = payTypeDialog.getWindow().getDecorView().findViewById(R.id.dialog_recycler_view);
                 final PayTypeAdapter payTypeDialogAdapter = new PayTypeAdapter(payTyperecyclerView);
                 RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, payTyperecyclerView, payTypeDialogAdapter, R.dimen.dp_1, R.color.C3, false);
-                if (mPayTypeVO != null){
-                    List<PayTypeVO.DataBean.ListBean> list=  mPayTypeVO.getData().getList();
+                if (mPayTypeVO != null) {
+                    List<PayTypeVO.DataBean.ListBean> list = mPayTypeVO.getData().getList();
                     list.get(0).setCheck(true);
                     payTypeDialogAdapter.updateData(list);
+                    mPayType=list.get(0).getPayment_code();
                 }
                 payTypeDialogAdapter.setOnRVItemClickListener(new BGAOnRVItemClickListener() {
                     @Override
@@ -258,11 +269,11 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
                         payTypeDialogAdapter.notifyDataSetChanged();
                         mPayTypeTv.setText(bean.getPayment_name());
                         mPayType = bean.getPayment_code();
-                        if ("BALANCE".equals(bean.getPayment_code())) {
+                        if ("BALANCE".equals(bean.getPayment_code())&&BaseCommonUtils.parseInt(mPayRedVO.getData().getCoupon_count())>0) {
                             mRedMoneyTv.setTextColor(mActivity.getResources().getColor(R.color.colorAccent));
                             mRedMoneyTv.setClickable(true);
                         } else {
-                            mRedMoneyTv.setTextColor(mActivity.getResources().getColor(R.color.C5));
+                            mRedMoneyTv.setTextColor(mActivity.getResources().getColor(R.color.C6));
                             mRedMoneyTv.setClickable(false);
                         }
                         payTypeDialog.dismiss();
@@ -316,10 +327,12 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
             case R.id.buy_tv:
                 final StringBuffer sb = new StringBuffer();
                 for (int i = 0; i < mDataBean.getList().size(); i++) {
-                    if (i == mDataBean.getList().size() - 1) {
-                        sb.append(mDataBean.getList().get(i).getPanic_id()).append("|").append(mDataBean.getList().get(i).getNum());
-                    } else {
-                        sb.append(mDataBean.getList().get(i).getPanic_id()).append("|").append(mDataBean.getList().get(i).getNum()).append(",");
+                    if (mDataBean.getList().get(i).isCheck()) {
+                        if (i == mDataBean.getList().size() - 1) {
+                            sb.append(mDataBean.getList().get(i).getPanic_id()).append("|").append(mDataBean.getList().get(i).getNum());
+                        } else {
+                            sb.append(mDataBean.getList().get(i).getPanic_id()).append("|").append(mDataBean.getList().get(i).getNum()).append(",");
+                        }
                     }
                 }
                 HashMap<String, Object> buyMap = new HashMap<>();
@@ -338,6 +351,10 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+        ShopCatVO.DataBean.ListBean vo = (ShopCatVO.DataBean.ListBean) mAdapter.getItem(position);
+        if("0".equals(vo.getTitle())){
+            mActivity.openActivity(ShopChoseActivity.class);
+        }
 
     }
 
@@ -355,12 +372,14 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
     public void delete(String id) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("cart_id", id);
-        BSHttpUtils.postCallBack(mActivity, Constant.SHOPCART_DELETE_ONE_ULR, map, BaseVO.class, TabFourFragment.this);
+        map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+       BSHttpUtils.postCallBack(mActivity, Constant.SHOPCART_DELETE_ONE_ULR, map, BaseVO.class, TabFourFragment.this);
     }
 
     public void deleteAll() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("del_invalid", "1");
+        map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
         BSHttpUtils.postCallBack(mActivity, Constant.SHOPCART_DELETE_ONE_ULR, map, BaseVO.class, this);
         for (int i = 0; i < mDataBean.getList().size(); i++) {
             if ("0".equals(mDataBean.getList().get(i).getIs_valid())) {
@@ -387,9 +406,15 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
         if (vo instanceof PayTypeVO) {
             mPayTypeVO = (PayTypeVO) vo;
             mPayTypeTv.setText(mPayTypeVO.getData().getList().get(0).getPayment_name());
-            mPayType=mPayTypeVO.getData().getList().get(0).getPayment_code();
+            mPayType = mPayTypeVO.getData().getList().get(0).getPayment_code();
         } else if (vo instanceof PayRedVO) {
             mPayRedVO = (PayRedVO) vo;
+            if(BaseCommonUtils.parseInt(mPayRedVO.getData().getCoupon_count())>0){
+                mRedMoneyTv.setTextColor(ContextCompat.getColor(mActivity,R.color.colorAccent));
+            }else {
+                mRedMoneyTv.setClickable(false);
+                mRedMoneyTv.setTextColor(ContextCompat.getColor(mActivity,R.color.C6));
+            }
             mRedMoneyTv.setText(mPayRedVO.getData().getCoupon_count() + "个红包可用");
         } else if (vo instanceof ShopCatVO) {
             System.out.println("===========");
@@ -404,28 +429,28 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
                     PayUtis.zhiFuBaoPay(mActivity, payInfo, new PayCallback() {
                         @Override
                         public void payResult(int type) {
-                            mPayDialog.dismiss();
-                            getData();
+                            updateShopCart();
                         }
                     });
-                }else if("ALIWAP".equals(mPayType)){
-                    Bundle bundle=new Bundle();
-                    bundle.putString("title","支付宝支付");
-                    bundle.putString("content",payInfoVO.getData().getAlipay_wap_html());
-                    mActivity.open(WebViewActivity.class,bundle,0);
-                }else if("WSCAN".equals(mPayType)){
-                    Bundle bundle=new Bundle();
-                    bundle.putString("img",payInfoVO.getData().getWx_native_qrcode());
-                    bundle.putString("url",payInfoVO.getData().getPayment_status_api());
-                    mActivity.open(QRCodeActivity.class,bundle,0);
-                }else if("BALANCE".equals(mPayType)){
+                } else if ("ALIWAP".equals(mPayType)) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("title", "支付宝支付");
+                    bundle.putString("content", payInfoVO.getData().getAlipay_wap_html());
+                    mActivity.open(WebViewActivity.class, bundle, 0);
+                } else if ("WSCAN".equals(mPayType)) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("img", payInfoVO.getData().getWx_native_qrcode());
+                    bundle.putString("url", payInfoVO.getData().getPayment_status_api());
+                    mActivity.open(QRCodeActivity.class, bundle, 0);
+                } else if ("BALANCE".equals(mPayType)) {
                     mActivity.showCustomToast(vo.getDesc());
-                    getData();
+                    updateShopCart();
                 }
 
             }
         } else {
             mActivity.showSuccessToast(vo.getDesc());
+            updateShopCart();
         }
     }
 
@@ -531,13 +556,11 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EBMessageVO event) {
         if ("weixin_pay".equals(event.getMessage())) {
-            mPayDialog.dismiss();
+            updateShopCart();
+        } else if ("shopcat_update".equals(event.getMessage())) {
             getData();
-        }else if("shopcat_update".equals(event.getMessage())){
-            getData();
-        }else if("wx_web".equals(event.getMessage())){
-            mPayDialog.dismiss();
-            getData();
+        } else if ("wx_web".equals(event.getMessage())) {
+            updateShopCart();
         }
     }
 
@@ -545,6 +568,12 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    public void updateShopCart(){
+        mPayDialog.dismiss();
+        mPayType = "";
+        getData();
     }
 }
 

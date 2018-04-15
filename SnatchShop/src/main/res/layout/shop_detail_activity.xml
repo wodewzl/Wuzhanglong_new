@@ -29,7 +29,7 @@
             android:textSize="18dp"/>
 
         <ImageView
-            android:id="@+id/home_img"
+            android:id="@+id/share_img"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -38,13 +38,12 @@
             android:src="@drawable/ic_share"/>
 
         <ImageView
-            android:id="@+id/share_img"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_toLeftOf="@id/home_img"
             android:gravity="center"
             android:padding="15dp"
-            android:src="@drawable/ic_share"/>
+            android:src="@drawable/ic_share"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,7 +57,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="鲸喜购详情"
+                android:text="疯抢详情"
                 android:textColor="@color/C1"
                 android:textSize="@dimen/sp_16"/>
         </LinearLayout>

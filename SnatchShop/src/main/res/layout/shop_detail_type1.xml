@@ -46,7 +46,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:id="@+id/type1_join_count_tv"
@@ -54,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="dddddddd"
+                android:textSize="11sp"
                 android:textColor="@color/C5" />
 
             <TextView
@@ -61,6 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ddddddd"
+                android:textSize="11sp"
                 android:textColor="@color/C5" />
         </LinearLayout>
     </LinearLayout>

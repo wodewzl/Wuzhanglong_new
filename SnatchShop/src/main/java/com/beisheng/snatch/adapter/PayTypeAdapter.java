@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.model.PayTypeVO;
+import com.rey.material.widget.CheckBox;
 import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
 
@@ -24,11 +25,19 @@ public class PayTypeAdapter extends RecyclerBaseAdapter {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
-        PayTypeVO.DataBean.ListBean bean = (PayTypeVO.DataBean.ListBean) model;
+        final PayTypeVO.DataBean.ListBean bean = (PayTypeVO.DataBean.ListBean) model;
         if (!TextUtils.isEmpty(bean.getPayment_icon()))
             Picasso.with(mContext).load(bean.getPayment_icon()).into(helper.getImageView(R.id.pay_img));
         helper.setText(R.id.pay_type_tv, bean.getPayment_name());
-        helper.setChecked(R.id.check_box,bean.isCheck());
+        final CheckBox checkBox=helper.getView(R.id.check_box);
+
+        checkBox.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                checkBox.setChecked(bean.isCheck());
+            }
+        },100);
+//        helper.setChecked(R.id.check_box,bean.isCheck());
         helper.setItemChildCheckedChangeListener(R.id.check_box);
 
 

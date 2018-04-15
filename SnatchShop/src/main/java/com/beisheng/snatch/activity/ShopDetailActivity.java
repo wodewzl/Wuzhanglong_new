@@ -17,12 +17,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.beisheng.snatch.R;
+import com.beisheng.snatch.adapter.PayTypeAdapter;
+import com.beisheng.snatch.adapter.RedMoneyAdapter;
 import com.beisheng.snatch.adapter.ShopDetailAdapter;
 import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
+import com.beisheng.snatch.model.PayRedVO;
+import com.beisheng.snatch.model.PayTypeVO;
 import com.beisheng.snatch.model.ShopDetailListVO;
 import com.beisheng.snatch.model.ShopDetailVO;
 import com.beisheng.snatch.model.UserInfoVO;
+import com.beisheng.snatch.view.NumberButton;
 import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
@@ -44,12 +49,16 @@ import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.BSHttpUtils;
+import com.wuzhanglong.library.interfaces.PayCallback;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.mode.EBMessageVO;
+import com.wuzhanglong.library.mode.PayInfoVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.BottomDialogUtil;
 import com.wuzhanglong.library.utils.DividerUtil;
+import com.wuzhanglong.library.utils.PayUtis;
+import com.wuzhanglong.library.utils.RecyclerViewUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
@@ -58,6 +67,8 @@ import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,7 +94,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     private Banner mBanner;
     private TextView mDescTv, mStatusTv, mHonor1GradeTv, mHonor1NameTv, mHonor1CountTv, mHonor2GradeTv, mHonor2NameTv, mHonor2CountTv, mHonor3GradeTv, mHonor3NameTv, mHonor3CountTv;
     private View mLayoutType1, mLayoutType2, mLayoutType3;
-    private TextView mType3NameTv, mType3NumberTv, mType3BuyCoutTv, mType3TimeTv, mType3UserNoTv,mType3RunTv, mType1WinTv;
+    private TextView mType3NameTv, mType3NumberTv, mType3BuyCoutTv, mType3TimeTv, mType3UserNoTv, mType3RunTv, mType1WinTv;
     private TextView mType1NumberTv, mType1JoinCountTv, mType1TotalCountTv;
     private CircleImageView mType1HeadImg, mHonor1HeadImg, mHonor2HeadImg, mHonor3HeadImg;
     private int mCurrentPage = 1;
@@ -106,7 +117,14 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     private View mLoginPasswrodLayout, mLoginMsgLayout;
     private ImageView mAddFavorImg;
     private String mIsFavor = "0";
-
+    private String mPayType = "", mRedId = "";
+    private BottomSheetDialog mPayDialog;
+    private TextView mPayTypeTv, mRedMoneyTv, mBuyTv;
+    private int mTotalCount = 0;
+    private PayTypeVO mPayTypeVO;
+    private PayRedVO mPayRedVO;
+    private TextView mCount1, mCount2, mCount3, mCount4, mCount5;
+    private NumberButton mNumberButton;
 
     @Override
     public void baseSetContentView() {
@@ -178,7 +196,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mDiscussTv = getViewById(R.id.discuss_tv);
         mPastBuyTv = getViewById(R.id.past_buy_tv);
         mAddFavorImg = getViewById(R.id.add_favor_img);
-        mType3RunTv=getViewById(R.id.type3_run_tv);
+        mType3RunTv = getViewById(R.id.type3_run_tv);
 
     }
 
@@ -215,9 +233,9 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                if(mShopDetailVO.getChart_data().size()==0){
+                if (mShopDetailVO.getChart_data().size() == 0) {
                     return "";
-                }else {
+                } else {
                     int index = (int) value;
                     if (index == 0) {
                         return "100";
@@ -225,7 +243,6 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                         return mShopDetailVO.getChart_data().get(index - 1).getPf_no();
                     }
                 }
-
 
 
             }
@@ -357,8 +374,12 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mDiscussTv.setOnClickListener(this);
         mAddFavorImg.setOnClickListener(this);
         mType3RunTv.setOnClickListener(this);
-
+        mBackTv.setOnClickListener(this);
+        mShareImg.setOnClickListener(this);
+        mQuckBuyTv.setOnClickListener(this);
+        EventBus.getDefault().register(this);
     }
+
 
     @Override
     public void getData() {
@@ -568,10 +589,10 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 jionMap.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
                 jionMap.put("panic_id", mShopDetailVO.getId());//
                 BSHttpUtils.postCallBack(mActivity, Constant.SHOPCAT_JOIN_URL, jionMap, BaseVO.class, this);
-                mSuccessType="5";
+                mSuccessType = "5";
                 break;
             case R.id.quick_tv:
-
+                quickBuy();
                 break;
 
             case R.id.type2_more_img:
@@ -734,9 +755,87 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 break;
             case R.id.type2_run_tv:
             case R.id.type3_run_tv:
-                bundle.putString("title","运算详情");
-                bundle.putString("url",mShopDetailVO.getCalc_detail_url());
-                open(WebViewActivity.class,bundle,0);
+                bundle.putString("title", "运算详情");
+                bundle.putString("url", mShopDetailVO.getCalc_detail_url());
+                open(WebViewActivity.class, bundle, 0);
+                break;
+
+            case R.id.back_tv:
+                this.finish();
+                break;
+            case R.id.share_img:
+                break;
+            case R.id.pay_type_tv:
+//                BottomSheetDialog payuDialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.buy_pay_dialog);
+                final BottomSheetDialog payTypeDialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.pay_type_list_dialog);
+                LuRecyclerView payTyperecyclerView = payTypeDialog.getWindow().getDecorView().findViewById(R.id.dialog_recycler_view);
+                final PayTypeAdapter payTypeDialogAdapter = new PayTypeAdapter(payTyperecyclerView);
+                RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, payTyperecyclerView, payTypeDialogAdapter, R.dimen.dp_1, R.color.C3, false);
+                if (mPayTypeVO != null) {
+                    List<PayTypeVO.DataBean.ListBean> list = mPayTypeVO.getData().getList();
+                    list.get(0).setCheck(true);
+                    payTypeDialogAdapter.updateData(list);
+                    mPayType = list.get(0).getPayment_code();
+                }
+                payTypeDialogAdapter.setOnRVItemClickListener(new BGAOnRVItemClickListener() {
+                    @Override
+                    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+                        PayTypeVO.DataBean.ListBean bean = (PayTypeVO.DataBean.ListBean) payTypeDialogAdapter.getItem(position);
+                        for (int i = 0; i < mPayTypeVO.getData().getList().size(); i++) {
+                            mPayTypeVO.getData().getList().get(i).setCheck(false);
+                        }
+                        bean.setCheck(true);
+                        payTypeDialogAdapter.notifyDataSetChanged();
+                        mPayTypeTv.setText(bean.getPayment_name());
+                        mPayType = bean.getPayment_code();
+                        if ("BALANCE".equals(bean.getPayment_code()) && BaseCommonUtils.parseInt(mPayRedVO.getData().getCoupon_count()) > 0) {
+                            mRedMoneyTv.setTextColor(mActivity.getResources().getColor(R.color.colorAccent));
+                            mRedMoneyTv.setClickable(true);
+                        } else {
+                            mRedMoneyTv.setTextColor(mActivity.getResources().getColor(R.color.C6));
+                            mRedMoneyTv.setClickable(false);
+                        }
+                        payTypeDialog.dismiss();
+                    }
+                });
+
+                break;
+            case R.id.red_money_tv:
+                final BottomSheetDialog redDialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.red_money_list_dialog);
+                LuRecyclerView recyclerView = redDialog.getWindow().getDecorView().findViewById(R.id.dialog_recycler_view);
+                final RedMoneyAdapter dialogAdapter = new RedMoneyAdapter(recyclerView);
+                RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, recyclerView, dialogAdapter, R.dimen.dp_10, R.color.C3, false);
+                if (mPayRedVO != null)
+                    dialogAdapter.updateData(mPayRedVO.getData().getCoupon_list());
+                dialogAdapter.setOnRVItemClickListener(new BGAOnRVItemClickListener() {
+                    @Override
+                    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+                        PayRedVO.DataBean.CouponListBean bean = (PayRedVO.DataBean.CouponListBean) dialogAdapter.getItem(position);
+                        mRedMoneyTv.setText("抵扣" + bean.getMoney() + "元");
+                        mRedId = bean.getCoupon_id();
+                        redDialog.dismiss();
+                    }
+                });
+                break;
+
+            case R.id.count1_tv:
+            case R.id.count2_tv:
+            case R.id.count3_tv:
+            case R.id.count4_tv:
+            case R.id.count5_tv:
+                coountTv(v,v.getId());
+                break;
+
+            case R.id.buy_tv:
+                final StringBuffer sb = new StringBuffer();
+                sb.append(mShopDetailVO.getId()).append("|").append(mTotalCount + "");
+                HashMap<String, Object> buyMap = new HashMap<>();
+                buyMap.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+                buyMap.put("cart_info", sb.toString());
+                buyMap.put("payment_code", mPayType);
+                buyMap.put("coupon_id", mRedId);
+                buyMap.put("platform", "1");
+                BSHttpUtils.postCallBack(mActivity, Constant.SHOPCAT_BUY_URL, buyMap, PayInfoVO.class, this);
                 break;
 
             default:
@@ -778,6 +877,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 mRegistGetMsgCodeTv.setOnClickListener(this);
                 mRegistOkTv.setOnClickListener(this);
                 break;
+
             default:
                 break;
         }
@@ -820,16 +920,182 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
 
     @Override
     public void success(BaseVO vo) {
-        showSuccessToast(vo.getDesc());
+
         if ("2".equals(mSuccessType)) {
+            showSuccessToast(vo.getDesc());
             mRegistDialog.dismiss();
         } else if ("3".equals(mSuccessType) || "4".equals(mSuccessType)) {
+            showSuccessToast(vo.getDesc());
             UserInfoVO userInfoVO = (UserInfoVO) vo;
             AppApplication.getInstance().saveUserInfoVO(userInfoVO);
             mLoginDialog.dismiss();
             mLoginTypeDialog.dismiss();
-        }else if("5".equals(mSuccessType)){
+        } else if ("5".equals(mSuccessType)) {
+            showSuccessToast(vo.getDesc());
             EventBus.getDefault().post(new EBMessageVO("shopcat_update"));
+        } else if (vo instanceof PayTypeVO) {
+            mPayTypeVO = (PayTypeVO) vo;
+            mPayTypeTv.setText(mPayTypeVO.getData().getList().get(0).getPayment_name());
+            mPayType = mPayTypeVO.getData().getList().get(0).getPayment_code();
+        } else if (vo instanceof PayRedVO) {
+            mPayRedVO = (PayRedVO) vo;
+            if ("BALANCE".equals(mPayType) && BaseCommonUtils.parseInt(mPayRedVO.getData().getCoupon_count()) > 0) {
+                mRedMoneyTv.setTextColor(ContextCompat.getColor(mActivity, R.color.colorAccent));
+                mRedMoneyTv.setClickable(true);
+            } else {
+                mRedMoneyTv.setClickable(false);
+                mRedMoneyTv.setTextColor(ContextCompat.getColor(mActivity, R.color.C6));
+            }
+            mRedMoneyTv.setText(mPayRedVO.getData().getCoupon_count() + "个红包可用");
+
+        } else if (vo instanceof PayInfoVO) {
+            PayInfoVO payInfoVO = (PayInfoVO) vo;
+            showSuccessToast(vo.getDesc());
+            if ("200".equals(vo.getCode())) {
+                if ("WPAY".equals(mPayType)) {
+                    PayUtis.weiXinPay(mActivity, payInfoVO.getData().getWxpay_params());
+
+                } else if ("ALIPAY".equals(mPayType)) {
+                    String payInfo = payInfoVO.getData().getAlipay_string();
+                    PayUtis.zhiFuBaoPay(mActivity, payInfo, new PayCallback() {
+                        @Override
+                        public void payResult(int type) {
+                            buyRecord();
+                        }
+                    });
+                } else if ("ALIWAP".equals(mPayType)) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("title", "支付宝支付");
+                    bundle.putString("content", payInfoVO.getData().getAlipay_wap_html());
+                    mActivity.open(WebViewActivity.class, bundle, 0);
+                } else if ("WSCAN".equals(mPayType)) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("img", payInfoVO.getData().getWx_native_qrcode());
+                    bundle.putString("url", payInfoVO.getData().getPayment_status_api());
+                    mActivity.open(QRCodeActivity.class, bundle, 0);
+                } else if ("BALANCE".equals(mPayType)) {
+                    mActivity.showCustomToast(vo.getDesc());
+                    buyRecord();
+                }
+
+            }
         }
+    }
+
+    public void quickBuy() {
+        mPayDialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.quick_buy);
+        mPayTypeTv = mPayDialog.getWindow().getDecorView().findViewById(R.id.pay_type_tv);
+        mRedMoneyTv = mPayDialog.getWindow().getDecorView().findViewById(R.id.red_money_tv);
+        mBuyTv = mPayDialog.getWindow().getDecorView().findViewById(R.id.buy_tv);
+        mNumberButton = mPayDialog.getWindow().getDecorView().findViewById(R.id.number_bt);
+        mNumberButton.setBuyMax(Integer.parseInt(mShopDetailVO.getRemain_count())).setCurrentNumber(BaseCommonUtils.parseInt("1"));
+        mNumberButton.setmOnTextChangeListener(new NumberButton.OnTextChangeListener() {
+            @Override
+            public void onTextChange(int count) {
+                mTotalCount = count;
+                //可用红包
+                final StringBuffer sb = new StringBuffer();
+                sb.append(mShopDetailVO.getId()).append("|").append(mTotalCount + "");
+                HashMap<String, Object> redMap = new HashMap<>();
+                redMap.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+                redMap.put("cart_info", sb.toString());
+                BSHttpUtils.postCallBack(mActivity, Constant.PAY_RED_LIST_URL, redMap, PayRedVO.class, ShopDetailActivity.this);
+            }
+        });
+
+        mCount1 = mPayDialog.getWindow().getDecorView().findViewById(R.id.count1_tv);
+        mCount2 = mPayDialog.getWindow().getDecorView().findViewById(R.id.count2_tv);
+        mCount3 = mPayDialog.getWindow().getDecorView().findViewById(R.id.count3_tv);
+        mCount4 = mPayDialog.getWindow().getDecorView().findViewById(R.id.count4_tv);
+        mCount5 = mPayDialog.getWindow().getDecorView().findViewById(R.id.count5_tv);
+        mCount1.setOnClickListener(this);
+        mCount2.setOnClickListener(this);
+        mCount3.setOnClickListener(this);
+        mCount4.setOnClickListener(this);
+        mCount5.setOnClickListener(this);
+        mPayTypeTv.setOnClickListener(this);
+        mRedMoneyTv.setOnClickListener(this);
+        mBuyTv.setOnClickListener(this);
+//                    mDialogCountTv.setText("你抢购了");//支付方式
+        HashMap<String, Object> payTypeMap = new HashMap<>();
+        payTypeMap.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+        payTypeMap.put("is_recharge", "0");
+        payTypeMap.put("total_count", mTotalCount + "");
+        BSHttpUtils.postCallBack(mActivity, Constant.PAY_TYPE_LIST_URL, payTypeMap, PayTypeVO.class, this);
+
+        final StringBuffer sb = new StringBuffer();
+        sb.append(mShopDetailVO.getId()).append("|").append(mTotalCount + "");
+        HashMap<String, Object> redMap = new HashMap<>();
+        redMap.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+        redMap.put("cart_info", sb.toString());
+        BSHttpUtils.postCallBack(mActivity, Constant.PAY_RED_LIST_URL, redMap, PayRedVO.class, ShopDetailActivity.this);
+    }
+
+    public void buyRecord() {
+//        this.openActivity(MyBuyRecordActivity.class);
+        mPayDialog.dismiss();
+        mPayType = "";
+    }
+
+    public void coountTv(View view ,int textViewId) {
+
+        if (R.id.count1_tv == textViewId) {
+            mCount1.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+            mCount1.setBackgroundResource(R.drawable.frame_kongxin_white_red);
+            mNumberButton.setCurrentNumber(BaseCommonUtils.parseInt(mCount1.getText().toString()));
+        } else {
+            mCount1.setTextColor(ContextCompat.getColor(this, R.color.C4));
+            mCount1.setBackgroundResource(R.drawable.frame_kongxin_white_gray);
+        }
+        if (R.id.count2_tv == textViewId) {
+            mCount2.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+            mCount2.setBackgroundResource(R.drawable.frame_kongxin_white_red);
+            mNumberButton.setCurrentNumber(BaseCommonUtils.parseInt(mCount2.getText().toString()));
+
+        } else {
+            mCount2.setTextColor(ContextCompat.getColor(this, R.color.C4));
+            mCount2.setBackgroundResource(R.drawable.frame_kongxin_white_gray);
+        }
+        if (R.id.count3_tv == textViewId) {
+            mCount3.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+            mCount3.setBackgroundResource(R.drawable.frame_kongxin_white_red);
+            mNumberButton.setCurrentNumber(BaseCommonUtils.parseInt(mCount3.getText().toString()));
+        } else {
+            mCount3.setTextColor(ContextCompat.getColor(this, R.color.C4));
+            mCount3.setBackgroundResource(R.drawable.frame_kongxin_white_gray);
+        }
+        if (R.id.count4_tv == textViewId) {
+            mCount4.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+            mCount4.setBackgroundResource(R.drawable.frame_kongxin_white_red);
+            mNumberButton.setCurrentNumber(BaseCommonUtils.parseInt(mCount4.getText().toString()));
+        } else {
+            mCount4.setTextColor(ContextCompat.getColor(this, R.color.C4));
+            mCount4.setBackgroundResource(R.drawable.frame_kongxin_white_gray);
+        }
+        if (R.id.count5_tv == textViewId) {
+            mCount5.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+            mCount5.setBackgroundResource(R.drawable.frame_kongxin_white_red);
+            mNumberButton.setCurrentNumber(BaseCommonUtils.parseInt(mShopDetailVO.getRemain_count()));
+        } else {
+            mCount5.setTextColor(ContextCompat.getColor(this, R.color.C4));
+            mCount5.setBackgroundResource(R.drawable.frame_kongxin_white_gray);
+        }
+
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EBMessageVO event) {
+        if ("weixin_pay".equals(event.getMessage())) {
+            buyRecord();
+        } else if ("wx_web".equals(event.getMessage())) {
+            buyRecord();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

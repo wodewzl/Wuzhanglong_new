@@ -90,22 +90,31 @@ public class ShopCatAdapter extends RecyclerBaseAdapter {
             helper.setText(R.id.name_tv, dataBean.getGoods_name());
             helper.getTextView(R.id.status_tv).setBackground(BaseCommonUtils.setBackgroundShap(mContext, 30, R.color.C6, R.color.C6));
             helper.setItemChildClickListener(R.id.delete_one_tv);
-        } else {
+        } else if("1".equals(dataBean.getTitle())){
             BaseCommonUtils.setTextThree(mContext, helper.getTextView(R.id.title_tv), "失效宝贝", dataBean.getValidedCount() + "", "件", R.color.colorAccent, 1.3f);
             helper.setItemChildClickListener(R.id.clean_tv);
+        }else {
+
         }
     }
 
     @Override
     public int getItemViewType(int position) {
+        if (this.getData().size() == 0) {
+            return super.getItemViewType(position);
+        }
         ShopCatVO.DataBean.ListBean vo = (ShopCatVO.DataBean.ListBean) this.getItem(position);
 
         if ("1".equals(vo.getIs_valid())) {
             return R.layout.shop_cat_adapter_type1;
         } else if ("0".equals(vo.getIs_valid())) {
             return R.layout.shop_cat_adapter_type3;
-        } else {
+        }else  if("1".equals(vo.getTitle())){
             return R.layout.shop_cat_adapter_type2;
+
+        }
+        else {
+            return R.layout.shop_cat_adapter_type4;
         }
 
     }

@@ -27,8 +27,7 @@
             android:layout_centerVertical="true"
             android:layout_marginTop="7dp"
             android:padding="3dp"
-            android:src="@drawable/check_normal"
-            android:onClick="onAddressClick"/>
+            android:src="@drawable/check_normal"/>
 
         <TextView
             android:id="@+id/name_tv"
@@ -49,18 +48,6 @@
             android:text="18602727134"
             android:textSize="@dimen/sp_13" />
 
-        <TextView
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/name_tv"
-            android:layout_below="@id/name_tv"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_toLeftOf="@id/check_img"
-            android:text="【默认】"
-            android:textColor="@color/colorAccent"
-            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/address_tv"
@@ -75,7 +62,7 @@
             android:lineSpacingExtra="8dp"
             android:lines="2"
             android:maxLines="2"
-            android:text="                湖北省枣阳市鹿头镇简庄村一组湖北省枣阳市鹿头镇简庄村一组"
+            android:text="湖北省枣阳市鹿头镇简庄村一组湖北省枣阳市鹿头镇简庄村一组"
             android:textColor="@color/C5"
             android:textSize="11sp" />
 

@@ -31,9 +31,9 @@ public class MyBuyRecordActivity extends BaseActivity implements View.OnClickLis
         mTitle1 = getViewById(R.id.title1);
         mTitle2 = getViewById(R.id.title2);
         MyBuyRecordFragment one = MyBuyRecordFragment.newInstance();
-        one.setType("0");
+        one.setType("1");
         MyBuyRecordFragment two = MyBuyRecordFragment.newInstance();
-        two.setType("1");
+        two.setType("2");
         mList.add(one);
         mList.add(two);
         mViewPager = (ViewPager) findViewById(com.wuzhanglong.library.R.id.vp_home);
