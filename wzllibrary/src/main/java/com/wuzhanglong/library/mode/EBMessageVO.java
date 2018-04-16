@@ -1,10 +1,12 @@
 package com.wuzhanglong.library.mode;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2017/2/25.
  */
 
-public class EBMessageVO {
+public class EBMessageVO implements Serializable{
     public String message;
     public String[] params;
     public String msg;

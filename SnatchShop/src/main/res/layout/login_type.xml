@@ -25,7 +25,7 @@
             android:layout_height="35dp"
             android:background="@drawable/corners_30_gray"
             android:gravity="center"
-            android:onClick="onLoginClick"
+
             android:text="手机号登录"
             android:textColor="@color/C5"
             />
@@ -37,7 +37,7 @@
             android:layout_marginLeft="20dp"
             android:background="@drawable/corners_30_red"
             android:gravity="center"
-            android:onClick="onLoginClick"
+
             android:text="手机号注册"
             android:textColor="@color/C1"/>
     </LinearLayout>
@@ -90,7 +90,7 @@
             android:text="微信"
             android:textColor="@color/C5"
             android:textSize="11sp"
-            android:onClick="onLoginClick"/>
+    />
 
         <TextView
             android:id="@+id/login_qq_tv"
@@ -103,7 +103,7 @@
             android:text="QQ"
             android:textColor="@color/C5"
             android:textSize="11sp"
-            android:onClick="onLoginClick"/>
+      />
 
     </LinearLayout>
 </LinearLayout>

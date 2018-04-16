@@ -179,7 +179,7 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
         } else if (vo instanceof AddressVO) {
             mAddressVO = (AddressVO) vo;
             if (mAddressDialogAdapter != null)
-                mAddressDialogAdapter.updateData(mAddressVO.getData());
+                mAddressDialogAdapter.updateData(mAddressVO.getData().getList());
         }
 
     }
@@ -226,13 +226,13 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
                 RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, recyclerView, mAddressDialogAdapter, R.dimen.dp_1, R.color.C3, false);
                 TextView addAddressTv = dialog.getWindow().getDecorView().findViewById(R.id.add_address_tv);
                 addAddressTv.setOnClickListener(this);
-                mAddressDialogAdapter.updateData(mAddressVO.getData());
+                mAddressDialogAdapter.updateData(mAddressVO.getData().getList());
                 mAddressDialogAdapter.setOnRVItemClickListener(new BGAOnRVItemClickListener() {
                     @Override
                     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
-                        final AddressVO.DataBean bean = (AddressVO.DataBean) mAddressDialogAdapter.getItem(position);
+                        final AddressVO.DataBean.ListBean bean = (AddressVO.DataBean.ListBean) mAddressDialogAdapter.getItem(position);
                         for (int i = 0; i < mAddressDialogAdapter.getData().size(); i++) {
-                            AddressVO.DataBean vo = (AddressVO.DataBean) mAddressDialogAdapter.getData().get(i);
+                            AddressVO.DataBean.ListBean vo = (AddressVO.DataBean.ListBean) mAddressDialogAdapter.getData().get(i);
                             vo.setIs_default("0");
                         }
                         bean.setIs_default("1");
@@ -310,6 +310,16 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
                 }
                 MultipartBody rb = requestBody.build();
                 BSHttpUtils.post(mActivity, Constant.SHOW_URL, rb, BaseVO.class, this);
+
+//                HashMap<String, Object> map = new HashMap<>();
+//                if (AppApplication.getInstance().getUserInfoVO() != null)
+//                    map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+//                map.put("id", mSelectVO.getId());
+//                map.put("title", mTitleEt.getText().toString());
+//                map.put("content",  mDescEt.getText().toString());
+//                map.put("images", mOneFiles);
+//
+//                BSHttpUtils.postCallBack(mActivity, Constant.SHOW_URL, map, BaseVO.class, this);
                 mActivity.showProgressDialog();
                 break;
             default:

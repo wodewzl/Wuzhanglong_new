@@ -1,10 +1,13 @@
 package com.beisheng.snatch.activity;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -46,6 +49,9 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.rey.material.app.BottomSheetDialog;
 import com.rey.material.widget.CheckBox;
 import com.squareup.picasso.Picasso;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.cache.ACache;
@@ -60,6 +66,7 @@ import com.wuzhanglong.library.utils.BottomDialogUtil;
 import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.utils.PayUtis;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
+import com.wuzhanglong.library.utils.ShareUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
@@ -75,6 +82,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 import cn.iwgang.countdownview.CountdownView;
@@ -111,8 +119,9 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     private TextView mRegistOkTv, mRegistGetMsgCodeTv, mLoginOkTv, mLoginBackPasswordTv, mLoginChangeLoginTypeTv, mLoginTypeTv, mLoginMsgPhoneEt, mLoginMsgCodeEt, mLoginMsgGetCodeTv;
     private EditText mRegistCodeEt, mRegistPhoneEt, mRegistPaswrodEt, mLoginPhoneEt, mLoginPasswordEt;
     private boolean mRegistCodeStae = true;
-    private String mSuccessType = "";//1注册验证码2注册3手机号登陆4短信登陆5加入购物车
+    private String mSuccessType = "";//1注册验证码2注册3手机号登陆4短信登陆5加入购物车//6威信登录7QQ登录
     private String mLoginType = "1";//1手机号登陆2短信登陆
+    private String mOhterLoginType = "1";//1微信2QQ
     private CheckBox mRegistCheckBox;
     private BottomSheetDialog mRegistDialog, mLoginTypeDialog, mLoginDialog;
     private View mLoginPasswrodLayout, mLoginMsgLayout;
@@ -126,6 +135,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     private PayRedVO mPayRedVO;
     private TextView mCount1, mCount2, mCount3, mCount4, mCount5;
     private NumberButton mNumberButton;
+    private TextView mLoginTv, mRegistTv, mLoginWeixinTv, mLoginQqTv;
 
     @Override
     public void baseSetContentView() {
@@ -387,13 +397,13 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         HashMap<String, Object> map = new HashMap<>();
         if (AppApplication.getInstance().getUserInfoVO() != null)
             map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
-        map.put("id", this.getIntent().getStringExtra("id"));
-//        map.put("id", "2");
+//        map.put("id", this.getIntent().getStringExtra("id"));
+        map.put("id", "2");
         BSHttpUtils.post(mActivity, this, Constant.SHOP_DETAIL_URL, map, ShopDetailVO.class);
         HashMap<String, Object> mapList = new HashMap<>();
         mapList.put("curpage", mCurrentPage + "");
-//        mapList.put("id", "2");
-        mapList.put("id", this.getIntent().getStringExtra("id"));
+        mapList.put("id", "2");
+//        mapList.put("id", this.getIntent().getStringExtra("id"));
 
         BSHttpUtils.post(mActivity, this, Constant.SHOP_BUY_LIST_URL, mapList, ShopDetailListVO.class);
     }
@@ -582,8 +592,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 break;
             case R.id.jion_cart_tv:
                 if (AppApplication.getInstance().getUserInfoVO() == null) {
-//                    showCustomDialog(R.layout.login_type);
-                    mLoginTypeDialog = BottomDialogUtil.initBottomDialog(this, R.layout.login_type);
+                    loginType();
                     return;
                 }
                 HashMap<String, Object> jionMap = new HashMap<>();
@@ -593,6 +602,10 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 mSuccessType = "5";
                 break;
             case R.id.quick_tv:
+                if (AppApplication.getInstance().getUserInfoVO() == null) {
+                    loginType();
+                    return;
+                }
                 quickBuy();
                 break;
 
@@ -765,11 +778,19 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 this.finish();
                 break;
             case R.id.share_img:
-                String title = ACache.get(mActivity).getAsString("share_title");
-                String desc = ACache.get(mActivity).getAsString("share_desc");
-                String img = ACache.get(mActivity).getAsString("share_img");
-                String url = ACache.get(mActivity).getAsString("share_url");
-//                ShareUtil.share(this, img, title, desc, url);
+
+                if (Build.VERSION.SDK_INT >= 23) {
+                    String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission
+                            .READ_LOGS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.SET_DEBUG_APP, Manifest.permission.SYSTEM_ALERT_WINDOW,
+                            Manifest.permission.GET_ACCOUNTS, Manifest.permission.WRITE_APN_SETTINGS};
+                    ActivityCompat.requestPermissions(this, mPermissionList, 123);
+                } else {
+                    String title = ACache.get(mActivity).getAsString("share_title");
+                    String desc = ACache.get(mActivity).getAsString("share_desc");
+                    String img = ACache.get(mActivity).getAsString("share_img");
+                    String url = ACache.get(mActivity).getAsString("share_url");
+                    ShareUtil.share(this, img, title, desc, url);
+                }
                 break;
             case R.id.pay_type_tv:
 //                BottomSheetDialog payuDialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.buy_pay_dialog);
@@ -843,15 +864,6 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 buyMap.put("platform", "1");
                 BSHttpUtils.postCallBack(mActivity, Constant.SHOPCAT_BUY_URL, buyMap, PayInfoVO.class, this);
                 break;
-
-            default:
-
-                break;
-        }
-    }
-
-    public void onLoginClick(View v) {
-        switch (v.getId()) {
             case R.id.login_tv:
                 mLoginType = "1";
                 mLoginDialog = BottomDialogUtil.initBottomDialog(this, R.layout.login_layout);
@@ -885,13 +897,22 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 break;
 
             case R.id.login_weixin_tv:
+                mOhterLoginType = "1";
+                UMShareAPI shareAPI = UMShareAPI.get(this);
+                shareAPI.getPlatformInfo(this, SHARE_MEDIA.WEIXIN, authListener);
+
                 break;
             case R.id.login_qq_tv:
+                mOhterLoginType = "2";
+                UMShareAPI shareQqAPI = UMShareAPI.get(this);
+                shareQqAPI.getPlatformInfo(this, SHARE_MEDIA.QQ, authListener);
                 break;
             default:
+
                 break;
         }
     }
+
 
     @Override
     public void onLoadMore() {
@@ -926,6 +947,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
             }
         };
         timer.start();
+
     }
 
     @Override
@@ -934,12 +956,14 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         if ("2".equals(mSuccessType)) {
             showSuccessToast(vo.getDesc());
             mRegistDialog.dismiss();
-        } else if ("3".equals(mSuccessType) || "4".equals(mSuccessType)) {
+        } else if ("3".equals(mSuccessType) || "4".equals(mSuccessType) || "6".equals(mSuccessType) || "7".equals(mSuccessType)) {
             showSuccessToast(vo.getDesc());
             UserInfoVO userInfoVO = (UserInfoVO) vo;
             AppApplication.getInstance().saveUserInfoVO(userInfoVO);
-            mLoginDialog.dismiss();
-            mLoginTypeDialog.dismiss();
+            if (mLoginDialog != null)
+                mLoginDialog.dismiss();
+            if (mLoginTypeDialog != null)
+                mLoginTypeDialog.dismiss();
         } else if ("5".equals(mSuccessType)) {
             showSuccessToast(vo.getDesc());
             EventBus.getDefault().post(new EBMessageVO("shopcat_update"));
@@ -998,10 +1022,18 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mRedMoneyTv = mPayDialog.getWindow().getDecorView().findViewById(R.id.red_money_tv);
         mBuyTv = mPayDialog.getWindow().getDecorView().findViewById(R.id.buy_tv);
         mNumberButton = mPayDialog.getWindow().getDecorView().findViewById(R.id.number_bt);
-        mNumberButton.setBuyMax(Integer.parseInt(mShopDetailVO.getRemain_count())).setCurrentNumber(BaseCommonUtils.parseInt("1"));
+        if(Integer.parseInt(mShopDetailVO.getRemain_count())==0){
+            mNumberButton.setEnabled(false);
+            mNumberButton.setCurrentNumber(BaseCommonUtils.parseInt("0"));
+        }else {
+            mNumberButton.setBuyMax(Integer.parseInt(mShopDetailVO.getRemain_count())).setCurrentNumber(BaseCommonUtils.parseInt("1"));
+        }
         mNumberButton.setmOnTextChangeListener(new NumberButton.OnTextChangeListener() {
             @Override
             public void onTextChange(int count) {
+                if(Integer.parseInt(mShopDetailVO.getRemain_count())==0){
+                    return;
+                }
                 mTotalCount = count;
                 //可用红包
                 final StringBuffer sb = new StringBuffer();
@@ -1107,5 +1139,89 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        String title = ACache.get(mActivity).getAsString("share_title");
+        String desc = ACache.get(mActivity).getAsString("share_desc");
+        String img = ACache.get(mActivity).getAsString("share_img");
+        String url = ACache.get(mActivity).getAsString("share_url");
+        ShareUtil.share(this, img, title, desc, url);
+    }
+
+    public void otherLogin(String openid, String nickname, String headpicurl) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("type", mLoginType);
+        map.put("openid", openid);
+        map.put("nickname", nickname);
+        map.put("platform", "1");
+        map.put("headpicurl", headpicurl);
+        BSHttpUtils.postCallBack(mActivity, Constant.LOGIN_OTHER_URL, map, UserInfoVO.class, this);
+    }
+
+    UMAuthListener authListener = new UMAuthListener() {
+        /**
+         * @desc 授权开始的回调
+         * @param platform 平台名称
+         */
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+        }
+
+        /**
+         * @desc 授权成功的回调
+         * @param platform 平台名称
+         * @param action 行为序号，开发者用不上
+         * @param data 用户资料返回
+         */
+        @Override
+        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+            if (platform == SHARE_MEDIA.WEIXIN) {
+                mSuccessType = "6";
+            } else {
+                mSuccessType = "7";
+            }
+            otherLogin(data.get("uid"), data.get("name"), data.get("iconurl"));
+        }
+
+        /**
+         * @desc 授权失败的回调
+         * @param platform 平台名称
+         * @param action 行为序号，开发者用不上
+         * @param t 错误原因
+         */
+        @Override
+        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            showFailToast("登录失败");
+        }
+
+        /**
+         * @desc 授权取消的回调
+         * @param platform 平台名称
+         * @param action 行为序号，开发者用不上
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA platform, int action) {
+            showCustomToast("登录取消");
+        }
+    };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void loginType() {
+        mLoginTypeDialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.login_type);
+        mLoginTv = mLoginTypeDialog.getWindow().getDecorView().findViewById(R.id.login_tv);
+        mRegistTv = mLoginTypeDialog.getWindow().getDecorView().findViewById(R.id.regist_tv);
+        mLoginWeixinTv = mLoginTypeDialog.getWindow().getDecorView().findViewById(R.id.login_weixin_tv);
+        mLoginQqTv = mLoginTypeDialog.getWindow().getDecorView().findViewById(R.id.login_qq_tv);
+        mLoginTv.setOnClickListener(this);
+        mRegistTv.setOnClickListener(this);
+        mLoginWeixinTv.setOnClickListener(this);
+        mLoginQqTv.setOnClickListener(this);
     }
 }

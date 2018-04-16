@@ -20,7 +20,7 @@ public class AddressDialogAdapter extends RecyclerBaseAdapter{
 
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
-        AddressVO.DataBean vo = (AddressVO.DataBean) model;
+        AddressVO.DataBean.ListBean vo = (AddressVO.DataBean.ListBean) model;
         helper.setText(R.id.name_tv, vo.getConsigner());
         helper.setText(R.id.phone_tv, vo.getMobile());
 

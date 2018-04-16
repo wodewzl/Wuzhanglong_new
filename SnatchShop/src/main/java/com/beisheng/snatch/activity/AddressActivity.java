@@ -73,7 +73,7 @@ public class AddressActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void hasData(BaseVO vo) {
         AddressVO addressVO = (AddressVO) vo;
-        mAdapter.updateData(addressVO.getData());
+        mAdapter.updateData(addressVO.getData().getList());
         mAutoSwipeRefreshLayout.setRefreshing(false);
     }
 

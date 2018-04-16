@@ -7,6 +7,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.beisheng.snatch.model.UserInfoVO;
+import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 
 import java.io.FileInputStream;
@@ -18,9 +19,8 @@ import java.io.ObjectOutputStream;
 public class AppApplication extends Application {
     private static AppApplication mAppApplication;
     {
-        PlatformConfig.setWeixin("wx2c13faa1a2947596","2b196a7043a25b3edc8c2813224c07fa");
-        PlatformConfig.setQQZone("1106176952","KEYRhCNnGRnsBJ7b9tN");
-        PlatformConfig.setSinaWeibo("319845988","fbb3df56985bcd557975e1bd8e8d8a1e","http://xiaojingsc.test.beisheng.wang/ht");
+        PlatformConfig.setWeixin("wxafa13c7f68391fd5","087d98720a5f9cb9feb3e2e3de44d58e");
+        PlatformConfig.setQQZone("1106689363","kWwnHAXjYQ40YaQW");
     }
 
     @Override
@@ -30,6 +30,8 @@ public class AppApplication extends Application {
 //        RxUtils.init(this);
 //        JPushInterface.setDebugMode(true);
 //        JPushInterface.init(this);
+        UMConfigure.init(this,"5ad16d84b27b0a6346000067"
+                ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
     }
 
     /** 获取Application */

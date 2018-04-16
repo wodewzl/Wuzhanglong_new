@@ -23,8 +23,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * Created by Administrator on 2017/2/13.
  */
 
-public class AddressAdapter extends RecyclerBaseAdapter<AddressVO.DataBean> {
-    private AddressVO.DataBean mDefalutVO;
+public class AddressAdapter extends RecyclerBaseAdapter {
+    private AddressVO.DataBean.ListBean mDefalutVO;
 
 
     public AddressAdapter(RecyclerView recyclerView) {
@@ -33,7 +33,7 @@ public class AddressAdapter extends RecyclerBaseAdapter<AddressVO.DataBean> {
 
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
-        AddressVO.DataBean vo = (AddressVO.DataBean) model;
+        AddressVO.DataBean.ListBean vo = (AddressVO.DataBean.ListBean) model;
         helper.setText(R.id.name_tv, vo.getConsigner());
         helper.setText(R.id.phone_tv, vo.getMobile());
         helper.setText(R.id.address_tv, vo.getAddress_info() + vo.getAddress());
@@ -50,7 +50,7 @@ public class AddressAdapter extends RecyclerBaseAdapter<AddressVO.DataBean> {
         helper.setOnItemChildClickListener(new BGAOnItemChildClickListener() {
             @Override
             public void onItemChildClick(ViewGroup viewGroup, View v, final int i) {
-                final AddressVO.DataBean vo = (AddressVO.DataBean) mData.get(i);
+                final AddressVO.DataBean.ListBean vo = (AddressVO.DataBean.ListBean) mData.get(i);
                 switch (v.getId()) {
                     case R.id.delete_tv:
 

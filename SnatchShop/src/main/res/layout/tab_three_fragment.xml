@@ -33,9 +33,9 @@
         android:layout_marginTop="1dp">
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@color/colorAccent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/find_img_01" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,9 +74,9 @@
         android:layout_marginTop="1dp">
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@color/colorAccent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/find_img_02" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -115,10 +115,9 @@
         android:layout_marginTop="1dp">
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@color/colorAccent" />
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/find_img_03" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -156,9 +155,9 @@
         android:layout_marginTop="10dp">
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@color/colorAccent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/find_img_04" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -197,9 +196,9 @@
         android:layout_marginTop="1dp">
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@color/colorAccent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/find_img_05" />
 
         <LinearLayout
             android:layout_width="match_parent"
