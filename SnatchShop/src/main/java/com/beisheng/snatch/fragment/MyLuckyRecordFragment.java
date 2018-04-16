@@ -459,12 +459,23 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
 
     public void getShop(String addressId) {
         mActivity.showProgressDialog();
+        StringBuffer sb=new StringBuffer();
+        for (int i = 0; i <mAdapter.getData().size() ; i++) {
+            MyLuckyRecordVO.DataBean.ListBean myLuckyRecordVO= (MyLuckyRecordVO.DataBean.ListBean) mAdapter.getData().get(i);
+            if(myLuckyRecordVO.isCheck()){
+                sb.append(myLuckyRecordVO.getId()).append(",");
+            }
+        }
+        if(sb.length()==0){
+            mActivity.showSuccessToast("请选择要领取的宝贝");
+            return;
+        }
         HashMap<String, Object> map = new HashMap<>();
         if (AppApplication.getInstance().getUserInfoVO() != null)
             map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
-        map.put("id", "");
-        map.put("address_id", addressId);
 
+        map.put("id", sb.toString().substring(0,sb.toString().length()-1));
+        map.put("address_id", addressId);
         BSHttpUtils.postCallBack(mActivity, Constant.GET_SHOP_URL, map, BaseVO.class, this);
 
     }

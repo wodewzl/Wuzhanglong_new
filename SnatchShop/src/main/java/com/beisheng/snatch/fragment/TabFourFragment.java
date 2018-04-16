@@ -95,7 +95,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
         mAllCheck = getViewById(R.id.check_box);
         mViewCheck = getViewById(R.id.view_check);
         mEditTv = getViewById(R.id.edit_tv);
-        mBottomLayout=getViewById(R.id.bottom_layout);
+        mBottomLayout = getViewById(R.id.bottom_layout);
     }
 
     @Override
@@ -112,21 +112,29 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void getData() {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
-        BSHttpUtils.post(mActivity, this, Constant.SHOP_CART_URL, map, ShopCatVO.class);
+        if (AppApplication.getInstance().getUserInfoVO() != null) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+            BSHttpUtils.post(mActivity, this, Constant.SHOP_CART_URL, map, ShopCatVO.class);
+        } else {
+            showView();
+            List<ShopCatVO.DataBean.ListBean> list = new ArrayList<>();
+            ShopCatVO.DataBean.ListBean emptyVO = new ShopCatVO.DataBean.ListBean();
+            emptyVO.setTitle("0");
+            list.add(emptyVO);
+            mAdapter.updateData(list);
+        }
     }
 
     @Override
     public void hasData(BaseVO vo) {
-
         ShopCatVO shopCatVO = (ShopCatVO) vo;
         mDataBean = ((ShopCatVO) vo).getData();
         List<ShopCatVO.DataBean.ListBean> list = shopCatVO.getData().getList();
         List<ShopCatVO.DataBean.ListBean> listOne = new ArrayList<>();//可购买的
         List<ShopCatVO.DataBean.ListBean> listTwo = new ArrayList<>();//失效的
         List<ShopCatVO.DataBean.ListBean> listAll = new ArrayList<>();
-        if(shopCatVO.getData().getList().size()>0){
+        if (shopCatVO.getData().getList().size() > 0) {
             mBottomLayout.setVisibility(View.VISIBLE);
             for (int i = 0; i < list.size(); i++) {
                 if ("1".equals(list.get(i).getIs_valid())) {
@@ -136,7 +144,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
                 }
             }
             listAll.addAll(listOne);
-            if(listTwo.size()>0){
+            if (listTwo.size() > 0) {
                 ShopCatVO.DataBean.ListBean titleVO = new ShopCatVO.DataBean.ListBean();
                 titleVO.setValidedCount(listTwo.size() + "");
                 titleVO.setTitle("1");
@@ -144,7 +152,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
                 listAll.addAll(listTwo);
             }
 
-        }else {
+        } else {
             mBottomLayout.setVisibility(View.GONE);
             ShopCatVO.DataBean.ListBean emptyVO = new ShopCatVO.DataBean.ListBean();
             emptyVO.setTitle("0");
@@ -197,7 +205,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
                                         mActivity.showCustomToast("请勾选想要删除的宝贝");
                                         return;
                                     }
-                                    delete(sb.toString().substring(0,sb.toString().length()-1));
+                                    delete(sb.toString().substring(0, sb.toString().length() - 1));
                                 }
                             })
                             .show();
@@ -256,7 +264,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
                     List<PayTypeVO.DataBean.ListBean> list = mPayTypeVO.getData().getList();
                     list.get(0).setCheck(true);
                     payTypeDialogAdapter.updateData(list);
-                    mPayType=list.get(0).getPayment_code();
+                    mPayType = list.get(0).getPayment_code();
                 }
                 payTypeDialogAdapter.setOnRVItemClickListener(new BGAOnRVItemClickListener() {
                     @Override
@@ -269,7 +277,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
                         payTypeDialogAdapter.notifyDataSetChanged();
                         mPayTypeTv.setText(bean.getPayment_name());
                         mPayType = bean.getPayment_code();
-                        if ("BALANCE".equals(bean.getPayment_code())&&BaseCommonUtils.parseInt(mPayRedVO.getData().getCoupon_count())>0) {
+                        if ("BALANCE".equals(bean.getPayment_code()) && BaseCommonUtils.parseInt(mPayRedVO.getData().getCoupon_count()) > 0) {
                             mRedMoneyTv.setTextColor(mActivity.getResources().getColor(R.color.colorAccent));
                             mRedMoneyTv.setClickable(true);
                         } else {
@@ -352,7 +360,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
         ShopCatVO.DataBean.ListBean vo = (ShopCatVO.DataBean.ListBean) mAdapter.getItem(position);
-        if("0".equals(vo.getTitle())){
+        if ("0".equals(vo.getTitle())) {
             mActivity.openActivity(ShopChoseActivity.class);
         }
 
@@ -373,7 +381,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
         HashMap<String, Object> map = new HashMap<>();
         map.put("cart_id", id);
         map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
-       BSHttpUtils.postCallBack(mActivity, Constant.SHOPCART_DELETE_ONE_ULR, map, BaseVO.class, TabFourFragment.this);
+        BSHttpUtils.postCallBack(mActivity, Constant.SHOPCART_DELETE_ONE_ULR, map, BaseVO.class, TabFourFragment.this);
     }
 
     public void deleteAll() {
@@ -409,11 +417,11 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
             mPayType = mPayTypeVO.getData().getList().get(0).getPayment_code();
         } else if (vo instanceof PayRedVO) {
             mPayRedVO = (PayRedVO) vo;
-            if(BaseCommonUtils.parseInt(mPayRedVO.getData().getCoupon_count())>0){
-                mRedMoneyTv.setTextColor(ContextCompat.getColor(mActivity,R.color.colorAccent));
-            }else {
+            if (BaseCommonUtils.parseInt(mPayRedVO.getData().getCoupon_count()) > 0) {
+                mRedMoneyTv.setTextColor(ContextCompat.getColor(mActivity, R.color.colorAccent));
+            } else {
                 mRedMoneyTv.setClickable(false);
-                mRedMoneyTv.setTextColor(ContextCompat.getColor(mActivity,R.color.C6));
+                mRedMoneyTv.setTextColor(ContextCompat.getColor(mActivity, R.color.C6));
             }
             mRedMoneyTv.setText(mPayRedVO.getData().getCoupon_count() + "个红包可用");
         } else if (vo instanceof ShopCatVO) {
@@ -570,7 +578,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
         EventBus.getDefault().unregister(this);
     }
 
-    public void updateShopCart(){
+    public void updateShopCart() {
         mPayDialog.dismiss();
         mPayType = "";
         getData();

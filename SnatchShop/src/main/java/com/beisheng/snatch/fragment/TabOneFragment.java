@@ -29,6 +29,7 @@ import com.beisheng.snatch.model.HomeVO;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.squareup.picasso.Picasso;
 import com.vondear.rxtools.view.RxTextviewVertical;
+import com.wuzhanglong.library.cache.ACache;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
@@ -93,8 +94,6 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mFab = getViewById(R.id.fab);
         mHeadLayout=getViewById(R.id.head_layouat);
         initMagicIndicator();
-
-
     }
 
     @Override
@@ -264,6 +263,11 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
             }
         });
         mRxText.startAutoScroll();
+
+        ACache.get(mActivity).put("share_title",homeVO.getData().getShare_params().getTitle());
+        ACache.get(mActivity).put("share_desc",homeVO.getData().getShare_params().getDescX());
+        ACache.get(mActivity).put("share_img",homeVO.getData().getShare_params().getImage());
+        ACache.get(mActivity).put("share_url",homeVO.getData().getShare_params().getUrl());
     }
 
     @Override

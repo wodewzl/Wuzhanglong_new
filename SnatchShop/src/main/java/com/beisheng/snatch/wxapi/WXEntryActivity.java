@@ -1,7 +1,7 @@
 package com.beisheng.snatch.wxapi;
 
 
-import com.umeng.weixin.callback.WXCallbackActivity;
+import com.umeng.socialize.weixin.view.WXCallbackActivity;
 
 //import com.umeng.socialize.weixin.view.WXCallbackActivity;
 

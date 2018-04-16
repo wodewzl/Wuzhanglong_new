@@ -33,7 +33,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         qinc:buttonWidth="25dp"
-        qinc:editable="false"
+        qinc:editable="true"
         qinc:textColor="@color/C5"
         qinc:textSize="4sp"
         qinc:textWidth="280dp"

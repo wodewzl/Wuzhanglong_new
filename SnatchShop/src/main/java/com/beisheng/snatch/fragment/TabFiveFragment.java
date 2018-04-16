@@ -71,6 +71,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
         mScortTv = getViewById(R.id.scort_tv);
         mNameTv = getViewById(R.id.name_tv);
         mUserNoTv = getViewById(R.id.user_no_tv);
+
     }
 
     @Override
@@ -94,33 +95,39 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void getData() {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
-        BSHttpUtils.post(mActivity, this, Constant.MY_CENTER_URL, map, UserInfoVO.class);
+        if (AppApplication.getInstance().getUserInfoVO() != null) {
+            HashMap<String, Object> map = new HashMap<>();
+            if (AppApplication.getInstance().getUserInfoVO() != null)
+                map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+            BSHttpUtils.post(mActivity, this, Constant.MY_CENTER_URL, map, UserInfoVO.class);
+        } else {
+            showView();
+        }
+
     }
 
     @Override
     public void hasData(BaseVO vo) {
-        UserInfoVO bean= (UserInfoVO) vo;
+        UserInfoVO bean = (UserInfoVO) vo;
         AppApplication.getInstance().saveUserInfoVO(bean);
-        mUserInfoVO=bean.getData();
-        if(!TextUtils.isEmpty(mUserInfoVO.getAvatar()))
+        mUserInfoVO = bean.getData();
+        if (!TextUtils.isEmpty(mUserInfoVO.getAvatar()))
             Picasso.with(mActivity).load(mUserInfoVO.getAvatar()).into(mHeadImg);
         mNameTv.setText(mUserInfoVO.getNickname());
-        mUserNoTv.setText("ID:"+mUserInfoVO.getUser_no());
+        mUserNoTv.setText("ID:" + mUserInfoVO.getUser_no());
         mFlowTv.setText(mUserInfoVO.getFlow());
         mRedTv.setText(mUserInfoVO.getCoupon_count());
         mScortTv.setText(mUserInfoVO.getPoint());
         UserInfoVO dataBean = (UserInfoVO) vo;
         mUserInfoVO = dataBean.getData();
         mNameTv.setText(mUserInfoVO.getNickname());
-        mUserNoTv.setText("ID:"+mUserInfoVO.getUser_no());
+        mUserNoTv.setText("ID:" + mUserInfoVO.getUser_no());
 
     }
 
     @Override
     public void noData(BaseVO vo) {
-
+        showView();
     }
 
     @Override

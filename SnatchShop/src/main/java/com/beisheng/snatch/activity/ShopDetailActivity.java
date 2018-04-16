@@ -48,6 +48,7 @@ import com.rey.material.widget.CheckBox;
 import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
+import com.wuzhanglong.library.cache.ACache;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.interfaces.PayCallback;
 import com.wuzhanglong.library.interfaces.PostCallback;
@@ -764,6 +765,11 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 this.finish();
                 break;
             case R.id.share_img:
+                String title = ACache.get(mActivity).getAsString("share_title");
+                String desc = ACache.get(mActivity).getAsString("share_desc");
+                String img = ACache.get(mActivity).getAsString("share_img");
+                String url = ACache.get(mActivity).getAsString("share_url");
+//                ShareUtil.share(this, img, title, desc, url);
                 break;
             case R.id.pay_type_tv:
 //                BottomSheetDialog payuDialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.buy_pay_dialog);
@@ -823,7 +829,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
             case R.id.count3_tv:
             case R.id.count4_tv:
             case R.id.count5_tv:
-                coountTv(v,v.getId());
+                coountTv(v, v.getId());
                 break;
 
             case R.id.buy_tv:
@@ -878,6 +884,10 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 mRegistOkTv.setOnClickListener(this);
                 break;
 
+            case R.id.login_weixin_tv:
+                break;
+            case R.id.login_qq_tv:
+                break;
             default:
                 break;
         }
@@ -1037,7 +1047,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mPayType = "";
     }
 
-    public void coountTv(View view ,int textViewId) {
+    public void coountTv(View view, int textViewId) {
 
         if (R.id.count1_tv == textViewId) {
             mCount1.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));

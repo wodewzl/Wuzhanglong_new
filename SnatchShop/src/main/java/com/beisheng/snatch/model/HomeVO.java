@@ -1,5 +1,6 @@
 package com.beisheng.snatch.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.wuzhanglong.library.mode.BaseVO;
 
 import java.util.List;
@@ -16,58 +17,61 @@ public class HomeVO extends BaseVO{
      * .cn/upload/image_collection/1522658987.jpg","adv_title":"心相印","adv_url":"thinkpad","jump_type":"1"},"nav_list":[{"nav_title":"商品分类","nav_icon":"http://qmfq.baonongkang
      * .cn/upload/common/1520850337.png","nav_url":""},{"nav_title":"优选商品","nav_icon":"http://qmfq.baonongkang.cn/upload/common/1520850320.png","nav_url":""},{"nav_title":"每日任务",
      * "nav_icon":"http://qmfq.baonongkang.cn/upload/common/1520850328.png","nav_url":""},{"nav_title":"邀一得二","nav_icon":"http://qmfq.baonongkang.cn/upload/common/1520850307.png","nav_url":""}],
-     * "record_list":[{"pid":"13","goods_name":"中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g","nickname":"lhb","is_true":"1","prise_desc":"恭喜lhb获得了中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g"},{"pid":"17",
-     * "goods_name":"100元三网通用话费充值卡","nickname":"lhb","is_true":"1","prise_desc":"恭喜lhb获得了100元三网通用话费充值卡"},{"pid":"7","goods_name":"Apple Watch Sport Series 1智能手表（38毫米银色铝金属表壳 白色运动型表带 防水溅",
-     * "nickname":"lhb","is_true":"1","prise_desc":"恭喜lhb获得了Apple Watch Sport Series 1智能手表（38毫米银色铝金属表壳 白色运动型表带 防水溅"},{"pid":"5","goods_name":"海尔（Haier）60升电热水器 5倍增容速热遥控预约
-     * 一级能效节能抑菌专利2.0安全防电墙EC6003-G6","nickname":"lhb","is_true":"1","prise_desc":"恭喜lhb获得了海尔（Haier）60升电热水器 5倍增容速热遥控预约 一级能效节能抑菌专利2.0安全防电墙EC6003-G6"},{"pid":"2",
-     * "goods_name":"14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1","nickname":"疯抢用户10005","is_true":"1","prise_desc":"恭喜疯抢用户10005获得了14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1"}],"order1_list":[{"id":"8",
-     * "goods_name":"ThinkPad 联想 E570系列 15.6英寸大屏游戏商务办公手提商用笔记本电脑","total_count":"5000","remain_count":"4800","percent":"4","goods_image":"http://qmfq.baonongkang
-     * .cn/upload/goods/20180315/5bd7f37bda4b7b02f411b99ebf8dac692.jpg"},{"id":"9","goods_name":"Apple iPad 平板电脑 9.7英寸（128G WLAN版/A9 芯片/Retina显示屏/Touch ID技术","total_count":"6000",
-     * "remain_count":"6000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/ce395a0993094b860749de13dfa9354b2.jpg"},{"id":"10","goods_name":"雷霆世纪The fire
-     * 六核i5-8400/GTX1070-8G/华硕Z370/M.2 128G SSD/吃鸡专用","total_count":"8000","remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang
-     * .cn/upload/goods/20180315/745df0276343f610978b770fed2852572.jpg"},{"id":"11","goods_name":"Apple适用于12.9英寸iPad Pro的Smart Keyboard","total_count":"3000","remain_count":"3000","percent":"0",
-     * "goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/69f5fd5aa4d909009a4f0763b110d7e52.jpg"},{"id":"12","goods_name":"美度手表(MIDO)手表 贝伦赛丽自动机械女表 40周年纪念款 M027.207.36.013.00白盘皮带",
-     * "total_count":"10000","remain_count":"10000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/374fb5a5f21149269b1e0af795d3db4a2.jpg"},{"id":"14",
-     * "goods_name":"菜百首饰 足金Au9999福字金条 菜百投资黄金金条 10g","total_count":"4000","remain_count":"4000","percent":"0","goods_image":"http://qmfq.baonongkang
-     * .cn/upload/goods/20180315/466185ae6d62f4bbc900272b7bafbbec2.jpg"},{"id":"16","goods_name":"夏普电视机","total_count":"8000","remain_count":"8000","percent":"0","goods_image":"http://qmfq
-     * .baonongkang.cn/upload/goods/1499340186842.jpg"},{"id":"18","goods_name":"Apple Watch Sport Series 1智能手表（38毫米银色铝金属表壳 白色运动型表带 防水溅","total_count":"4000","remain_count":"4000","percent":"0",
-     * "goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/a2585ca5076defa4f747f8a8394b9e922.jpg"},{"id":"19","goods_name":"中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g","total_count":"1000",
-     * "remain_count":"1000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg"}],"order2_list":[{"id":"19","goods_name":"中国黄金
-     * 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g","total_count":"1000","remain_count":"1000","percent":"0","goods_image":"http://qmfq.baonongkang
-     * .cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg"},{"id":"18","goods_name":"Apple Watch Sport Series 1智能手表（38毫米银色铝金属表壳 白色运动型表带 防水溅","total_count":"4000","remain_count":"4000",
-     * "percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/a2585ca5076defa4f747f8a8394b9e922.jpg"},{"id":"16","goods_name":"夏普电视机","total_count":"8000",
-     * "remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/1499340186842.jpg"},{"id":"14","goods_name":"菜百首饰 足金Au9999福字金条 菜百投资黄金金条 10g","total_count":"4000",
-     * "remain_count":"4000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/466185ae6d62f4bbc900272b7bafbbec2.jpg"},{"id":"12","goods_name":"美度手表(MIDO)手表 贝伦赛丽自动机械女表
-     * 40周年纪念款 M027.207.36.013.00白盘皮带","total_count":"10000","remain_count":"10000","percent":"0","goods_image":"http://qmfq.baonongkang
-     * .cn/upload/goods/20180315/374fb5a5f21149269b1e0af795d3db4a2.jpg"},{"id":"11","goods_name":"Apple适用于12.9英寸iPad Pro的Smart Keyboard","total_count":"3000","remain_count":"3000","percent":"0",
-     * "goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/69f5fd5aa4d909009a4f0763b110d7e52.jpg"},{"id":"10","goods_name":"雷霆世纪The fire 六核i5-8400/GTX1070-8G/华硕Z370/M.2 128G SSD/吃鸡专用",
-     * "total_count":"8000","remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/745df0276343f610978b770fed2852572.jpg"},{"id":"9","goods_name":"Apple
-     * iPad 平板电脑 9.7英寸（128G WLAN版/A9 芯片/Retina显示屏/Touch ID技术","total_count":"6000","remain_count":"6000","percent":"0","goods_image":"http://qmfq.baonongkang
-     * .cn/upload/goods/20180315/ce395a0993094b860749de13dfa9354b2.jpg"},{"id":"8","goods_name":"ThinkPad 联想 E570系列 15.6英寸大屏游戏商务办公手提商用笔记本电脑","total_count":"5000","remain_count":"4800",
-     * "percent":"4","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/5bd7f37bda4b7b02f411b99ebf8dac692.jpg"}],"order3_list":[{"id":"8","goods_name":"ThinkPad 联想 E570系列
-     * 15.6英寸大屏游戏商务办公手提商用笔记本电脑","total_count":"5000","remain_count":"4800","percent":"4","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/5bd7f37bda4b7b02f411b99ebf8dac692.jpg"},
-     * {"id":"9","goods_name":"Apple iPad 平板电脑 9.7英寸（128G WLAN版/A9 芯片/Retina显示屏/Touch ID技术","total_count":"6000","remain_count":"6000","percent":"0","goods_image":"http://qmfq.baonongkang
-     * .cn/upload/goods/20180315/ce395a0993094b860749de13dfa9354b2.jpg"},{"id":"10","goods_name":"雷霆世纪The fire 六核i5-8400/GTX1070-8G/华硕Z370/M.2 128G SSD/吃鸡专用","total_count":"8000",
-     * "remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/745df0276343f610978b770fed2852572.jpg"},{"id":"11","goods_name":"Apple适用于12.9英寸iPad
-     * Pro的Smart Keyboard","total_count":"3000","remain_count":"3000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/69f5fd5aa4d909009a4f0763b110d7e52.jpg"},
+     * "record_list":[{"pid":"23","goods_name":"100元三网通用话费充值卡","nickname":"疯抢用户10005","is_true":"1","prise_desc":"恭喜疯抢用户10005获得了100元三网通用话费充值卡"},{"pid":"15",
+     * "goods_name":"14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1","nickname":"lhb","is_true":"1","prise_desc":"恭喜lhb获得了14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1"},{"pid":"17","goods_name":"100元三网通用话费充值卡",
+     * "nickname":"lhb","is_true":"1","prise_desc":"恭喜lhb获得了100元三网通用话费充值卡"},{"pid":"17","goods_name":"100元三网通用话费充值卡","nickname":"lhb","is_true":"1","prise_desc":"恭喜lhb获得了100元三网通用话费充值卡"},
+     * {"pid":"17","goods_name":"100元三网通用话费充值卡","nickname":"lhb","is_true":"1","prise_desc":"恭喜lhb获得了100元三网通用话费充值卡"}],"order1_list":[{"id":"8","goods_name":"ThinkPad 联想 E570系列
+     * 15.6英寸大屏游戏商务办公手提商用笔记本电脑","total_count":"5000","remain_count":"1775","percent":"65","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/5bd7f37bda4b7b02f411b99ebf8dac692.jpg"},
+     * {"id":"16","goods_name":"夏普电视机","total_count":"8000","remain_count":"7833","percent":"2","goods_image":"http://qmfq.baonongkang.cn/upload/goods/1499340186842.jpg"},{"id":"20",
+     * "goods_name":"高档茶壶","total_count":"200","remain_count":"190","percent":"5","goods_image":"http://qmfq.baonongkang.cn/upload/goods/1499337509542.jpg"},{"id":"22",
+     * "goods_name":"Apple适用于12.9英寸iPad Pro的Smart Keyboard","total_count":"3000","remain_count":"2994","percent":"0","goods_image":"http://qmfq.baonongkang
+     * .cn/upload/goods/20180315/69f5fd5aa4d909009a4f0763b110d7e52.jpg"},{"id":"21","goods_name":"吸尘器","total_count":"2800","remain_count":"2800","percent":"0","goods_image":"http://qmfq
+     * .baonongkang.cn/upload/goods/1499337619552.jpg"},{"id":"19","goods_name":"中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g","total_count":"1000","remain_count":"1000","percent":"0",
+     * "goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg"},{"id":"18","goods_name":"Apple Watch Sport Series 1智能手表（38毫米银色铝金属表壳 白色运动型表带 防水溅",
+     * "total_count":"4000","remain_count":"4000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/a2585ca5076defa4f747f8a8394b9e922.jpg"},{"id":"14","goods_name":"菜百首饰
+     * 足金Au9999福字金条 菜百投资黄金金条 10g","total_count":"4000","remain_count":"4000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/466185ae6d62f4bbc900272b7bafbbec2.jpg"},
      * {"id":"12","goods_name":"美度手表(MIDO)手表 贝伦赛丽自动机械女表 40周年纪念款 M027.207.36.013.00白盘皮带","total_count":"10000","remain_count":"10000","percent":"0","goods_image":"http://qmfq.baonongkang
-     * .cn/upload/goods/20180315/374fb5a5f21149269b1e0af795d3db4a2.jpg"},{"id":"14","goods_name":"菜百首饰 足金Au9999福字金条 菜百投资黄金金条 10g","total_count":"4000","remain_count":"4000","percent":"0",
-     * "goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/466185ae6d62f4bbc900272b7bafbbec2.jpg"},{"id":"16","goods_name":"夏普电视机","total_count":"8000","remain_count":"8000",
-     * "percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/1499340186842.jpg"},{"id":"18","goods_name":"Apple Watch Sport Series 1智能手表（38毫米银色铝金属表壳 白色运动型表带 防水溅",
-     * "total_count":"4000","remain_count":"4000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/a2585ca5076defa4f747f8a8394b9e922.jpg"},{"id":"19","goods_name":"中国黄金
-     * 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g","total_count":"1000","remain_count":"1000","percent":"0","goods_image":"http://qmfq.baonongkang
-     * .cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg"}],"order4_list":[{"id":"12","goods_name":"美度手表(MIDO)手表 贝伦赛丽自动机械女表 40周年纪念款 M027.207.36.013.00白盘皮带","total_count":"10000",
+     * .cn/upload/goods/20180315/374fb5a5f21149269b1e0af795d3db4a2.jpg"},{"id":"10","goods_name":"雷霆世纪The fire 六核i5-8400/GTX1070-8G/华硕Z370/M.2 128G SSD/吃鸡专用","total_count":"8000",
+     * "remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/745df0276343f610978b770fed2852572.jpg"}],"order2_list":[{"id":"24",
+     * "goods_name":"100元三网通用话费充值卡","total_count":"120","remain_count":"120","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180326/30d38241704baba65e7f593d9972fbf92.jpg"},
+     * {"id":"22","goods_name":"Apple适用于12.9英寸iPad Pro的Smart Keyboard","total_count":"3000","remain_count":"2994","percent":"0","goods_image":"http://qmfq.baonongkang
+     * .cn/upload/goods/20180315/69f5fd5aa4d909009a4f0763b110d7e52.jpg"},{"id":"21","goods_name":"吸尘器","total_count":"2800","remain_count":"2800","percent":"0","goods_image":"http://qmfq
+     * .baonongkang.cn/upload/goods/1499337619552.jpg"},{"id":"20","goods_name":"高档茶壶","total_count":"200","remain_count":"190","percent":"5","goods_image":"http://qmfq.baonongkang
+     * .cn/upload/goods/1499337509542.jpg"},{"id":"19","goods_name":"中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g","total_count":"1000","remain_count":"1000","percent":"0","goods_image":"http://qmfq
+     * .baonongkang.cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg"},{"id":"18","goods_name":"Apple Watch Sport Series 1智能手表（38毫米银色铝金属表壳 白色运动型表带 防水溅","total_count":"4000",
+     * "remain_count":"4000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/a2585ca5076defa4f747f8a8394b9e922.jpg"},{"id":"16","goods_name":"夏普电视机",
+     * "total_count":"8000","remain_count":"7833","percent":"2","goods_image":"http://qmfq.baonongkang.cn/upload/goods/1499340186842.jpg"},{"id":"14","goods_name":"菜百首饰 足金Au9999福字金条 菜百投资黄金金条 10g",
+     * "total_count":"4000","remain_count":"4000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/466185ae6d62f4bbc900272b7bafbbec2.jpg"},{"id":"12","goods_name":"美度手表
+     * (MIDO)手表 贝伦赛丽自动机械女表 40周年纪念款 M027.207.36.013.00白盘皮带","total_count":"10000","remain_count":"10000","percent":"0","goods_image":"http://qmfq.baonongkang
+     * .cn/upload/goods/20180315/374fb5a5f21149269b1e0af795d3db4a2.jpg"},{"id":"10","goods_name":"雷霆世纪The fire 六核i5-8400/GTX1070-8G/华硕Z370/M.2 128G SSD/吃鸡专用","total_count":"8000",
+     * "remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/745df0276343f610978b770fed2852572.jpg"}],"order3_list":[{"id":"8","goods_name":"ThinkPad
+     * 联想 E570系列 15.6英寸大屏游戏商务办公手提商用笔记本电脑","total_count":"5000","remain_count":"1775","percent":"65","goods_image":"http://qmfq.baonongkang
+     * .cn/upload/goods/20180315/5bd7f37bda4b7b02f411b99ebf8dac692.jpg"},{"id":"20","goods_name":"高档茶壶","total_count":"200","remain_count":"190","percent":"5","goods_image":"http://qmfq.baonongkang
+     * .cn/upload/goods/1499337509542.jpg"},{"id":"16","goods_name":"夏普电视机","total_count":"8000","remain_count":"7833","percent":"2","goods_image":"http://qmfq.baonongkang
+     * .cn/upload/goods/1499340186842.jpg"},{"id":"22","goods_name":"Apple适用于12.9英寸iPad Pro的Smart Keyboard","total_count":"3000","remain_count":"2994","percent":"0","goods_image":"http://qmfq
+     * .baonongkang.cn/upload/goods/20180315/69f5fd5aa4d909009a4f0763b110d7e52.jpg"},{"id":"21","goods_name":"吸尘器","total_count":"2800","remain_count":"2800","percent":"0",
+     * "goods_image":"http://qmfq.baonongkang.cn/upload/goods/1499337619552.jpg"},{"id":"19","goods_name":"中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g","total_count":"1000","remain_count":"1000",
+     * "percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg"},{"id":"18","goods_name":"Apple Watch Sport Series 1智能手表（38毫米银色铝金属表壳
+     * 白色运动型表带 防水溅","total_count":"4000","remain_count":"4000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/a2585ca5076defa4f747f8a8394b9e922.jpg"},{"id":"14",
+     * "goods_name":"菜百首饰 足金Au9999福字金条 菜百投资黄金金条 10g","total_count":"4000","remain_count":"4000","percent":"0","goods_image":"http://qmfq.baonongkang
+     * .cn/upload/goods/20180315/466185ae6d62f4bbc900272b7bafbbec2.jpg"},{"id":"12","goods_name":"美度手表(MIDO)手表 贝伦赛丽自动机械女表 40周年纪念款 M027.207.36.013.00白盘皮带","total_count":"10000",
      * "remain_count":"10000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/374fb5a5f21149269b1e0af795d3db4a2.jpg"},{"id":"10","goods_name":"雷霆世纪The fire
      * 六核i5-8400/GTX1070-8G/华硕Z370/M.2 128G SSD/吃鸡专用","total_count":"8000","remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang
-     * .cn/upload/goods/20180315/745df0276343f610978b770fed2852572.jpg"},{"id":"16","goods_name":"夏普电视机","total_count":"8000","remain_count":"8000","percent":"0","goods_image":"http://qmfq
+     * .cn/upload/goods/20180315/745df0276343f610978b770fed2852572.jpg"}],"order4_list":[{"id":"12","goods_name":"美度手表(MIDO)手表 贝伦赛丽自动机械女表 40周年纪念款 M027.207.36.013.00白盘皮带","total_count":"10000",
+     * "remain_count":"10000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/374fb5a5f21149269b1e0af795d3db4a2.jpg"},{"id":"10","goods_name":"雷霆世纪The fire
+     * 六核i5-8400/GTX1070-8G/华硕Z370/M.2 128G SSD/吃鸡专用","total_count":"8000","remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang
+     * .cn/upload/goods/20180315/745df0276343f610978b770fed2852572.jpg"},{"id":"16","goods_name":"夏普电视机","total_count":"8000","remain_count":"7833","percent":"2","goods_image":"http://qmfq
      * .baonongkang.cn/upload/goods/1499340186842.jpg"},{"id":"9","goods_name":"Apple iPad 平板电脑 9.7英寸（128G WLAN版/A9 芯片/Retina显示屏/Touch ID技术","total_count":"6000","remain_count":"6000",
      * "percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/ce395a0993094b860749de13dfa9354b2.jpg"},{"id":"8","goods_name":"ThinkPad 联想 E570系列 15.6英寸大屏游戏商务办公手提商用笔记本电脑",
-     * "total_count":"5000","remain_count":"4800","percent":"4","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/5bd7f37bda4b7b02f411b99ebf8dac692.jpg"},{"id":"14","goods_name":"菜百首饰
-     * 足金Au9999福字金条 菜百投资黄金金条 10g","total_count":"4000","remain_count":"4000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/466185ae6d62f4bbc900272b7bafbbec2.jpg"},
-     * {"id":"18","goods_name":"Apple Watch Sport Series 1智能手表（38毫米银色铝金属表壳 白色运动型表带 防水溅","total_count":"4000","remain_count":"4000","percent":"0","goods_image":"http://qmfq.baonongkang
-     * .cn/upload/goods/20180315/a2585ca5076defa4f747f8a8394b9e922.jpg"},{"id":"11","goods_name":"Apple适用于12.9英寸iPad Pro的Smart Keyboard","total_count":"3000","remain_count":"3000","percent":"0",
-     * "goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/69f5fd5aa4d909009a4f0763b110d7e52.jpg"},{"id":"19","goods_name":"中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g","total_count":"1000",
-     * "remain_count":"1000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg"}],"page":"1","count":"1"}
+     * "total_count":"5000","remain_count":"1775","percent":"65","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/5bd7f37bda4b7b02f411b99ebf8dac692.jpg"},{"id":"18",
+     * "goods_name":"Apple Watch Sport Series 1智能手表（38毫米银色铝金属表壳 白色运动型表带 防水溅","total_count":"4000","remain_count":"4000","percent":"0","goods_image":"http://qmfq.baonongkang
+     * .cn/upload/goods/20180315/a2585ca5076defa4f747f8a8394b9e922.jpg"},{"id":"14","goods_name":"菜百首饰 足金Au9999福字金条 菜百投资黄金金条 10g","total_count":"4000","remain_count":"4000","percent":"0",
+     * "goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/466185ae6d62f4bbc900272b7bafbbec2.jpg"},{"id":"22","goods_name":"Apple适用于12.9英寸iPad Pro的Smart Keyboard","total_count":"3000",
+     * "remain_count":"2994","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/69f5fd5aa4d909009a4f0763b110d7e52.jpg"},{"id":"21","goods_name":"吸尘器",
+     * "total_count":"2800","remain_count":"2800","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/1499337619552.jpg"},{"id":"19","goods_name":"中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状
+     * 约1.62g","total_count":"1000","remain_count":"1000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg"}],
+     * "share_params":{"title":"全民疯抢，你还不来？","desc":"你想要的这里都有，快来和我一起愉快地玩耍吧！","image":"http://qmfq.baonongkang.cn/public/admin/images/app_icon.png","url":"http://qmfq.baonongkang.cn/index
+     * .php?s=/Api/Dbindex/app_download"},"page":"1","count":"2"}
      */
 
     private DataBean data;
@@ -81,73 +85,8 @@ public class HomeVO extends BaseVO{
     }
 
     public static class DataBean {
-        /**
-         * multi_adv : [{"adv_image":"http://qmfq.baonongkang.cn/upload/image_collection/1520932803.jpg","adv_title":"s1","adv_url":"http://www.baidu.com","jump_type":"2"},{"adv_image":"http://qmfq
-         * .baonongkang.cn/upload/image_collection/1520932832.png","adv_title":"s2","adv_url":"2222","jump_type":"1"}]
-         * single_adv : {"adv_image":"http://qmfq.baonongkang.cn/upload/image_collection/1522658987.jpg","adv_title":"心相印","adv_url":"thinkpad","jump_type":"1"}
-         * nav_list : [{"nav_title":"商品分类","nav_icon":"http://qmfq.baonongkang.cn/upload/common/1520850337.png","nav_url":""},{"nav_title":"优选商品","nav_icon":"http://qmfq.baonongkang
-         * .cn/upload/common/1520850320.png","nav_url":""},{"nav_title":"每日任务","nav_icon":"http://qmfq.baonongkang.cn/upload/common/1520850328.png","nav_url":""},{"nav_title":"邀一得二",
-         * "nav_icon":"http://qmfq.baonongkang.cn/upload/common/1520850307.png","nav_url":""}]
-         * record_list : [{"pid":"13","goods_name":"中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g","nickname":"lhb","is_true":"1","prise_desc":"恭喜lhb获得了中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g"},{"pid":"17",
-         * "goods_name":"100元三网通用话费充值卡","nickname":"lhb","is_true":"1","prise_desc":"恭喜lhb获得了100元三网通用话费充值卡"},{"pid":"7","goods_name":"Apple Watch Sport Series 1智能手表（38毫米银色铝金属表壳 白色运动型表带 防水溅",
-         * "nickname":"lhb","is_true":"1","prise_desc":"恭喜lhb获得了Apple Watch Sport Series 1智能手表（38毫米银色铝金属表壳 白色运动型表带 防水溅"},{"pid":"5","goods_name":"海尔（Haier）60升电热水器 5倍增容速热遥控预约
-         * 一级能效节能抑菌专利2.0安全防电墙EC6003-G6","nickname":"lhb","is_true":"1","prise_desc":"恭喜lhb获得了海尔（Haier）60升电热水器 5倍增容速热遥控预约 一级能效节能抑菌专利2.0安全防电墙EC6003-G6"},{"pid":"2",
-         * "goods_name":"14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1","nickname":"疯抢用户10005","is_true":"1","prise_desc":"恭喜疯抢用户10005获得了14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1"}]
-         * order1_list : [{"id":"8","goods_name":"ThinkPad 联想 E570系列 15.6英寸大屏游戏商务办公手提商用笔记本电脑","total_count":"5000","remain_count":"4800","percent":"4","goods_image":"http://qmfq.baonongkang
-         * .cn/upload/goods/20180315/5bd7f37bda4b7b02f411b99ebf8dac692.jpg"},{"id":"9","goods_name":"Apple iPad 平板电脑 9.7英寸（128G WLAN版/A9 芯片/Retina显示屏/Touch ID技术","total_count":"6000",
-         * "remain_count":"6000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/ce395a0993094b860749de13dfa9354b2.jpg"},{"id":"10","goods_name":"雷霆世纪The fire
-         * 六核i5-8400/GTX1070-8G/华硕Z370/M.2 128G SSD/吃鸡专用","total_count":"8000","remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang
-         * .cn/upload/goods/20180315/745df0276343f610978b770fed2852572.jpg"},{"id":"11","goods_name":"Apple适用于12.9英寸iPad Pro的Smart Keyboard","total_count":"3000","remain_count":"3000",
-         * "percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/69f5fd5aa4d909009a4f0763b110d7e52.jpg"},{"id":"12","goods_name":"美度手表(MIDO)手表 贝伦赛丽自动机械女表 40周年纪念款
-         * M027.207.36.013.00白盘皮带","total_count":"10000","remain_count":"10000","percent":"0","goods_image":"http://qmfq.baonongkang
-         * .cn/upload/goods/20180315/374fb5a5f21149269b1e0af795d3db4a2.jpg"},{"id":"14","goods_name":"菜百首饰 足金Au9999福字金条 菜百投资黄金金条 10g","total_count":"4000","remain_count":"4000","percent":"0",
-         * "goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/466185ae6d62f4bbc900272b7bafbbec2.jpg"},{"id":"16","goods_name":"夏普电视机","total_count":"8000","remain_count":"8000",
-         * "percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/1499340186842.jpg"},{"id":"18","goods_name":"Apple Watch Sport Series 1智能手表（38毫米银色铝金属表壳 白色运动型表带 防水溅",
-         * "total_count":"4000","remain_count":"4000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/a2585ca5076defa4f747f8a8394b9e922.jpg"},{"id":"19",
-         * "goods_name":"中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g","total_count":"1000","remain_count":"1000","percent":"0","goods_image":"http://qmfq.baonongkang
-         * .cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg"}]
-         * order2_list : [{"id":"19","goods_name":"中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g","total_count":"1000","remain_count":"1000","percent":"0","goods_image":"http://qmfq.baonongkang
-         * .cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg"},{"id":"18","goods_name":"Apple Watch Sport Series 1智能手表（38毫米银色铝金属表壳 白色运动型表带 防水溅","total_count":"4000",
-         * "remain_count":"4000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/a2585ca5076defa4f747f8a8394b9e922.jpg"},{"id":"16","goods_name":"夏普电视机",
-         * "total_count":"8000","remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/1499340186842.jpg"},{"id":"14","goods_name":"菜百首饰 足金Au9999福字金条 菜百投资黄金金条
-         * 10g","total_count":"4000","remain_count":"4000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/466185ae6d62f4bbc900272b7bafbbec2.jpg"},{"id":"12",
-         * "goods_name":"美度手表(MIDO)手表 贝伦赛丽自动机械女表 40周年纪念款 M027.207.36.013.00白盘皮带","total_count":"10000","remain_count":"10000","percent":"0","goods_image":"http://qmfq.baonongkang
-         * .cn/upload/goods/20180315/374fb5a5f21149269b1e0af795d3db4a2.jpg"},{"id":"11","goods_name":"Apple适用于12.9英寸iPad Pro的Smart Keyboard","total_count":"3000","remain_count":"3000",
-         * "percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/69f5fd5aa4d909009a4f0763b110d7e52.jpg"},{"id":"10","goods_name":"雷霆世纪The fire
-         * 六核i5-8400/GTX1070-8G/华硕Z370/M.2 128G SSD/吃鸡专用","total_count":"8000","remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang
-         * .cn/upload/goods/20180315/745df0276343f610978b770fed2852572.jpg"},{"id":"9","goods_name":"Apple iPad 平板电脑 9.7英寸（128G WLAN版/A9 芯片/Retina显示屏/Touch ID技术","total_count":"6000",
-         * "remain_count":"6000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/ce395a0993094b860749de13dfa9354b2.jpg"},{"id":"8","goods_name":"ThinkPad 联想 E570系列
-         * 15.6英寸大屏游戏商务办公手提商用笔记本电脑","total_count":"5000","remain_count":"4800","percent":"4","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/5bd7f37bda4b7b02f411b99ebf8dac692.jpg"}]
-         * order3_list : [{"id":"8","goods_name":"ThinkPad 联想 E570系列 15.6英寸大屏游戏商务办公手提商用笔记本电脑","total_count":"5000","remain_count":"4800","percent":"4","goods_image":"http://qmfq.baonongkang
-         * .cn/upload/goods/20180315/5bd7f37bda4b7b02f411b99ebf8dac692.jpg"},{"id":"9","goods_name":"Apple iPad 平板电脑 9.7英寸（128G WLAN版/A9 芯片/Retina显示屏/Touch ID技术","total_count":"6000",
-         * "remain_count":"6000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/ce395a0993094b860749de13dfa9354b2.jpg"},{"id":"10","goods_name":"雷霆世纪The fire
-         * 六核i5-8400/GTX1070-8G/华硕Z370/M.2 128G SSD/吃鸡专用","total_count":"8000","remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang
-         * .cn/upload/goods/20180315/745df0276343f610978b770fed2852572.jpg"},{"id":"11","goods_name":"Apple适用于12.9英寸iPad Pro的Smart Keyboard","total_count":"3000","remain_count":"3000",
-         * "percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/69f5fd5aa4d909009a4f0763b110d7e52.jpg"},{"id":"12","goods_name":"美度手表(MIDO)手表 贝伦赛丽自动机械女表 40周年纪念款
-         * M027.207.36.013.00白盘皮带","total_count":"10000","remain_count":"10000","percent":"0","goods_image":"http://qmfq.baonongkang
-         * .cn/upload/goods/20180315/374fb5a5f21149269b1e0af795d3db4a2.jpg"},{"id":"14","goods_name":"菜百首饰 足金Au9999福字金条 菜百投资黄金金条 10g","total_count":"4000","remain_count":"4000","percent":"0",
-         * "goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/466185ae6d62f4bbc900272b7bafbbec2.jpg"},{"id":"16","goods_name":"夏普电视机","total_count":"8000","remain_count":"8000",
-         * "percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/1499340186842.jpg"},{"id":"18","goods_name":"Apple Watch Sport Series 1智能手表（38毫米银色铝金属表壳 白色运动型表带 防水溅",
-         * "total_count":"4000","remain_count":"4000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/a2585ca5076defa4f747f8a8394b9e922.jpg"},{"id":"19",
-         * "goods_name":"中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g","total_count":"1000","remain_count":"1000","percent":"0","goods_image":"http://qmfq.baonongkang
-         * .cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg"}]
-         * order4_list : [{"id":"12","goods_name":"美度手表(MIDO)手表 贝伦赛丽自动机械女表 40周年纪念款 M027.207.36.013.00白盘皮带","total_count":"10000","remain_count":"10000","percent":"0","goods_image":"http://qmfq
-         * .baonongkang.cn/upload/goods/20180315/374fb5a5f21149269b1e0af795d3db4a2.jpg"},{"id":"10","goods_name":"雷霆世纪The fire 六核i5-8400/GTX1070-8G/华硕Z370/M.2 128G SSD/吃鸡专用","total_count":"8000",
-         * "remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/745df0276343f610978b770fed2852572.jpg"},{"id":"16","goods_name":"夏普电视机",
-         * "total_count":"8000","remain_count":"8000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/1499340186842.jpg"},{"id":"9","goods_name":"Apple iPad 平板电脑 9.7英寸（128G
-         * WLAN版/A9 芯片/Retina显示屏/Touch ID技术","total_count":"6000","remain_count":"6000","percent":"0","goods_image":"http://qmfq.baonongkang
-         * .cn/upload/goods/20180315/ce395a0993094b860749de13dfa9354b2.jpg"},{"id":"8","goods_name":"ThinkPad 联想 E570系列 15.6英寸大屏游戏商务办公手提商用笔记本电脑","total_count":"5000","remain_count":"4800",
-         * "percent":"4","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/5bd7f37bda4b7b02f411b99ebf8dac692.jpg"},{"id":"14","goods_name":"菜百首饰 足金Au9999福字金条 菜百投资黄金金条 10g",
-         * "total_count":"4000","remain_count":"4000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/466185ae6d62f4bbc900272b7bafbbec2.jpg"},{"id":"18",
-         * "goods_name":"Apple Watch Sport Series 1智能手表（38毫米银色铝金属表壳 白色运动型表带 防水溅","total_count":"4000","remain_count":"4000","percent":"0","goods_image":"http://qmfq.baonongkang
-         * .cn/upload/goods/20180315/a2585ca5076defa4f747f8a8394b9e922.jpg"},{"id":"11","goods_name":"Apple适用于12.9英寸iPad Pro的Smart Keyboard","total_count":"3000","remain_count":"3000",
-         * "percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/69f5fd5aa4d909009a4f0763b110d7e52.jpg"},{"id":"19","goods_name":"中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g",
-         * "total_count":"1000","remain_count":"1000","percent":"0","goods_image":"http://qmfq.baonongkang.cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg"}]
-         * page : 1
-         * count : 1
-         */
-
         private SingleAdvBean single_adv;
+        private ShareParamsBean share_params;
         private String page;
         private String count;
         private List<MultiAdvBean> multi_adv;
@@ -164,6 +103,14 @@ public class HomeVO extends BaseVO{
 
         public void setSingle_adv(SingleAdvBean single_adv) {
             this.single_adv = single_adv;
+        }
+
+        public ShareParamsBean getShare_params() {
+            return share_params;
+        }
+
+        public void setShare_params(ShareParamsBean share_params) {
+            this.share_params = share_params;
         }
 
         public String getPage() {
@@ -284,6 +231,53 @@ public class HomeVO extends BaseVO{
             }
         }
 
+        public static class ShareParamsBean {
+            /**
+             * title : 全民疯抢，你还不来？
+             * desc : 你想要的这里都有，快来和我一起愉快地玩耍吧！
+             * image : http://qmfq.baonongkang.cn/public/admin/images/app_icon.png
+             * url : http://qmfq.baonongkang.cn/index.php?s=/Api/Dbindex/app_download
+             */
+
+            private String title;
+            @SerializedName("desc")
+            private String descX;
+            private String image;
+            private String url;
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public String getDescX() {
+                return descX;
+            }
+
+            public void setDescX(String descX) {
+                this.descX = descX;
+            }
+
+            public String getImage() {
+                return image;
+            }
+
+            public void setImage(String image) {
+                this.image = image;
+            }
+
+            public String getUrl() {
+                return url;
+            }
+
+            public void setUrl(String url) {
+                this.url = url;
+            }
+        }
+
         public static class MultiAdvBean {
             /**
              * adv_image : http://qmfq.baonongkang.cn/upload/image_collection/1520932803.jpg
@@ -368,11 +362,11 @@ public class HomeVO extends BaseVO{
 
         public static class RecordListBean {
             /**
-             * pid : 13
-             * goods_name : 中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g
-             * nickname : lhb
+             * pid : 23
+             * goods_name : 100元三网通用话费充值卡
+             * nickname : 疯抢用户10005
              * is_true : 1
-             * prise_desc : 恭喜lhb获得了中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g
+             * prise_desc : 恭喜疯抢用户10005获得了100元三网通用话费充值卡
              */
 
             private String pid;
@@ -427,8 +421,8 @@ public class HomeVO extends BaseVO{
              * id : 8
              * goods_name : ThinkPad 联想 E570系列 15.6英寸大屏游戏商务办公手提商用笔记本电脑
              * total_count : 5000
-             * remain_count : 4800
-             * percent : 4
+             * remain_count : 1775
+             * percent : 65
              * goods_image : http://qmfq.baonongkang.cn/upload/goods/20180315/5bd7f37bda4b7b02f411b99ebf8dac692.jpg
              */
 
@@ -490,12 +484,12 @@ public class HomeVO extends BaseVO{
 
         public static class Order2ListBean {
             /**
-             * id : 19
-             * goods_name : 中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g
-             * total_count : 1000
-             * remain_count : 1000
+             * id : 24
+             * goods_name : 100元三网通用话费充值卡
+             * total_count : 120
+             * remain_count : 120
              * percent : 0
-             * goods_image : http://qmfq.baonongkang.cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg
+             * goods_image : http://qmfq.baonongkang.cn/upload/goods/20180326/30d38241704baba65e7f593d9972fbf92.jpg
              */
 
             private String id;
@@ -559,8 +553,8 @@ public class HomeVO extends BaseVO{
              * id : 8
              * goods_name : ThinkPad 联想 E570系列 15.6英寸大屏游戏商务办公手提商用笔记本电脑
              * total_count : 5000
-             * remain_count : 4800
-             * percent : 4
+             * remain_count : 1775
+             * percent : 65
              * goods_image : http://qmfq.baonongkang.cn/upload/goods/20180315/5bd7f37bda4b7b02f411b99ebf8dac692.jpg
              */
 
