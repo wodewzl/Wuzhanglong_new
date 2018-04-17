@@ -1,6 +1,7 @@
 package com.beisheng.snatch.activity;
 
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.View;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.beisheng.snatch.R;
+import com.umeng.socialize.UMShareAPI;
 import com.wuzhanglong.library.activity.HomeFragmentActivity;
 
 public class HomeActivity extends HomeFragmentActivity {
@@ -64,6 +66,11 @@ public class HomeActivity extends HomeFragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+    @Override
+    protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+        super.onActivityResult(arg0, arg1, arg2);
+        UMShareAPI.get(this).onActivityResult(arg0, arg1, arg2);
     }
 
 }

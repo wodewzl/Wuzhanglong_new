@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 
 import com.beisheng.snatch.R;
-import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.fragment.TabFiveFragment;
 import com.beisheng.snatch.fragment.TabFourFragment;
 import com.beisheng.snatch.fragment.TabOneFragment;
@@ -59,19 +58,13 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-
     }
 
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
         Intent intent = new Intent();
-        if (AppApplication.getInstance().getUserInfoVO() != null) {
-            intent.putExtra("fragment_list", (Serializable) list);
-            intent.setClass(this, HomeActivity.class);
-        } else {
-//            intent.setClass(this, LoginActivity.class);
-        }
-
+        intent.putExtra("fragment_list", (Serializable) list);
+        intent.setClass(this, HomeActivity.class);
         startActivity(intent);
         this.finish();
     }

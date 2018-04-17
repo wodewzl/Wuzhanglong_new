@@ -29,7 +29,7 @@ public class AddressAddActivity extends BaseActivity implements View.OnClickList
     private ArrayList<CityVO> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<CityVO>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<CityVO>>> options3Items = new ArrayList<>();
-    private String mProvinceId, mCityId, mAreaId;
+    private String mProvince, mCity, mArea;
     private EditText mNameEt, mPhoneEt, mDescEt;
     private TextView mAddressTv;
     private Button mButton;
@@ -134,10 +134,10 @@ public class AddressAddActivity extends BaseActivity implements View.OnClickList
                     map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
                 map.put("consigner", mNameEt.getText().toString());
                 map.put("mobile", mPhoneEt.getText().toString());
-                map.put("province", mProvinceId);
-                map.put("city", mCityId);
-                map.put("district", mAreaId);
-                map.put("area_info", mAddressTv.getText().toString());
+                map.put("province", mProvince);
+                map.put("city", mCity);
+                map.put("district", mArea);
+//                map.put("area_info", mAddressTv.getText().toString());
                 map.put("address", mDescEt.getText().toString());
                 BSHttpUtils.postCallBack(this, mUrl, map, BaseVO.class, this);
                 break;
@@ -152,9 +152,9 @@ public class AddressAddActivity extends BaseActivity implements View.OnClickList
                                 + options3Items.get(options1).get(option2).get(options3).getDistrict_name();
                         mAddressTv.setText(tx);
 
-                        mProvinceId = options1Items.get(options1).getProvince_id();
-                        mCityId = options2Items.get(options1).get(option2).getCity_id();
-                        mAreaId = options3Items.get(options1).get(option2).get(options3).getDistrict_id();
+                        mProvince = options1Items.get(options1).getProvince_name();
+                        mCity = options2Items.get(options1).get(option2).getCity_name();
+                        mArea = options3Items.get(options1).get(option2).get(options3).getDistrict_name();
                     }
                 }).build();
                 pvOptions.setPicker(options1Items, options2Items, options3Items);

@@ -1,6 +1,8 @@
 package com.beisheng.snatch.fragment;
 
 import android.Manifest;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -8,8 +10,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,16 +20,18 @@ import com.beisheng.snatch.activity.AddressAddActivity;
 import com.beisheng.snatch.activity.ShopDetailActivity;
 import com.beisheng.snatch.adapter.AddressDialogAdapter;
 import com.beisheng.snatch.adapter.MyLuckyRecordAdapter;
+import com.beisheng.snatch.adapter.WuLiuAdapter;
 import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.AddressVO;
-import com.beisheng.snatch.model.CityVO;
 import com.beisheng.snatch.model.MyLuckyRecordVO;
+import com.beisheng.snatch.model.WuLiuVO;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.nanchen.compresshelper.CompressHelper;
 import com.rey.material.app.BottomSheetDialog;
 import com.rey.material.widget.CheckBox;
+import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.constant.BaseConstant;
 import com.wuzhanglong.library.fragment.BaseFragment;
@@ -62,7 +66,7 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreListener, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, MyLuckyRecordAdapter.MyLuckyRecordListener,
-        CompoundButton.OnCheckedChangeListener, BGAOnRVItemClickListener, BGASortableNinePhotoLayout.Delegate, PostCallback, BGAOnItemChildClickListener {
+        BGAOnRVItemClickListener, BGASortableNinePhotoLayout.Delegate, PostCallback, BGAOnItemChildClickListener {
     private static final int PRC_PHOTO_PICKER = 1;
     private static final int RC_CHOOSE_PHOTO = 1;
     private static final int RC_PHOTO_PREVIEW = 2;
@@ -78,13 +82,7 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
     private TextView mOkTv;
     private LinearLayout mBottomLayout;
     private int mSelectCount = 0;
-    private CheckBox mCheckBox;
     private TextView mTotalCountTv;
-    private CityVO mCityVO;
-    private ArrayList<CityVO> options1Items = new ArrayList<>();
-    private ArrayList<ArrayList<CityVO>> options2Items = new ArrayList<>();
-    private ArrayList<ArrayList<ArrayList<CityVO>>> options3Items = new ArrayList<>();
-    private String mProvinceId, mCityId, mAreaId;
     private AddressVO mAddressVO;
     private AddressDialogAdapter mAddressDialogAdapter;
     private View mViewCheck;
@@ -92,6 +90,7 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
     private EditText mTitleEt, mDescEt;
     private TextView mShowTv;
     private MyLuckyRecordVO.DataBean.ListBean mSelectVO;
+    private WuLiuVO mWuLiuVO;
 
     public static MyLuckyRecordFragment newInstance() {
         MyLuckyRecordFragment fragment = new MyLuckyRecordFragment();
@@ -115,6 +114,7 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
         mRecyclerView = getViewById(R.id.recycler_view);
         mAdapter = new MyLuckyRecordAdapter(mRecyclerView);
         mAdapter.setType(type);
+        mAdapter.setMyLuckyRecordListener(this);
         RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, mRecyclerView, mAdapter, R.dimen.dp_1, R.color.C3, true);
         mOkTv = getViewById(R.id.ok_tv);
         mBottomLayout = getViewById(R.id.bottom_layout);
@@ -259,17 +259,8 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
                 });
                 break;
             case R.id.add_address_tv:
-//                BottomSheetDialog dialogAdd = BottomDialogUtil.initBottomDialog(mActivity, R.layout.add_address_dialog);
-//                mNameEt=dialogAdd.getWindow().getDecorView().findViewById(R.id.name_et);
-//                mPhoneEt=dialogAdd.getWindow().getDecorView().findViewById(R.id.phone_et);
-//                mAddressTv=dialogAdd.getWindow().getDecorView().findViewById(R.id.address_tv);
-//                mDescEt=dialogAdd.getWindow().getDecorView().findViewById(R.id.desc_et);
-//                mAddressTv.setOnClickListener(this);
-
                 mActivity.openActivity(AddressAddActivity.class);
-
                 break;
-
 
             case R.id.view_check:
                 if (mAllCheck.isChecked()) {
@@ -282,6 +273,8 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
                     vo.setCheck(mAllCheck.isChecked());
                 }
                 mAdapter.notifyDataSetChanged();
+                count();
+
                 break;
 
             case R.id.show_tv:
@@ -319,8 +312,8 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
 //                map.put("content",  mDescEt.getText().toString());
 //                map.put("images", mOneFiles);
 //
-//                BSHttpUtils.postCallBack(mActivity, Constant.SHOW_URL, map, BaseVO.class, this);
-                mActivity.showProgressDialog();
+//                HttpGetDataUtil.post(mActivity, Constant.SHOW_URL, map, BaseVO.class, this);
+//                mActivity.showProgressDialog();
                 break;
             default:
                 break;
@@ -331,28 +324,14 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
 
     @Override
     public void count() {
+        mSelectCount = 0;
         for (int i = 0; i < mAdapter.getData().size(); i++) {
             MyLuckyRecordVO.DataBean.ListBean bean = (MyLuckyRecordVO.DataBean.ListBean) mAdapter.getData().get(i);
             if (bean.isCheck()) {
-                mSelectCount = +1;
+                mSelectCount = mSelectCount + 1;
             }
         }
-        mTotalCountTv.setText("(" + mSelectCount + ")");
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        for (int i = 0; i < mAdapter.getData().size(); i++) {
-            MyLuckyRecordVO.DataBean.ListBean bean = (MyLuckyRecordVO.DataBean.ListBean) mAdapter.getData().get(i);
-            bean.setCheck(b);
-        }
-        mAdapter.notifyDataSetChanged();
-        if (b) {
-            mSelectCount = mAdapter.getData().size();
-            mTotalCountTv.setText("(" + mSelectCount + ")");
-        } else {
-            mTotalCountTv.setText("(" + 0 + ")");
-        }
+        BaseCommonUtils.setTextTwoLast(mActivity, mTotalCountTv, "全选", "(" + mSelectCount + ")", R.color.colorAccent, 1.0f);
     }
 
     @Override
@@ -445,7 +424,35 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
 
     @Override
     public void success(BaseVO vo) {
-        mActivity.showSuccessToast(vo.getDesc());
+        if (vo instanceof WuLiuVO) {
+         mWuLiuVO= (WuLiuVO) vo;
+//            helper.setText(R.id.tv_04,"查看物流详情");
+            final BottomSheetDialog dialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.wuliu_list_dialog);
+            ImageView img = dialog.getWindow().getDecorView().findViewById(R.id.img);
+            Picasso.with(mActivity).load(mSelectVO.getGoods_picture()).into(img);
+            TextView titleTv = dialog.getWindow().getDecorView().findViewById(R.id.title_tv);
+            titleTv.setText(mWuLiuVO.getData().getExpress_name());
+            TextView numberTv = dialog.getWindow().getDecorView().findViewById(R.id.number_tv);
+            numberTv.setText(mWuLiuVO.getData().getLogistic_code());
+            TextView copyTv=dialog.getWindow().getDecorView().findViewById(R.id.copy_tv);
+            copyTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ClipboardManager cm = (ClipboardManager) mActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+                    // 将文本内容放到系统剪贴板里。
+                    cm.setText(mWuLiuVO.getData().getLogistic_code());
+                    mActivity.showCustomToast("复制成功");
+                }
+            });
+            LuRecyclerView recyclerView = dialog.getWindow().getDecorView().findViewById(R.id.dialog_recycler_view);
+            final WuLiuAdapter dialogAdapter = new WuLiuAdapter(recyclerView);
+            RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, recyclerView, dialogAdapter, R.dimen.dp_0, R.color.C3, false);
+            dialogAdapter.updateData(mWuLiuVO.getData().getTraces());
+        } else {
+            mActivity.showSuccessToast(vo.getDesc());
+            mAutoSwipeRefreshLayout.autoRefresh();
+        }
+
     }
 
     public void getAddress() {
@@ -469,14 +476,14 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
 
     public void getShop(String addressId) {
         mActivity.showProgressDialog();
-        StringBuffer sb=new StringBuffer();
-        for (int i = 0; i <mAdapter.getData().size() ; i++) {
-            MyLuckyRecordVO.DataBean.ListBean myLuckyRecordVO= (MyLuckyRecordVO.DataBean.ListBean) mAdapter.getData().get(i);
-            if(myLuckyRecordVO.isCheck()){
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < mAdapter.getData().size(); i++) {
+            MyLuckyRecordVO.DataBean.ListBean myLuckyRecordVO = (MyLuckyRecordVO.DataBean.ListBean) mAdapter.getData().get(i);
+            if (myLuckyRecordVO.isCheck()) {
                 sb.append(myLuckyRecordVO.getId()).append(",");
             }
         }
-        if(sb.length()==0){
+        if (sb.length() == 0) {
             mActivity.showSuccessToast("请选择要领取的宝贝");
             return;
         }
@@ -484,7 +491,7 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
         if (AppApplication.getInstance().getUserInfoVO() != null)
             map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
 
-        map.put("id", sb.toString().substring(0,sb.toString().length()-1));
+        map.put("id", sb.toString().substring(0, sb.toString().length() - 1));
         map.put("address_id", addressId);
         BSHttpUtils.postCallBack(mActivity, Constant.GET_SHOP_URL, map, BaseVO.class, this);
 
@@ -494,7 +501,10 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
     public void onItemChildClick(ViewGroup parent, View childView, int position) {
         mSelectVO = (MyLuckyRecordVO.DataBean.ListBean) mAdapter.getItem(position);
         if ("1".equals(mSelectVO.getDelivery_status())) {
-//            helper.setText(R.id.tv_04,"查看物流详情");
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+            map.put("id", mSelectVO.getId());
+            BSHttpUtils.postCallBack(mActivity,  Constant.WU_LIU_URL, map, WuLiuVO.class,this);
         } else if ("2".equals(mSelectVO.getDelivery_status())) {
             BottomSheetDialog dialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.show_order_dialog);
             mPhotoLayout = dialog.getWindow().getDecorView().findViewById(R.id.phone_layout);

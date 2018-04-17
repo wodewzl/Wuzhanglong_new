@@ -21,7 +21,8 @@ import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
 public class MyLuckyRecordAdapter extends RecyclerBaseAdapter {
     private String type;
     private MyLuckyRecordListener myLuckyRecordListener;
-    public interface  MyLuckyRecordListener {
+
+    public interface MyLuckyRecordListener {
         void count();
     }
 
@@ -40,25 +41,33 @@ public class MyLuckyRecordAdapter extends RecyclerBaseAdapter {
         if ("0".equals(this.getType())) {
             helper.getView(R.id.check_box).setVisibility(View.VISIBLE);
             helper.getView(R.id.tv_04).setVisibility(View.GONE);
+            if (bean.isCheck()) {
+                helper.setChecked(R.id.check_box, true);
+            } else {
+                helper.setChecked(R.id.check_box, false);
+            }
             BaseCommonUtils.setTextThree(mContext, helper.getTextView(R.id.tv_03), "您抢购了：", bean.getBuy_total(), "次", R.color.colorAccent, 1.3f);
 
         } else {
             helper.getView(R.id.check_box).setVisibility(View.GONE);
             helper.getView(R.id.tv_04).setVisibility(View.VISIBLE);
-            helper.setText(R.id.tv_03,bean.getDelivery_status_text());
-            if("1".equals(bean.getDelivery_status())){
-                helper.setText(R.id.tv_04,"查看物流详情");
+            helper.setText(R.id.tv_03, bean.getDelivery_status_text());
+            if ("1".equals(bean.getDelivery_status())) {
+                helper.setText(R.id.tv_04, "查看物流详情");
             } else if ("2".equals(bean.getDelivery_status())) {
-                helper.setText(R.id.tv_04,"晒单有礼");
+                helper.setText(R.id.tv_04, "晒单有礼");
+            }else {
+                helper.setText(R.id.tv_04, "代发货");
             }
             helper.setItemChildClickListener(R.id.tv_04);
+
         }
 
         CheckBox checkBox = helper.getView(R.id.check_box);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    bean.setCheck(b);
+                bean.setCheck(b);
 //                    ShopCartActivity activity = (ShopCartActivity) mActivity;
 //                    activity.countPrice();
                 myLuckyRecordListener.count();

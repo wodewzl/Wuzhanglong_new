@@ -368,7 +368,7 @@
             android:paddingTop="2dp"
             android:text="签到"
             android:gravity="center"
-            android:textColor="@color/C5"/>
+            android:textColor="@color/colorAccent"/>
     </RelativeLayout>
 
     <LinearLayout

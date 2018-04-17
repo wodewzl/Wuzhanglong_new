@@ -1152,7 +1152,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
 
     public void otherLogin(String openid, String nickname, String headpicurl) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("type", mLoginType);
+        map.put("type", mOhterLoginType);
         map.put("openid", openid);
         map.put("nickname", nickname);
         map.put("platform", "1");

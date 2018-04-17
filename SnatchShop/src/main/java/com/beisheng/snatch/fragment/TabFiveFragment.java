@@ -396,18 +396,11 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
-    public void onLoginClick(View v) {
 
-        switch (v.getId()) {
-
-            default:
-                break;
-        }
-    }
 
     public void otherLogin(String openid, String nickname, String headpicurl) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("type", mLoginType);
+        map.put("type", mOhterLoginType);
         map.put("openid", openid);
         map.put("nickname", nickname);
         map.put("platform", "1");
@@ -432,12 +425,12 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
          */
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-//            if (platform == SHARE_MEDIA.WEIXIN) {
-//                mSuccessType = "6";
-//            } else {
-//                mSuccessType = "7";
-//            }
-//            otherLogin(data.get("uid"), data.get("name"), data.get("iconurl"));
+            if (platform == SHARE_MEDIA.WEIXIN) {
+                mSuccessType = "6";
+            } else {
+                mSuccessType = "7";
+            }
+            otherLogin(data.get("uid"), data.get("name"), data.get("iconurl"));
         }
 
         /**
@@ -476,6 +469,8 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
                 mLoginDialog.dismiss();
             if (mLoginTypeDialog != null)
                 mLoginTypeDialog.dismiss();
+
+            getData();
         }
     }
 

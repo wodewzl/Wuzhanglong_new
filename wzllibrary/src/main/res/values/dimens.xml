@@ -15,7 +15,7 @@
     <dimen name="F4">12sp</dimen>
     <dimen name="F5">10sp</dimen>
 
-
+    <dimen name="dp_0">0dp</dimen>
     <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_2">2dp</dimen>
     <dimen name="dp_3">3dp</dimen>
