@@ -46,5 +46,6 @@ public class DiscussAdapter extends RecyclerBaseAdapter {
         helper.setText(R.id.agree_count_tv, bean.getLikes());
         helper.setText(R.id.comment_count_tv, bean.getComments());
         helper.setText(R.id.share_count_tv, bean.getShares());
+        helper.setItemChildClickListener(R.id.buy_tv);
     }
 }

@@ -32,7 +32,7 @@
             android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/status_tv"
+            android:id="@+id/buy_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/name_tv"

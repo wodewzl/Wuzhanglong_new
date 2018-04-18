@@ -54,6 +54,7 @@ public class AddressActivity extends BaseActivity implements View.OnClickListene
         DividerDecoration divider = DividerUtil.linnerDivider(this, R.dimen.dp_10, R.color.C3);
         mAddBt = getViewById(R.id.add_bt);
         mRecyclerView.addItemDecoration(divider);
+
     }
 
     @Override

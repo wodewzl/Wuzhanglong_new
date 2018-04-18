@@ -1,5 +1,6 @@
 package com.beisheng.snatch.activity;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +22,10 @@ import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import java.util.HashMap;
 import java.util.List;
 
+import cn.bingoogolapple.baseadapter.BGAOnItemChildClickListener;
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 
-public class ShowActivity extends BaseActivity  implements BGAOnRVItemClickListener, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener{
+public class ShowActivity extends BaseActivity  implements BGAOnRVItemClickListener, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener,BGAOnItemChildClickListener{
     private LuRecyclerView mRecyclerView;
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private ShowAdapter mAdapter;
@@ -50,6 +52,7 @@ public class ShowActivity extends BaseActivity  implements BGAOnRVItemClickListe
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
         mAdapter.setOnRVItemClickListener(this);
         mRecyclerView.setOnLoadMoreListener(this);
+        mAdapter.setOnItemChildClickListener(this);
     }
 
     @Override
@@ -113,4 +116,11 @@ public class ShowActivity extends BaseActivity  implements BGAOnRVItemClickListe
         getData();
     }
 
+    @Override
+    public void onItemChildClick(ViewGroup parent, View childView, int position) {
+        ShowVO.DataBean.ListBean bean= (ShowVO.DataBean.ListBean) mAdapter.getItem(position);
+        Bundle bundle =new Bundle();
+        bundle.putString("id",bean.getId());
+        open(ShowDetailActivity.class,bundle,0);
+    }
 }

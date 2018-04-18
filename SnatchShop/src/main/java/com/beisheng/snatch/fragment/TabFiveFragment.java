@@ -61,7 +61,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
     //登录
     private BottomSheetDialog mRegistDialog, mLoginTypeDialog, mLoginDialog;
     private View mLoginPasswrodLayout, mLoginMsgLayout;
-    private TextView mRegistOkTv, mRegistGetMsgCodeTv, mLoginOkTv, mLoginBackPasswordTv, mLoginChangeLoginTypeTv, mLoginTypeTv, mLoginMsgPhoneEt, mLoginMsgCodeEt, mLoginMsgGetCodeTv;
+    private TextView mRegistOkTv, mRegistGetMsgCodeTv, mLoginOkTv, mLoginBackPasswordTv, mLoginChangeLoginTypeTv, mLoginTypeTv, mLoginMsgPhoneEt, mLoginMsgCodeEt, mLoginMsgGetCodeTv,mBuyCountTv;
     private EditText mRegistCodeEt, mRegistPhoneEt, mRegistPaswrodEt, mLoginPhoneEt, mLoginPasswordEt;
     private boolean mRegistCodeStae = true;
     private String mSuccessType = "";//1注册验证码2注册3手机号登陆4短信登陆5加入购物车//6威信登录7QQ登录
@@ -96,7 +96,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
         mScortTv = getViewById(R.id.scort_tv);
         mNameTv = getViewById(R.id.name_tv);
         mUserNoTv = getViewById(R.id.user_no_tv);
-
+        mBuyCountTv=getViewById(R.id.buy_count_tv);
     }
 
     @Override
@@ -147,7 +147,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
         mUserInfoVO = dataBean.getData();
         mNameTv.setText(mUserInfoVO.getNickname());
         mUserNoTv.setText("ID:" + mUserInfoVO.getUser_no());
-
+        BaseCommonUtils.setTextThree(mActivity,mBuyCountTv,"购买次数：",mUserInfoVO.getBalance(),"次",R.color.colorAccent,1.3f);
     }
 
     @Override

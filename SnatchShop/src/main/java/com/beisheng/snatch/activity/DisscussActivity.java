@@ -21,9 +21,10 @@ import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import java.util.HashMap;
 import java.util.List;
 
+import cn.bingoogolapple.baseadapter.BGAOnItemChildClickListener;
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 
-public class DisscussActivity extends BaseActivity implements BGAOnRVItemClickListener, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
+public class DisscussActivity extends BaseActivity implements BGAOnRVItemClickListener, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener ,BGAOnItemChildClickListener{
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private LuRecyclerView mRecyclerView;
     private DiscussAdapter mAdapter;
@@ -53,6 +54,7 @@ public class DisscussActivity extends BaseActivity implements BGAOnRVItemClickLi
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
         mAdapter.setOnRVItemClickListener(this);
         mRecyclerView.setOnLoadMoreListener(this);
+        mAdapter.setOnItemChildClickListener(this);
     }
 
     @Override
@@ -118,5 +120,13 @@ public class DisscussActivity extends BaseActivity implements BGAOnRVItemClickLi
     public void onLoadMore() {
         isLoadMore = true;
         getData();
+    }
+
+    @Override
+    public void onItemChildClick(ViewGroup parent, View childView, int position) {
+        DiscussVO.DataBean.ListBean bean= (DiscussVO.DataBean.ListBean) mAdapter.getItem(position);
+        Bundle bundle =new Bundle();
+        bundle.putString("id",bean.getId());
+        open(ShopDetailActivity.class,bundle,0);
     }
 }

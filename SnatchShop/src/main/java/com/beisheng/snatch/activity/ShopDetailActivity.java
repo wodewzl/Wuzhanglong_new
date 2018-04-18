@@ -33,6 +33,8 @@ import com.beisheng.snatch.model.UserInfoVO;
 import com.beisheng.snatch.view.NumberButton;
 import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
+import com.dou361.dialogui.DialogUIUtils;
+import com.dou361.dialogui.bean.BuildBean;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
@@ -88,6 +90,8 @@ import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 import cn.iwgang.countdownview.CountdownView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.beisheng.snatch.R.id.tag_flow_layout;
+
 public class ShopDetailActivity extends BaseActivity implements ScrollableHelper.ScrollableContainer, View.OnClickListener, OnLoadMoreListener, BGAOnRVItemClickListener, PostCallback {
     private LuRecyclerView mRecyclerView;
     private ShopDetailAdapter mAdapter;
@@ -103,9 +107,9 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     private Banner mBanner;
     private TextView mDescTv, mStatusTv, mHonor1GradeTv, mHonor1NameTv, mHonor1CountTv, mHonor2GradeTv, mHonor2NameTv, mHonor2CountTv, mHonor3GradeTv, mHonor3NameTv, mHonor3CountTv;
     private View mLayoutType1, mLayoutType2, mLayoutType3;
-    private TextView mType3NameTv, mType3NumberTv, mType3BuyCoutTv, mType3TimeTv, mType3UserNoTv, mType3RunTv, mType1WinTv;
+    private TextView mType3NameTv, mType3NumberTv, mType3BuyCoutTv, mType3TimeTv, mType3UserNoTv, mType3RunTv, mType3WinTv,mType3MyBuyTv;
     private TextView mType1NumberTv, mType1JoinCountTv, mType1TotalCountTv;
-    private CircleImageView mType1HeadImg, mHonor1HeadImg, mHonor2HeadImg, mHonor3HeadImg;
+    private CircleImageView mType3HeadImg, mHonor1HeadImg, mHonor2HeadImg, mHonor3HeadImg;
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
     private TextView mPublishTimeTv;
@@ -182,9 +186,9 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mType3NumberTv = getViewById(R.id.type3_number_tv);
         mType3BuyCoutTv = getViewById(R.id.type3_buy_cout);
         mType3TimeTv = getViewById(R.id.type3_time_tv);
-        mType1HeadImg = getViewById(R.id.type3_head_img);
+        mType3HeadImg = getViewById(R.id.type3_head_img);
         mType3UserNoTv = getViewById(R.id.type3_user_no_tv);
-        mType1WinTv = getViewById(R.id.type3_win_tv);
+        mType3WinTv = getViewById(R.id.type3_win_tv);
         mHonor1HeadImg = getViewById(R.id.honor1_head_img);
         mHonor2HeadImg = getViewById(R.id.honor2_head_img);
         mHonor3HeadImg = getViewById(R.id.honor3_head_img);
@@ -208,6 +212,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mPastBuyTv = getViewById(R.id.past_buy_tv);
         mAddFavorImg = getViewById(R.id.add_favor_img);
         mType3RunTv = getViewById(R.id.type3_run_tv);
+        mType3MyBuyTv=getViewById(R.id.type3_my_buy_tv);
 
     }
 
@@ -384,10 +389,12 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mPastBuyTv.setOnClickListener(this);
         mDiscussTv.setOnClickListener(this);
         mAddFavorImg.setOnClickListener(this);
+        mType2RunTv.setOnClickListener(this);
         mType3RunTv.setOnClickListener(this);
         mBackTv.setOnClickListener(this);
         mShareImg.setOnClickListener(this);
         mQuckBuyTv.setOnClickListener(this);
+        mType3MyBuyTv.setOnClickListener(this);
         EventBus.getDefault().register(this);
     }
 
@@ -397,13 +404,13 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         HashMap<String, Object> map = new HashMap<>();
         if (AppApplication.getInstance().getUserInfoVO() != null)
             map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
-//        map.put("id", this.getIntent().getStringExtra("id"));
-        map.put("id", "2");
+        map.put("id", this.getIntent().getStringExtra("id"));
+//        map.put("id", "2");
         BSHttpUtils.post(mActivity, this, Constant.SHOP_DETAIL_URL, map, ShopDetailVO.class);
         HashMap<String, Object> mapList = new HashMap<>();
         mapList.put("curpage", mCurrentPage + "");
-        mapList.put("id", "2");
-//        mapList.put("id", this.getIntent().getStringExtra("id"));
+//        mapList.put("id", "2");
+        mapList.put("id", this.getIntent().getStringExtra("id"));
 
         BSHttpUtils.post(mActivity, this, Constant.SHOP_BUY_LIST_URL, mapList, ShopDetailListVO.class);
     }
@@ -462,13 +469,15 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                     mStatusTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.snatch_02, R.color.C1));
                     mStatusTv.setTextColor(ContextCompat.getColor(this, R.color.snatch_02));
                     if (!TextUtils.isEmpty(mShopDetailVO.getLucky_user().getAvatar()))
-                        Picasso.with(this).load(mShopDetailVO.getLucky_user().getAvatar()).into(mType1HeadImg);
+                        Picasso.with(this).load(mShopDetailVO.getLucky_user().getAvatar()).into(mType3HeadImg);
                     mType3NumberTv.setText("期号：" + mShopDetailVO.getIssue_no());
                     mType3NameTv.setText("获奖者：" + mShopDetailVO.getLucky_user().getNickname());
                     mType3UserNoTv.setText("用户ID：" + mShopDetailVO.getLucky_user().getUser_no());
                     mType3BuyCoutTv.setText("抢购次数：" + mShopDetailVO.getLucky_user().getBuy_count() + "次");
                     mType3TimeTv.setText("揭晓时间：" + mShopDetailVO.getLucky_user().getPublish_time());
-                    mType1WinTv.setText("幸运号码：" + mShopDetailVO.getLucky_user().getPrise_code());
+                    mType3WinTv.setText("幸运号码：" + mShopDetailVO.getLucky_user().getPrise_code());
+                    mType3RunTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.C1, R.color.colorAccent));
+
                     break;
                 case "4":
 
@@ -588,7 +597,8 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.number_trend_layout:
-                openActivity(NumberTrendActivity.class);
+                bundle.putString("id",mShopDetailVO.getGoods_id());
+                open(NumberTrendActivity.class,bundle,0);
                 break;
             case R.id.jion_cart_tv:
                 if (AppApplication.getInstance().getUserInfoVO() == null) {
@@ -907,6 +917,9 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 UMShareAPI shareQqAPI = UMShareAPI.get(this);
                 shareQqAPI.getPlatformInfo(this, SHARE_MEDIA.QQ, authListener);
                 break;
+            case R.id.type3_my_buy_tv:
+                showDialog();
+                break;
             default:
 
                 break;
@@ -1013,6 +1026,8 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 }
 
             }
+        }else {
+            showSuccessToast(vo.getDesc());
         }
     }
 
@@ -1223,5 +1238,25 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mRegistTv.setOnClickListener(this);
         mLoginWeixinTv.setOnClickListener(this);
         mLoginQqTv.setOnClickListener(this);
+    }
+
+    public void showDialog() {
+        DialogUIUtils.init(ShopDetailActivity.this);
+        View rootView = View.inflate(ShopDetailActivity.this, R.layout.my_buy_number_dialog, null);
+        TextView buyCountTv=rootView.findViewById(R.id.buy_count_tv);
+        BaseCommonUtils.setTextThree(this, buyCountTv, "你抢购了", mShopDetailVO.getUser_data().getBuy_count(), "次(抢购号码如下)", R.color.colorAccent, 1.3f);
+        TagFlowLayout tagFlowLayout=rootView.findViewById(tag_flow_layout);
+
+        List<String> allList = (List<String>) mShopDetailVO.getUser_data().getBuy_codes();
+        tagFlowLayout.setAdapter(new TagAdapter<String>(allList.subList(0,50)) {
+            @Override
+            public View getView(FlowLayout parent, int position, String s) {
+                TextView tv = new TextView(ShopDetailActivity.this);
+                tv.setText(s);
+                return tv;
+            }
+        });
+        final BuildBean buildBean = DialogUIUtils.showCustomAlert(ShopDetailActivity.this, rootView);
+        buildBean.show();
     }
 }

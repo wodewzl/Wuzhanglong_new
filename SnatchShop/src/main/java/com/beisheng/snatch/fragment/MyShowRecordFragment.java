@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.beisheng.snatch.R;
+import com.beisheng.snatch.activity.MyLuckyRecordActivity;
 import com.beisheng.snatch.activity.ShowDetailActivity;
 import com.beisheng.snatch.adapter.MyShowAdapter;
 import com.beisheng.snatch.application.AppApplication;
@@ -37,6 +38,7 @@ public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreList
     private String type = "1";
     private TextView mOkTv;
     private LinearLayout mBottomLayout;
+    private  TextView mShowTv;
 
     public static MyShowRecordFragment newInstance() {
         MyShowRecordFragment fragment = new MyShowRecordFragment();
@@ -63,6 +65,8 @@ public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreList
         RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, mRecyclerView, mAdapter, R.dimen.dp_1, R.color.C3, true);
         mOkTv = getViewById(R.id.ok_tv);
         mBottomLayout = getViewById(R.id.bottom_layout);
+        mShowTv=getViewById(R.id.show_tv);
+
     }
 
     @Override
@@ -71,6 +75,7 @@ public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreList
         mOkTv.setOnClickListener(this);
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
         mAdapter.setOnRVItemClickListener(this);
+        mShowTv.setOnClickListener(this);
     }
 
     @Override
@@ -141,8 +146,8 @@ public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ok_tv:
-
+            case R.id.show_tv:
+                mActivity.openActivity(MyLuckyRecordActivity.class);
                 break;
 
             default:

@@ -74,9 +74,10 @@
         </activity>
         <activity
             android:name=".activity.HomeActivity"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity android:name=".activity.LotteryingActivity"/>
         <activity android:name=".activity.DailyTaskActivity"/>
         <activity android:name=".activity.TestActivity"/>

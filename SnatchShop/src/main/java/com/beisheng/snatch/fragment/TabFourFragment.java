@@ -547,12 +547,17 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
         if (!isVisibleToUser && mDataBean != null && mDataBean.getList().size() > 0) {
             final StringBuffer sb = new StringBuffer();
             for (int i = 0; i < mDataBean.getList().size(); i++) {
+                if("0".equals(mDataBean.getList().get(i).getIs_valid())){
+                    continue;
+                }
                 if (i == mDataBean.getList().size() - 1) {
                     sb.append(mDataBean.getList().get(i).getCart_id()).append("|").append(mDataBean.getList().get(i).getNum());
                 } else {
                     sb.append(mDataBean.getList().get(i).getCart_id()).append("|").append(mDataBean.getList().get(i).getNum()).append(",");
                 }
             }
+            if(sb.toString().length()==0)
+                return;
             HashMap<String, Object> favorMap = new HashMap<>();
             favorMap.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
             favorMap.put("cart_info", sb.toString());

@@ -3,7 +3,6 @@ package com.beisheng.snatch.adapter;
 import android.support.v7.widget.RecyclerView;
 
 import com.beisheng.snatch.R;
-import com.beisheng.snatch.model.HomeVO;
 import com.beisheng.snatch.model.ShowVO;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
 
@@ -37,6 +36,7 @@ public class ShowAdapter extends RecyclerBaseAdapter {
         ShowVO.DataBean.ListBean bean= (ShowVO.DataBean.ListBean) model;
         BGANinePhotoLayout photoLayout=helper.getView(R.id.photo_layout);
         photoLayout.setData((ArrayList<String>) bean.getImgs());
+        helper.setItemChildClickListener(R.id.buy_tv);
     }
 
 }

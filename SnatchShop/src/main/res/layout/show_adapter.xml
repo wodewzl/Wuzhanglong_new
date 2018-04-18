@@ -30,6 +30,7 @@
             android:textSize="13sp" />
 
         <TextView
+            android:id="@+id/buy_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -45,7 +46,7 @@
             android:layout_below="@id/shop_img"
             android:layout_marginTop="10dp"
             android:text="我爱你我爱你我爱你我我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你爱你我爱你我爱你"
-            android:textColor="@color/C5"
+            android:textColor="@color/C6"
             android:textSize="11sp" />
 
         <cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout
@@ -56,12 +57,11 @@
             android:layout_marginTop="10dp"
             app:bga_npl_itemCornerRadius="0dp"
             app:bga_npl_itemSpanCount="3"
-            app:bga_npl_itemWhiteSpacing="10dp"
-            app:bga_npl_itemWidth="0dp"
-            app:bga_npl_otherWhiteSpacing="80dp"
+            app:bga_npl_itemWhiteSpacing="4dp"
+            app:bga_npl_itemWidth="80dp"
+            app:bga_npl_otherWhiteSpacing="0dp"
             app:bga_npl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
             app:bga_npl_showAsLargeWhenOnlyOne="false" />
-
 
         <LinearLayout
             android:layout_width="match_parent"

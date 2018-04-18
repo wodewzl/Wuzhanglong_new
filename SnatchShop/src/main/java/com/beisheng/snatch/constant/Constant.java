@@ -61,5 +61,8 @@ public class Constant {
     public static final String RECHARGE_RECORD_URL = "/index.php/Api/Account/recharge_log";//充值记录
     public static final String LOGIN_OTHER_URL = "/index.php/Api/Login/oauth_login";//第三方登录
     public static final String WU_LIU_URL = "/index.php/Api/Member/get_express_info";//物流
+    public static final String NUMBER_TREND_URL = "/index.php/Api/Dbindex/charts_detail";//更多走势图
+    public static final String DISSCUSS_COMMIT_URL = "/index.php/Api/Member/like_evaluate";//评论
+
 }
 
