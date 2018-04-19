@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.adapter.SignAdapter;
+import com.beisheng.snatch.adapter.SignDayAdapter;
 import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.SignVO;
@@ -20,7 +21,9 @@ import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
+import com.wuzhanglong.library.utils.RecyclerViewUtil;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,6 +34,8 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     private TextView mPointTv, mSignStatusTv;
     private SwitchButton mSwitchButton;
     private ImageView mGiftImg;
+    private SignDayAdapter mSignDayAdapter;
+    private String[] days = {"1", "2", "3", "4", "5", "6", "7"};
 
     @Override
     public void baseSetContentView() {
@@ -53,6 +58,12 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 
     public View initHeadView() {
         View header = View.inflate(mActivity, R.layout.sign_head_layout, null);
+        LuRecyclerView dayRecyclerView = header.findViewById(R.id.dialog_recycler_view);
+        final SignDayAdapter dayAdapter = new SignDayAdapter(dayRecyclerView);
+        RecyclerViewUtil.initRecyclerViewGridLayoutManager(mActivity, dayRecyclerView, dayAdapter, 7, R.dimen.dp_1, R.color.C3, false);
+        List<String> list = Arrays.asList(days);
+        dayAdapter.updateData(list);
+
         mPointTv = header.findViewById(R.id.my_point_tv);
         mSignStatusTv = header.findViewById(R.id.sign_status_tv);
         mSignStatusTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.color_green, R.color.color_green));

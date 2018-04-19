@@ -71,7 +71,7 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
 
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
-
+        System.out.println("==========>");
     }
 
     @AfterPermissionGranted(REQUEST_PERMISSIONS)
