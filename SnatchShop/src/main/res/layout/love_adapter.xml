@@ -4,14 +4,15 @@
               xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
               android:layout_width="120dp"
               android:layout_height="wrap_content"
-              android:background="@color/C1"
-              android:padding="10dp">
+              android:background="@color/C3"
+              >
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="4dp"
+        android:layout_marginRight="1dp"
         android:background="@color/C1"
+        android:padding="10dp"
         >
 
         <LinearLayout

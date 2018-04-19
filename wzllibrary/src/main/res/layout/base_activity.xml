@@ -24,14 +24,14 @@
 
             <TextView
                 android:id="@+id/base_back_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
                 android:drawableLeft="@drawable/base_ic_head_back"
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical"
-                android:text="返回"
+
                 android:textColor="@color/C1"
                 android:textSize="14sp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"

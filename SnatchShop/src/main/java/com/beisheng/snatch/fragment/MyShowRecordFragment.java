@@ -63,7 +63,6 @@ public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreList
         mAdapter = new MyShowAdapter(mRecyclerView);
         mAdapter.setType(type);
         RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, mRecyclerView, mAdapter, R.dimen.dp_1, R.color.C3, true);
-        mOkTv = getViewById(R.id.ok_tv);
         mBottomLayout = getViewById(R.id.bottom_layout);
         mShowTv=getViewById(R.id.show_tv);
 
@@ -72,7 +71,6 @@ public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreList
     @Override
     public void bindViewsListener() {
         mRecyclerView.setOnLoadMoreListener(this);
-        mOkTv.setOnClickListener(this);
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
         mAdapter.setOnRVItemClickListener(this);
         mShowTv.setOnClickListener(this);

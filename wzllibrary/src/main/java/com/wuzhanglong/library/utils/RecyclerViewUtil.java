@@ -1,14 +1,16 @@
 package com.wuzhanglong.library.utils;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
-import com.wuzhanglong.library.R;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
+
+import cn.bingoogolapple.baseadapter.BGAGridDivider;
 
 /**
  * Created by wuzhanglong on 2018/3/28.
@@ -35,5 +37,13 @@ public class RecyclerViewUtil {
         recyclerView.setAdapter(adapter);
 
     }
-
+    public static void initRecyclerViewGridLayoutManager(Context context, LuRecyclerView recyclerView, RecyclerBaseAdapter baseAdapter, int count, int dividerHigh, int dividerColor, boolean loadMore){
+        GridLayoutManager layoutManager=new GridLayoutManager(context,count);
+        recyclerView.setLayoutManager(layoutManager);
+        BGAGridDivider divider = DividerUtil.bgaGridDivider(dividerHigh);
+        recyclerView.addItemDecoration(divider);
+        LuRecyclerViewAdapter adapter = new LuRecyclerViewAdapter(baseAdapter);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLoadMoreEnabled(loadMore);
+    }
 }

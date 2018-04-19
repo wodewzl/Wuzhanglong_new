@@ -1,10 +1,10 @@
 package com.beisheng.snatch.activity;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.adapter.ShopChoseAdapter;
@@ -118,6 +118,10 @@ public class ShopChoseActivity extends BaseActivity  implements SwipeRefreshLayo
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
         if (mAdapter.getData().size() == 0)
             return;
+        ShopVO.DataBean.ListBean bean= (ShopVO.DataBean.ListBean) mAdapter.getItem(position);
+        Bundle bundle=new Bundle();
+        bundle.putString("id",bean.getId());
+        open(ShopDetailActivity.class,bundle,0);
     }
 
     @Override

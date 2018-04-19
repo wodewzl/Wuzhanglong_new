@@ -23,7 +23,6 @@ import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,7 +34,8 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     private SwitchButton mSwitchButton;
     private ImageView mGiftImg;
     private SignDayAdapter mSignDayAdapter;
-    private String[] days = {"1", "2", "3", "4", "5", "6", "7"};
+
+
 
     @Override
     public void baseSetContentView() {
@@ -58,11 +58,9 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 
     public View initHeadView() {
         View header = View.inflate(mActivity, R.layout.sign_head_layout, null);
-        LuRecyclerView dayRecyclerView = header.findViewById(R.id.dialog_recycler_view);
-        final SignDayAdapter dayAdapter = new SignDayAdapter(dayRecyclerView);
-        RecyclerViewUtil.initRecyclerViewGridLayoutManager(mActivity, dayRecyclerView, dayAdapter, 7, R.dimen.dp_1, R.color.C3, false);
-        List<String> list = Arrays.asList(days);
-        dayAdapter.updateData(list);
+        LuRecyclerView dayRecyclerView = header.findViewById(R.id.day_recycler_view);
+        mSignDayAdapter = new SignDayAdapter(dayRecyclerView);
+        RecyclerViewUtil.initRecyclerViewGridLayoutManager(mActivity, dayRecyclerView, mSignDayAdapter, 7, R.dimen.dp_0, R.color.C3, false);
 
         mPointTv = header.findViewById(R.id.my_point_tv);
         mSignStatusTv = header.findViewById(R.id.sign_status_tv);
@@ -92,11 +90,22 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         SignVO signVO = (SignVO) vo;
         mDataBean = signVO.getData();
         mPointTv.setText(mDataBean.getPoint());
-        mSignStatusTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.snatch_01, R.color.snatch_01));
-        mSignStatusTv.setTextColor(ContextCompat.getColor(this, R.color.C5));
-        mSignStatusTv.setText("已签到");
+        if("1".equals(mDataBean.getIs_signin())){
+            mSignStatusTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.snatch_01, R.color.snatch_01));
+            mSignStatusTv.setTextColor(ContextCompat.getColor(this, R.color.C5));
+            mSignStatusTv.setText("已签到");
+        }else {
+            mSignStatusTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.color_green, R.color.color_green));
+            mSignStatusTv.setTextColor(ContextCompat.getColor(this, R.color.C1));
+            mSignStatusTv.setText("签到");
+        }
+
         List<SignVO.DataBean.ExchangeListBean> list = mDataBean.getExchange_list();
         mAdapter.updateData(list);
+        mSignDayAdapter.setStatus(mDataBean.getContinuous_days());
+        List<String> dayList=mDataBean.getSevenday_points_array();
+        mSignDayAdapter.updateData(dayList);
+
 
     }
 
@@ -135,6 +144,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void success(BaseVO vo) {
         showSuccessToast(vo.getDesc());
+        getData();
     }
 
     @Override

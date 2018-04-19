@@ -71,8 +71,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/tab_one_head_layout" />
 
+            <include layout="@layout/tab_one_head_layout" />
         </LinearLayout>
 
         <RelativeLayout

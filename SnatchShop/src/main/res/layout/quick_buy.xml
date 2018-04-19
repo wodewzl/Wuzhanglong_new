@@ -174,8 +174,8 @@
             android:drawablePadding="8dp"
             android:drawableRight="@drawable/my_go"
             android:gravity="center_vertical|right"
-            android:text="支付方式"
-            android:textColor="@color/colorAccent"
+            android:text="红包"
+            android:textColor="@color/C3"
             android:textSize="11sp"/>
 
     </LinearLayout>

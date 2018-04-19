@@ -6,12 +6,24 @@ import android.widget.TextView;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.application.AppApplication;
+import com.beisheng.snatch.constant.Constant;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.mode.EBMessageVO;
+import com.wuzhanglong.library.utils.DataCleanUtil;
+import com.wuzhanglong.library.utils.FileUtil;
 import com.wuzhanglong.library.utils.VersionUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.io.File;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class SettingActivity extends BaseActivity implements View.OnClickListener {
-    private TextView mTv01, mTv02, mTv03, mTv04, mTv05, mTv06, mTv07, mTv08;
+    private TextView mTv01, mTv02, mTv03, mTv04, mTv05, mTv06, mTv07, mTv08, mTv09;
+    private boolean isClean = true;
+    private DataCleanUtil mDataCleanUtil;
 
     @Override
     public void baseSetContentView() {
@@ -28,8 +40,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         mTv05 = getViewById(R.id.tv_05);
         mTv06 = getViewById(R.id.tv_06);
         mTv07 = getViewById(R.id.tv_07);
-        mTv07.setText("当前版本："+VersionUtils.getversionName(this));
+        mTv07.setText("当前版本：" + VersionUtils.getversionName(this));
         mTv08 = getViewById(R.id.tv_08);
+        mTv09 = getViewById(R.id.tv_09);
+        mDataCleanUtil = new DataCleanUtil(this);
+
     }
 
     @Override
@@ -41,7 +56,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         mTv05.setOnClickListener(this);
         mTv06.setOnClickListener(this);
         mTv08.setOnClickListener(this);
-
+        mTv09.setOnClickListener(this);
     }
 
     @Override
@@ -72,28 +87,79 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 openActivity(NameConfirmActivity.class);
                 break;
             case R.id.tv_02:
-                bundle.putString("title","关于我们");
+                bundle.putString("title", "关于我们");
                 bundle.putString("url", AppApplication.getInstance().getUserInfoVO().getData().getAboutus_url());
-                open(WebViewActivity.class,bundle,0);
+                open(WebViewActivity.class, bundle, 0);
                 break;
             case R.id.tv_03:
 
                 break;
             case R.id.tv_04:
-                bundle.putString("title","服务协议");
+                bundle.putString("title", "服务协议");
                 bundle.putString("url", AppApplication.getInstance().getUserInfoVO().getData().getFwxy_url());
-                open(WebViewActivity.class,bundle,0);
+                open(WebViewActivity.class, bundle, 0);
                 break;
             case R.id.tv_05:
-                bundle.putString("title","隐私协议");
+                bundle.putString("title", "隐私协议");
                 bundle.putString("url", AppApplication.getInstance().getUserInfoVO().getData().getYsxy_url());
-                open(WebViewActivity.class,bundle,0);
+                open(WebViewActivity.class, bundle, 0);
                 break;
             case R.id.tv_06:
-                mActivity.openActivity(AddressActivity.class);
+
                 break;
             case R.id.tv_08:
-                mActivity.openActivity(HelpActivity.class);
+                final String str = mDataCleanUtil.getCacheSize(this, new File(FileUtil.getSaveFilePath(this, Constant.SDCARD_CACHE)));
+                new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("确定要清除缓存吗?")
+                        .setConfirmText("确定")
+                        .setCancelText("取消")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+
+                                if (isClean) {
+                                    mDataCleanUtil.cleanApplicationData(SettingActivity.this, FileUtil.getSaveFilePath(SettingActivity.this, Constant.SDCARD_CACHE));
+                                    isClean = false;
+                                    sDialog.setTitleText("删除成功")
+                                            .setContentText("当前清除" + str + "文件缓存")
+                                            .setConfirmText("确定")
+                                            .setConfirmClickListener(null)
+                                            .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                } else {
+                                    sDialog.setTitleText("删除成功")
+                                            .setContentText("当前清除0KB文件缓存")
+                                            .setConfirmText("确定")
+                                            .setConfirmClickListener(null)
+                                            .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                }
+
+                            }
+
+
+                        })
+                        .show();
+                break;
+            case R.id.tv_09:
+                new SweetAlertDialog(mActivity, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("确定要退出登录吗?")
+                        .setConfirmText("确定")
+                        .setCancelText("取消")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                AppApplication.getInstance().saveUserInfoVO(null);
+                                EventBus.getDefault().post(new EBMessageVO("login_out"));
+//                                JPushInterface.setAlias(mActivity, "", new TagAliasCallback() {
+//                                    @Override
+//                                    public void gotResult(int i, String s, Set<String> set) {
+//                                    }
+//                                });
+                                sDialog.dismissWithAnimation();//直接消失
+                            }
+                        })
+                        .show();
+
+
                 break;
 
             default:

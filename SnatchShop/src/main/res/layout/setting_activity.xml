@@ -107,6 +107,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_08"
             style="@style/padding_15_13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -119,13 +120,13 @@
             android:text="清除缓存" />
 
         <TextView
-            android:id="@+id/tv_08"
+            android:id="@+id/tv_09"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_margin="15dp"
             android:background="@drawable/corners_5_red"
             android:gravity="center"
-            android:text="登录"
+            android:text="退出登录"
             android:textColor="@color/C1" />
 
     </LinearLayout>

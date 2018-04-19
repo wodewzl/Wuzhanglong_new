@@ -11,10 +11,11 @@ import java.util.List;
 public class SignVO extends BaseVO {
 
     /**
-     * data : {"point":"2241","continuous_days":"1","is_notify":"1","is_signin":"0","exchange_list":[{"goods_id":"69","goods_name":"100元三网通用话费充值卡","goods_detail_url":"http://qmfq.baonongkang
-     * .cn/index.php?s=/Wap/Goods/pointGoodsDetail&id=69","picture":"http://qmfq.baonongkang.cn/upload/goods/20180326/30d38241704baba65e7f593d9972fbf92.jpg","price":"120.00","score":"1000",
+     * data : {"point":"10","continuous_days":"0","is_notify":"0","is_signin":"0","exchange_list":[{"goods_id":"69","goods_name":"100元三网通用话费充值卡","goods_detail_url":"http://qmfq.baonongkang.cn/index
+     * .php?s=/Wap/Goods/pointGoodsDetail&id=69","picture":"http://qmfq.baonongkang.cn/upload/goods/20180326/30d38241704baba65e7f593d9972fbf92.jpg","price":"120.00","score":"1000",
      * "is_material":"0"},{"goods_id":"68","goods_name":"菜百首饰 足金Au9999福字金条 菜百投资黄金金条 10g","goods_detail_url":"http://qmfq.baonongkang.cn/index.php?s=/Wap/Goods/pointGoodsDetail&id=68",
-     * "picture":"http://qmfq.baonongkang.cn/upload/goods/20180315/466185ae6d62f4bbc900272b7bafbbec2.jpg","price":"4000.00","score":"5000","is_material":"1"}]}
+     * "picture":"http://qmfq.baonongkang.cn/upload/goods/20180315/466185ae6d62f4bbc900272b7bafbbec2.jpg","price":"4000.00","score":"5000","is_material":"1"}],"sevenday_points_array":["1","1","1",
+     * "2","2","3","5"]}
      */
 
     private DataBean data;
@@ -29,14 +30,15 @@ public class SignVO extends BaseVO {
 
     public static class DataBean {
         /**
-         * point : 2241
-         * continuous_days : 1
-         * is_notify : 1
+         * point : 10
+         * continuous_days : 0
+         * is_notify : 0
          * is_signin : 0
          * exchange_list : [{"goods_id":"69","goods_name":"100元三网通用话费充值卡","goods_detail_url":"http://qmfq.baonongkang.cn/index.php?s=/Wap/Goods/pointGoodsDetail&id=69","picture":"http://qmfq
          * .baonongkang.cn/upload/goods/20180326/30d38241704baba65e7f593d9972fbf92.jpg","price":"120.00","score":"1000","is_material":"0"},{"goods_id":"68","goods_name":"菜百首饰 足金Au9999福字金条 菜百投资黄金金条
          * 10g","goods_detail_url":"http://qmfq.baonongkang.cn/index.php?s=/Wap/Goods/pointGoodsDetail&id=68","picture":"http://qmfq.baonongkang
          * .cn/upload/goods/20180315/466185ae6d62f4bbc900272b7bafbbec2.jpg","price":"4000.00","score":"5000","is_material":"1"}]
+         * sevenday_points_array : ["1","1","1","2","2","3","5"]
          */
 
         private String point;
@@ -44,6 +46,7 @@ public class SignVO extends BaseVO {
         private String is_notify;
         private String is_signin;
         private List<ExchangeListBean> exchange_list;
+        private List<String> sevenday_points_array;
 
         public String getPoint() {
             return point;
@@ -83,6 +86,14 @@ public class SignVO extends BaseVO {
 
         public void setExchange_list(List<ExchangeListBean> exchange_list) {
             this.exchange_list = exchange_list;
+        }
+
+        public List<String> getSevenday_points_array() {
+            return sevenday_points_array;
+        }
+
+        public void setSevenday_points_array(List<String> sevenday_points_array) {
+            this.sevenday_points_array = sevenday_points_array;
         }
 
         public static class ExchangeListBean {

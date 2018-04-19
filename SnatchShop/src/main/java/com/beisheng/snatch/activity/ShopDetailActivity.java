@@ -982,6 +982,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
             EventBus.getDefault().post(new EBMessageVO("shopcat_update"));
         } else if (vo instanceof PayTypeVO) {
             mPayTypeVO = (PayTypeVO) vo;
+            mRedMoneyTv.setText(mPayRedVO.getData().getCoupon_count() + "个红包可用");
             mPayTypeTv.setText(mPayTypeVO.getData().getList().get(0).getPayment_name());
             mPayType = mPayTypeVO.getData().getList().get(0).getPayment_code();
         } else if (vo instanceof PayRedVO) {

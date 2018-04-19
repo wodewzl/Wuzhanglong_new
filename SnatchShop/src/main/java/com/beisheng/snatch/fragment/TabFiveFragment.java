@@ -39,8 +39,12 @@ import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.BottomDialogUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -143,11 +147,8 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
         mFlowTv.setText(mUserInfoVO.getFlow());
         mRedTv.setText(mUserInfoVO.getCoupon_count());
         mScortTv.setText(mUserInfoVO.getPoint());
-        UserInfoVO dataBean = (UserInfoVO) vo;
-        mUserInfoVO = dataBean.getData();
-        mNameTv.setText(mUserInfoVO.getNickname());
-        mUserNoTv.setText("ID:" + mUserInfoVO.getUser_no());
-        BaseCommonUtils.setTextThree(mActivity,mBuyCountTv,"购买次数：",mUserInfoVO.getBalance(),"次",R.color.colorAccent,1.3f);
+
+        BaseCommonUtils.setTextThree(mActivity,mBuyCountTv,"购买次数：",mUserInfoVO.getBalance(),"次",R.color.colorAccent,1.1f);
     }
 
     @Override
@@ -490,5 +491,17 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
             }
         };
         timer.start();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EBMessageVO event) {
+        if ("login_out".equals(event.getMessage())) {
+            mNameTv.setText("请登录");
+            mUserNoTv.setText("ID:" );
+            mFlowTv.setText("0");
+            mRedTv.setText("0");
+            mScortTv.setText("0");
+            BaseCommonUtils.setTextThree(mActivity,mBuyCountTv,"购买次数：","0","次",R.color.colorAccent,1.1f);
+        }
     }
 }

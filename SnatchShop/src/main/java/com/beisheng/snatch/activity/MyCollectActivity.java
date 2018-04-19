@@ -1,19 +1,16 @@
 package com.beisheng.snatch.activity;
 
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.beisheng.snatch.R;
-import com.beisheng.snatch.adapter.MyBuyRecordAdapter;
 import com.beisheng.snatch.adapter.MyCollectAdapter;
 import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.MyCollectVO;
-import com.beisheng.snatch.model.MyMessageVO;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
@@ -112,6 +109,10 @@ public class MyCollectActivity extends BaseActivity implements BGAOnRVItemClickL
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
         if (mAdapter.getData().size() == 0)
             return;
+        MyCollectVO.DataBean.ListBean bean= (MyCollectVO.DataBean.ListBean) mAdapter.getItem(position);
+        Bundle bundle=new Bundle();
+        bundle.putString("id",bean.getPid());
+        open(ShopDetailActivity.class,bundle,0);
     }
 
     @Override
