@@ -91,6 +91,7 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
     private TextView mShowTv;
     private MyLuckyRecordVO.DataBean.ListBean mSelectVO;
     private WuLiuVO mWuLiuVO;
+    private BottomSheetDialog mDialog;
 
     public static MyLuckyRecordFragment newInstance() {
         MyLuckyRecordFragment fragment = new MyLuckyRecordFragment();
@@ -299,21 +300,10 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
                         .addFormDataPart("content", mDescEt.getText().toString());
 
                 for (int i = 0; i < mOneFiles.size(); i++) {
-                    requestBody.addFormDataPart("images" + i, mOneFiles.get(i).getName(), RequestBody.create(MediaType.parse("image/*"), mOneFiles.get(i)));
+                    requestBody.addFormDataPart("images"+i, mOneFiles.get(i).getName(), RequestBody.create(MediaType.parse("image/*"), mOneFiles.get(i)));
                 }
                 MultipartBody rb = requestBody.build();
                 BSHttpUtils.post(mActivity, Constant.SHOW_URL, rb, BaseVO.class, this);
-
-//                HashMap<String, Object> map = new HashMap<>();
-//                if (AppApplication.getInstance().getUserInfoVO() != null)
-//                    map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
-//                map.put("id", mSelectVO.getId());
-//                map.put("title", mTitleEt.getText().toString());
-//                map.put("content",  mDescEt.getText().toString());
-//                map.put("images", mOneFiles);
-//
-//                HttpGetDataUtil.post(mActivity, Constant.SHOW_URL, map, BaseVO.class, this);
-//                mActivity.showProgressDialog();
                 break;
             default:
                 break;
@@ -451,6 +441,8 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
         } else {
             mActivity.showSuccessToast(vo.getDesc());
             mAutoSwipeRefreshLayout.autoRefresh();
+            if(mDialog!=null)
+                mDialog.dismiss();
         }
 
     }
@@ -506,16 +498,16 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
             map.put("id", mSelectVO.getId());
             BSHttpUtils.postCallBack(mActivity,  Constant.WU_LIU_URL, map, WuLiuVO.class,this);
         } else if ("2".equals(mSelectVO.getDelivery_status())) {
-            BottomSheetDialog dialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.show_order_dialog);
-            mPhotoLayout = dialog.getWindow().getDecorView().findViewById(R.id.phone_layout);
+            mDialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.show_order_dialog);
+            mPhotoLayout = mDialog.getWindow().getDecorView().findViewById(R.id.phone_layout);
             mPhotoLayout.setMaxItemCount(3);
             mPhotoLayout.setEditable(true);//有加号，有删除，可以点加号选择，false没有加号，点其他按钮选择，也没有删除
             mPhotoLayout.setPlusEnable(true);//有加号，可以点加号选择，false没有加号，点其他按钮选择
             mPhotoLayout.setSortable(true);//排序
             mPhotoLayout.setDelegate(this);
-            mTitleEt = dialog.getWindow().getDecorView().findViewById(R.id.title_et);
-            mDescEt = dialog.getWindow().getDecorView().findViewById(R.id.desc_et);
-            mShowTv = dialog.getWindow().getDecorView().findViewById(R.id.show_tv);
+            mTitleEt = mDialog.getWindow().getDecorView().findViewById(R.id.title_et);
+            mDescEt = mDialog.getWindow().getDecorView().findViewById(R.id.desc_et);
+            mShowTv = mDialog.getWindow().getDecorView().findViewById(R.id.show_tv);
             mShowTv.setOnClickListener(this);
         }
 

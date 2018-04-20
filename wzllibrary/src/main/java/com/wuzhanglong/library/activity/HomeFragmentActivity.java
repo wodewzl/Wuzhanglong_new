@@ -30,7 +30,6 @@ public abstract class HomeFragmentActivity extends BaseActivity implements  Easy
     public ViewPager mVpHome;
     public BottomNavigationBar mBottomNavigationBar;
     public ArrayList<BaseFragment> mFragmentList = new ArrayList<>();
-    private static int tabLayoutHeight;
     private double mBackPressed;
     public abstract void initBottomBar();
     public AMapLocationClient mLocationClient = null;

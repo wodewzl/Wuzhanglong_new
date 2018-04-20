@@ -19,7 +19,7 @@ import com.wuzhanglong.library.mode.BaseVO;
 import java.io.Serializable;
 
 
-public abstract class BaseFragment extends Fragment implements UpdateCallback, Serializable {
+public abstract class BaseFragment extends Fragment implements UpdateCallback,Serializable {
     public abstract void setContentView();
 
     public abstract void initView(View view);

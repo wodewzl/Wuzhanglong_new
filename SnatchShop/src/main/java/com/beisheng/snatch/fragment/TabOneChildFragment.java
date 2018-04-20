@@ -91,6 +91,7 @@ public class TabOneChildFragment extends BaseFragment implements OnLoadMoreListe
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("order_type", this.getType());
+        map.put("curpage", mCurrentPage + "");
         BSHttpUtils.get(mActivity, this, Constant.HOME_LIST_URL, map, ShopVO.class);
     }
 
