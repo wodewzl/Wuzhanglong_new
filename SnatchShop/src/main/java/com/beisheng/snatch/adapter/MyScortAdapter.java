@@ -22,7 +22,7 @@ public class MyScortAdapter extends RecyclerBaseAdapter {
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
         MyScortVO.DataBean.CouponListBean vo = (MyScortVO.DataBean.CouponListBean) model;
-        BaseCommonUtils.setTextTwoLast(mActivity, helper.getTextView(R.id.tv_01), vo.getCoupon_name(), "(消耗积分：" + vo.getExchange_points() + "分", R.color.C5, 0.8f);
+        BaseCommonUtils.setTextTwoLast(mActivity, helper.getTextView(R.id.tv_01), vo.getCoupon_name(), "(消耗积分：" + vo.getExchange_points() + "分)", R.color.C5, 0.8f);
         helper.setText(R.id.tv_02, "有效期：" + vo.getValid_days() + "天");
         helper.setText(R.id.tv_03, "剩余数量：" + vo.getRemain_count() + "/" + vo.getCount()+")");
     }

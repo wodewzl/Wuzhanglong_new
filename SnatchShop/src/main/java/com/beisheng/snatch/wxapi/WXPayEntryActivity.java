@@ -50,7 +50,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                     public void run() {
                         WXPayEntryActivity.this.finish();
                     }
-                }, 1500);
+                }, 500);
             }
         }
     }

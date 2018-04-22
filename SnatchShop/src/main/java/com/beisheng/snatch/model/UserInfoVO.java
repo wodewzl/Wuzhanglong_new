@@ -60,6 +60,15 @@ public class UserInfoVO extends BaseVO implements Serializable{
         private String aboutus_url;
         private String ysxy_url;
         private String fwxy_url;
+        private String user_tel_bind;
+
+        public String getUser_tel_bind() {
+            return user_tel_bind;
+        }
+
+        public void setUser_tel_bind(String user_tel_bind) {
+            this.user_tel_bind = user_tel_bind;
+        }
 
         public String getNickname() {
             return nickname;

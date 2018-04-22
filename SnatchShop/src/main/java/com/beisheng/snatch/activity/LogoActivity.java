@@ -23,6 +23,7 @@ import java.util.List;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
+
 public class LogoActivity extends BaseLogoActivity implements EasyPermissions.PermissionCallbacks {
     private static final int REQUEST_PERMISSIONS = 1;
     public List<BaseFragment> list = new ArrayList<>();
@@ -58,6 +59,13 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
     @Override

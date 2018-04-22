@@ -17,11 +17,7 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/problem_img"
-            android:layout_centerVertical="true"/>
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,14 +46,14 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
             android:layout_marginTop="120dp"
-            android:src="@drawable/ic_launcher"
-            app:backgroundTint="@color/colorAccent"
+            android:src="@drawable/sgin"
+            app:backgroundTint="@color/C15"
             app:borderWidth="0.0dip"
             app:elevation="5.0dip"
             app:fabSize="mini"
             app:layout_anchorGravity="right|bottom"
             app:pressedTranslationZ="10.0dip"
-            app:rippleColor="#a6a6a6"
+            app:rippleColor="@color/C15"
             android:layout_alignParentRight="true"/>
     <com.cpoopc.scrollablelayoutlib.ScrollableLayout
         android:id="@+id/scrollable_layout"

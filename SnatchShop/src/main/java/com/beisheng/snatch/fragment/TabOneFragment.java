@@ -67,8 +67,10 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     private ImageView mOneImg, mOrderImg, mSearchImg;
     private String mStatus = "4";//4为升序5为降序
     private TextView mMenu01Tv, mMenu02Tv, mMenu03Tv, mMenu04Tv;
+    private ImageView mMenu01Img,mMenu02Img,mMenu03Img,mMenu04Img;
     private FloatingActionButton mFab;
     private LinearLayout mHeadLayout;
+    private HomeVO mHomeVO;
 
     @Override
     public void setContentView() {
@@ -91,6 +93,10 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mMenu02Tv = getViewById(R.id.menu_02_tv);
         mMenu03Tv = getViewById(R.id.menu_03_tv);
         mMenu04Tv = getViewById(R.id.menu_04_tv);
+        mMenu01Img=getViewById(R.id.menu_01_img);
+        mMenu02Img=getViewById(R.id.menu_02_img);
+        mMenu03Img=getViewById(R.id.menu_03_img);
+        mMenu04Img=getViewById(R.id.menu_04_img);
         mFab = getViewById(R.id.fab);
         mHeadLayout=getViewById(R.id.head_layouat);
         initMagicIndicator();
@@ -100,10 +106,11 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     public void bindViewsListener() {
         mOrderImg.setOnClickListener(this);
         mSearchImg.setOnClickListener(this);
-        mMenu01Tv.setOnClickListener(this);
-        mMenu02Tv.setOnClickListener(this);
-        mMenu03Tv.setOnClickListener(this);
-        mMenu04Tv.setOnClickListener(this);
+        mMenu01Img.setOnClickListener(this);
+        mMenu02Img.setOnClickListener(this);
+        mMenu03Img.setOnClickListener(this);
+        mMenu04Img.setOnClickListener(this);
+
         mFab.setOnClickListener(this);
         mScrollableLayout.setOnScrollListener(new ScrollableLayout.OnScrollListener() {
             @Override
@@ -220,8 +227,9 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void hasData(BaseVO vo) {
         final HomeVO homeVO = (HomeVO) vo;
+        mHomeVO= (HomeVO) vo;
         mBanner.setImages(homeVO.getData().getMulti_adv());
-        mBanner.setImageLoader(new ImageLoader() {
+        Banner banner = mBanner.setImageLoader(new ImageLoader() {
             @Override
             public void displayImage(Context context, Object o, ImageView imageView) {
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -264,6 +272,16 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         });
         mRxText.startAutoScroll();
 
+
+        Picasso.with(mActivity).load(homeVO.getData().getNav_list().get(0).getNav_icon()).into(mMenu01Img);
+        Picasso.with(mActivity).load(homeVO.getData().getNav_list().get(1).getNav_icon()).into(mMenu02Img);
+        Picasso.with(mActivity).load(homeVO.getData().getNav_list().get(2).getNav_icon()).into(mMenu03Img);
+        Picasso.with(mActivity).load(homeVO.getData().getNav_list().get(3).getNav_icon()).into(mMenu04Img);
+        mMenu01Tv.setText(homeVO.getData().getNav_list().get(0).getNav_title());
+        mMenu02Tv.setText(homeVO.getData().getNav_list().get(1).getNav_title());
+        mMenu03Tv.setText(homeVO.getData().getNav_list().get(2).getNav_title());
+        mMenu04Tv.setText(homeVO.getData().getNav_list().get(3).getNav_title());
+
         ACache.get(mActivity).put("share_title",homeVO.getData().getShare_params().getTitle());
         ACache.get(mActivity).put("share_desc",homeVO.getData().getShare_params().getDescX());
         ACache.get(mActivity).put("share_img",homeVO.getData().getShare_params().getImage());
@@ -299,17 +317,19 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
             case R.id.search_img:
                 mActivity.openActivity(KeywordActivity.class);
                 break;
-            case R.id.menu_01_tv:
+            case R.id.menu_01_img:
                 mActivity.openActivity(ShopCategoryActivity.class);
                 break;
-            case R.id.menu_02_tv:
+            case R.id.menu_02_img:
                 mActivity.openActivity(ShopChoseActivity.class);
                 break;
-            case R.id.menu_03_tv:
+            case R.id.menu_03_img:
                 mActivity.openActivity(DailyTaskActivity.class);
                 break;
-            case R.id.menu_04_tv:
-                mActivity.openActivity(ShopCategoryActivity.class);
+            case R.id.menu_04_img:
+                bundle.putString("title",mHomeVO.getData().getNav_list().get(3).getNav_title());
+                bundle.putString("url",mHomeVO.getData().getNav_list().get(3).getNav_url());
+                mActivity.open(WebViewActivity.class,bundle,0);
                 break;
             case R.id.fab:
                 mActivity.openActivity(SignActivity.class);

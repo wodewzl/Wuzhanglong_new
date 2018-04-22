@@ -35,6 +35,8 @@ public class Constant {
     public static final String GET_MSG_CODE_URL = "/index.php/Api/Login/get_sms_code";//获取短信验证码
     public static final String LOGIN_PASSWORD_URL = "/index.php/Api/Login/index";//账号密码登陆
     public static final String LOGIN_MSG_URL = "/index.php/Api/Login/sms_login";//短信登陆
+    public static final String LOGIN_BIND_PHONE_URL = "/index.php/Api/Login/bind_mobile";//绑定手机号
+    public static final String BACK_PWD_URL = "/index.php/Api/Login/reset_password";//找回密码
     public static final String FAVOR_ADD_URL = "/index.php/Api/Member/add_favor";//收藏
     public static final String FAVOR_CANCEL_URL = "/index.php/Api/Member/cancel_favor";//取消收藏
     public static final String FAVOR_MY_URL = "/index.php/Api/Member/my_favor";//我的收藏

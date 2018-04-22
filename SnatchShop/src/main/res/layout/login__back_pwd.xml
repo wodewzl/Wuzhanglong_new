@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="手机号注册"
+        android:text="找回密码"
         android:textSize="14sp"/>
 
 
@@ -78,30 +78,31 @@
             android:drawableLeft="@drawable/passwpord_img"
             android:drawablePadding="10dp"
             android:hint="密码（长度在6-16位，请牢记您的密码）"
-            android:inputType="textVisiblePassword"/>
+            android:inputType="textPassword"/>
+        <View
+            android:id="@+id/divider3_v"
+            style="@style/view_divider"
+            android:layout_below="@id/regist_password_et"/>
+        <EditText
+            android:id="@+id/sure_password_et"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_below="@id/divider3_v"
+            android:background="@color/C1"
+            android:drawableLeft="@drawable/passwpord_img"
+            android:drawablePadding="10dp"
+            android:hint="确认密码"
+            android:inputType="textPassword"/>
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/register_ok_tv"
+        android:id="@+id/back_pwd_tv"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="15dp"
         android:background="@drawable/corners_5_red"
         android:gravity="center"
-        android:text="注册"
+        android:text="重置密码"
         android:textColor="@color/C1"
         />
-
-    <com.rey.material.widget.CheckBox
-        android:id="@+id/regist_check_box"
-        style="@style/SnatchShopCheckBox2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="我同意《服务条款》和《隐私权相关政策》"
-        android:textColor="@color/C5"
-        android:textSize="11sp"
-        android:checked="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="20dp"/>
 </LinearLayout>

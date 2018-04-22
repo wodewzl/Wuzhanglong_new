@@ -10,24 +10,19 @@ import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.application.AppApplication;
-import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.UserInfoVO;
-
 import com.nanchen.compresshelper.CompressHelper;
 import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.constant.BaseConstant;
-import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.mode.EBMessageVO;
-
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -41,9 +36,6 @@ import cn.bingoogolapple.photopicker.imageloader.BGAImage;
 import cn.bingoogolapple.photopicker.util.BGAPhotoHelper;
 import cn.bingoogolapple.photopicker.util.BGAPhotoPickerUtil;
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -54,7 +46,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     private static final int REQUEST_CODE_CROP = 3;
     private Uri resultUri;
     private UserInfoVO mUserInfo;
-    private TextView mTextView01, mTextView02, mTextView03, mTextView04, mTextView05;
+    private TextView mTextView01, mTextView02, mTextView03, mTextView04, mTextView05,mTextView06,mTextView07,mTextView08;
     private LinearLayout mLayout01, mLayout02, mLayout03;
     private CircleImageView mHeadImg;
     private Button mBt;
@@ -70,20 +62,28 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void initView() {
         mBaseTitleTv.setText("个人信息");
-        mLayout01 = (LinearLayout) findViewById(R.id.layout_01);
-        mLayout02 = (LinearLayout) findViewById(R.id.layout_02);
-        mLayout03 = (LinearLayout) findViewById(R.id.layout_03);
+        mLayout01 = getViewById(R.id.layout_01);
+        mLayout02 =getViewById(R.id.layout_02);
+        mLayout03 =  getViewById(R.id.layout_03);
 
-        mTextView01 = (TextView) findViewById(R.id.tv_01);
-        mTextView02 = (TextView) findViewById(R.id.tv_02);
-        mTextView03 = (TextView) findViewById(R.id.tv_03);
+        mTextView01 = getViewById(R.id.tv_01);
+        mTextView02 = getViewById(R.id.tv_02);
+        mTextView03 =  getViewById(R.id.tv_03);
+        mTextView04 =  getViewById(R.id.tv_04);
+        mTextView05 =  getViewById(R.id.tv_05);
+        mTextView06 =  getViewById(R.id.tv_06);
+        mTextView08=  getViewById(R.id.tv_08);
+        mTextView07 =  getViewById(R.id.tv_07);
         mHeadImg = (CircleImageView) findViewById(R.id.head_img);
-//        if (AppApplication.getInstance().getUserInfoVO() != null) {
-//            if (!TextUtils.isEmpty(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()))
-//                Picasso.with(mActivity).load(AppApplication.getInstance().getUserInfoVO().getData().getUser_headimg()).into(mHeadImg);
-//            mTextView02.setText(AppApplication.getInstance().getUserInfoVO().getData().getUser_name());
-//            mTextView03.setText(AppApplication.getInstance().getUserInfoVO().getData().getNick_name());
-//        }
+        if (AppApplication.getInstance().getUserInfoVO() != null) {
+            if (!TextUtils.isEmpty(AppApplication.getInstance().getUserInfoVO().getData().getAvatar()))
+                Picasso.with(mActivity).load(AppApplication.getInstance().getUserInfoVO().getData().getAvatar()).into(mHeadImg);
+            mTextView02.setText(AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+            mTextView03.setText(AppApplication.getInstance().getUserInfoVO().getData().getNickname());
+            mTextView06.setText(AppApplication.getInstance().getUserInfoVO().getData().getWx_nickname());
+            mTextView07.setText(AppApplication.getInstance().getUserInfoVO().getData().getQq_nickname());
+            mTextView08.setText(AppApplication.getInstance().getUserInfoVO().getData().getUser_tel());
+        }
 
         File takePhotoDir = new File(Environment.getExternalStorageDirectory(), BaseConstant.SDCARD_CACHE);
         mPhotoHelper = new BGAPhotoHelper(takePhotoDir);

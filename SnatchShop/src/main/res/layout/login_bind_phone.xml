@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/my_go"
         android:drawablePadding="5dp"
-        android:text="其他登录方式" />
+        android:text="为了账户安全，请验证手机号" />
 
     <View style="@style/view_divider" />
 
@@ -21,44 +21,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="手机号登录" />
+        android:text="验证手机" />
 
-    <LinearLayout
-        android:id="@+id/login_passwrod_layout"
-        style="@style/margin_15_10"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/frame_kongxin_white_gray"
-        android:orientation="vertical"
-        android:paddingBottom="1dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="1dp"
-        android:visibility="visible">
 
-        <EditText
-            android:id="@+id/login_phone_et"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:background="@color/C1"
-            android:drawableLeft="@drawable/phone_img"
-            android:drawablePadding="10dp"
-            android:hint="输入手机号"
-            android:inputType="number"
-            android:maxLength="11"/>
-
-        <View style="@style/view_divider" />
-
-        <EditText
-            android:id="@+id/login_password_et"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:background="@color/C1"
-            android:drawableLeft="@drawable/passwpord_img"
-            android:drawablePadding="10dp"
-            android:inputType="textPassword"
-            android:hint="输入密码" />
-    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/Login_msg_layout"
@@ -70,7 +35,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="1dp"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <EditText
             android:id="@+id/login_msg_phone_et"
@@ -116,38 +81,14 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/login_ok_tv"
+        android:id="@+id/login_bind_phone_tv"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="15dp"
         android:background="@drawable/corners_5_red"
         android:gravity="center"
-        android:text="登录"
+        android:text="立即验证"
         android:textColor="@color/C1" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
 
-        <TextView
-            android:id="@+id/login_back_passwrod_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="44dp"
-            android:layout_alignParentLeft="true"
-            android:text="忘记密码?"
-            android:textColor="@color/C7"
-            android:textSize="11sp" />
-
-        <TextView
-            android:id="@+id/login_change_login_type_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="44dp"
-            android:layout_alignParentRight="true"
-            android:text="使用短信登录"
-            android:textColor="@color/C7"
-            android:textSize="11sp" />
-    </RelativeLayout>
 </LinearLayout>

@@ -149,6 +149,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                             public void onClick(SweetAlertDialog sDialog) {
                                 AppApplication.getInstance().saveUserInfoVO(null);
                                 EventBus.getDefault().post(new EBMessageVO("login_out"));
+
 //                                JPushInterface.setAlias(mActivity, "", new TagAliasCallback() {
 //                                    @Override
 //                                    public void gotResult(int i, String s, Set<String> set) {

@@ -105,9 +105,10 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     private BottomSheetDialog mDialog;
     private ShopDetailVO.DataBean mShopDetailVO;
     private Banner mBanner;
-    private TextView mDescTv, mStatusTv, mHonor1GradeTv, mHonor1NameTv, mHonor1CountTv, mHonor2GradeTv, mHonor2NameTv, mHonor2CountTv, mHonor3GradeTv, mHonor3NameTv, mHonor3CountTv;
+    private TextView mDescTv, mStatusTv, mHonor1GradeTv, mHonor1NameTv, mHonor1CountTv, mHonor2GradeTv, mHonor2NameTv, mHonor2CountTv,
+            mHonor3GradeTv, mHonor3NameTv, mHonor3CountTv;
     private View mLayoutType1, mLayoutType2, mLayoutType3;
-    private TextView mType3NameTv, mType3NumberTv, mType3BuyCoutTv, mType3TimeTv, mType3UserNoTv, mType3RunTv, mType3WinTv,mType3MyBuyTv;
+    private TextView mType3NameTv, mType3NumberTv, mType3BuyCoutTv, mType3TimeTv, mType3UserNoTv, mType3RunTv, mType3WinTv, mType3MyBuyTv;
     private TextView mType1NumberTv, mType1JoinCountTv, mType1TotalCountTv;
     private CircleImageView mType3HeadImg, mHonor1HeadImg, mHonor2HeadImg, mHonor3HeadImg;
     private int mCurrentPage = 1;
@@ -120,14 +121,15 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     private CountdownView mType2CountdownView;
     private ImageView mType2MoreImg;
     private TextView mDiscussTv, mPastBuyTv;
-    private TextView mRegistOkTv, mRegistGetMsgCodeTv, mLoginOkTv, mLoginBackPasswordTv, mLoginChangeLoginTypeTv, mLoginTypeTv, mLoginMsgPhoneEt, mLoginMsgCodeEt, mLoginMsgGetCodeTv;
-    private EditText mRegistCodeEt, mRegistPhoneEt, mRegistPaswrodEt, mLoginPhoneEt, mLoginPasswordEt;
+    private TextView mRegistOkTv, mRegistGetMsgCodeTv, mLoginOkTv, mLoginBackPasswordTv, mLoginChangeLoginTypeTv, mLoginTypeTv, mLoginMsgPhoneEt, mLoginMsgCodeEt, mLoginMsgGetCodeTv,
+            mLoginBindPhoneTv, mBackPwdTv;
+    private EditText mRegistCodeEt, mRegistPhoneEt, mRegistPaswrodEt, mLoginPhoneEt, mLoginPasswordEt, mBackPwdSureEt;
     private boolean mRegistCodeStae = true;
-    private String mSuccessType = "";//1注册验证码2注册3手机号登陆4短信登陆5加入购物车//6威信登录7QQ登录
+    private String mSuccessType = "";//1注册验证码2注册3手机号登陆4短信登陆5加入购物车//6威信登录7QQ登录//8找回密码发送验证码//10找回密码9邦定手机号发送验证码//11邦定手机号
     private String mLoginType = "1";//1手机号登陆2短信登陆
     private String mOhterLoginType = "1";//1微信2QQ
     private CheckBox mRegistCheckBox;
-    private BottomSheetDialog mRegistDialog, mLoginTypeDialog, mLoginDialog;
+    private BottomSheetDialog mRegistDialog, mLoginTypeDialog, mLoginDialog, mBackPwdDialog, mBindPhoneDialog;
     private View mLoginPasswrodLayout, mLoginMsgLayout;
     private ImageView mAddFavorImg;
     private String mIsFavor = "0";
@@ -140,6 +142,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     private TextView mCount1, mCount2, mCount3, mCount4, mCount5;
     private NumberButton mNumberButton;
     private TextView mLoginTv, mRegistTv, mLoginWeixinTv, mLoginQqTv;
+    private UserInfoVO mUserInfoVO;
 
     @Override
     public void baseSetContentView() {
@@ -169,7 +172,6 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mJoinCartTv = getViewById(R.id.jion_cart_tv);
         mQuckBuyTv = getViewById(R.id.quick_tv);
         mLineChart = getViewById(R.id.lineChart);
-//        initLineChart();
 
         mBanner = getViewById(R.id.banner);
         mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
@@ -212,15 +214,15 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mPastBuyTv = getViewById(R.id.past_buy_tv);
         mAddFavorImg = getViewById(R.id.add_favor_img);
         mType3RunTv = getViewById(R.id.type3_run_tv);
-        mType3MyBuyTv=getViewById(R.id.type3_my_buy_tv);
-
+        mType3MyBuyTv = getViewById(R.id.type3_my_buy_tv);
+        initLineChart();
     }
 
     public void initLineChart() {
         //设置描述文本不显示
         mLineChart.getDescription().setEnabled(false);
         //设置是否显示表格背景
-        mLineChart.setDrawGridBackground(true);
+        mLineChart.setDrawGridBackground(false);
         //设置是否可以触摸
         mLineChart.setTouchEnabled(true);
         mLineChart.setDragDecelerationFrictionCoef(0.9f);
@@ -228,7 +230,6 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mLineChart.setDragEnabled(true);
         //设置是否可以缩放
         mLineChart.setScaleEnabled(false);
-        mLineChart.setDrawGridBackground(false);
         mLineChart.setHighlightPerDragEnabled(true);
         mLineChart.setPinchZoom(true);
         //设置背景颜色
@@ -358,23 +359,6 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
 //        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//值：BOTTOM,BOTH_SIDED,BOTTOM_INSIDE,TOP,TOP_INSIDE
 //        xAxis.setLabelCount(8, true);
 //        xAxis.setLabelRotationAngle(-60);
-    }
-
-    public void showLineChart(List<Integer> xAxisValues, List<Integer> yAxisValues, String label) {
-        initLineChart();
-        ArrayList<Entry> entries = new ArrayList<>();
-        for (int i = 0; i < xAxisValues.size(); i++) {
-            entries.add(new Entry(xAxisValues.get(i), yAxisValues.get(i)));
-        }
-        // 每一个LineDataSet代表一条线
-        LineDataSet lineDataSet = new LineDataSet(entries, label);
-
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(lineDataSet);
-        LineData data = new LineData(dataSets);
-        //设置X轴的刻度数
-//        xAxis.setLabelCount(xAxisValues.size(), true);
-        mLineChart.setData(data);
     }
 
 
@@ -511,6 +495,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 mHonor2NameTv.setText(mShopDetailVO.getEdj_data().getNickname());
                 mHonor2CountTv.setText("第一个参与");
             } else {
+                mHonor2GradeTv.setText("二当家");
                 mHonor2GradeTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.C3, R.color.C3));
                 mHonor2NameTv.setText("虚拟待位");
                 mHonor2CountTv.setText("第一个参与");
@@ -524,12 +509,13 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 mHonor3NameTv.setText(mShopDetailVO.getDfw_data().getNickname());
                 mHonor3CountTv.setText("最后一个参与");
             } else {
+                mHonor3GradeTv.setText("小地主");
                 mHonor3GradeTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.C3, R.color.C3));
                 mHonor3NameTv.setText("虚拟待位");
                 mHonor3CountTv.setText("最后一个参与");
             }
 
-            initLineChart();
+
             ArrayList<Entry> entries = new ArrayList<>();
             entries.add(new Entry(0, 1));
             for (int i = 0; i < mShopDetailVO.getChart_data().size(); i++) {
@@ -543,6 +529,11 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
             LineData data = new LineData(dataSets);
             //设置X轴的刻度数
 //        xAxis.setLabelCount(xAxisValues.size(), true);
+//        //设置一页最大显示个数为6，超出部分就滑动
+            float ratio = (float) entries.size() / (float) 4;
+            //显示的时候是按照多大的比率缩放显示,1f表示不放大缩小
+            mLineChart.zoom(ratio, 1f, 0, 0);
+
             mLineChart.setData(data);
 
             if ("1".equals(mShopDetailVO.getIs_favor())) {
@@ -597,8 +588,8 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.number_trend_layout:
-                bundle.putString("id",mShopDetailVO.getGoods_id());
-                open(NumberTrendActivity.class,bundle,0);
+                bundle.putString("id", mShopDetailVO.getGoods_id());
+                open(NumberTrendActivity.class, bundle, 0);
                 break;
             case R.id.jion_cart_tv:
                 if (AppApplication.getInstance().getUserInfoVO() == null) {
@@ -648,7 +639,11 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                     }
                     HashMap<String, Object> registMsgMap = new HashMap<>();
                     registMsgMap.put("mobile", mRegistPhoneEt.getText().toString());
-                    registMsgMap.put("type", "1");// 1-注册验证码 2-验证码登录 3-修改密码
+                    if ("8".equals(mSuccessType)) {
+                        registMsgMap.put("type", "5");// 1-注册验证码 2-验证码登录 3-修改密码 4-绑定手机号 5-忘记密码
+                    } else {
+                        registMsgMap.put("type", "1");// 1-注册验证码 2-验证码登录 3-修改密码
+                    }
                     mRegistGetMsgCodeTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 30, R.color.C6, R.color.C6));
                     BSHttpUtils.postCallBack(mActivity, Constant.GET_MSG_CODE_URL, registMsgMap, BaseVO.class, this);
                     daoJishi(mRegistGetMsgCodeTv);
@@ -686,7 +681,17 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 break;
 
             case R.id.login_back_passwrod_tv:
-                mSuccessType = "3";
+                mBackPwdDialog = BottomDialogUtil.initBottomDialog(this, R.layout.login__back_pwd);
+                mRegistCodeEt = mBackPwdDialog.findViewById(R.id.regist_msg_et);
+                mRegistPhoneEt = mBackPwdDialog.findViewById(R.id.regist_phone_et);
+                mRegistPaswrodEt = mBackPwdDialog.findViewById(R.id.regist_password_et);
+                mRegistCheckBox = mBackPwdDialog.findViewById(R.id.regist_check_box);
+                mBackPwdTv = mBackPwdDialog.findViewById(R.id.back_pwd_tv);
+                mBackPwdSureEt = mBackPwdDialog.findViewById(R.id.sure_password_et);
+                mRegistGetMsgCodeTv = mBackPwdDialog.findViewById(R.id.regist_get_msge_code_tv);
+                mRegistGetMsgCodeTv.setOnClickListener(this);
+                mBackPwdTv.setOnClickListener(this);
+                mSuccessType = "8";
                 break;
             case R.id.login_change_login_type_tv:
                 if ("1".equals(mLoginType)) {
@@ -746,10 +751,14 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                         showCustomToast("请填写手机号");
                         return;
                     }
-                    mSuccessType = "1";
+
                     HashMap<String, Object> registMsgMap = new HashMap<>();
                     registMsgMap.put("mobile", mLoginMsgPhoneEt.getText().toString());
-                    registMsgMap.put("type", "2");// 1-注册验证码 2-验证码登录 3-修改密码
+                    if ("9".equals(mSuccessType)) {
+                        registMsgMap.put("type", "4");// 1-注册验证码 2-验证码登录 3-修改密码 4-绑定手机号 5-忘记密码
+                    } else {
+                        registMsgMap.put("type", "2");// 1-注册验证码 2-验证码登录 3-修改密码
+                    }
                     mLoginMsgGetCodeTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 30, R.color.C6, R.color.C6));
                     BSHttpUtils.postCallBack(mActivity, Constant.GET_MSG_CODE_URL, registMsgMap, BaseVO.class, this);
                     daoJishi(mLoginMsgGetCodeTv);
@@ -876,6 +885,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 break;
             case R.id.login_tv:
                 mLoginType = "1";
+                mSuccessType = "1";
                 mLoginDialog = BottomDialogUtil.initBottomDialog(this, R.layout.login_layout);
                 mLoginPhoneEt = mLoginDialog.findViewById(R.id.login_phone_et);
                 mLoginPasswordEt = mLoginDialog.findViewById(R.id.login_password_et);
@@ -894,7 +904,6 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 mLoginOkTv.setOnClickListener(this);
                 break;
             case R.id.regist_tv:
-                System.out.println("=========>");
                 mRegistDialog = BottomDialogUtil.initBottomDialog(this, R.layout.login_regist);
                 mRegistCodeEt = mRegistDialog.findViewById(R.id.regist_msg_et);
                 mRegistPhoneEt = mRegistDialog.findViewById(R.id.regist_phone_et);
@@ -904,6 +913,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 mRegistGetMsgCodeTv = mRegistDialog.findViewById(R.id.regist_get_msge_code_tv);
                 mRegistGetMsgCodeTv.setOnClickListener(this);
                 mRegistOkTv.setOnClickListener(this);
+                mSuccessType = "1";
                 break;
 
             case R.id.login_weixin_tv:
@@ -919,6 +929,58 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 break;
             case R.id.type3_my_buy_tv:
                 showDialog();
+                break;
+
+            case R.id.login_bind_phone_tv:
+                if (TextUtils.isEmpty(mLoginMsgPhoneEt.getText().toString())) {
+                    showCustomToast("请填写手机号");
+                    return;
+                }
+
+                if (TextUtils.isEmpty(mLoginMsgCodeEt.getText().toString())) {
+                    showCustomToast("请填验证码");
+                    return;
+                }
+                HashMap<String, Object> bindPhoneMap = new HashMap<>();
+                bindPhoneMap.put("mobile", mLoginMsgPhoneEt.getText().toString());
+                bindPhoneMap.put("sms_code", mLoginMsgCodeEt.getText().toString());
+                bindPhoneMap.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+                BSHttpUtils.postCallBack(mActivity, Constant.LOGIN_BIND_PHONE_URL, bindPhoneMap, UserInfoVO.class, this);
+                mSuccessType = "11";
+                break;
+
+            case R.id.back_pwd_tv:
+                if (TextUtils.isEmpty(mRegistPhoneEt.getText().toString())) {
+                    showCustomToast("请填写手机号");
+                    return;
+                }
+                if (TextUtils.isEmpty(mRegistCodeEt.getText().toString())) {
+                    showCustomToast("请填验证码");
+                    return;
+                }
+                if (TextUtils.isEmpty(mRegistPaswrodEt.getText().toString())) {
+                    showCustomToast("请填写新的密码");
+                    return;
+                }
+                if (TextUtils.isEmpty(mBackPwdSureEt.getText().toString())) {
+                    showCustomToast("请确认密码");
+                    return;
+                }
+
+                if (!mRegistPaswrodEt.getText().toString().equals(mBackPwdSureEt.getText().toString())) {
+                    showCustomToast("密码不一致");
+                    return;
+                }
+
+
+                mSuccessType = "10";
+                HashMap<String, Object> backMap = new HashMap<>();
+                backMap.put("mobile", mRegistPhoneEt.getText().toString());
+                backMap.put("sms_code", mRegistCodeEt.getText().toString());
+                backMap.put("password", mRegistPaswrodEt.getText().toString());
+                backMap.put("repassword", mBackPwdSureEt.getText().toString());
+
+                BSHttpUtils.postCallBack(mActivity, Constant.BACK_PWD_URL, backMap, BaseVO.class, this);
                 break;
             default:
 
@@ -968,11 +1030,36 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
 
         if ("2".equals(mSuccessType)) {
             showSuccessToast(vo.getDesc());
-            mRegistDialog.dismiss();
+            if (mRegistDialog != null)
+                mRegistDialog.dismiss();
         } else if ("3".equals(mSuccessType) || "4".equals(mSuccessType) || "6".equals(mSuccessType) || "7".equals(mSuccessType)) {
             showSuccessToast(vo.getDesc());
-            UserInfoVO userInfoVO = (UserInfoVO) vo;
-            AppApplication.getInstance().saveUserInfoVO(userInfoVO);
+            mUserInfoVO = (UserInfoVO) vo;
+
+            if (!"1".equals(mUserInfoVO.getData().getUser_tel_bind())) {
+                bindPhone();
+            } else {
+                if (mLoginDialog != null)
+                    mLoginDialog.dismiss();
+                if (mLoginTypeDialog != null)
+                    mLoginTypeDialog.dismiss();
+                AppApplication.getInstance().saveUserInfoVO(mUserInfoVO);
+            }
+
+        } else if ("8".equals(mSuccessType)) {
+            //忘记密码发送验证码
+            showSuccessToast(vo.getDesc());
+        } else if ("10".equals(mSuccessType)) {
+            //忘记密码
+            showSuccessToast(vo.getDesc());
+        } else if ("9".equals(mSuccessType)) {
+            //绑定手机号
+            if (mBindPhoneDialog != null)
+                mBindPhoneDialog.dismiss();
+            AppApplication.getInstance().saveUserInfoVO(mUserInfoVO);
+        } else if ("11".equals(mSuccessType)) {
+            if (mBackPwdDialog != null)
+                mBackPwdDialog.dismiss();
             if (mLoginDialog != null)
                 mLoginDialog.dismiss();
             if (mLoginTypeDialog != null)
@@ -1027,7 +1114,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 }
 
             }
-        }else {
+        } else {
             showSuccessToast(vo.getDesc());
         }
     }
@@ -1038,16 +1125,16 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mRedMoneyTv = mPayDialog.getWindow().getDecorView().findViewById(R.id.red_money_tv);
         mBuyTv = mPayDialog.getWindow().getDecorView().findViewById(R.id.buy_tv);
         mNumberButton = mPayDialog.getWindow().getDecorView().findViewById(R.id.number_bt);
-        if(Integer.parseInt(mShopDetailVO.getRemain_count())==0){
+        if (Integer.parseInt(mShopDetailVO.getRemain_count()) == 0) {
             mNumberButton.setEnabled(false);
             mNumberButton.setCurrentNumber(BaseCommonUtils.parseInt("0"));
-        }else {
+        } else {
             mNumberButton.setBuyMax(Integer.parseInt(mShopDetailVO.getRemain_count())).setCurrentNumber(BaseCommonUtils.parseInt("1"));
         }
         mNumberButton.setmOnTextChangeListener(new NumberButton.OnTextChangeListener() {
             @Override
             public void onTextChange(int count) {
-                if(Integer.parseInt(mShopDetailVO.getRemain_count())==0){
+                if (Integer.parseInt(mShopDetailVO.getRemain_count()) == 0) {
                     return;
                 }
                 mTotalCount = count;
@@ -1244,12 +1331,12 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     public void showDialog() {
         DialogUIUtils.init(ShopDetailActivity.this);
         View rootView = View.inflate(ShopDetailActivity.this, R.layout.my_buy_number_dialog, null);
-        TextView buyCountTv=rootView.findViewById(R.id.buy_count_tv);
+        TextView buyCountTv = rootView.findViewById(R.id.buy_count_tv);
         BaseCommonUtils.setTextThree(this, buyCountTv, "你抢购了", mShopDetailVO.getUser_data().getBuy_count(), "次(抢购号码如下)", R.color.colorAccent, 1.3f);
-        TagFlowLayout tagFlowLayout=rootView.findViewById(tag_flow_layout);
+        TagFlowLayout tagFlowLayout = rootView.findViewById(tag_flow_layout);
 
         List<String> allList = (List<String>) mShopDetailVO.getUser_data().getBuy_codes();
-        tagFlowLayout.setAdapter(new TagAdapter<String>(allList.subList(0,50)) {
+        tagFlowLayout.setAdapter(new TagAdapter<String>(allList.subList(0, 50)) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
                 TextView tv = new TextView(ShopDetailActivity.this);
@@ -1259,5 +1346,16 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         });
         final BuildBean buildBean = DialogUIUtils.showCustomAlert(ShopDetailActivity.this, rootView);
         buildBean.show();
+    }
+
+    public void bindPhone() {
+        mSuccessType = "9";
+        mBindPhoneDialog = BottomDialogUtil.initBottomDialog(this, R.layout.login_bind_phone);
+        mLoginMsgPhoneEt = mBindPhoneDialog.findViewById(R.id.login_msg_phone_et);
+        mLoginMsgCodeEt = mBindPhoneDialog.findViewById(R.id.login_msg_code_et);
+        mLoginMsgGetCodeTv = mBindPhoneDialog.findViewById(R.id.login_get_msg_code_tv);
+        mLoginBindPhoneTv = mBindPhoneDialog.findViewById(R.id.login_bind_phone_tv);
+        mLoginMsgGetCodeTv.setOnClickListener(this);
+        mLoginBindPhoneTv.setOnClickListener(this);
     }
 }

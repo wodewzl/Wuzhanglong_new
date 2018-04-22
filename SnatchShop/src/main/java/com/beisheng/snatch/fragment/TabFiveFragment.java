@@ -43,6 +43,7 @@ import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.BottomDialogUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -58,20 +59,21 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
     private TextView mBuyFlowTv;
     private LinearLayout mMyFlowLayout, mMyRedMoneyLayout, mMyScortLayout;
     private CircleImageView mHeadImg;
-    private UserInfoVO.DataBean mUserInfoVO;
     private TextView mFlowTv, mRedTv, mScortTv, mNameTv, mUserNoTv;
     private CheckBox mRegistCheckBox;
 
     //登录
-    private BottomSheetDialog mRegistDialog, mLoginTypeDialog, mLoginDialog;
+    private BottomSheetDialog mRegistDialog, mLoginTypeDialog, mLoginDialog, mBackPwdDialog, mBindPhoneDialog;
     private View mLoginPasswrodLayout, mLoginMsgLayout;
-    private TextView mRegistOkTv, mRegistGetMsgCodeTv, mLoginOkTv, mLoginBackPasswordTv, mLoginChangeLoginTypeTv, mLoginTypeTv, mLoginMsgPhoneEt, mLoginMsgCodeEt, mLoginMsgGetCodeTv,mBuyCountTv;
-    private EditText mRegistCodeEt, mRegistPhoneEt, mRegistPaswrodEt, mLoginPhoneEt, mLoginPasswordEt;
+    private TextView mRegistOkTv, mRegistGetMsgCodeTv, mLoginOkTv, mLoginBackPasswordTv, mLoginChangeLoginTypeTv, mLoginTypeTv, mLoginMsgPhoneEt, mLoginMsgCodeEt, mLoginMsgGetCodeTv,
+            mLoginBindPhoneTv, mBackPwdTv, mBuyCountTv;
+    private EditText mRegistCodeEt, mRegistPhoneEt, mRegistPaswrodEt, mLoginPhoneEt, mLoginPasswordEt, mBackPwdSureEt;
     private boolean mRegistCodeStae = true;
     private String mSuccessType = "";//1注册验证码2注册3手机号登陆4短信登陆5加入购物车//6威信登录7QQ登录
     private String mLoginType = "1";//1手机号登陆2短信登陆
     private String mOhterLoginType = "1";//1微信2QQ
     private TextView mLoginTv, mRegistTv, mLoginWeixinTv, mLoginQqTv;
+    private UserInfoVO mUserInfoVO;
 
     @Override
     public void setContentView() {
@@ -100,7 +102,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
         mScortTv = getViewById(R.id.scort_tv);
         mNameTv = getViewById(R.id.name_tv);
         mUserNoTv = getViewById(R.id.user_no_tv);
-        mBuyCountTv=getViewById(R.id.buy_count_tv);
+        mBuyCountTv = getViewById(R.id.buy_count_tv);
     }
 
     @Override
@@ -119,6 +121,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
         mItem07Tv.setOnClickListener(this);
         mBuyFlowTv.setOnClickListener(this);
         mHeadImg.setOnClickListener(this);
+        EventBus.getDefault().register(this);
     }
 
 
@@ -137,18 +140,17 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void hasData(BaseVO vo) {
-        UserInfoVO bean = (UserInfoVO) vo;
-        AppApplication.getInstance().saveUserInfoVO(bean);
-        mUserInfoVO = bean.getData();
-        if (!TextUtils.isEmpty(mUserInfoVO.getAvatar()))
-            Picasso.with(mActivity).load(mUserInfoVO.getAvatar()).into(mHeadImg);
-        mNameTv.setText(mUserInfoVO.getNickname());
-        mUserNoTv.setText("ID:" + mUserInfoVO.getUser_no());
-        mFlowTv.setText(mUserInfoVO.getFlow());
-        mRedTv.setText(mUserInfoVO.getCoupon_count());
-        mScortTv.setText(mUserInfoVO.getPoint());
+        mUserInfoVO = (UserInfoVO) vo;
+        AppApplication.getInstance().saveUserInfoVO(mUserInfoVO);
+        if (!TextUtils.isEmpty(mUserInfoVO.getData().getAvatar()))
+            Picasso.with(mActivity).load(mUserInfoVO.getData().getAvatar()).into(mHeadImg);
+        mNameTv.setText(mUserInfoVO.getData().getNickname());
+        mUserNoTv.setText("ID:" + mUserInfoVO.getData().getUser_no());
+        mFlowTv.setText(mUserInfoVO.getData().getFlow());
+        mRedTv.setText(mUserInfoVO.getData().getCoupon_count());
+        mScortTv.setText(mUserInfoVO.getData().getPoint());
 
-        BaseCommonUtils.setTextThree(mActivity,mBuyCountTv,"购买次数：",mUserInfoVO.getBalance(),"次",R.color.colorAccent,1.1f);
+        BaseCommonUtils.setTextThree(mActivity, mBuyCountTv, "购买次数：", mUserInfoVO.getData().getBalance(), "次", R.color.colorAccent, 1.1f);
     }
 
     @Override
@@ -243,7 +245,11 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
                     }
                     HashMap<String, Object> registMsgMap = new HashMap<>();
                     registMsgMap.put("mobile", mRegistPhoneEt.getText().toString());
-                    registMsgMap.put("type", "1");// 1-注册验证码 2-验证码登录 3-修改密码
+                    if ("8".equals(mSuccessType)) {
+                        registMsgMap.put("type", "5");// 1-注册验证码 2-验证码登录 3-修改密码 4-绑定手机号 5-忘记密码
+                    } else {
+                        registMsgMap.put("type", "1");// 1-注册验证码 2-验证码登录 3-修改密码
+                    }
                     mRegistGetMsgCodeTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 30, R.color.C6, R.color.C6));
                     BSHttpUtils.postCallBack(mActivity, Constant.GET_MSG_CODE_URL, registMsgMap, BaseVO.class, this);
                     daoJishi(mRegistGetMsgCodeTv);
@@ -281,7 +287,17 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
                 break;
 
             case R.id.login_back_passwrod_tv:
-                mSuccessType = "3";
+                mBackPwdDialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.login__back_pwd);
+                mRegistCodeEt = mBackPwdDialog.findViewById(R.id.regist_msg_et);
+                mRegistPhoneEt = mBackPwdDialog.findViewById(R.id.regist_phone_et);
+                mRegistPaswrodEt = mBackPwdDialog.findViewById(R.id.regist_password_et);
+                mRegistCheckBox = mBackPwdDialog.findViewById(R.id.regist_check_box);
+                mBackPwdTv = mBackPwdDialog.findViewById(R.id.back_pwd_tv);
+                mBackPwdSureEt = mBackPwdDialog.findViewById(R.id.sure_password_et);
+                mRegistGetMsgCodeTv = mBackPwdDialog.findViewById(R.id.regist_get_msge_code_tv);
+                mRegistGetMsgCodeTv.setOnClickListener(this);
+                mBackPwdTv.setOnClickListener(this);
+                mSuccessType = "8";
                 break;
             case R.id.login_change_login_type_tv:
                 if ("1".equals(mLoginType)) {
@@ -341,10 +357,13 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
                         mActivity.showCustomToast("请填写手机号");
                         return;
                     }
-                    mSuccessType = "1";
                     HashMap<String, Object> registMsgMap = new HashMap<>();
                     registMsgMap.put("mobile", mLoginMsgPhoneEt.getText().toString());
-                    registMsgMap.put("type", "2");// 1-注册验证码 2-验证码登录 3-修改密码
+                    if ("9".equals(mSuccessType)) {
+                        registMsgMap.put("type", "4");// 1-注册验证码 2-验证码登录 3-修改密码 4-绑定手机号 5-忘记密码
+                    } else {
+                        registMsgMap.put("type", "2");// 1-注册验证码 2-验证码登录 3-修改密码
+                    }
                     mLoginMsgGetCodeTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 30, R.color.C6, R.color.C6));
                     BSHttpUtils.postCallBack(mActivity, Constant.GET_MSG_CODE_URL, registMsgMap, BaseVO.class, this);
                     daoJishi(mLoginMsgGetCodeTv);
@@ -353,6 +372,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.login_tv:
                 mLoginType = "1";
+                mSuccessType = "1";
                 mLoginDialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.login_layout);
                 mLoginPhoneEt = mLoginDialog.findViewById(R.id.login_phone_et);
                 mLoginPasswordEt = mLoginDialog.findViewById(R.id.login_password_et);
@@ -392,11 +412,62 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
                 mOhterLoginType = "2";
                 shareAPI.getPlatformInfo(mActivity, SHARE_MEDIA.QQ, new UMShareListener());
                 break;
+
+            case R.id.login_bind_phone_tv:
+                if (TextUtils.isEmpty(mLoginMsgPhoneEt.getText().toString())) {
+                    mActivity.showCustomToast("请填写手机号");
+                    return;
+                }
+
+                if (TextUtils.isEmpty(mLoginMsgCodeEt.getText().toString())) {
+                    mActivity.showCustomToast("请填验证码");
+                    return;
+                }
+                HashMap<String, Object> bindPhoneMap = new HashMap<>();
+                bindPhoneMap.put("mobile", mLoginMsgPhoneEt.getText().toString());
+                bindPhoneMap.put("sms_code", mLoginMsgCodeEt.getText().toString());
+                bindPhoneMap.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+                BSHttpUtils.postCallBack(mActivity, Constant.LOGIN_BIND_PHONE_URL, bindPhoneMap, UserInfoVO.class, this);
+                mSuccessType = "11";
+                break;
+
+            case R.id.back_pwd_tv:
+                if (TextUtils.isEmpty(mRegistPhoneEt.getText().toString())) {
+                    mActivity.showCustomToast("请填写手机号");
+                    return;
+                }
+                if (TextUtils.isEmpty(mRegistCodeEt.getText().toString())) {
+                    mActivity.showCustomToast("请填验证码");
+                    return;
+                }
+                if (TextUtils.isEmpty(mRegistPaswrodEt.getText().toString())) {
+                    mActivity.showCustomToast("请填写新的密码");
+                    return;
+                }
+                if (TextUtils.isEmpty(mBackPwdSureEt.getText().toString())) {
+                    mActivity.showCustomToast("请确认密码");
+                    return;
+                }
+
+                if (!mRegistPaswrodEt.getText().toString().equals(mBackPwdSureEt.getText().toString())) {
+                    mActivity.showCustomToast("密码不一致");
+                    return;
+                }
+
+
+                mSuccessType = "10";
+                HashMap<String, Object> backMap = new HashMap<>();
+                backMap.put("mobile", mRegistPhoneEt.getText().toString());
+                backMap.put("sms_code", mRegistCodeEt.getText().toString());
+                backMap.put("password", mRegistPaswrodEt.getText().toString());
+                backMap.put("repassword", mBackPwdSureEt.getText().toString());
+
+                BSHttpUtils.postCallBack(mActivity, Constant.BACK_PWD_URL, backMap, BaseVO.class, this);
+                break;
             default:
                 break;
         }
     }
-
 
 
     public void otherLogin(String openid, String nickname, String headpicurl) {
@@ -464,14 +535,37 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
             mRegistDialog.dismiss();
         } else if ("3".equals(mSuccessType) || "4".equals(mSuccessType) || "6".equals(mSuccessType) || "7".equals(mSuccessType)) {
             mActivity.showSuccessToast(vo.getDesc());
-            UserInfoVO userInfoVO = (UserInfoVO) vo;
-            AppApplication.getInstance().saveUserInfoVO(userInfoVO);
+            mUserInfoVO = (UserInfoVO) vo;
+            if (!"1".equals(mUserInfoVO.getData().getUser_tel_bind())) {
+                bindPhone();
+            } else {
+                if (mLoginDialog != null)
+                    mLoginDialog.dismiss();
+                if (mLoginTypeDialog != null)
+                    mLoginTypeDialog.dismiss();
+                AppApplication.getInstance().saveUserInfoVO(mUserInfoVO);
+                getData();
+            }
+
+        } else if ("8".equals(mSuccessType)) {
+            //忘记密码发送验证码
+            mActivity.showSuccessToast(vo.getDesc());
+        } else if ("10".equals(mSuccessType)) {
+            //忘记密码
+            mActivity.showSuccessToast(vo.getDesc());
+        } else if ("9".equals(mSuccessType)) {
+            //绑定手机号
+            if (mBindPhoneDialog != null)
+                mBindPhoneDialog.dismiss();
+            AppApplication.getInstance().saveUserInfoVO(mUserInfoVO);
+            getData();
+        } else if ("11".equals(mSuccessType)) {
+            if (mBackPwdDialog != null)
+                mBackPwdDialog.dismiss();
             if (mLoginDialog != null)
                 mLoginDialog.dismiss();
             if (mLoginTypeDialog != null)
                 mLoginTypeDialog.dismiss();
-
-            getData();
         }
     }
 
@@ -497,11 +591,28 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
     public void onMessageEvent(EBMessageVO event) {
         if ("login_out".equals(event.getMessage())) {
             mNameTv.setText("请登录");
-            mUserNoTv.setText("ID:" );
+            mUserNoTv.setText("ID:");
             mFlowTv.setText("0");
             mRedTv.setText("0");
             mScortTv.setText("0");
-            BaseCommonUtils.setTextThree(mActivity,mBuyCountTv,"购买次数：","0","次",R.color.colorAccent,1.1f);
+            BaseCommonUtils.setTextThree(mActivity, mBuyCountTv, "购买次数：", "0", "次", R.color.colorAccent, 1.1f);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    public void bindPhone() {
+        mSuccessType = "9";
+        mBindPhoneDialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.login_bind_phone);
+        mLoginMsgPhoneEt = mBindPhoneDialog.findViewById(R.id.login_msg_phone_et);
+        mLoginMsgCodeEt = mBindPhoneDialog.findViewById(R.id.login_msg_code_et);
+        mLoginMsgGetCodeTv = mBindPhoneDialog.findViewById(R.id.login_get_msg_code_tv);
+        mLoginBindPhoneTv = mBindPhoneDialog.findViewById(R.id.login_bind_phone_tv);
+        mLoginMsgGetCodeTv.setOnClickListener(this);
+        mLoginBindPhoneTv.setOnClickListener(this);
     }
 }
