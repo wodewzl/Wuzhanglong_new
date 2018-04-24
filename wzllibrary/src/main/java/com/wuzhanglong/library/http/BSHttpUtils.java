@@ -17,11 +17,14 @@ import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.MD5;
 
+import java.io.File;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import rx.Observable;
@@ -291,15 +294,33 @@ public class BSHttpUtils {
 
 
     //提交文件
-    public static <T> void post(final BaseActivity activity, final String url, RequestBody params, final Class<T> className, final PostCallback postCallback) {
-
+    public static <T> void postFile(final BaseActivity activity, final String url,  final Map<String, Object> params, final Class<T> className, final PostCallback postCallback) {
         final Gson gson = new Gson();
-//        final String allUrl = BaseConstant.DOMAIN_NAME + url;
+        MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        params.put("timestamp", System.currentTimeMillis() / 1000);
+        Map<String, Object> resultMap = sortMapByKey(params);
+        StringBuffer signSb = new StringBuffer();
+        for (Map.Entry<String, Object> entry : resultMap.entrySet()) {
+            if(entry.getValue() instanceof File){
+                File file= (File) entry.getValue();
+                        requestBody.addFormDataPart("image", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+            }else {
+                signSb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+                requestBody.addFormDataPart(entry.getKey(), entry.getValue()+"");
+            }
+        }
+        signSb.append(BaseConstant.APP_KEY);
+        String sign = MD5.Md5(signSb.toString());
+        params.put("sign", sign);
+        params.put("timestamp", System.currentTimeMillis() / 1000+"");
+        requestBody.addFormDataPart("sign", sign);
+        MultipartBody rb = requestBody.build();
         new Novate.Builder(activity)
                 .baseUrl(BaseConstant.DOMAIN_NAME)
                 .addCache(false)
                 .build()
-                .upload(url, params, new BaseSubscriber<ResponseBody>() {
+                .upload(url, rb, new BaseSubscriber<ResponseBody>() {
                     @Override
                     public void onNext(ResponseBody responseBody) {
                         activity.dismissProgressDialog();

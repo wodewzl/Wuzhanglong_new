@@ -23,11 +23,12 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_01"
                 style="@style/padding_15_13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/C1"
-                android:drawableLeft="@drawable/my_go"
+                android:drawableLeft="@drawable/setting_img_01"
                 android:drawablePadding="8dp"
                 android:drawableRight="@drawable/my_go"
                 android:gravity="center_vertical"
@@ -40,11 +41,12 @@
                 android:background="@color/C3_1" />
 
             <TextView
+                android:id="@+id/tv_02"
                 style="@style/padding_15_13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/C1"
-                android:drawableLeft="@drawable/my_go"
+                android:drawableLeft="@drawable/setting_img_03"
                 android:drawablePadding="8dp"
                 android:drawableRight="@drawable/my_go"
                 android:gravity="center_vertical"
@@ -63,19 +65,22 @@
                 android:paddingRight="15dp">
 
                 <TextView
+
                     style="@style/padding_15_13"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:background="@color/C1"
-                    android:drawableLeft="@drawable/my_go"
+                    android:drawableLeft="@drawable/setting_img_03"
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
                     android:text="客服热线" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_03"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:layout_weight="1"
                     android:text="18602727134" />
             </LinearLayout>
         </LinearLayout>

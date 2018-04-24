@@ -61,6 +61,15 @@ public class UserInfoVO extends BaseVO implements Serializable{
         private String ysxy_url;
         private String fwxy_url;
         private String user_tel_bind;
+        private String default_address;
+
+        public String getDefault_address() {
+            return default_address;
+        }
+
+        public void setDefault_address(String default_address) {
+            this.default_address = default_address;
+        }
 
         public String getUser_tel_bind() {
             return user_tel_bind;

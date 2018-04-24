@@ -3,6 +3,7 @@ package com.beisheng.snatch.activity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,7 +27,9 @@ import com.wuzhanglong.library.utils.RecyclerViewUtil;
 import java.util.HashMap;
 import java.util.List;
 
-public class SignActivity extends BaseActivity implements View.OnClickListener, PostCallback, SwitchButton.OnCheckedChangeListener {
+import cn.bingoogolapple.baseadapter.BGAOnItemChildClickListener;
+
+public class SignActivity extends BaseActivity implements View.OnClickListener, PostCallback, SwitchButton.OnCheckedChangeListener,BGAOnItemChildClickListener {
     private LuRecyclerView mRecyclerView;
     private SignAdapter mAdapter;
     private SignVO.DataBean mDataBean;
@@ -52,7 +55,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         adapter.addHeaderView(initHeadView());
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
-        mRecyclerView.setLoadMoreEnabled(true);
+        mRecyclerView.setLoadMoreEnabled(false);
 
     }
 
@@ -76,6 +79,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         mSignStatusTv.setOnClickListener(this);
         mSwitchButton.setOnCheckedChangeListener(this);
         mGiftImg.setOnClickListener(this);
+        mAdapter.setOnItemChildClickListener(this);
     }
 
     @Override
@@ -153,5 +157,10 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
         map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
         map.put("is_notify", isChecked ? "0" : "1");
         BSHttpUtils.postCallBack(mActivity, Constant.SIGN_NOTIFY_URL, map, BaseVO.class, this);
+    }
+
+    @Override
+    public void onItemChildClick(ViewGroup parent, View childView, int position) {
+
     }
 }

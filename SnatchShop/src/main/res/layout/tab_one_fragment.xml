@@ -40,21 +40,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="120dp"
-            android:src="@drawable/sgin"
-            app:backgroundTint="@color/C15"
-            app:borderWidth="0.0dip"
-            app:elevation="5.0dip"
-            app:fabSize="mini"
-            app:layout_anchorGravity="right|bottom"
-            app:pressedTranslationZ="10.0dip"
-            app:rippleColor="@color/C15"
-            android:layout_alignParentRight="true"/>
+
     <com.cpoopc.scrollablelayoutlib.ScrollableLayout
         android:id="@+id/scrollable_layout"
         android:layout_width="match_parent"
@@ -95,7 +81,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.cpoopc.scrollablelayoutlib.ScrollableLayout>
-
+        <ImageView
+            android:id="@+id/sgin_img"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="120dp"
+            android:src="@drawable/sgin"
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
 

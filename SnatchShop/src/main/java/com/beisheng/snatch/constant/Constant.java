@@ -50,6 +50,7 @@ public class Constant {
     public static final String MY_SCORT_URL = "/index.php/Api/Account/score_index";//我的积分
     public static final String MY_RED_MONEY_URL = "/index.php/Api/Account/coupon_list";//我的积分
     public static final String FLOW_EXCHANGE_URL = "/index.php/Api/Account/exchange_flow";//兑换流浪
+    public static final String SORT_EXCHANGE_RED_URL = "/index.php/Api/Account/exchange_coupon";//兑换红包
     public static final String MY_CENTER_URL = "/index.php/Api/Account/index";//我的首页数据
     public static final String SHOW_DETAIL_URL = "/index.php/Api/Dbindex/evaluate_detail";//晒单详情
     public static final String DISCUSS_LIST_URL = "/index.php/Api/Dbindex/evaluate_comments_list";//评论列表
@@ -65,6 +66,12 @@ public class Constant {
     public static final String WU_LIU_URL = "/index.php/Api/Member/get_express_info";//物流
     public static final String NUMBER_TREND_URL = "/index.php/Api/Dbindex/charts_detail";//更多走势图
     public static final String DISSCUSS_COMMIT_URL = "/index.php/Api/Member/like_evaluate";//评论
+    public static final String USER_INFO_NICKNAME_URL = "/index.php/Api/Account/update_nickname";//修改昵称
+    public static final String USER_INFO_HEAD_URL = "/index.php/Api/Account/update_avatar";//修改头像
+    public static final String USER_INFO_SEX_URL = "/index.php/Api/Account/update_sex";//修改性别
+    public static final String OTHER_LOGIN_BIND_URL = "/index.php/Api/Account/bind_sns";//绑定第三方登陆
+    public static final String HELP_URL = "/index.php/Api/Dbindex/contact_us";//联系我们
+
 
 }
 

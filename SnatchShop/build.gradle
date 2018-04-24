@@ -59,7 +59,7 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     compile 'com.github.dongjunkun:CouponView:1.0.3'
-    //    compile 'com.umeng.sdk:share-core:latest.integration'
-    //    compile 'com.umeng.sdk:share-qq:latest.integration'
-    //    compile 'com.umeng.sdk:share-wechat:latest.integration'
+    compile 'com.meiqia:meiqiasdk:3.4.3@aar'
+//    compile 'com.android.support:support-v4:23.1.1'
+//    compile 'com.squareup.okhttp3:okhttp:3.5.0'
 }

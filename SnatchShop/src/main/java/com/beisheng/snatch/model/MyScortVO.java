@@ -11,8 +11,10 @@ import java.util.List;
 public class MyScortVO extends BaseVO{
 
     /**
-     * data : {"point":"155","today_point":"0","point_issue":"每年6月30日，您的积分将会减半；每年12月31日未使用完的积分将清零。请关注您的积分，以免给您带来不必要的损失。","coupon_list":[{"coupon_type_id":"4","coupon_name":"积分兑换1元红包",
-     * "money":"1.00","count":"10","exchange_points":"10","remain_count":"4","valid_days":"20"}]}
+     * data : {"point":"17","today_point":"0","point_issue":"每年6月30日，您的积分将会减半；每年12月31日未使用完的积分将清零。请关注您的积分，以免给您带来不必要的损失。","point_way":"1.签到可获得积分。\n2.完成每日任务可获得积分奖励。\n3.完成新手任务可获得积分奖励。",
+     * "exchange_rule":"可以用积分兑换商品和红包","coupon_list":[{"coupon_type_id":"4","coupon_name":"积分兑换1元红包","money":"1.00","count":"110","exchange_points":"10","remain_count":"92","valid_days":"6"},
+     * {"coupon_type_id":"5","coupon_name":"无门槛红包","money":"1.00","count":"100","exchange_points":"10","remain_count":"99","valid_days":"37"},{"coupon_type_id":"6","coupon_name":"满50减2元红包",
+     * "money":"2.00","count":"100","exchange_points":"100","remain_count":"99","valid_days":"37"}]}
      */
 
     private DataBean data;
@@ -27,15 +29,23 @@ public class MyScortVO extends BaseVO{
 
     public static class DataBean {
         /**
-         * point : 155
+         * point : 17
          * today_point : 0
          * point_issue : 每年6月30日，您的积分将会减半；每年12月31日未使用完的积分将清零。请关注您的积分，以免给您带来不必要的损失。
-         * coupon_list : [{"coupon_type_id":"4","coupon_name":"积分兑换1元红包","money":"1.00","count":"10","exchange_points":"10","remain_count":"4","valid_days":"20"}]
+         * point_way : 1.签到可获得积分。
+         2.完成每日任务可获得积分奖励。
+         3.完成新手任务可获得积分奖励。
+         * exchange_rule : 可以用积分兑换商品和红包
+         * coupon_list : [{"coupon_type_id":"4","coupon_name":"积分兑换1元红包","money":"1.00","count":"110","exchange_points":"10","remain_count":"92","valid_days":"6"},{"coupon_type_id":"5",
+         * "coupon_name":"无门槛红包","money":"1.00","count":"100","exchange_points":"10","remain_count":"99","valid_days":"37"},{"coupon_type_id":"6","coupon_name":"满50减2元红包","money":"2.00",
+         * "count":"100","exchange_points":"100","remain_count":"99","valid_days":"37"}]
          */
 
         private String point;
         private String today_point;
         private String point_issue;
+        private String point_way;
+        private String exchange_rule;
         private List<CouponListBean> coupon_list;
 
         public String getPoint() {
@@ -62,6 +72,22 @@ public class MyScortVO extends BaseVO{
             this.point_issue = point_issue;
         }
 
+        public String getPoint_way() {
+            return point_way;
+        }
+
+        public void setPoint_way(String point_way) {
+            this.point_way = point_way;
+        }
+
+        public String getExchange_rule() {
+            return exchange_rule;
+        }
+
+        public void setExchange_rule(String exchange_rule) {
+            this.exchange_rule = exchange_rule;
+        }
+
         public List<CouponListBean> getCoupon_list() {
             return coupon_list;
         }
@@ -75,10 +101,10 @@ public class MyScortVO extends BaseVO{
              * coupon_type_id : 4
              * coupon_name : 积分兑换1元红包
              * money : 1.00
-             * count : 10
+             * count : 110
              * exchange_points : 10
-             * remain_count : 4
-             * valid_days : 20
+             * remain_count : 92
+             * valid_days : 6
              */
 
             private String coupon_type_id;

@@ -59,9 +59,6 @@ import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -293,17 +290,28 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
                 }
 
 
-                MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
-                requestBody.addFormDataPart("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no())
-                        .addFormDataPart("id", mSelectVO.getId())
-                        .addFormDataPart("title", mTitleEt.getText().toString())
-                        .addFormDataPart("content", mDescEt.getText().toString());
+//                MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
+//                requestBody.addFormDataPart("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no())
+//                        .addFormDataPart("id", mSelectVO.getId())
+//                        .addFormDataPart("title", mTitleEt.getText().toString())
+//                        .addFormDataPart("content", mDescEt.getText().toString());
+//
+//                for (int i = 0; i < mOneFiles.size(); i++) {
+//                    requestBody.addFormDataPart("images"+i, mOneFiles.get(i).getName(), RequestBody.create(MediaType.parse("image/*"), mOneFiles.get(i)));
+//                }
+//                MultipartBody rb = requestBody.build();
 
+
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+                map.put("id", mSelectVO.getId());
+                map.put("title", mTitleEt.getText().toString());
+                map.put("content", mDescEt.getText().toString());
                 for (int i = 0; i < mOneFiles.size(); i++) {
-                    requestBody.addFormDataPart("images"+i, mOneFiles.get(i).getName(), RequestBody.create(MediaType.parse("image/*"), mOneFiles.get(i)));
+                    map.put("image", mOneFiles.get(i));
                 }
-                MultipartBody rb = requestBody.build();
-                BSHttpUtils.post(mActivity, Constant.SHOW_URL, rb, BaseVO.class, this);
+                BSHttpUtils.postFile(mActivity, Constant.SHOW_URL, map, BaseVO.class, this);
+
                 break;
             default:
                 break;
@@ -415,7 +423,7 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
     @Override
     public void success(BaseVO vo) {
         if (vo instanceof WuLiuVO) {
-         mWuLiuVO= (WuLiuVO) vo;
+            mWuLiuVO = (WuLiuVO) vo;
 //            helper.setText(R.id.tv_04,"查看物流详情");
             final BottomSheetDialog dialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.wuliu_list_dialog);
             ImageView img = dialog.getWindow().getDecorView().findViewById(R.id.img);
@@ -424,7 +432,7 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
             titleTv.setText(mWuLiuVO.getData().getExpress_name());
             TextView numberTv = dialog.getWindow().getDecorView().findViewById(R.id.number_tv);
             numberTv.setText(mWuLiuVO.getData().getLogistic_code());
-            TextView copyTv=dialog.getWindow().getDecorView().findViewById(R.id.copy_tv);
+            TextView copyTv = dialog.getWindow().getDecorView().findViewById(R.id.copy_tv);
             copyTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -441,7 +449,7 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
         } else {
             mActivity.showSuccessToast(vo.getDesc());
             mAutoSwipeRefreshLayout.autoRefresh();
-            if(mDialog!=null)
+            if (mDialog != null)
                 mDialog.dismiss();
         }
 
@@ -496,7 +504,7 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
             HashMap<String, Object> map = new HashMap<>();
             map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
             map.put("id", mSelectVO.getId());
-            BSHttpUtils.postCallBack(mActivity,  Constant.WU_LIU_URL, map, WuLiuVO.class,this);
+            BSHttpUtils.postCallBack(mActivity, Constant.WU_LIU_URL, map, WuLiuVO.class, this);
         } else if ("2".equals(mSelectVO.getDelivery_status())) {
             mDialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.show_order_dialog);
             mPhotoLayout = mDialog.getWindow().getDecorView().findViewById(R.id.phone_layout);

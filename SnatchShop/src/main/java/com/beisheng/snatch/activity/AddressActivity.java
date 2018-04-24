@@ -16,7 +16,6 @@ import com.beisheng.snatch.model.AddressVO;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.BSHttpUtils;
-import com.wuzhanglong.library.http.HttpGetDataUtil;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.mode.EBMessageVO;
@@ -119,7 +118,7 @@ public class AddressActivity extends BaseActivity implements View.OnClickListene
             HashMap<String, Object> map = new HashMap<>();
             map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
             map.put("id", event.getMsg());
-            HttpGetDataUtil.post(this, Constant.ADDRESS_SET_URL, map, BaseVO.class, this);
+            BSHttpUtils.postCallBack(this, Constant.ADDRESS_SET_URL, map, BaseVO.class, this);
         } else if ("refresh".equals(event.getMessage())) {
             mAutoSwipeRefreshLayout.autoRefresh();
         }
@@ -128,6 +127,7 @@ public class AddressActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void success(BaseVO vo) {
         showSuccessToast(vo.getDesc());
+        EventBus.getDefault().post(new EBMessageVO("update_userinfo"));
     }
 
     @Override

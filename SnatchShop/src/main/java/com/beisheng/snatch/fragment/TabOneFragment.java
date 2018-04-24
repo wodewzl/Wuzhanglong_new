@@ -4,7 +4,6 @@ package com.beisheng.snatch.fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
@@ -68,7 +67,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     private String mStatus = "4";//4为升序5为降序
     private TextView mMenu01Tv, mMenu02Tv, mMenu03Tv, mMenu04Tv;
     private ImageView mMenu01Img,mMenu02Img,mMenu03Img,mMenu04Img;
-    private FloatingActionButton mFab;
+    private ImageView mSginImg;
     private LinearLayout mHeadLayout;
     private HomeVO mHomeVO;
 
@@ -97,7 +96,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mMenu02Img=getViewById(R.id.menu_02_img);
         mMenu03Img=getViewById(R.id.menu_03_img);
         mMenu04Img=getViewById(R.id.menu_04_img);
-        mFab = getViewById(R.id.fab);
+        mSginImg = getViewById(R.id.sgin_img);
         mHeadLayout=getViewById(R.id.head_layouat);
         initMagicIndicator();
     }
@@ -111,7 +110,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mMenu03Img.setOnClickListener(this);
         mMenu04Img.setOnClickListener(this);
 
-        mFab.setOnClickListener(this);
+        mSginImg.setOnClickListener(this);
         mScrollableLayout.setOnScrollListener(new ScrollableLayout.OnScrollListener() {
             @Override
             public void onScroll(int currentY, int maxY) {
@@ -331,7 +330,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
                 bundle.putString("url",mHomeVO.getData().getNav_list().get(3).getNav_url());
                 mActivity.open(WebViewActivity.class,bundle,0);
                 break;
-            case R.id.fab:
+            case R.id.sgin_img:
                 mActivity.openActivity(SignActivity.class);
                 break;
             default:
