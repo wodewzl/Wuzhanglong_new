@@ -119,6 +119,7 @@ public class MyFlowActivity extends BaseActivity implements BGAOnRVItemClickList
                 BSHttpUtils.postCallBack(mActivity, Constant.FLOW_EXCHANGE_URL, map, BaseVO.class, this);
                 break;
             case R.id.base_ok_tv:
+                openActivity(MyFlowRecordActivity.class);
                 break;
             default:
                 break;

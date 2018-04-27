@@ -1,26 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="70dp"
     android:orientation="vertical"
     android:background="@color/C1"
-    android:paddingLeft="15dp"
 
 >
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_weight="1"
-        android:paddingRight="15dp">
-
-    <LinearLayout
+        android:id="@+id/item_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
->
+        android:layout_marginLeft="10dp">
 
         <View
             android:id="@+id/divider_1"
@@ -43,14 +34,22 @@
             android:layout_weight="1"
             android:background="@color/C3" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_weight="1"
+    >
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginLeft="15dp"
-
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="left"
+        android:paddingLeft="25dp">
 
         <TextView
             android:id="@+id/month_tv"
@@ -62,7 +61,7 @@
             android:id="@+id/month_week_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10月"
+            android:text="27月/周五"
             android:textSize="11sp"
             android:textColor="@color/C6"/>
 
@@ -80,8 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginLeft="15dp"
-
+android:gravity="center"
         android:text="反订单" />
 
     <TextView
@@ -90,6 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginLeft="15dp"
+        android:gravity="center"
         android:text="反订单" />
 
     <TextView
@@ -98,14 +97,14 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginLeft="15dp"
-
+        android:gravity="center"
         android:text="反订单" />
     </LinearLayout>
 
     <View
-
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="3dp"
-        android:background="@color/C3" />
-</LinearLayout>
+        android:layout_marginLeft="12dp"
+        android:background="@color/C3"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

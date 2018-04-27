@@ -20,7 +20,7 @@ import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import java.util.HashMap;
 import java.util.List;
 
-public class MyRedMoneyHaveFragment extends BaseFragment {
+public class MyRedMoneyHaveFragment extends BaseFragment  {
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private LuRecyclerView mRecyclerView;
     private MyRedMoneyAdapter mAdapter;
@@ -54,6 +54,7 @@ public class MyRedMoneyHaveFragment extends BaseFragment {
         mRecyclerView.setAdapter(luAdapter);
         mRecyclerView.setLoadMoreEnabled(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
+        mAutoSwipeRefreshLayout.setEnabled(false);
 
     }
 
@@ -67,14 +68,14 @@ public class MyRedMoneyHaveFragment extends BaseFragment {
         HashMap<String, Object> map = new HashMap<>();
         map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
         map.put("type", this.getType());
-        BSHttpUtils.get(mActivity, this, Constant.MY_RED_MONEY_URL, map, MyRedMoneyVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.MY_RED_MONEY_URL, map, MyRedMoneyVO.class);
 
     }
 
     @Override
     public void hasData(BaseVO vo) {
         MyRedMoneyVO bean = (MyRedMoneyVO) vo;
-        List<MyRedMoneyVO.DataBean.CouponListBean> list = bean.getData().getCoupon_list();
+        List<MyRedMoneyVO.DataBean.CouponListBean> list = bean.getData().getList();
         mAdapter.updateData(list);
     }
 

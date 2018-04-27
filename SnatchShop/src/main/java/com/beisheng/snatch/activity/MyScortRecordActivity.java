@@ -1,46 +1,56 @@
 package com.beisheng.snatch.activity;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.beisheng.snatch.R;
-import com.beisheng.snatch.adapter.ScortDetailAdapter;
+import com.beisheng.snatch.adapter.MyScortRecordAdapter;
 import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
-import com.beisheng.snatch.model.ScortDetailVO;
+import com.beisheng.snatch.model.MyCollectVO;
+import com.beisheng.snatch.model.MyScortRecordVO;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
+import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
+import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class ScortDetailActivity extends BaseActivity implements OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener{
+import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
+
+public class MyScortRecordActivity extends BaseActivity implements BGAOnRVItemClickListener, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private LuRecyclerView mRecyclerView;
-    private ScortDetailAdapter mAdapter;
+    private MyScortRecordAdapter mAdapter;
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
 
     @Override
     public void baseSetContentView() {
-        contentInflateView(R.layout.scort_detail_activity);
+        contentInflateView(R.layout.my_scort_record_activity);
     }
 
     @Override
     public void initView() {
-        mBaseTitleTv.setText("积分明细");
+        mBaseTitleTv.setText("兑换记录");
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
         mRecyclerView = getViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
-        mAdapter = new ScortDetailAdapter(mRecyclerView);
+        DividerDecoration divider = DividerUtil.linnerDivider(this, R.dimen.dp_1, R.color.C3);
+        mRecyclerView.addItemDecoration(divider);
+        mAdapter = new MyScortRecordAdapter(mRecyclerView);
         LuRecyclerViewAdapter adapter = new LuRecyclerViewAdapter(mAdapter);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
@@ -49,8 +59,9 @@ public class ScortDetailActivity extends BaseActivity implements OnLoadMoreListe
 
     @Override
     public void bindViewsListener() {
-        mRecyclerView.setOnLoadMoreListener(this);
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
+        mAdapter.setOnRVItemClickListener(this);
+        mRecyclerView.setOnLoadMoreListener(this);
     }
 
     @Override
@@ -58,12 +69,12 @@ public class ScortDetailActivity extends BaseActivity implements OnLoadMoreListe
         HashMap<String, Object> map = new HashMap<>();
         map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
         map.put("curpage", mCurrentPage + "");
-        BSHttpUtils.post(mActivity, this, Constant.SCORT_DETAIL_URL, map, ScortDetailVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.MY_SCORT_RECORD_URL, map, MyScortRecordVO.class);
     }
 
     @Override
     public void hasData(BaseVO vo) {
-        ScortDetailVO bean = (ScortDetailVO) vo;
+        MyScortRecordVO bean = (MyScortRecordVO) vo;
         if (BaseCommonUtils.parseInt(bean.getData().getCount()) == 1) {
             mRecyclerView.setLoadMoreEnabled(false);
         }
@@ -72,7 +83,7 @@ public class ScortDetailActivity extends BaseActivity implements OnLoadMoreListe
         } else {
             mRecyclerView.setNoMore(false);
         }
-        List<ScortDetailVO.DataBean.ListBean> list = bean.getData().getList();
+        List<MyScortRecordVO.DataBean.ListBean> list = bean.getData().getList();
         if (isLoadMore) {
             mAdapter.updateDataLast(list);
             isLoadMore = false;
@@ -96,14 +107,24 @@ public class ScortDetailActivity extends BaseActivity implements OnLoadMoreListe
     }
 
     @Override
-    public void onLoadMore() {
-        isLoadMore = true;
-        getData();
+    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+        if (mAdapter.getData().size() == 0)
+            return;
+        MyCollectVO.DataBean.ListBean bean = (MyCollectVO.DataBean.ListBean) mAdapter.getItem(position);
+        Bundle bundle = new Bundle();
+        bundle.putString("id", bean.getPid());
+        open(ShopDetailActivity.class, bundle, 0);
     }
 
     @Override
     public void onRefresh() {
         mCurrentPage = 1;
+        getData();
+    }
+
+    @Override
+    public void onLoadMore() {
+        isLoadMore = true;
         getData();
     }
 }

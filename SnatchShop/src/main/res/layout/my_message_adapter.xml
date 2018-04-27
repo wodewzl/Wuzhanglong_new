@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="2018-3-20" />
+        android:text="2018-3-20"
+        android:textColor="@color/C5"/>
 
     <LinearLayout
         style="@style/padding_15_13"
@@ -37,7 +38,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:text="恭喜你获取100M流量恭喜你获取100M流量恭喜你获取100M流量恭喜你获取100M流量"
-            android:textColor="@color/C5"
+            android:textColor="@color/C6"
             android:textSize="11sp" />
 
         <View

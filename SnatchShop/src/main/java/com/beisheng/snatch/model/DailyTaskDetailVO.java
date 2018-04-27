@@ -9,7 +9,7 @@ import com.wuzhanglong.library.mode.BaseVO;
 public class DailyTaskDetailVO extends BaseVO{
 
     /**
-     * data : {"id":"4","task_name":"每日登陆","task_type":"1","task_icon":"http://qmfq.baonongkang.cn/upload/common/1522316526.jpg","event_id":"1","give_points":"1","do_count":"1",
+     * data : {"id":"4","task_name":"每日登录","task_type":"1","task_icon":"http://qmfq.baonongkang.cn/upload/common/1522316526.jpg","event_id":"1","give_points":"1","do_count":"1",
      * "content":"每日登陆每日登陆每日登陆每日登陆每日登陆每日登陆每日登陆每日登陆每日登陆","type_name":"每日任务","user_do_count":"0"}
      */
 
@@ -26,7 +26,7 @@ public class DailyTaskDetailVO extends BaseVO{
     public static class DataBean {
         /**
          * id : 4
-         * task_name : 每日登陆
+         * task_name : 每日登录
          * task_type : 1
          * task_icon : http://qmfq.baonongkang.cn/upload/common/1522316526.jpg
          * event_id : 1

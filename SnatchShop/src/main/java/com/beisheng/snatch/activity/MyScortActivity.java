@@ -5,7 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beisheng.snatch.R;
@@ -29,12 +29,13 @@ import java.util.HashMap;
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class MyScortActivity extends BaseActivity implements View.OnClickListener , BGAOnRVItemClickListener,PostCallback {
+public class MyScortActivity extends BaseActivity implements View.OnClickListener, BGAOnRVItemClickListener, PostCallback {
     private LuRecyclerView mRecyclerView;
     private MyScortAdapter mAdapter;
     private TextView mDetailTv, mScortTv, mDescTv, mTodayTv;
-    private LinearLayout mRuleLayout;
+    private TextView mRuleTv, mGetScortTv;
     private MyScortVO mMyScortVO;
+    private ImageView mMoneyImg;
 
     @Override
     public void baseSetContentView() {
@@ -44,6 +45,7 @@ public class MyScortActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void initView() {
         mBaseTitleTv.setText("我的积分");
+        mBaseOkTv.setText("兑换记录");
         mRecyclerView = getViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         DividerDecoration divider = DividerUtil.linnerDivider(this, R.dimen.dp_1, R.color.C3);
@@ -53,17 +55,22 @@ public class MyScortActivity extends BaseActivity implements View.OnClickListene
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLoadMoreEnabled(false);
         mDetailTv = getViewById(R.id.today_tv);
-        mScortTv=getViewById(R.id.scort_tv);
-        mDescTv=getViewById(R.id.desc_tv);
-        mTodayTv=getViewById(R.id.today_tv);
-        mRuleLayout=getViewById(R.id.rule_layout);
+        mScortTv = getViewById(R.id.scort_tv);
+        mDescTv = getViewById(R.id.desc_tv);
+        mTodayTv = getViewById(R.id.today_tv);
+        mRuleTv = getViewById(R.id.rule_tv);
+        mGetScortTv = getViewById(R.id.get_scort_tv);
+        mMoneyImg=getViewById(R.id.money_img);
     }
 
     @Override
     public void bindViewsListener() {
         mDetailTv.setOnClickListener(this);
         mAdapter.setOnRVItemClickListener(this);
-        mRuleLayout.setOnClickListener(this);
+        mRuleTv.setOnClickListener(this);
+        mGetScortTv.setOnClickListener(this);
+        mMoneyImg.setOnClickListener(this);
+        mBaseOkTv.setOnClickListener(this);
     }
 
     @Override
@@ -100,19 +107,33 @@ public class MyScortActivity extends BaseActivity implements View.OnClickListene
                 bundle.putString("title", "今日积分");
                 open(DailyTaskActivity.class, bundle, 0);
                 break;
-            case R.id.rule_layout:
-                StringBuffer sb=new StringBuffer();
-                sb.append(mMyScortVO.getData().getPoint_way()).append("\n").append(mMyScortVO.getData().getExchange_rule());
-//                bundle.putString("content", sb.toString());
-//                open(DailyTaskActivity.class, bundle, 0);
-                RxDialogSure dialogSure=new RxDialogSure(this);
-                dialogSure.setContent(sb.toString());
-                dialogSure.getTvContent().setTextColor(ContextCompat.getColor(this,R.color.C6));
+            case R.id.rule_tv:
+                final RxDialogSure dialogSure = new RxDialogSure(this);
+                dialogSure.setContent(mMyScortVO.getData().getPoint_way());
+                dialogSure.getTvContent().setTextColor(ContextCompat.getColor(this, R.color.C6));
                 dialogSure.getIvLogo().setVisibility(View.GONE);
                 dialogSure.getTvTitle().setTextSize(13);
-                dialogSure.setTitle("积分获取与规则");
+                dialogSure.setTitle("");
                 dialogSure.getTvSure().setTextSize(13);
+                dialogSure.getTvSure().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialogSure.cancel();
+                    }
+                });
                 dialogSure.show();
+
+                showCustomDialog("积分获取",mMyScortVO.getData().getPoint_way());
+
+                break;
+            case R.id.get_scort_tv:
+                showCustomDialog("积分规则",mMyScortVO.getData().getExchange_rule());
+                break;
+            case R.id.money_img:
+                showCustomDialog("","");
+                break;
+            case R.id.base_ok_tv:
+                openActivity(MyScortRecordActivity.class);
                 break;
             default:
                 break;
@@ -121,9 +142,9 @@ public class MyScortActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
-        if(mAdapter.getData().size()==0)
+        if (mAdapter.getData().size() == 0)
             return;
-        final MyScortVO.DataBean.CouponListBean bean= (MyScortVO.DataBean.CouponListBean) mAdapter.getItem(position);
+        final MyScortVO.DataBean.CouponListBean bean = (MyScortVO.DataBean.CouponListBean) mAdapter.getItem(position);
         new SweetAlertDialog(mActivity, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("确定要用积分兑换红包码?")
                 .setConfirmText("确定")
@@ -135,16 +156,33 @@ public class MyScortActivity extends BaseActivity implements View.OnClickListene
                         HashMap<String, Object> map = new HashMap<>();
                         map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
                         map.put("coupon_type_id", bean.getCoupon_type_id());
-                        BSHttpUtils.postCallBack(mActivity,Constant.SORT_EXCHANGE_RED_URL, map, BaseVO.class, MyScortActivity.this);
+                        BSHttpUtils.postCallBack(mActivity, Constant.SORT_EXCHANGE_RED_URL, map, BaseVO.class, MyScortActivity.this);
                         sDialog.dismissWithAnimation();//直接消失
                     }
                 })
                 .show();
-        }
+    }
 
     @Override
     public void success(BaseVO vo) {
         showSuccessToast(vo.getDesc());
         getData();
+    }
+
+    public void showCustomDialog(String title,String content){
+        final RxDialogSure dialog = new RxDialogSure(this);
+        dialog.setContent(content);
+        dialog.getTvContent().setTextColor(ContextCompat.getColor(this, R.color.C6));
+        dialog.getIvLogo().setVisibility(View.GONE);
+        dialog.getTvTitle().setTextSize(13);
+        dialog.setTitle(title);
+        dialog.getTvSure().setTextSize(13);
+        dialog.getTvSure().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+        dialog.show();
     }
 }

@@ -21,14 +21,14 @@ public class MyRedMoneyVO extends BaseVO {
     }
 
     public static class DataBean {
-        private List<CouponListBean> coupon_list;
+        private List<CouponListBean> list;
 
-        public List<CouponListBean> getCoupon_list() {
-            return coupon_list;
+        public List<CouponListBean> getList() {
+            return list;
         }
 
-        public void setCoupon_list(List<CouponListBean> coupon_list) {
-            this.coupon_list = coupon_list;
+        public void setList(List<CouponListBean> list) {
+            this.list = list;
         }
 
         public static class CouponListBean {

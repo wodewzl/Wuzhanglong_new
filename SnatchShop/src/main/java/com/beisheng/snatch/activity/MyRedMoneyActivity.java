@@ -11,7 +11,6 @@ import android.view.animation.DecelerateInterpolator;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.fragment.MyRedMoneyHaveFragment;
-import com.beisheng.snatch.fragment.MyRedMoneyUsedFragment;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.mode.BaseVO;
@@ -133,8 +132,10 @@ public class MyRedMoneyActivity extends BaseActivity {
     public void initViewPagerData() {
         mFragmentList = new ArrayList<>();
         final MyRedMoneyHaveFragment fragment1= MyRedMoneyHaveFragment.newInstance();
+        fragment1.setType("1");
         mFragmentList.add(fragment1);
         final MyRedMoneyHaveFragment fragment2= MyRedMoneyHaveFragment.newInstance();
+        fragment2.setType("2");
         mFragmentList.add(fragment2);
         mViewPager.setOffscreenPageLimit(mTitleDataList.length);
         mViewPager.setAdapter(new FragmentPagerAdapter(mActivity.getSupportFragmentManager()) {

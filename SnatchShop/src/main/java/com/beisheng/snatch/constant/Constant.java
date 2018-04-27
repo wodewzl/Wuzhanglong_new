@@ -50,6 +50,7 @@ public class Constant {
     public static final String MY_SCORT_URL = "/index.php/Api/Account/score_index";//我的积分
     public static final String MY_RED_MONEY_URL = "/index.php/Api/Account/coupon_list";//我的积分
     public static final String FLOW_EXCHANGE_URL = "/index.php/Api/Account/exchange_flow";//兑换流浪
+    public static final String FLOW_RECORD_URL = "/index.php/Api/Account/flow_log";//流量兑换记录
     public static final String SORT_EXCHANGE_RED_URL = "/index.php/Api/Account/exchange_coupon";//兑换红包
     public static final String MY_CENTER_URL = "/index.php/Api/Account/index";//我的首页数据
     public static final String SHOW_DETAIL_URL = "/index.php/Api/Dbindex/evaluate_detail";//晒单详情
@@ -71,7 +72,7 @@ public class Constant {
     public static final String USER_INFO_SEX_URL = "/index.php/Api/Account/update_sex";//修改性别
     public static final String OTHER_LOGIN_BIND_URL = "/index.php/Api/Account/bind_sns";//绑定第三方登陆
     public static final String HELP_URL = "/index.php/Api/Dbindex/contact_us";//联系我们
-
+    public static final String MY_SCORT_RECORD_URL = "/index.php/Api/Account/exchange_log";//联系我们
 
 }
 

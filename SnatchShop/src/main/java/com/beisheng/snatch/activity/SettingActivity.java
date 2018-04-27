@@ -84,6 +84,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.tv_01:
+                if(AppApplication.getInstance().getUserInfoVO()==null){
+                    showCustomToast("请先登陆");
+                    return;
+                }
                 openActivity(NameConfirmActivity.class);
                 break;
             case R.id.tv_02:

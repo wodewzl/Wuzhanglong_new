@@ -74,6 +74,7 @@ public class DailyTaskActivity extends BaseActivity implements BGAOnRVItemClickL
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
+        if(AppApplication.getInstance().getUserInfoVO()!=null)
         map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
         BSHttpUtils.get(mActivity, this, Constant.DAILY_TASK_URL, map, DailyTaskVO.class);
     }
@@ -147,7 +148,7 @@ public class DailyTaskActivity extends BaseActivity implements BGAOnRVItemClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.base_ok_tv:
-                openActivity(ScortDetailActivity.class);
+                openActivity(MyFlowRecordActivity.class);
                 break;
             default:
                 break;

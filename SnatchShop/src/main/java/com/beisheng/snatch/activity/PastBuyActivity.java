@@ -113,7 +113,7 @@ public class PastBuyActivity extends BaseActivity implements BGAOnRVItemClickLis
 
         Bundle bundle = new Bundle();
         bundle.putString("url", vo.getDetail_url());
-        bundle.putString("title", "文章详情");
+        bundle.putString("title", "消息详情");
         open(WebViewActivity.class, bundle, 0);
     }
 

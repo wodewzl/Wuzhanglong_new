@@ -1,6 +1,8 @@
 package com.beisheng.snatch.activity;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -15,6 +17,7 @@ import com.beisheng.snatch.model.MyFlowVO;
 import com.beisheng.snatch.model.PayTypeVO;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
+import com.vondear.rxtools.view.dialog.RxDialogEditSureCancel;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
@@ -117,7 +120,11 @@ public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickLis
             mSelectVO = myFlowVO;
             mSelectVO.setSelect(true);
             mAdapter.notifyDataSetChanged();
-            BaseCommonUtils.setTextThree(this,mFlowTv,"选择购买：",mOneyArray[position],"元",R.color.color_yellow,1.3f);
+            if("其他金额".equals(myFlowVO.getMoney())){
+                showCustomDialog("其他金额","请输入金额");
+            }else {
+                BaseCommonUtils.setTextThree(this,mFlowTv,"选择购买：",mOneyArray[position],"元",R.color.color_yellow,1.3f);
+            }
         } else {
             mDefaultVO.setCheck(false);
             mDefaultVO = (PayTypeVO.DataBean.ListBean) mPayTypeAdapter.getItem(position);
@@ -130,5 +137,35 @@ public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickLis
     @Override
     public void onItemChildCheckedChanged(ViewGroup parent, CompoundButton childView, int position, boolean isChecked) {
         System.out.println("----------");
+    }
+
+    public void showCustomDialog(String title, String hint) {
+        final RxDialogEditSureCancel rxDialogEditTextSureCancle = new RxDialogEditSureCancel(this);//提示弹窗
+        rxDialogEditTextSureCancle.setTitle(title);
+        rxDialogEditTextSureCancle.getTvTitle().setBackgroundColor(ContextCompat.getColor(this, R.color.C1));
+        rxDialogEditTextSureCancle.getTvTitle().setTextSize(13);
+        rxDialogEditTextSureCancle.getTvCancel().setTextSize(13);
+        rxDialogEditTextSureCancle.getTvSure().setTextSize(13);
+        rxDialogEditTextSureCancle.getEditText().setHint(hint);
+        rxDialogEditTextSureCancle.getEditText().setTextSize(11);
+        rxDialogEditTextSureCancle.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
+        rxDialogEditTextSureCancle.getEditText().setHintTextColor(ContextCompat.getColor(this, R.color.C6));
+        rxDialogEditTextSureCancle.getTvSure().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSelectVO.setMoney(rxDialogEditTextSureCancle.getEditText().getText().toString());
+                BaseCommonUtils.setTextThree(BuyFlowActivity.this,mFlowTv,"选择购买：",rxDialogEditTextSureCancle.getEditText().getText().toString(),"元",R.color.color_yellow,1.3f);
+
+                rxDialogEditTextSureCancle.cancel();
+            }
+        });
+        rxDialogEditTextSureCancle.getTvCancel().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rxDialogEditTextSureCancle.cancel();
+            }
+        });
+        rxDialogEditTextSureCancle.show();
+
     }
 }

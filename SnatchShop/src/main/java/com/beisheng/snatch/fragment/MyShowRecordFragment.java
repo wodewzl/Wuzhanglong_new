@@ -288,6 +288,9 @@ public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreList
 
         mOneFiles.clear();
         for (int i = 0; i < mPhotoLayout.getData().size(); i++) {
+            if(mPhotoLayout.getData().get(i).startsWith("http://")){
+                continue;
+            }
             File file = new File(mPhotoLayout.getData().get(i));
             File newFile = CompressHelper.getDefault(mActivity).compressToFile(file);
             mOneFiles.add(newFile);

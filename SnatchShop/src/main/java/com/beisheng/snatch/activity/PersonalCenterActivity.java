@@ -43,7 +43,7 @@ import java.util.HashMap;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PersonalCenterActivity extends BaseActivity {
-    private String[] mTitleDataList = {"兑换记录", "获奖记录", "晒图记录"};
+    private String[] mTitleDataList = {"抢购记录", "获奖记录", "晒图记录"};
     private ViewPager mViewPager;
     private ArrayList<BaseFragment> mFragmentList;
     private ScrollableLayout mScrollableLayout;
