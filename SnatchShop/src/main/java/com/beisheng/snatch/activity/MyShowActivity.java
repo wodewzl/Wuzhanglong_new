@@ -1,5 +1,6 @@
 package com.beisheng.snatch.activity;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
@@ -19,6 +20,7 @@ public class MyShowActivity extends BaseActivity implements View.OnClickListener
     private TextView mTitle1, mTitle2;
     public ViewPager mViewPager;
     private List<MyShowRecordFragment> mList = new ArrayList<>();
+    private MyShowRecordFragment mTwo;
 
 
     @Override
@@ -32,11 +34,11 @@ public class MyShowActivity extends BaseActivity implements View.OnClickListener
         mTitle1 = getViewById(R.id.title1);
         mTitle2 = getViewById(R.id.title2);
         MyShowRecordFragment one = MyShowRecordFragment.newInstance();
-        one.setType("0");
-        MyShowRecordFragment two = MyShowRecordFragment.newInstance();
-        two.setType("1");
+        one.setType("1");
+        mTwo = MyShowRecordFragment.newInstance();
+        mTwo.setType("2");
         mList.add(one);
-        mList.add(two);
+        mList.add(mTwo);
         mViewPager = (ViewPager) findViewById(com.wuzhanglong.library.R.id.vp_home);
         mViewPager.setOffscreenPageLimit(2);
     }
@@ -126,4 +128,11 @@ public class MyShowActivity extends BaseActivity implements View.OnClickListener
                 break;
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mTwo.onActivityResult(requestCode, resultCode, data);
+    }
+
 }

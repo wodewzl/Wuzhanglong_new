@@ -23,14 +23,23 @@
             />
 
         <com.wuzhanglong.library.view.ArcImageView
-            android:id="@+id/one_img"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="140dp"
             android:layout_marginTop="120dp"
+            android:src="@drawable/home_ad_bg"
             android:scaleType="centerCrop"
-            android:src="@drawable/logo"
             app:arcHeight="10dp"
             />
+
+        <ImageView
+            android:id="@+id/one_img"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="150dp"
+            android:background="@color/C1"/>
+
     </FrameLayout>
 
     <LinearLayout

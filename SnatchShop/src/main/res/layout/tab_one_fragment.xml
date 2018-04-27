@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/C1"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/C1"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/title_layout"
@@ -18,79 +18,78 @@
         android:paddingRight="15dp">
 
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:text="全民疯抢"
             android:textColor="@color/C1"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <ImageView
             android:id="@+id/search_img"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/search_img"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:src="@drawable/search_img"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <com.cpoopc.scrollablelayoutlib.ScrollableLayout
-        android:id="@+id/scrollable_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/head_layouat"
+        <com.cpoopc.scrollablelayoutlib.ScrollableLayout
+            android:id="@+id/scrollable_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:id="@+id/head_layouat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <include layout="@layout/tab_one_head_layout" />
-        </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <include layout="@layout/tab_one_head_layout"/>
+            </LinearLayout>
 
-        <net.lucode.hackware.magicindicator.MagicIndicator
-            android:id="@+id/magic_indicator"
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/order_img"
-                android:layout_width="30dp"
-                android:layout_height="15dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/order_high"
-                android:layout_marginRight="10dp"/>
-        </RelativeLayout>
+                <net.lucode.hackware.magicindicator.MagicIndicator
+                    android:id="@+id/magic_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"/>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.cpoopc.scrollablelayoutlib.ScrollableLayout>
+                <ImageView
+                    android:id="@+id/order_img"
+                    android:layout_width="30dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/order_high"/>
+            </RelativeLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.cpoopc.scrollablelayoutlib.ScrollableLayout>
+
         <ImageView
             android:id="@+id/sgin_img"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="330dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="120dp"
-            android:src="@drawable/sgin"
-            android:layout_alignParentRight="true"/>
+            android:src="@drawable/sgin"/>
     </RelativeLayout>
-
 
 
 </LinearLayout>

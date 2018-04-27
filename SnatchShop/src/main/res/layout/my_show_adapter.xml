@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/C1"
-    android:orientation="vertical">
-
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/C1"
+              android:orientation="vertical">
 
     <RelativeLayout
         style="@style/padding_15_10"
@@ -29,7 +28,7 @@
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/head_img"
             android:text="吴章龙"
-            android:textSize="13sp" />
+            android:textSize="13sp"/>
 
         <TextView
             android:id="@+id/status_tv"
@@ -37,10 +36,10 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/name_tv"
             android:layout_alignParentRight="true"
+            android:drawableLeft="@drawable/rebuy"
+            android:drawablePadding="5dp"
             android:text="再次抢购"
-            android:textColor="@color/colorAccent"
-             android:drawableLeft="@drawable/rebuy"
-            android:drawablePadding="5dp"/>
+            android:textColor="@color/colorAccent"/>
 
         <TextView
             android:id="@+id/content_tv"
@@ -50,7 +49,7 @@
             android:layout_marginTop="10dp"
             android:text="我爱你我爱你我爱你我我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你我爱你爱你我爱你我爱你"
             android:textColor="@color/C5"
-            android:textSize="11sp" />
+            android:textSize="11sp"/>
 
         <cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout
             android:id="@+id/photo_layout"
@@ -64,9 +63,10 @@
             app:bga_npl_itemWidth="80dp"
             app:bga_npl_otherWhiteSpacing="0dp"
             app:bga_npl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
-            app:bga_npl_showAsLargeWhenOnlyOne="false" />
+            app:bga_npl_showAsLargeWhenOnlyOne="false"/>
 
         <LinearLayout
+            android:id="@+id/success_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/photo_layout"
@@ -94,7 +94,7 @@
                 android:drawablePadding="5dp"
                 android:text="3"
                 android:textColor="@color/C5"
-                android:textSize="11sp" />
+                android:textSize="11sp"/>
 
             <TextView
                 android:id="@+id/share_count_tv"
@@ -105,7 +105,15 @@
                 android:drawablePadding="5dp"
                 android:text="3"
                 android:textColor="@color/C5"
-                android:textSize="11sp" />
+                android:textSize="11sp"/>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/fail_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ddddddddd"
+            android:layout_below="@id/success_layout"
+            />
     </RelativeLayout>
 </LinearLayout>
