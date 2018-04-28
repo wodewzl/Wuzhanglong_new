@@ -36,7 +36,7 @@
                     android:layout_height="20dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="15dp"
-                    android:src="@drawable/my_setting"
+                    android:src="@drawable/msg"
 
                     />
 
@@ -79,14 +79,14 @@
                             android:id="@+id/name_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="百思不得其解"
+                            android:text="登录/注册"
                             android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/user_no_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="百思不得其解"
+
                             android:textColor="@color/C6"
                             android:textSize="11sp" />
                     </LinearLayout>

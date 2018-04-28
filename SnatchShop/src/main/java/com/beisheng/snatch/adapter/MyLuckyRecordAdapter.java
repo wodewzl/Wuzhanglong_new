@@ -48,19 +48,41 @@ public class MyLuckyRecordAdapter extends RecyclerBaseAdapter {
             }
             BaseCommonUtils.setTextThree(mContext, helper.getTextView(R.id.tv_03), "您抢购了：", bean.getBuy_total(), "次", R.color.colorAccent, 1.3f);
 
+            if ("1".equals(bean.getOvertime())) {
+                helper.setVisibility(R.id.status_img, View.VISIBLE);
+                helper.setImageResource(R.id.status_img, R.drawable.show_fail);
+                helper.setVisibility(R.id.check_box, View.GONE);
+            } else {
+                helper.setVisibility(R.id.status_img, View.GONE);
+                helper.setVisibility(R.id.check_box, View.VISIBLE);
+            }
         } else {
             helper.getView(R.id.check_box).setVisibility(View.GONE);
             helper.getView(R.id.tv_04).setVisibility(View.VISIBLE);
             helper.setText(R.id.tv_03, bean.getDelivery_status_text());
-            if ("1".equals(bean.getDelivery_status())) {
-                helper.setText(R.id.tv_04, "查看物流详情");
-                helper.setVisibility(R.id.tv_04,View.VISIBLE);
-            } else if ("2".equals(bean.getDelivery_status())) {
-                helper.setText(R.id.tv_04, "晒单有礼");
-                helper.setVisibility(R.id.tv_04,View.VISIBLE);
-            }else {
-                helper.setVisibility(R.id.tv_04,View.GONE);
+            helper.setVisibility(R.id.status_img, View.GONE);
+            if ("1".equals(bean.getIs_virtual())) {
+                helper.setText(R.id.tv_04, "查看卡密");
+                helper.setVisibility(R.id.tv_04, View.VISIBLE);
+            } else {
+                if ("0".equals(bean.getDelivery_status())) {
+                    helper.setVisibility(R.id.tv_04, View.GONE);
+                } else if ("1".equals(bean.getDelivery_status())) {
+                    helper.setText(R.id.tv_04, "查看物流详情");
+                    helper.setVisibility(R.id.tv_04, View.VISIBLE);
+                } else if ("2".equals(bean.getDelivery_status())) {
+                    if ("0".equals(bean.getIs_evaluate())) {
+                        helper.setText(R.id.tv_04, "晒单有礼");
+                        helper.setVisibility(R.id.tv_04, View.VISIBLE);
+                        helper.setVisibility(R.id.status_img, View.VISIBLE);
+                        helper.setImageResource(R.id.status_img, R.drawable.show_scuss);
+                    } else {
+                        helper.setVisibility(R.id.status_img, View.GONE);
+                    }
+                }
             }
+
+
             helper.setItemChildClickListener(R.id.tv_04);
 
         }

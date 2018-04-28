@@ -30,6 +30,14 @@
             android:paddingRight="15dp"
             android:textColorHint="@color/C6"
             android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/back_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
     <com.wuzhanglong.library.view.AutoSwipeRefreshLayout

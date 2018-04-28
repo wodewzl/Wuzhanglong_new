@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.activity.MyLuckyRecordActivity;
+import com.beisheng.snatch.activity.ShopDetailActivity;
 import com.beisheng.snatch.activity.ShowDetailActivity;
 import com.beisheng.snatch.adapter.MyShowAdapter;
 import com.beisheng.snatch.application.AppApplication;
@@ -193,10 +194,10 @@ public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreList
     @Override
     public void onItemChildClick(ViewGroup parent, View childView, int position) {
         ShowVO.DataBean.ListBean vo = (ShowVO.DataBean.ListBean) mAdapter.getItem(position);
-        if ("1".equals(vo.getStatus())) {
+        if ("0".equals(vo.getStatus())) {
             Bundle bundle = new Bundle();
             bundle.putString("id", vo.getId());
-            mActivity.open(ShowDetailActivity.class, bundle, 0);
+            mActivity.open(ShopDetailActivity.class, bundle, 0);
         } else if ("2".equals(vo.getStatus())) {
             mDialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.show_order_dialog);
             mPhotoLayout = mDialog.getWindow().getDecorView().findViewById(R.id.phone_layout);

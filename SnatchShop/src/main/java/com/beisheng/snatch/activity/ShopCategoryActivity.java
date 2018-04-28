@@ -1,5 +1,6 @@
 package com.beisheng.snatch.activity;
 
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,16 +19,12 @@ import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
-import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
-import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,6 +87,9 @@ public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLe
         mRightRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         mRightRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
         mRightRecyclerView.setLoadMoreEnabled(true);
+
+        mBaseOkTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.search_img, 0, 0);
+
     }
 
     @Override
@@ -102,6 +102,7 @@ public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLe
         mTitle02Tv.setOnClickListener(this);
         mTitle03Tv.setOnClickListener(this);
         mTitle04Tv.setOnClickListener(this);
+        mBaseOkTv.setOnClickListener(this);
     }
 
     @Override
@@ -178,14 +179,14 @@ public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLe
     }
 
     @Override
-    public void onRVItemClick(ViewGroup viewGroup, View view, int i) {
+    public void onRVItemClick(ViewGroup viewGroup, View view, int position) {
         if (mRightAdapter.getData().size() == 0)
             return;
 
-        EBMessageVO ebMessageVO = new EBMessageVO("back_car_address");
-        ebMessageVO.setObject(mRightAdapter.getData().get(i));
-        EventBus.getDefault().post(ebMessageVO);
-        this.finish();
+        ShopCategoryRightVO.DataBean.ListBean bean= (ShopCategoryRightVO.DataBean.ListBean) mRightAdapter.getItem(position);
+        Bundle bundle=new Bundle();
+        bundle.putString("id",bean.getId());
+        open(ShopDetailActivity.class,bundle,0);
     }
 
     @Override
@@ -208,6 +209,9 @@ public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLe
             case R.id.title_03_tv:
             case R.id.title_04_tv:
                 setTitleStyle(v.getId());
+                break;
+            case R.id.base_ok_tv:
+                openActivity(SearchShopActivity.class);
                 break;
             default:
                 break;

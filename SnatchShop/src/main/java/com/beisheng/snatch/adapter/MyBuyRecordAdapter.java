@@ -43,8 +43,10 @@ public class MyBuyRecordAdapter extends RecyclerBaseAdapter {
         CountdownView countdownView = helper.getView(R.id.countdown_view);
         if ("1".equals(type)) {
             helper.setVisibility(R.id.status_layout, View.VISIBLE);
+            helper.setVisibility(R.id.status_img, View.GONE);
         } else {
             helper.setVisibility(R.id.status_layout, View.GONE);
+            helper.setVisibility(R.id.status_img, View.VISIBLE);
         }
         if ("1".equals(bean.getPrise_status())) {
             helper.setText(R.id.status_tv, "本期剩余");
@@ -57,8 +59,10 @@ public class MyBuyRecordAdapter extends RecyclerBaseAdapter {
             countdownView.start(BaseCommonUtils.parseLong(bean.getSeconds_remain()) * 1000); // Millisecond
             countdownView.setVisibility(View.VISIBLE);
             helper.setVisibility(R.id.tv_04, View.GONE);
-        } else if ("".equals(bean.getPrise_status())) {
-
+        } else if ("5".equals(bean.getPrise_status())) {
+            helper.setText(R.id.status_tv, "福彩故障");
+            countdownView.setVisibility(View.GONE);
+            helper.setVisibility(R.id.tv_04, View.GONE);
         } else {
 
         }

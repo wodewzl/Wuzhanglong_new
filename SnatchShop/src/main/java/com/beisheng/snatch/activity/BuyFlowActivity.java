@@ -6,6 +6,7 @@ import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beisheng.snatch.R;
@@ -17,6 +18,7 @@ import com.beisheng.snatch.model.MyFlowVO;
 import com.beisheng.snatch.model.PayTypeVO;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
+import com.squareup.picasso.Picasso;
 import com.vondear.rxtools.view.dialog.RxDialogEditSureCancel;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.BSHttpUtils;
@@ -31,7 +33,7 @@ import java.util.List;
 import cn.bingoogolapple.baseadapter.BGAOnItemChildCheckedChangeListener;
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 
-public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickListener,BGAOnItemChildCheckedChangeListener {
+public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickListener, BGAOnItemChildCheckedChangeListener {
     private String[] mOneyArray = {"20", "50", "100", "200", "500", "其他金额"};
     private LuRecyclerView mRecyclerView;
     private MoneyAdapter mAdapter;
@@ -40,6 +42,8 @@ public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickLis
     private LuRecyclerView mPayRecyclerView;
     private PayTypeVO.DataBean.ListBean mDefaultVO;
     private TextView mFlowTv;
+    private ImageView mFlowImg;
+    private TextView mDescTv;
 
     @Override
     public void baseSetContentView() {
@@ -49,7 +53,11 @@ public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickLis
     @Override
     public void initView() {
         mBaseTitleTv.setText("买流量");
-        mFlowTv=getViewById(R.id.flow_tv);
+        mFlowImg = getViewById(R.id.flow_bg);
+        Picasso.with(this).load(AppApplication.getInstance().getUserInfoVO().getData().getRecharge_banner()).into(mFlowImg);
+        mDescTv = getViewById(R.id.desc_tv);
+        mDescTv.setText(AppApplication.getInstance().getUserInfoVO().getData().getRecharge_desc());
+        mFlowTv = getViewById(R.id.flow_tv);
         mRecyclerView = getViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         mAdapter = new MoneyAdapter(mRecyclerView);
@@ -78,6 +86,7 @@ public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickLis
         mAdapter.setOnRVItemClickListener(this);
         mPayTypeAdapter.setOnRVItemClickListener(this);
 //        mPayTypeAdapter.setOnItemChildCheckedChangeListener(this);
+
     }
 
     @Override
@@ -95,7 +104,7 @@ public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickLis
         List<PayTypeVO.DataBean.ListBean> list = payTypeVO.getData().getList();
         mDefaultVO = list.get(0);
         mDefaultVO.setCheck(true);
-        BaseCommonUtils.setTextThree(this,mFlowTv,"选择购买：",mOneyArray[0],"元",R.color.color_yellow,1.3f);
+        BaseCommonUtils.setTextThree(this, mFlowTv, "选择购买：", mOneyArray[0], "元", R.color.color_yellow, 1.3f);
 
         mPayTypeAdapter.updateData(list);
     }
@@ -120,10 +129,10 @@ public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickLis
             mSelectVO = myFlowVO;
             mSelectVO.setSelect(true);
             mAdapter.notifyDataSetChanged();
-            if("其他金额".equals(myFlowVO.getMoney())){
-                showCustomDialog("其他金额","请输入金额");
-            }else {
-                BaseCommonUtils.setTextThree(this,mFlowTv,"选择购买：",mOneyArray[position],"元",R.color.color_yellow,1.3f);
+            if ("其他金额".equals(myFlowVO.getMoney())) {
+                showCustomDialog("其他金额", "请输入金额");
+            } else {
+                BaseCommonUtils.setTextThree(this, mFlowTv, "选择购买：", mOneyArray[position], "元", R.color.color_yellow, 1.3f);
             }
         } else {
             mDefaultVO.setCheck(false);
@@ -154,7 +163,7 @@ public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickLis
             @Override
             public void onClick(View v) {
                 mSelectVO.setMoney(rxDialogEditTextSureCancle.getEditText().getText().toString());
-                BaseCommonUtils.setTextThree(BuyFlowActivity.this,mFlowTv,"选择购买：",rxDialogEditTextSureCancle.getEditText().getText().toString(),"元",R.color.color_yellow,1.3f);
+                BaseCommonUtils.setTextThree(BuyFlowActivity.this, mFlowTv, "选择购买：", rxDialogEditTextSureCancle.getEditText().getText().toString(), "元", R.color.color_yellow, 1.3f);
 
                 rxDialogEditTextSureCancle.cancel();
             }

@@ -11,7 +11,11 @@ import java.io.Serializable;
 public class UserInfoVO extends BaseVO implements Serializable{
 
     /**
-     * data : {"nickname":"疯抢用户10005","user_no":"10005","avatar":"http://qmfq.baonongkang.cn/upload/avator/20180327/547e0080928a301433792ff0b4eb304b.jpg","flow":"10000.00","coupon_count":"1","point":"150","balance":"768","jiguang_alias":"qmfq_9","sex":"1","user_tel":"18972221696","sex_text":"男","qq_nickname":"","wx_nickname":"","aboutus_url":"http://qmfq.baonongkang.cn/index.php?s=/Wap/helpcenter/index&id=17","ysxy_url":"http://qmfq.baonongkang.cn/index.php?s=/Wap/helpcenter/index&id=3","fwxy_url":"http://qmfq.baonongkang.cn/index.php?s=/Wap/helpcenter/index&id=1"}
+     * data : {"nickname":"武大郎","user_no":"10007","avatar":"http://qmfq.baonongkang.cn/upload/avator/20180424/10c0b3df6d7891ce1973469537562e23.jpeg","flow":"0.20","coupon_count":"2","point":"15",
+     * "balance":"15","jiguang_alias":"qmfq_11","sex":"0","user_tel":"18602727134","sex_text":"未知","qq_nickname":"潍渼の緈鍢","wx_nickname":"","aboutus_url":"http://qmfq.baonongkang.cn/index
+     * .php?s=/Wap/helpcenter/index&id=17","ysxy_url":"http://qmfq.baonongkang.cn/index.php?s=/Wap/helpcenter/index&id=3","fwxy_url":"http://qmfq.baonongkang.cn/index
+     * .php?s=/Wap/helpcenter/index&id=1","default_address":"广东省广州市东山区通用名图","recharge_banner":"http://qmfq.baonongkang.cn/public/static/images/recharge_banner.jpg",
+     * "recharge_desc":"充值1元，获得0.01M流量，获赠1次疯抢资格。","smrz_banner":"http://qmfq.baonongkang.cn/public/static/images/smrz_banner.jpg"}
      */
 
     private DataBean data;
@@ -26,22 +30,26 @@ public class UserInfoVO extends BaseVO implements Serializable{
 
     public static class DataBean implements Serializable{
         /**
-         * nickname : 疯抢用户10005
-         * user_no : 10005
-         * avatar : http://qmfq.baonongkang.cn/upload/avator/20180327/547e0080928a301433792ff0b4eb304b.jpg
-         * flow : 10000.00
-         * coupon_count : 1
-         * point : 150
-         * balance : 768
-         * jiguang_alias : qmfq_9
-         * sex : 1
-         * user_tel : 18972221696
-         * sex_text : 男
-         * qq_nickname :
+         * nickname : 武大郎
+         * user_no : 10007
+         * avatar : http://qmfq.baonongkang.cn/upload/avator/20180424/10c0b3df6d7891ce1973469537562e23.jpeg
+         * flow : 0.20
+         * coupon_count : 2
+         * point : 15
+         * balance : 15
+         * jiguang_alias : qmfq_11
+         * sex : 0
+         * user_tel : 18602727134
+         * sex_text : 未知
+         * qq_nickname : 潍渼の緈鍢
          * wx_nickname :
          * aboutus_url : http://qmfq.baonongkang.cn/index.php?s=/Wap/helpcenter/index&id=17
          * ysxy_url : http://qmfq.baonongkang.cn/index.php?s=/Wap/helpcenter/index&id=3
          * fwxy_url : http://qmfq.baonongkang.cn/index.php?s=/Wap/helpcenter/index&id=1
+         * default_address : 广东省广州市东山区通用名图
+         * recharge_banner : http://qmfq.baonongkang.cn/public/static/images/recharge_banner.jpg
+         * recharge_desc : 充值1元，获得0.01M流量，获赠1次疯抢资格。
+         * smrz_banner : http://qmfq.baonongkang.cn/public/static/images/smrz_banner.jpg
          */
 
         private String nickname;
@@ -60,16 +68,11 @@ public class UserInfoVO extends BaseVO implements Serializable{
         private String aboutus_url;
         private String ysxy_url;
         private String fwxy_url;
-        private String user_tel_bind;
         private String default_address;
-
-        public String getDefault_address() {
-            return default_address;
-        }
-
-        public void setDefault_address(String default_address) {
-            this.default_address = default_address;
-        }
+        private String recharge_banner;
+        private String recharge_desc;
+        private String smrz_banner;
+        private String user_tel_bind;
 
         public String getUser_tel_bind() {
             return user_tel_bind;
@@ -205,6 +208,38 @@ public class UserInfoVO extends BaseVO implements Serializable{
 
         public void setFwxy_url(String fwxy_url) {
             this.fwxy_url = fwxy_url;
+        }
+
+        public String getDefault_address() {
+            return default_address;
+        }
+
+        public void setDefault_address(String default_address) {
+            this.default_address = default_address;
+        }
+
+        public String getRecharge_banner() {
+            return recharge_banner;
+        }
+
+        public void setRecharge_banner(String recharge_banner) {
+            this.recharge_banner = recharge_banner;
+        }
+
+        public String getRecharge_desc() {
+            return recharge_desc;
+        }
+
+        public void setRecharge_desc(String recharge_desc) {
+            this.recharge_desc = recharge_desc;
+        }
+
+        public String getSmrz_banner() {
+            return smrz_banner;
+        }
+
+        public void setSmrz_banner(String smrz_banner) {
+            this.smrz_banner = smrz_banner;
         }
     }
 }

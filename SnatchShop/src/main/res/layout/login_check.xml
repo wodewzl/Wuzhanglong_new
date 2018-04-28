@@ -14,7 +14,9 @@
         android:gravity="center"
         android:textColor="@color/C5"
         android:textSize="11sp"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp"
+        android:checked="true"
+        android:enabled="false"/>
 
     <TextView
         android:layout_width="wrap_content"

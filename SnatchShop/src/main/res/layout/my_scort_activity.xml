@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="200dp"
         android:background="@color/C1">
 
         <TextView
@@ -40,6 +40,14 @@
             android:layout_marginTop="10dp"
             android:text="每日0、8、12、18点充值兑换红包数量"
             android:textColor="@color/C5"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/scort_bg"
+            android:adjustViewBounds="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"/>
 
         <TextView
             android:id="@+id/title_tv"

@@ -6,8 +6,27 @@ import java.util.List;
 
 public class MyLuckyRecordVO extends BaseVO {
 
+
     /**
-     * data : {"list":[{"id":"1","pid":"2","issue_no":"2014980203","goods_id":"57","goods_name":"14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1","goods_picture":"http://qmfq.baonongkang.cn/upload/goods/14993421511182.jpg","buy_total":"5590","delivery_status":"1","is_evaluate":"0","is_virtual":"0","delivery_status_text":"正在派件"}],"page":"1","count":"1"}
+     * data : {"list":[{"id":"33","pid":"29","issue_no":"5199536046","goods_id":"67","goods_name":"中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g","goods_picture":"http://qmfq.baonongkang
+     * .cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg","buy_total":"1000","delivery_status":"0","is_evaluate":"0","is_virtual":"0","overtime":"1","delivery_status_text":"待发货"},
+     * {"id":"28","pid":"22","issue_no":"1850003821","goods_id":"65","goods_name":"Apple适用于12.9英寸iPad Pro的Smart Keyboard","goods_picture":"http://qmfq.baonongkang
+     * .cn/upload/goods/20180315/69f5fd5aa4d909009a4f0763b110d7e52.jpg","buy_total":"3000","delivery_status":"0","is_evaluate":"0","is_virtual":"0","overtime":"1","delivery_status_text":"待发货"},
+     * {"id":"25","pid":"22","issue_no":"1850003821","goods_id":"65","goods_name":"Apple适用于12.9英寸iPad Pro的Smart Keyboard","goods_picture":"http://qmfq.baonongkang
+     * .cn/upload/goods/20180315/69f5fd5aa4d909009a4f0763b110d7e52.jpg","buy_total":"3000","delivery_status":"0","is_evaluate":"0","is_virtual":"0","overtime":"1","delivery_status_text":"待发货"},
+     * {"id":"24","pid":"20","issue_no":"1381882978","goods_id":"71","goods_name":"高档茶壶","goods_picture":"http://qmfq.baonongkang.cn/upload/goods/1499337509542.jpg","buy_total":"200",
+     * "delivery_status":"0","is_evaluate":"0","is_virtual":"0","overtime":"1","delivery_status_text":"待发货"},{"id":"23","pid":"19","issue_no":"4896855698","goods_id":"67","goods_name":"中国黄金
+     * 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g","goods_picture":"http://qmfq.baonongkang.cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg","buy_total":"1000","delivery_status":"0",
+     * "is_evaluate":"0","is_virtual":"0","overtime":"1","delivery_status_text":"待发货"},{"id":"22","pid":"28","issue_no":"1304916358","goods_id":"67","goods_name":"中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状
+     * 约1.62g","goods_picture":"http://qmfq.baonongkang.cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg","buy_total":"1000","delivery_status":"0","is_evaluate":"0","is_virtual":"0",
+     * "overtime":"1","delivery_status_text":"待发货"},{"id":"21","pid":"22","issue_no":"1850003821","goods_id":"65","goods_name":"Apple适用于12.9英寸iPad Pro的Smart Keyboard","goods_picture":"http://qmfq
+     * .baonongkang.cn/upload/goods/20180315/69f5fd5aa4d909009a4f0763b110d7e52.jpg","buy_total":"3000","delivery_status":"0","is_evaluate":"0","is_virtual":"0","overtime":"1",
+     * "delivery_status_text":"待发货"},{"id":"20","pid":"20","issue_no":"1381882978","goods_id":"71","goods_name":"高档茶壶","goods_picture":"http://qmfq.baonongkang.cn/upload/goods/1499337509542.jpg",
+     * "buy_total":"200","delivery_status":"0","is_evaluate":"0","is_virtual":"0","overtime":"1","delivery_status_text":"待发货"},{"id":"19","pid":"19","issue_no":"4896855698","goods_id":"67",
+     * "goods_name":"中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g","goods_picture":"http://qmfq.baonongkang.cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg","buy_total":"1000",
+     * "delivery_status":"0","is_evaluate":"0","is_virtual":"0","overtime":"1","delivery_status_text":"待发货"},{"id":"18","pid":"16","issue_no":"8031888093","goods_id":"58","goods_name":"夏普电视机",
+     * "goods_picture":"http://qmfq.baonongkang.cn/upload/goods/1499340186842.jpg","buy_total":"7987","delivery_status":"0","is_evaluate":"0","is_virtual":"0","overtime":"1",
+     * "delivery_status_text":"待发货"}],"page":"1","count":"2"}
      */
 
     private DataBean data;
@@ -22,9 +41,27 @@ public class MyLuckyRecordVO extends BaseVO {
 
     public static class DataBean {
         /**
-         * list : [{"id":"1","pid":"2","issue_no":"2014980203","goods_id":"57","goods_name":"14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1","goods_picture":"http://qmfq.baonongkang.cn/upload/goods/14993421511182.jpg","buy_total":"5590","delivery_status":"1","is_evaluate":"0","is_virtual":"0","delivery_status_text":"正在派件"}]
+         * list : [{"id":"33","pid":"29","issue_no":"5199536046","goods_id":"67","goods_name":"中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g","goods_picture":"http://qmfq.baonongkang
+         * .cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg","buy_total":"1000","delivery_status":"0","is_evaluate":"0","is_virtual":"0","overtime":"1","delivery_status_text":"待发货"},
+         * {"id":"28","pid":"22","issue_no":"1850003821","goods_id":"65","goods_name":"Apple适用于12.9英寸iPad Pro的Smart Keyboard","goods_picture":"http://qmfq.baonongkang
+         * .cn/upload/goods/20180315/69f5fd5aa4d909009a4f0763b110d7e52.jpg","buy_total":"3000","delivery_status":"0","is_evaluate":"0","is_virtual":"0","overtime":"1","delivery_status_text":"待发货"},
+         * {"id":"25","pid":"22","issue_no":"1850003821","goods_id":"65","goods_name":"Apple适用于12.9英寸iPad Pro的Smart Keyboard","goods_picture":"http://qmfq.baonongkang
+         * .cn/upload/goods/20180315/69f5fd5aa4d909009a4f0763b110d7e52.jpg","buy_total":"3000","delivery_status":"0","is_evaluate":"0","is_virtual":"0","overtime":"1","delivery_status_text":"待发货"},
+         * {"id":"24","pid":"20","issue_no":"1381882978","goods_id":"71","goods_name":"高档茶壶","goods_picture":"http://qmfq.baonongkang.cn/upload/goods/1499337509542.jpg","buy_total":"200",
+         * "delivery_status":"0","is_evaluate":"0","is_virtual":"0","overtime":"1","delivery_status_text":"待发货"},{"id":"23","pid":"19","issue_no":"4896855698","goods_id":"67","goods_name":"中国黄金
+         * 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g","goods_picture":"http://qmfq.baonongkang.cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg","buy_total":"1000","delivery_status":"0",
+         * "is_evaluate":"0","is_virtual":"0","overtime":"1","delivery_status_text":"待发货"},{"id":"22","pid":"28","issue_no":"1304916358","goods_id":"67","goods_name":"中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状
+         * 约1.62g","goods_picture":"http://qmfq.baonongkang.cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg","buy_total":"1000","delivery_status":"0","is_evaluate":"0",
+         * "is_virtual":"0","overtime":"1","delivery_status_text":"待发货"},{"id":"21","pid":"22","issue_no":"1850003821","goods_id":"65","goods_name":"Apple适用于12.9英寸iPad Pro的Smart Keyboard",
+         * "goods_picture":"http://qmfq.baonongkang.cn/upload/goods/20180315/69f5fd5aa4d909009a4f0763b110d7e52.jpg","buy_total":"3000","delivery_status":"0","is_evaluate":"0","is_virtual":"0",
+         * "overtime":"1","delivery_status_text":"待发货"},{"id":"20","pid":"20","issue_no":"1381882978","goods_id":"71","goods_name":"高档茶壶","goods_picture":"http://qmfq.baonongkang
+         * .cn/upload/goods/1499337509542.jpg","buy_total":"200","delivery_status":"0","is_evaluate":"0","is_virtual":"0","overtime":"1","delivery_status_text":"待发货"},{"id":"19","pid":"19",
+         * "issue_no":"4896855698","goods_id":"67","goods_name":"中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g","goods_picture":"http://qmfq.baonongkang
+         * .cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg","buy_total":"1000","delivery_status":"0","is_evaluate":"0","is_virtual":"0","overtime":"1","delivery_status_text":"待发货"},
+         * {"id":"18","pid":"16","issue_no":"8031888093","goods_id":"58","goods_name":"夏普电视机","goods_picture":"http://qmfq.baonongkang.cn/upload/goods/1499340186842.jpg","buy_total":"7987",
+         * "delivery_status":"0","is_evaluate":"0","is_virtual":"0","overtime":"1","delivery_status_text":"待发货"}]
          * page : 1
-         * count : 1
+         * count : 2
          */
 
         private String page;
@@ -57,17 +94,18 @@ public class MyLuckyRecordVO extends BaseVO {
 
         public static class ListBean {
             /**
-             * id : 1
-             * pid : 2
-             * issue_no : 2014980203
-             * goods_id : 57
-             * goods_name : 14.1英寸轻薄刀锋四核笔记本电脑手提固态商务学生游戏上网本分期1
-             * goods_picture : http://qmfq.baonongkang.cn/upload/goods/14993421511182.jpg
-             * buy_total : 5590
-             * delivery_status : 1
+             * id : 33
+             * pid : 29
+             * issue_no : 5199536046
+             * goods_id : 67
+             * goods_name : 中国黄金 足金黄金耳钉女磨砂路路通耳钉耳饰珠宝首饰 圆状 约1.62g
+             * goods_picture : http://qmfq.baonongkang.cn/upload/goods/20180315/b602cee595a2a17a6aff66ff30c6610f2.jpg
+             * buy_total : 1000
+             * delivery_status : 0
              * is_evaluate : 0
              * is_virtual : 0
-             * delivery_status_text : 正在派件
+             * overtime : 1
+             * delivery_status_text : 待发货
              */
 
             private String id;
@@ -80,15 +118,16 @@ public class MyLuckyRecordVO extends BaseVO {
             private String delivery_status;
             private String is_evaluate;
             private String is_virtual;
+            private String overtime;
             private String delivery_status_text;
-            private boolean check = false;
+            private boolean isCheck=false;
 
             public boolean isCheck() {
-                return check;
+                return isCheck;
             }
 
             public void setCheck(boolean check) {
-                this.check = check;
+                isCheck = check;
             }
 
             public String getId() {
@@ -169,6 +208,14 @@ public class MyLuckyRecordVO extends BaseVO {
 
             public void setIs_virtual(String is_virtual) {
                 this.is_virtual = is_virtual;
+            }
+
+            public String getOvertime() {
+                return overtime;
+            }
+
+            public void setOvertime(String overtime) {
+                this.overtime = overtime;
             }
 
             public String getDelivery_status_text() {

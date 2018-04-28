@@ -15,11 +15,13 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/flow_bg"
             android:layout_width="match_parent"
             android:layout_height="170dp"
-            android:background="@color/colorAccent" />
+            android:background="@color/C1" />
 
         <TextView
+            android:id="@+id/desc_tv"
             style="@style/padding_15_13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

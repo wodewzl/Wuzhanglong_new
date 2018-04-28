@@ -23,6 +23,7 @@ import com.beisheng.snatch.activity.ShopCategoryActivity;
 import com.beisheng.snatch.activity.ShopChoseActivity;
 import com.beisheng.snatch.activity.SignActivity;
 import com.beisheng.snatch.activity.WebViewActivity;
+import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.HomeVO;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
@@ -331,6 +332,10 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
                 mActivity.open(WebViewActivity.class,bundle,0);
                 break;
             case R.id.sgin_img:
+                if(AppApplication.getInstance().getUserInfoVO()==null){
+                    mActivity.showCustomToast("请先登录");
+                    return;
+                }
                 mActivity.openActivity(SignActivity.class);
                 break;
             default:

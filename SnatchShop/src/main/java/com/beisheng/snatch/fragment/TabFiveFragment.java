@@ -150,7 +150,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
         mRedTv.setText(mUserInfoVO.getData().getCoupon_count());
         mScortTv.setText(mUserInfoVO.getData().getPoint());
 
-        BaseCommonUtils.setTextThree(mActivity, mBuyCountTv, "购买次数：", mUserInfoVO.getData().getBalance(), "次", R.color.colorAccent, 1.1f);
+        BaseCommonUtils.setTextThree(mActivity, mBuyCountTv, "抢购次数：", mUserInfoVO.getData().getBalance(), "次", R.color.colorAccent, 1.1f);
     }
 
     @Override
@@ -532,7 +532,13 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
     public void success(BaseVO vo) {
         if ("2".equals(mSuccessType)) {
             mActivity.showSuccessToast(vo.getDesc());
-            mRegistDialog.dismiss();
+            mUserInfoVO = (UserInfoVO) vo;
+            AppApplication.getInstance().saveUserInfoVO(mUserInfoVO);
+            getData();
+            if (mRegistDialog != null)
+                mRegistDialog.dismiss();
+            if (mLoginDialog != null)
+                mLoginDialog.dismiss();
         } else if ("3".equals(mSuccessType) || "4".equals(mSuccessType) || "6".equals(mSuccessType) || "7".equals(mSuccessType)) {
             mActivity.showSuccessToast(vo.getDesc());
             mUserInfoVO = (UserInfoVO) vo;
@@ -590,13 +596,13 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EBMessageVO event) {
         if ("login_out".equals(event.getMessage())) {
-            mNameTv.setText("请登录");
+            mNameTv.setText("登录/注册");
             mUserNoTv.setText("ID:");
             mFlowTv.setText("0");
             mRedTv.setText("0");
             mScortTv.setText("0");
             BaseCommonUtils.setTextThree(mActivity, mBuyCountTv, "购买次数：", "0", "次", R.color.colorAccent, 1.1f);
-        }else if("update_userinfo".equals(event.getMessage())){
+        } else if ("update_userinfo".equals(event.getMessage())) {
             getData();
         }
     }

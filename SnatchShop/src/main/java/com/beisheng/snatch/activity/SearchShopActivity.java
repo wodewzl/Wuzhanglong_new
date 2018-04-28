@@ -1,5 +1,6 @@
 package com.beisheng.snatch.activity;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -36,7 +37,7 @@ import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 
-public class SearchShopActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener, TextView.OnEditorActionListener, BGAOnRVItemClickListener {
+public class SearchShopActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener, TextView.OnEditorActionListener, BGAOnRVItemClickListener,View.OnClickListener{
     private String mKeyword = "";
     private EditText mSearchEt;
     private List<String> mHistoryKeyword = new ArrayList<>();
@@ -47,6 +48,7 @@ public class SearchShopActivity extends BaseActivity implements SwipeRefreshLayo
     private LinearLayout mKeywordLayout, mHistoryLayout;
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
+    private TextView mBackTv;
 
     @Override
     public void baseSetContentView() {
@@ -79,6 +81,7 @@ public class SearchShopActivity extends BaseActivity implements SwipeRefreshLayo
             KeywordVO historyData = gson.fromJson(historyStr, KeywordVO.class);
             mHistoryKeyword = historyData.getKeywords_history();
         }
+        mBackTv=getViewById(R.id.back_iv);
     }
 
     @Override
@@ -87,6 +90,7 @@ public class SearchShopActivity extends BaseActivity implements SwipeRefreshLayo
         mRecyclerView.setOnLoadMoreListener(this);
         mSearchEt.setOnEditorActionListener(this);
         mAdapter.setOnRVItemClickListener(this);
+        mBackTv.setOnClickListener(this);
     }
 
     @Override
@@ -137,6 +141,10 @@ public class SearchShopActivity extends BaseActivity implements SwipeRefreshLayo
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
         if (mAdapter.getData().size() == 0)
             return;
+        SearchShopVO.DataBean.ListBean bean= (SearchShopVO.DataBean.ListBean) mAdapter.getItem(position);
+        Bundle bundle=new Bundle();
+        bundle.putString("id",bean.getId());
+        open(ShopDetailActivity.class,bundle,0);
     }
 
     @Override
@@ -164,5 +172,10 @@ public class SearchShopActivity extends BaseActivity implements SwipeRefreshLayo
         }
         mAutoSwipeRefreshLayout.autoRefresh();
         return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        this.finish();
     }
 }

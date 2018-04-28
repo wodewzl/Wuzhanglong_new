@@ -1,17 +1,16 @@
 package com.beisheng.snatch.activity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
-import com.beisheng.snatch.model.MyMessageVO;
 import com.beisheng.snatch.model.NameConfirmVO;
+import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
@@ -23,6 +22,7 @@ import java.util.HashMap;
 public class NameConfirmActivity extends BaseActivity implements View.OnClickListener, PostCallback {
     private EditText mNameEt, mNumberEt;
     private TextView mOkTv,mNameTv,mNumberTv;
+    private ImageView mConfirmImg;
 
     @Override
     public void baseSetContentView() {
@@ -37,6 +37,9 @@ public class NameConfirmActivity extends BaseActivity implements View.OnClickLis
         mOkTv = getViewById(R.id.ok_tv);
         mNameTv=getViewById(R.id.name_tv);
         mNumberTv=getViewById(R.id.number_tv);
+        mConfirmImg=getViewById(R.id.confirm_bg);
+        Picasso.with(this).load(AppApplication.getInstance().getUserInfoVO().getData().getSmrz_banner()).into(mConfirmImg);
+
     }
 
     @Override

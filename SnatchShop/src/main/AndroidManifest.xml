@@ -161,6 +161,11 @@
         </activity>
         <activity android:name=".activity.MyScortRecordActivity">
         </activity>
+        <activity
+            android:name=".activity.HomeWebActivity"
+            android:label="@string/title_activity_home_web"
+            android:theme="@style/AppThemeSnatch">
+        </activity>
     </application>
 
 </manifest>

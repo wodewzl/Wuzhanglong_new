@@ -41,7 +41,7 @@ public class ShopChoseActivity extends BaseActivity  implements SwipeRefreshLayo
 
     @Override
     public void initView() {
-        mBaseTitleTv.setText("商品优选");
+        mBaseTitleTv.setText("优选商品");
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
         mRecyclerView = getViewById(R.id.recycler_view);
