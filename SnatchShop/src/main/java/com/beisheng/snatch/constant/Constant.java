@@ -75,6 +75,7 @@ public class Constant {
     public static final String MY_SCORT_RECORD_URL = "/index.php/Api/Account/exchange_log";//联系我们
     public static final String BUY_FLOW_URL = "/index.php/Api/Member/add_recharge";//购买流量
     public static final String CARD_PWD_URL = "/index.php/Api/Member/get_virtual_info";//查看卡密
+    public static final String UPDATE_APP_URL = "/index.php/Api/Dbindex/check_version";//App更新
 
 
 }

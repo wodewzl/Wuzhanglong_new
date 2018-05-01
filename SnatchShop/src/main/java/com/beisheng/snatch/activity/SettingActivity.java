@@ -1,13 +1,20 @@
 package com.beisheng.snatch.activity;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
+import com.allenliu.versionchecklib.v2.AllenVersionChecker;
+import com.allenliu.versionchecklib.v2.builder.UIData;
+import com.allenliu.versionchecklib.v2.callback.RequestVersionListener;
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
+import com.beisheng.snatch.model.UpdateAppVO;
+import com.google.gson.Gson;
 import com.wuzhanglong.library.activity.BaseActivity;
+import com.wuzhanglong.library.constant.BaseConstant;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wuzhanglong.library.utils.DataCleanUtil;
@@ -115,7 +122,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 open(WebViewActivity.class, bundle, 0);
                 break;
             case R.id.tv_06:
-
+                updateApp();
                 break;
             case R.id.tv_08:
                 final String str = mDataCleanUtil.getCacheSize(this, new File(FileUtil.getSaveFilePath(this, Constant.SDCARD_CACHE)));
@@ -176,5 +183,29 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             default:
                 break;
         }
+    }
+
+    public  void updateApp(){
+        AllenVersionChecker
+                .getInstance()
+                .requestVersion()
+                .setRequestUrl(BaseConstant.DOMAIN_NAME+Constant.UPDATE_APP_URL)
+                .request(new RequestVersionListener() {
+                    @Nullable
+                    @Override
+                    public UIData onRequestVersionSuccess(String result) {
+                        //拿到服务器返回的数据，解析，拿到downloadUrl和一些其他的UI数据
+                        //如果是最新版本直接return null
+                        Gson gson=new Gson();
+                        UpdateAppVO bean =  gson.fromJson(result, UpdateAppVO.class);
+                        return UIData.create().setDownloadUrl("");
+                    }
+
+                    @Override
+                    public void onRequestVersionFailure(String message) {
+
+                    }
+                })
+                .excuteMission(this);
     }
 }

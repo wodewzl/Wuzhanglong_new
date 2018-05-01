@@ -162,5 +162,6 @@ https://github.com/wodewzl/FlowLayout
 https://blog.csdn.net/zhangphil/article/details/50135707 用法
 https://github.com/makovkastar/FloatingActionButton   github
 59.自动更新
-https://github.com/AlexLiuSheng/CheckVersionLib
-https://github.com/teprinciple/UpdateAppDemo
+https://github.com/AlexLiuSheng/CheckVersionLib com.allenliu.versionchecklib:library:2.0.3
+https://github.com/teprinciple/UpdateAppDemo  compile 'com.teprinciple:updateapputils:1.4'
+
