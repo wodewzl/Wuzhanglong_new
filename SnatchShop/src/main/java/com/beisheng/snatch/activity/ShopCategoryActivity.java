@@ -88,7 +88,7 @@ public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLe
         mRightRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
         mRightRecyclerView.setLoadMoreEnabled(true);
 
-        mBaseOkTv.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.search_img, 0, 0);
+        mBaseOkTv.setCompoundDrawablesWithIntrinsicBounds(0,0,  R.drawable.search_img, 0);
 
     }
 

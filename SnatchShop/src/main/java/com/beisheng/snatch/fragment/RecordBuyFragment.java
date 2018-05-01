@@ -149,7 +149,6 @@ public class RecordBuyFragment extends BaseFragment implements OnLoadMoreListene
         DialogUIUtils.init(mActivity);
         View rootView = View.inflate(mActivity, R.layout.my_buy_number_dialog, null);
         TextView buyCountTv = rootView.findViewById(R.id.buy_count_tv);
-        buyCountTv.setVisibility(View.GONE);
         BaseCommonUtils.setTextThree(mActivity, buyCountTv, "你抢购了", allList.size()+"", "次(抢购号码如下)", R.color.colorAccent, 1.3f);
         TagFlowLayout tagFlowLayout = rootView.findViewById(R.id.tag_flow_layout);
         List<String> tmp=new ArrayList<>();

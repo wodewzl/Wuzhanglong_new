@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.beisheng.snatch.adapter.WuLiuAdapter;
 import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.AddressVO;
+import com.beisheng.snatch.model.CardPasswordVO;
 import com.beisheng.snatch.model.MyLuckyRecordVO;
 import com.beisheng.snatch.model.WuLiuVO;
 import com.dou361.dialogui.DialogUIUtils;
@@ -170,8 +172,8 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
             }
             mAdapter.notifyDataSetChanged();
             count();
-            if (mAdapter.getData().size() == 0)
-                mBottomLayout.setVisibility(View.GONE);
+
+
             mAutoSwipeRefreshLayout.setRefreshing(false);
         } else if (vo instanceof AddressVO) {
             mAddressVO = (AddressVO) vo;
@@ -310,10 +312,13 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
     @Override
     public void count() {
         mSelectCount = 0;
+
+        mBottomLayout.setVisibility(View.GONE);
         for (int i = 0; i < mAdapter.getData().size(); i++) {
             MyLuckyRecordVO.DataBean.ListBean bean = (MyLuckyRecordVO.DataBean.ListBean) mAdapter.getData().get(i);
             if (bean.isCheck() && "0".equals(bean.getOvertime())) {
                 mSelectCount = mSelectCount + 1;
+                mBottomLayout.setVisibility(View.VISIBLE);
             }
         }
         BaseCommonUtils.setTextTwoLast(mActivity, mTotalCountTv, "全选", "(" + mSelectCount + ")", R.color.colorAccent, 1.0f);
@@ -433,6 +438,9 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
             final WuLiuAdapter dialogAdapter = new WuLiuAdapter(recyclerView);
             RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, recyclerView, dialogAdapter, R.dimen.dp_0, R.color.C3, false);
             dialogAdapter.updateData(mWuLiuVO.getData().getTraces());
+        } else if (vo instanceof CardPasswordVO) {
+            CardPasswordVO bean = (CardPasswordVO) vo;
+            showDialog(bean);
         } else {
             mActivity.showSuccessToast(vo.getDesc());
             mAutoSwipeRefreshLayout.autoRefresh();
@@ -489,7 +497,11 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
         mSelectVO = (MyLuckyRecordVO.DataBean.ListBean) mAdapter.getItem(position);
 
         if ("1".equals(mSelectVO.getIs_virtual())) {
-            showDialog();
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+            map.put("id", mSelectVO.getId());
+            map.put("type", "1");
+            BSHttpUtils.postCallBack(mActivity, Constant.CARD_PWD_URL, map, CardPasswordVO.class, this);
         } else {
             if ("1".equals(mSelectVO.getDelivery_status())) {
                 HashMap<String, Object> map = new HashMap<>();
@@ -515,10 +527,23 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
         }
     }
 
-    public void showDialog() {
+    public void showDialog(CardPasswordVO bean) {
         DialogUIUtils.init(mActivity);
         View rootView = View.inflate(mActivity, R.layout.card_password_dialog, null);
+        TextView statusTv = rootView.findViewById(R.id.status_tv);
+        statusTv.setText(bean.getData().getStatus_text());
+        if ("2".equals(bean.getData().getStatus())) {
+            statusTv.setBackgroundResource(R.drawable.corners_5_gary);
+            statusTv.setTextColor(ContextCompat.getColor(mActivity, R.color.C5));
+        } else {
+            statusTv.setBackgroundResource(R.drawable.corners_5_red);
+            statusTv.setTextColor(ContextCompat.getColor(mActivity, R.color.C1));
+        }
+        TextView numberTv = rootView.findViewById(R.id.number_tv);
+        numberTv.setText("期号：" + mSelectVO.getIssue_no() + "期");
 
+        TextView contentTv = rootView.findViewById(R.id.content_tv);
+        contentTv.setText("兑换码：" + bean.getData().getVirtual_code());
         final BuildBean buildBean = DialogUIUtils.showCustomAlert(mActivity, rootView);
         buildBean.show();
     }

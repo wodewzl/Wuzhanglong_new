@@ -138,11 +138,13 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     private TextView mPayTypeTv, mRedMoneyTv, mBuyTv;
     private int mTotalCount = 0;
     private PayTypeVO mPayTypeVO;
+    private PayTypeVO.DataBean.ListBean mPaySellectVO;
     private PayRedVO mPayRedVO;
     private TextView mCount1, mCount2, mCount3, mCount4, mCount5;
     private NumberButton mNumberButton;
     private TextView mLoginTv, mRegistTv, mLoginWeixinTv, mLoginQqTv;
     private UserInfoVO mUserInfoVO;
+    private LinearLayout mRankOneLayout, mRankTwoLayout, mRankThreeLayout;
 
     @Override
     public void baseSetContentView() {
@@ -216,6 +218,9 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mAddFavorImg = getViewById(R.id.add_favor_img);
         mType3RunTv = getViewById(R.id.type3_run_tv);
         mType3MyBuyTv = getViewById(R.id.type3_my_buy_tv);
+        mRankOneLayout = getViewById(R.id.rank_one_layout);
+        mRankTwoLayout = getViewById(R.id.rank_two_layout);
+        mRankThreeLayout = getViewById(R.id.rank_three_layout);
         initLineChart();
     }
 
@@ -368,6 +373,9 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mType3MyBuyTv.setOnClickListener(this);
         mKeFuImg.setOnClickListener(this);
         EventBus.getDefault().register(this);
+        mRankOneLayout.setOnClickListener(this);
+        mRankTwoLayout.setOnClickListener(this);
+        mRankThreeLayout.setOnClickListener(this);
     }
 
 
@@ -505,9 +513,9 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
 
             if (mShopDetailVO.getChart_data().size() > 0) {
                 ArrayList<Entry> entries = new ArrayList<>();
-                entries.add(new Entry(0 , 100));
+                entries.add(new Entry(0, 100));
                 for (int i = 0; i < mShopDetailVO.getChart_data().size(); i++) {
-                    entries.add(new Entry(i+1, Integer.parseInt(mShopDetailVO.getChart_data().get(i).getBuy_period()) * 100 + 100));
+                    entries.add(new Entry(i + 1, Integer.parseInt(mShopDetailVO.getChart_data().get(i).getBuy_period()) * 100 + 100));
                 }
 //            for (int i = 0; i < 6; i++) {
 //                entries.add(new Entry(i , i*100+100));
@@ -824,7 +832,11 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, payTyperecyclerView, payTypeDialogAdapter, R.dimen.dp_1, R.color.C3, false);
                 if (mPayTypeVO != null) {
                     List<PayTypeVO.DataBean.ListBean> list = mPayTypeVO.getData().getList();
-                    list.get(0).setCheck(true);
+                    if (mPaySellectVO == null) {
+                        mPaySellectVO = list.get(0);
+                        mPaySellectVO.setCheck(true);
+                    }
+
                     payTypeDialogAdapter.updateData(list);
                     mPayType = list.get(0).getPayment_code();
                 }
@@ -832,10 +844,12 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                     @Override
                     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
                         PayTypeVO.DataBean.ListBean bean = (PayTypeVO.DataBean.ListBean) payTypeDialogAdapter.getItem(position);
-                        for (int i = 0; i < mPayTypeVO.getData().getList().size(); i++) {
-                            mPayTypeVO.getData().getList().get(i).setCheck(false);
-                        }
-                        bean.setCheck(true);
+//                        for (int i = 0; i < payTypeDialogAdapter.getData().size(); i++) {
+//                            ((PayTypeVO.DataBean.ListBean)payTypeDialogAdapter.getData().get(i)).setCheck(false);
+//                        }
+                        mPaySellectVO.setCheck(false);
+                        mPaySellectVO = bean;
+                        mPaySellectVO.setCheck(true);
                         payTypeDialogAdapter.notifyDataSetChanged();
                         mPayTypeTv.setText(bean.getPayment_name());
                         mPayType = bean.getPayment_code();
@@ -991,6 +1005,19 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
             case R.id.kefu_img:
                 openActivity(HelpActivity.class);
                 break;
+
+            case R.id.rank_one_layout:
+                bundle.putString("id", mShopDetailVO.getDfw_data().getUid());
+                open(PersonalCenterActivity.class, bundle, 0);
+                break;
+            case R.id.rank_two_layout:
+                bundle.putString("id", mShopDetailVO.getEdj_data().getUid());
+                open(PersonalCenterActivity.class, bundle, 0);
+                break;
+            case R.id.rank_three_layout:
+                bundle.putString("id", mShopDetailVO.getXdz_data().getUid());
+                open(PersonalCenterActivity.class, bundle, 0);
+                break;
             default:
 
                 break;
@@ -1135,7 +1162,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mRedMoneyTv = mPayDialog.getWindow().getDecorView().findViewById(R.id.red_money_tv);
         mBuyTv = mPayDialog.getWindow().getDecorView().findViewById(R.id.buy_tv);
         mNumberButton = mPayDialog.getWindow().getDecorView().findViewById(R.id.number_bt);
-        if (Integer.parseInt(mShopDetailVO.getRemain_count()) == 0) {
+        if (BaseCommonUtils.parseInt(mShopDetailVO.getRemain_count()) == 0) {
             mNumberButton.setEnabled(false);
             mNumberButton.setCurrentNumber(BaseCommonUtils.parseInt("0"));
         } else {
@@ -1346,10 +1373,10 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         TagFlowLayout tagFlowLayout = rootView.findViewById(R.id.tag_flow_layout);
 
         List<String> allList = (List<String>) mShopDetailVO.getUser_data().getBuy_codes();
-        List<String> tmp=new ArrayList<>();
-        if(allList.size()>50){
+        List<String> tmp = new ArrayList<>();
+        if (allList.size() > 50) {
             tmp.addAll(allList.subList(0, 50));
-        }else {
+        } else {
             tmp.addAll(allList);
         }
         tagFlowLayout.setAdapter(new TagAdapter<String>(tmp) {

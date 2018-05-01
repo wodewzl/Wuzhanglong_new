@@ -159,7 +159,7 @@ public class BSHttpUtils {
             }
         }
 
-        params.put("timestamp", System.currentTimeMillis() / 1000);
+        params.put("timestamp", (System.currentTimeMillis() / 1000)+"");
         Map<String, Object> resultMap = sortMapByKey(params);
         StringBuffer signSb = new StringBuffer();
         for (Map.Entry<String, Object> entry : resultMap.entrySet()) {
@@ -233,7 +233,7 @@ public class BSHttpUtils {
             Log.i("get_url", BaseConstant.DOMAIN_NAME + url + BaseCommonUtils.getUrl((HashMap<String, Object>) params));
         }
 
-        params.put("timestamp", System.currentTimeMillis() / 1000);
+        params.put("timestamp", (System.currentTimeMillis() / 1000)+"");
         Map<String, Object> resultMap = sortMapByKey(params);
         StringBuffer signSb = new StringBuffer();
         for (Map.Entry<String, Object> entry : resultMap.entrySet()) {

@@ -146,7 +146,7 @@
             <com.youth.banner.Banner
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="180dp"
                 app:indicator_drawable_selected="@drawable/selected_radius"
                 app:indicator_drawable_unselected="@drawable/unselected_radius"
                 app:indicator_height="8dp"
@@ -289,6 +289,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/rank_one_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -337,6 +338,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/rank_two_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -385,6 +387,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/rank_three_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

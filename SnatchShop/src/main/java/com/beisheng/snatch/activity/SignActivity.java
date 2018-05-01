@@ -49,13 +49,24 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
     public void initView() {
         mBaseTitleTv.setText("签到有礼");
         mRecyclerView = getViewById(R.id.recycler_view);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(mActivity, 2));
         mAdapter = new SignAdapter(mRecyclerView);
         LuRecyclerViewAdapter adapter = new LuRecyclerViewAdapter(mAdapter);
         adapter.addHeaderView(initHeadView());
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
         mRecyclerView.setLoadMoreEnabled(false);
+        GridLayoutManager layoutManager = new GridLayoutManager(mActivity, 2);
+        mRecyclerView.setLayoutManager(layoutManager);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (mAdapter.getData().size() == 0 || position == mAdapter.getData().size()) {
+                    return 2;
+                } else {
+                    return 1;
+                }
+            }
+        });
 
     }
 

@@ -27,12 +27,12 @@ public class MyScortRecordAdapter extends RecyclerBaseAdapter {
         helper.setText(R.id.time_tv,bean.getExchange_time());
         helper.setText(R.id.money_tv,bean.getConsume_points());
         if("1".equals(bean.getDelivery_status())){
-            helper.setVisibility(R.id.status_tv, View.VISIBLE);
+            helper.setVisibility(R.id.card_pwd_tv, View.VISIBLE);
         }else {
-            helper.setVisibility(R.id.status_tv, View.GONE);
+            helper.setVisibility(R.id.card_pwd_tv, View.GONE);
         }
 
-
+        helper.setItemChildClickListener(R.id.card_pwd_tv);
     }
 
 }
