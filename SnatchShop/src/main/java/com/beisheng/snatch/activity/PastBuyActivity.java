@@ -67,7 +67,7 @@ public class PastBuyActivity extends BaseActivity implements BGAOnRVItemClickLis
         HashMap<String, Object> map = new HashMap<>();
         map.put("goods_id", this.getIntent().getStringExtra("id"));
         map.put("curpage", mCurrentPage + "");
-        BSHttpUtils.get(mActivity, this, Constant.PAST_BUY_URL, map, PastBuyVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.PAST_BUY_URL, map, PastBuyVO.class);
     }
 
     @Override
@@ -85,9 +85,7 @@ public class PastBuyActivity extends BaseActivity implements BGAOnRVItemClickLis
         if (isLoadMore) {
             mAdapter.updateDataLast(list);
             isLoadMore = false;
-            mCurrentPage++;
         } else {
-            mCurrentPage++;
             mAdapter.updateData(list);
         }
         mAdapter.notifyDataSetChanged();
@@ -126,6 +124,7 @@ public class PastBuyActivity extends BaseActivity implements BGAOnRVItemClickLis
     @Override
     public void onLoadMore() {
         isLoadMore = true;
+        mCurrentPage++;
         getData();
     }
 }

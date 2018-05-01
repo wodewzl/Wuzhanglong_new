@@ -109,7 +109,7 @@ public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreList
         map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
         map.put("curpage", mCurrentPage + "");
         map.put("type", this.getType());
-        BSHttpUtils.get(mActivity, this, Constant.MY_ORDER_SHOW, map, ShowVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.MY_ORDER_SHOW, map, ShowVO.class);
     }
 
     @Override
@@ -127,9 +127,7 @@ public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreList
         if (isLoadMore) {
             mAdapter.updateDataLast(list);
             isLoadMore = false;
-            mCurrentPage++;
         } else {
-            mCurrentPage++;
             mAdapter.updateData(list);
         }
         mAdapter.notifyDataSetChanged();
@@ -144,6 +142,7 @@ public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreList
     @Override
     public void onLoadMore() {
         isLoadMore = true;
+        mCurrentPage++;
         getData();
     }
 
@@ -194,11 +193,7 @@ public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreList
     @Override
     public void onItemChildClick(ViewGroup parent, View childView, int position) {
         ShowVO.DataBean.ListBean vo = (ShowVO.DataBean.ListBean) mAdapter.getItem(position);
-        if ("0".equals(vo.getStatus())) {
-            Bundle bundle = new Bundle();
-            bundle.putString("id", vo.getId());
-            mActivity.open(ShopDetailActivity.class, bundle, 0);
-        } else if ("2".equals(vo.getStatus())) {
+        if ("2".equals(vo.getStatus())) {
             mDialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.show_order_dialog);
             mPhotoLayout = mDialog.getWindow().getDecorView().findViewById(R.id.phone_layout);
             mPhotoLayout.setMaxItemCount(3);
@@ -214,8 +209,11 @@ public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreList
             mShowTv.setOnClickListener(this);
             mSelectList = (ArrayList<String>) vo.getImgs();
             mPhotoLayout.setData(mSelectList);
+        } else {
+            Bundle bundle = new Bundle();
+            bundle.putString("id", vo.getId());
+            mActivity.open(ShopDetailActivity.class, bundle, 0);
         }
-
     }
 
     @AfterPermissionGranted(PRC_PHOTO_PICKER)
@@ -289,7 +287,7 @@ public class MyShowRecordFragment extends BaseFragment implements OnLoadMoreList
 
         mOneFiles.clear();
         for (int i = 0; i < mPhotoLayout.getData().size(); i++) {
-            if(mPhotoLayout.getData().get(i).startsWith("http://")){
+            if (mPhotoLayout.getData().get(i).startsWith("http://")) {
                 continue;
             }
             File file = new File(mPhotoLayout.getData().get(i));

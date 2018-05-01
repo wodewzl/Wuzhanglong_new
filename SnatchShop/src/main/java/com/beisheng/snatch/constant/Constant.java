@@ -73,6 +73,7 @@ public class Constant {
     public static final String OTHER_LOGIN_BIND_URL = "/index.php/Api/Account/bind_sns";//绑定第三方登陆
     public static final String HELP_URL = "/index.php/Api/Dbindex/contact_us";//联系我们
     public static final String MY_SCORT_RECORD_URL = "/index.php/Api/Account/exchange_log";//联系我们
+    public static final String BUY_FLOW_URL = "/index.php/Api/Member/add_recharge";//购买流量
 
 }
 

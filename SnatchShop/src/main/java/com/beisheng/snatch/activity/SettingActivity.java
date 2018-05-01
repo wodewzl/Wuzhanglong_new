@@ -45,6 +45,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         mTv09 = getViewById(R.id.tv_09);
         mDataCleanUtil = new DataCleanUtil(this);
 
+        if(AppApplication.getInstance().getUserInfoVO()==null){
+            mTv09.setVisibility(View.GONE);
+        }else {
+            mTv09.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override
@@ -153,7 +159,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                             public void onClick(SweetAlertDialog sDialog) {
                                 AppApplication.getInstance().saveUserInfoVO(null);
                                 EventBus.getDefault().post(new EBMessageVO("login_out"));
-
+                                mTv09.setText("登陆");
 //                                JPushInterface.setAlias(mActivity, "", new TagAliasCallback() {
 //                                    @Override
 //                                    public void gotResult(int i, String s, Set<String> set) {

@@ -84,7 +84,7 @@ public class DailyTaskDetailActivity extends BaseActivity implements View.OnClic
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("id", this.getIntent().getStringExtra("id"));
-        BSHttpUtils.get(mActivity, this, Constant.DAILY_TASK_DETAIL_URL, map, DailyTaskDetailVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.DAILY_TASK_DETAIL_URL, map, DailyTaskDetailVO.class);
     }
 
     @Override
@@ -545,9 +545,13 @@ public class DailyTaskDetailActivity extends BaseActivity implements View.OnClic
         mLoginBindPhoneTv.setOnClickListener(this);
     }
 
+
     public void login() {
-        if (AppApplication.getInstance().getUserInfoVO() != null)
+        if (AppApplication.getInstance().getUserInfoVO() != null){
+            showCustomToast("登陆状态");
             return;
+        }
+
 
         mLoginTypeDialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.login_type);
         mLoginTv = mLoginTypeDialog.getWindow().getDecorView().findViewById(R.id.login_tv);

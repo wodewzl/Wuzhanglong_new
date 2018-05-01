@@ -127,8 +127,17 @@ public class BSHttpUtils {
 
     public static <T> void post(final BaseActivity activity, final UpdateCallback callback, final String url, final Map<String, Object> params, final Class<T> className) {
         final Gson gson = new Gson();
-        final String allUrl = BaseConstant.DOMAIN_NAME + url;
-        final String cacheStr = ACache.get(activity).getAsString(allUrl + params.toString());
+        final String allUrl ;
+        if (params == null || params.size() == 0) {
+            allUrl=BaseConstant.DOMAIN_NAME + url;
+            Log.i("get_url",allUrl );
+
+        } else {
+            allUrl=BaseConstant.DOMAIN_NAME + url + BaseCommonUtils.getUrl((HashMap<String, Object>) params);
+            Log.i("get_url",allUrl );
+        }
+
+        final String cacheStr = ACache.get(activity).getAsString(allUrl);
         if (className != null) {
             final BaseVO vo = (BaseVO) gson.fromJson(cacheStr, className);
             if (vo != null) {
@@ -150,12 +159,6 @@ public class BSHttpUtils {
             }
         }
 
-        if (params == null || params.size() == 0) {
-            Log.i("get_url", BaseConstant.DOMAIN_NAME + url);
-        } else {
-            Log.i("get_url", BaseConstant.DOMAIN_NAME + url + BaseCommonUtils.getUrl((HashMap<String, Object>) params));
-        }
-
         params.put("timestamp", System.currentTimeMillis() / 1000);
         Map<String, Object> resultMap = sortMapByKey(params);
         StringBuffer signSb = new StringBuffer();
@@ -165,6 +168,8 @@ public class BSHttpUtils {
         signSb.append(BaseConstant.APP_KEY);
         String sign = MD5.Md5(signSb.toString());
         params.put("sign", sign);
+
+
         new Novate.Builder(activity)
                 .baseUrl(BaseConstant.DOMAIN_NAME)
                 .addCache(false)
@@ -192,18 +197,18 @@ public class BSHttpUtils {
                 if ("200".equals(baseVO.getCode())) {
                     callback.baseHasData(baseVO);
                     if (!TextUtils.isEmpty(s)) {
-                        ACache.get(activity).put(allUrl + params.toString(), s, 60 * 60 * 24);
+                        ACache.get(activity).put(allUrl, s, 60 * 60 * 24);
                     }
                 } else if ("201".equals(baseVO.getCode())) {
                     activity.showCustomToast(baseVO.getDesc());
                     callback.baseHasData(baseVO);
                     if (!TextUtils.isEmpty(s)) {
-                        ACache.get(activity).put(allUrl + params.toString(), s, 60 * 60 * 24);
+                        ACache.get(activity).put(allUrl , s, 60 * 60 * 24);
                     }
                 } else if ("202".equals(baseVO.getCode())) {
                     callback.baseHasData(baseVO);
                     if (!TextUtils.isEmpty(s)) {
-                        ACache.get(activity).put(allUrl + params.toString(), s, 60 * 60 * 24);
+                        ACache.get(activity).put(allUrl , s, 60 * 60 * 24);
                     }
                 } else if ("400".equals(baseVO.getCode())) {
                     callback.baseNoData(baseVO);

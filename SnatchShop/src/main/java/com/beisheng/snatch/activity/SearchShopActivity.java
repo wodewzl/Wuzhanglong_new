@@ -100,7 +100,7 @@ public class SearchShopActivity extends BaseActivity implements SwipeRefreshLayo
             map.put("keyword", mKeyword);
         if (this.getIntent().getStringExtra("id") != null)
             map.put("category_id", this.getIntent().getStringExtra("id"));
-        BSHttpUtils.get(mActivity, this, Constant.KEYWORD_LIST_URL, map, SearchShopVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.KEYWORD_LIST_URL, map, SearchShopVO.class);
     }
 
     @Override
@@ -118,9 +118,7 @@ public class SearchShopActivity extends BaseActivity implements SwipeRefreshLayo
         if (isLoadMore) {
             mAdapter.updateDataLast(list);
             isLoadMore = false;
-            mCurrentPage++;
         } else {
-            mCurrentPage++;
             mAdapter.updateData(list);
         }
         mAdapter.notifyDataSetChanged();
@@ -156,6 +154,7 @@ public class SearchShopActivity extends BaseActivity implements SwipeRefreshLayo
     @Override
     public void onLoadMore() {
         isLoadMore = true;
+        mCurrentPage++;
         getData();
     }
 

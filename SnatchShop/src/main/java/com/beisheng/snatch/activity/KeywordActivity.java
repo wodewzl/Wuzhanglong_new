@@ -98,7 +98,7 @@ public class KeywordActivity extends BaseActivity implements  TextView.OnEditorA
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        BSHttpUtils.get(mActivity, this, Constant.KEYWORD_URL, map, KeywordVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.KEYWORD_URL, map, KeywordVO.class);
     }
 
     @Override

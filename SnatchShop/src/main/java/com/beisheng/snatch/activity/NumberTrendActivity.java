@@ -169,7 +169,7 @@ public class NumberTrendActivity extends BaseActivity implements ScrollableHelpe
 //        map.put("goods_id", this.getIntent().getStringExtra("id"));
         map.put("goods_id", "57");
         map.put("is_fq", "");
-        BSHttpUtils.get(mActivity, this, Constant.NUMBER_TREND_URL, map, NumberTrendVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.NUMBER_TREND_URL, map, NumberTrendVO.class);
     }
 
     @Override
@@ -182,9 +182,8 @@ public class NumberTrendActivity extends BaseActivity implements ScrollableHelpe
     public void dataByType(int type) {
         initLineChart(type);
         ArrayList<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(0, 1));
         for (int i = 0; i < mNumberTrendVO.getData().getList().size(); i++) {
-            entries.add(new Entry(i + 1, i));
+            entries.add(new Entry(i , i));
         }
         // 每一个LineDataSet代表一条线
         LineDataSet lineDataSet = new LineDataSet(entries, "用户");

@@ -47,7 +47,9 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.rey.material.app.BottomSheetDialog;
 import com.rey.material.widget.CheckBox;
 import com.squareup.picasso.Picasso;
@@ -90,8 +92,6 @@ import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 import cn.iwgang.countdownview.CountdownView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.beisheng.snatch.R.id.tag_flow_layout;
-
 public class ShopDetailActivity extends BaseActivity implements ScrollableHelper.ScrollableContainer, View.OnClickListener, OnLoadMoreListener, BGAOnRVItemClickListener, PostCallback {
     private LuRecyclerView mRecyclerView;
     private ShopDetailAdapter mAdapter;
@@ -114,7 +114,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
     private TextView mPublishTimeTv;
-    private String[] mXData = new String[]{"开始", "中前", "中间", "中后", "疯抢",};
+    private String[] mXData = new String[]{"100", "开始", "中前", "中间", "中后", "疯抢",};
     private ProgressBar mProgressBar;
     private TagFlowLayout mType2NumberLayout;
     private TextView mType2MyBuyCoutTv, mType2TimeTv, mType2RunTv;
@@ -131,7 +131,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     private CheckBox mRegistCheckBox;
     private BottomSheetDialog mRegistDialog, mLoginTypeDialog, mLoginDialog, mBackPwdDialog, mBindPhoneDialog;
     private View mLoginPasswrodLayout, mLoginMsgLayout;
-    private ImageView mAddFavorImg;
+    private ImageView mAddFavorImg, mKeFuImg;
     private String mIsFavor = "0";
     private String mPayType = "", mRedId = "";
     private BottomSheetDialog mPayDialog;
@@ -171,6 +171,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mNumberTrendLayout = getViewById(R.id.number_trend_layout);
         mJoinCartTv = getViewById(R.id.jion_cart_tv);
         mQuckBuyTv = getViewById(R.id.quick_tv);
+        mKeFuImg = getViewById(R.id.kefu_img);
         mLineChart = getViewById(R.id.lineChart);
 
         mBanner = getViewById(R.id.banner);
@@ -250,15 +251,20 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                if (mShopDetailVO.getChart_data().size() == 0) {
+//                if (mShopDetailVO.getChart_data().size() == 0) {
+//                    return "";
+//                } else {
+//                    int index = (int) value;
+////                    return mShopDetailVO.getChart_data().get(index - 1).getPf_no();
+//                    return "8525585252";
+//
+//                }
+                int index = (int) value;
+//                    return mShopDetailVO.getChart_data().get(index - 1).getPf_no();
+                if (index == 0) {
                     return "";
                 } else {
-                    int index = (int) value;
-                    if (index == 0) {
-                        return "100";
-                    } else {
-                        return mShopDetailVO.getChart_data().get(index - 1).getPf_no();
-                    }
+                    return "8525585252";
                 }
 
 
@@ -273,7 +279,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         //设置字体大小10sp
         xAxis.setTextSize(10f);
         //设置X轴字体颜色
-        xAxis.setTextColor(ContextCompat.getColor(this, R.color.C12));
+        xAxis.setTextColor(ContextCompat.getColor(this, R.color.C4));
         //设置从X轴发出横线
         xAxis.setDrawGridLines(false);
         xAxis.setGridColor(ContextCompat.getColor(this, R.color.C3));
@@ -305,13 +311,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
                 int yIndex = (int) value;
-//                return list.get((int)value);
-                if (yIndex == 0) {
-                    return "";
-                } else {
-                    return list.get(yIndex - 1);
-
-                }
+                return list.get(yIndex / 100 - 1);
             }
         });
         //设置从Y轴发出横向直线(网格线)
@@ -329,36 +329,23 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         leftAxis.setDrawAxisLine(true);
         leftAxis.setDrawZeroLine(true);
         leftAxis.setTextSize(10f);
-        leftAxis.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+        leftAxis.setTextColor(ContextCompat.getColor(this, R.color.C5));
         //设置左边X轴显示
         leftAxis.setEnabled(true);
         //设置Y轴的颜色
         leftAxis.setAxisLineColor(ContextCompat.getColor(this, R.color.colorAccent));
         //设置Y轴的宽度
         leftAxis.setAxisLineWidth(1f);
+        leftAxis.setAxisMinimum(100f);
+//        leftAxis.setAxisMaximum(500f);
+
 
         YAxis rightAxis = mLineChart.getAxisRight();
         //设置右边Y轴不显示
         rightAxis.setEnabled(false);
 
-
         //显示边界
         mLineChart.setDrawBorders(false);
-        //设置数据
-//        List<Entry> entries = new ArrayList<>();
-//        for (int i = 0; i < 10; i++) {
-////            entries.add(new Entry(i, (float) (Math.random()) * 80));
-//            entries.add(new Entry(i, (float) (Math.random()) * 80));
-//        }
-//        //一个LineDataSet就是一条线
-//        LineDataSet lineDataSet = new LineDataSet(entries, "温度");
-//        LineData data = new LineData(lineDataSet);
-//        mLineChart.setData(data);
-
-//        XAxis xAxis = mLineChart.getXAxis();
-//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//值：BOTTOM,BOTH_SIDED,BOTTOM_INSIDE,TOP,TOP_INSIDE
-//        xAxis.setLabelCount(8, true);
-//        xAxis.setLabelRotationAngle(-60);
     }
 
 
@@ -379,6 +366,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mShareImg.setOnClickListener(this);
         mQuckBuyTv.setOnClickListener(this);
         mType3MyBuyTv.setOnClickListener(this);
+        mKeFuImg.setOnClickListener(this);
         EventBus.getDefault().register(this);
     }
 
@@ -408,7 +396,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
             mBanner.setImageLoader(new ImageLoader() {
                 @Override
                 public void displayImage(Context context, Object o, ImageView imageView) {
-                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+//                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     String url = (String) o;
                     Picasso.with(context).load(url).into(imageView);
                 }
@@ -424,8 +412,8 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                     mStatusTv.setText(mShopDetailVO.getStatus_text());
                     mStatusTv.setBackground(BaseCommonUtils.setBackgroundShap(this, 5, R.color.colorAccent, R.color.C1));
                     mStatusTv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
-                    BaseCommonUtils.setTextThree(this, mType1JoinCountTv, "已参与", mShopDetailVO.getBuy_count(), "次", R.color.C4, 1.3f);
-                    BaseCommonUtils.setTextThree(this, mType1TotalCountTv, "剩余", mShopDetailVO.getRemain_count(), "人次", R.color.C4, 1.3f);
+                    BaseCommonUtils.setTextThree(this, mType1JoinCountTv, "已参与", mShopDetailVO.getBuy_count(), "次", R.color.colorAccent, 1.3f);
+                    BaseCommonUtils.setTextThree(this, mType1TotalCountTv, "剩余", mShopDetailVO.getRemain_count(), "人次", R.color.colorAccent, 1.3f);
                     mProgressBar.setProgress(BaseCommonUtils.parseInt(mShopDetailVO.getPercent()));
                     break;
                 case "2":
@@ -515,26 +503,45 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 mHonor3CountTv.setText("最后一个参与");
             }
 
+            if (mShopDetailVO.getChart_data().size() > 0) {
+                ArrayList<Entry> entries = new ArrayList<>();
+                entries.add(new Entry(0 , 100));
+                for (int i = 0; i < mShopDetailVO.getChart_data().size(); i++) {
+                    entries.add(new Entry(i+1, Integer.parseInt(mShopDetailVO.getChart_data().get(i).getBuy_period()) * 100 + 100));
+                }
+//            for (int i = 0; i < 6; i++) {
+//                entries.add(new Entry(i , i*100+100));
+//            }
 
-            ArrayList<Entry> entries = new ArrayList<>();
-            entries.add(new Entry(0, 1));
-            for (int i = 0; i < mShopDetailVO.getChart_data().size(); i++) {
-                entries.add(new Entry(i + 1, Integer.parseInt(mShopDetailVO.getChart_data().get(i).getBuy_period())));
-//                entries.add(new Entry(i, mShopDetailVO.getChart_data().size()));
-            }
-            // 每一个LineDataSet代表一条线
-            LineDataSet lineDataSet = new LineDataSet(entries, "用户");
-            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-            dataSets.add(lineDataSet);
-            LineData data = new LineData(dataSets);
-            //设置X轴的刻度数
+                // 每一个LineDataSet代表一条线
+                LineDataSet lineDataSet = new LineDataSet(entries, "用户");
+                lineDataSet.setCircleColor(ContextCompat.getColor(this, R.color.colorAccent));
+                lineDataSet.setValueTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+                lineDataSet.setColor(ContextCompat.getColor(this, R.color.colorAccent));
+                lineDataSet.setValueFormatter(new IValueFormatter() {
+                    @Override
+                    public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                        int IValue = (int) value;
+                        if (IValue == 100) {
+                            return "";
+                        } else {
+                            return "疯抢";
+                        }
+
+                    }
+                });
+                ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+                dataSets.add(lineDataSet);
+                LineData data = new LineData(dataSets);
+                //设置X轴的刻度数
 //        xAxis.setLabelCount(xAxisValues.size(), true);
 //        //设置一页最大显示个数为6，超出部分就滑动
-            float ratio = (float) entries.size() / (float) 4;
-            //显示的时候是按照多大的比率缩放显示,1f表示不放大缩小
-            mLineChart.zoom(ratio, 1f, 0, 0);
+                float ratio = (float) entries.size() / (float) 5;
+                //显示的时候是按照多大的比率缩放显示,1f表示不放大缩小
+                mLineChart.zoom(ratio, 1f, 0, 0);
+                mLineChart.setData(data);
+            }
 
-            mLineChart.setData(data);
 
             if ("1".equals(mShopDetailVO.getIs_favor())) {
                 mAddFavorImg.setImageResource(R.drawable.collect_img_select);
@@ -558,9 +565,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
             if (isLoadMore) {
                 mAdapter.updateDataLast(list);
                 isLoadMore = false;
-                mCurrentPage++;
             } else {
-                mCurrentPage++;
                 mAdapter.updateData(list);
             }
 
@@ -982,6 +987,10 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
 
                 BSHttpUtils.postCallBack(mActivity, Constant.BACK_PWD_URL, backMap, BaseVO.class, this);
                 break;
+
+            case R.id.kefu_img:
+                openActivity(HelpActivity.class);
+                break;
             default:
 
                 break;
@@ -992,6 +1001,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     @Override
     public void onLoadMore() {
         isLoadMore = true;
+        mCurrentPage++;
         getData();
     }
 
@@ -1333,10 +1343,16 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         View rootView = View.inflate(ShopDetailActivity.this, R.layout.my_buy_number_dialog, null);
         TextView buyCountTv = rootView.findViewById(R.id.buy_count_tv);
         BaseCommonUtils.setTextThree(this, buyCountTv, "你抢购了", mShopDetailVO.getUser_data().getBuy_count(), "次(抢购号码如下)", R.color.colorAccent, 1.3f);
-        TagFlowLayout tagFlowLayout = rootView.findViewById(tag_flow_layout);
+        TagFlowLayout tagFlowLayout = rootView.findViewById(R.id.tag_flow_layout);
 
         List<String> allList = (List<String>) mShopDetailVO.getUser_data().getBuy_codes();
-        tagFlowLayout.setAdapter(new TagAdapter<String>(allList.subList(0, 50)) {
+        List<String> tmp=new ArrayList<>();
+        if(allList.size()>50){
+            tmp.addAll(allList.subList(0, 50));
+        }else {
+            tmp.addAll(allList);
+        }
+        tagFlowLayout.setAdapter(new TagAdapter<String>(tmp) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
                 TextView tv = new TextView(ShopDetailActivity.this);

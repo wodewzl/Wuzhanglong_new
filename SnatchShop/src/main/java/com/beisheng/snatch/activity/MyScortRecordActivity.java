@@ -87,9 +87,7 @@ public class MyScortRecordActivity extends BaseActivity implements BGAOnRVItemCl
         if (isLoadMore) {
             mAdapter.updateDataLast(list);
             isLoadMore = false;
-            mCurrentPage++;
         } else {
-            mCurrentPage++;
             mAdapter.updateData(list);
         }
         mAdapter.notifyDataSetChanged();
@@ -125,6 +123,7 @@ public class MyScortRecordActivity extends BaseActivity implements BGAOnRVItemCl
     @Override
     public void onLoadMore() {
         isLoadMore = true;
+        mCurrentPage++;
         getData();
     }
 }

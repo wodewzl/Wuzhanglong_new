@@ -64,7 +64,7 @@ public class MyMessageActivity extends BaseActivity implements BGAOnRVItemClickL
         HashMap<String, Object> map = new HashMap<>();
         map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
         map.put("curpage", mCurrentPage+"");
-        BSHttpUtils.get(mActivity, this, Constant.MY_MESSAGE_URL, map, MyMessageVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.MY_MESSAGE_URL, map, MyMessageVO.class);
     }
 
     @Override
@@ -82,9 +82,7 @@ public class MyMessageActivity extends BaseActivity implements BGAOnRVItemClickL
         if (isLoadMore) {
             mAdapter.updateDataLast(list);
             isLoadMore = false;
-            mCurrentPage++;
         } else {
-            mCurrentPage++;
             mAdapter.updateData(list);
         }
         mAdapter.notifyDataSetChanged();
@@ -123,6 +121,7 @@ public class MyMessageActivity extends BaseActivity implements BGAOnRVItemClickL
     @Override
     public void onLoadMore() {
         isLoadMore = true;
+        mCurrentPage++;
         getData();
     }
 }

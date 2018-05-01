@@ -1,9 +1,12 @@
 package com.beisheng.snatch.fragment;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.beisheng.snatch.R;
+import com.beisheng.snatch.activity.ShopDetailActivity;
 import com.beisheng.snatch.adapter.RecordAwardAdapter;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.TAAwardVO;
@@ -21,7 +24,9 @@ import com.wuzhanglong.library.utils.DividerUtil;
 import java.util.HashMap;
 import java.util.List;
 
-public class RecordAwardFragment extends BaseFragment implements OnLoadMoreListener, ScrollableHelper.ScrollableContainer {
+import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
+
+public class RecordAwardFragment extends BaseFragment implements OnLoadMoreListener, ScrollableHelper.ScrollableContainer,BGAOnRVItemClickListener {
     private LuRecyclerView mRecyclerView;
     private RecordAwardAdapter mAdapter;
     private String state;
@@ -61,6 +66,7 @@ public class RecordAwardFragment extends BaseFragment implements OnLoadMoreListe
     @Override
     public void bindViewsListener() {
         mRecyclerView.setOnLoadMoreListener(this);
+        mAdapter.setOnRVItemClickListener(this);
 
     }
 
@@ -68,7 +74,7 @@ public class RecordAwardFragment extends BaseFragment implements OnLoadMoreListe
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("uid", mActivity.getIntent().getStringExtra("id"));
-        BSHttpUtils.get(mActivity, this, Constant.OTHER_TAB_TWO_URL, map, TAAwardVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.OTHER_TAB_TWO_URL, map, TAAwardVO.class);
 
     }
 
@@ -87,9 +93,7 @@ public class RecordAwardFragment extends BaseFragment implements OnLoadMoreListe
         if (isLoadMore) {
             mAdapter.updateDataLast(list);
             isLoadMore = false;
-            mCurrentPage++;
         } else {
-            mCurrentPage++;
             mAdapter.updateData(list);
         }
         mAdapter.notifyDataSetChanged();
@@ -103,6 +107,7 @@ public class RecordAwardFragment extends BaseFragment implements OnLoadMoreListe
     @Override
     public void onLoadMore() {
         isLoadMore = true;
+        mCurrentPage++;
         getData();
     }
 
@@ -118,5 +123,15 @@ public class RecordAwardFragment extends BaseFragment implements OnLoadMoreListe
     @Override
     public View getScrollableView() {
         return mRecyclerView;
+    }
+
+    @Override
+    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+        if (mAdapter.getData().size() == 0)
+            return;
+        TAAwardVO.DataBean.ListBean bean = (TAAwardVO.DataBean.ListBean) mAdapter.getItem(position);
+        Bundle bundle = new Bundle();
+        bundle.putString("id", bean.getPanic_id());
+        mActivity.open(ShopDetailActivity.class, bundle, 0);
     }
 }

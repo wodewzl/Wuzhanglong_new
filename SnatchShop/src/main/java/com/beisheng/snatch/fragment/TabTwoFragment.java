@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.adapter.LotteryingAdapter;
 import com.beisheng.snatch.constant.Constant;
-import com.beisheng.snatch.model.HomeVO;
 import com.beisheng.snatch.model.LotteryingVO;
-import com.beisheng.snatch.model.ShopVO;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
@@ -80,7 +78,7 @@ public class TabTwoFragment extends BaseFragment  implements SwipeRefreshLayout.
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        BSHttpUtils.get(mActivity, this, Constant.LOTTERYING_URL, map, LotteryingVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.LOTTERYING_URL, map, LotteryingVO.class);
     }
 
     @Override
@@ -98,9 +96,7 @@ public class TabTwoFragment extends BaseFragment  implements SwipeRefreshLayout.
         if (isLoadMore) {
             mAdapter.updateDataLast(list);
             isLoadMore = false;
-            mCurrentPage++;
         } else {
-            mCurrentPage++;
             mAdapter.updateData(list);
         }
         mAutoSwipeRefreshLayout.setRefreshing(false);
@@ -131,6 +127,7 @@ public class TabTwoFragment extends BaseFragment  implements SwipeRefreshLayout.
     @Override
     public void onLoadMore() {
         isLoadMore = true;
+        mCurrentPage++;
         getData();
     }
 

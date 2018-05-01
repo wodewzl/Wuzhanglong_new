@@ -76,9 +76,7 @@ public class MyFlowRecordActivity extends BaseActivity implements OnLoadMoreList
         if (isLoadMore) {
             mAdapter.updateDataLast(list);
             isLoadMore = false;
-            mCurrentPage++;
         } else {
-            mCurrentPage++;
             mAdapter.updateData(list);
         }
         mAdapter.notifyDataSetChanged();
@@ -98,6 +96,7 @@ public class MyFlowRecordActivity extends BaseActivity implements OnLoadMoreList
     @Override
     public void onLoadMore() {
         isLoadMore = true;
+        mCurrentPage++;
         getData();
     }
 

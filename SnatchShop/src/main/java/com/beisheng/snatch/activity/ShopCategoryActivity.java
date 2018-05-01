@@ -109,12 +109,12 @@ public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLe
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
         if (mFistFlag) {
-            BSHttpUtils.get(mActivity, this, Constant.SHOP_CATEGORY_URL, map, ShopCategoryLeftVO.class);
+            BSHttpUtils.post(mActivity, this, Constant.SHOP_CATEGORY_URL, map, ShopCategoryLeftVO.class);
             mFistFlag = false;
         }
         map.put("category_id", mCategoryId);
         map.put("order_type", mOrderType);
-        BSHttpUtils.get(mActivity, this, Constant.HOME_LIST_URL, map, ShopCategoryRightVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.HOME_LIST_URL, map, ShopCategoryRightVO.class);
 
     }
 
@@ -143,9 +143,7 @@ public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLe
             if (isLoadMore) {
                 mRightAdapter.updateDataLast(list);
                 isLoadMore = false;
-                mCurrentPage++;
             } else {
-                mCurrentPage++;
                 mRightAdapter.updateData(list);
             }
             mAutoSwipeRefreshLayout.setRefreshing(false);
@@ -198,6 +196,7 @@ public class ShopCategoryActivity extends BaseActivity implements ShopCategoryLe
     @Override
     public void onLoadMore() {
         isLoadMore = true;
+        mCurrentPage++;
         getData();
     }
 

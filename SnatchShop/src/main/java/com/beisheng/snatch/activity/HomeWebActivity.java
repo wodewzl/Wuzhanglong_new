@@ -26,9 +26,6 @@ import com.wuzhanglong.library.utils.WebViewPictureUtil;
 
 import static com.wuzhanglong.library.utils.WebviewUtil.SetWebview;
 
-
-
-
 public class HomeWebActivity extends BaseActivity implements OnClickListener, OnLongClickListener, WebViewPictureUtil.JSCallBack {
     private static final int FILE_SELECT_CODE = 0;
     private static final int LOGIN_CODE = 1;
@@ -46,7 +43,7 @@ public class HomeWebActivity extends BaseActivity implements OnClickListener, On
 
     @Override
     public void initView() {
-
+        mBaseHeadLayout.setVisibility(View.GONE);
         mWebView = (WebView) this.findViewById(R.id.webview);
 
         SetWebview(mWebView);

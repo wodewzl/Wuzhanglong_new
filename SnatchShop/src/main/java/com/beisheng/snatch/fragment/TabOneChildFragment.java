@@ -36,7 +36,7 @@ public class TabOneChildFragment extends BaseFragment implements OnLoadMoreListe
     private LuRecyclerViewAdapter mLuAdapter;
     private String state;
     private int mCurrentPage = 1;
-    private boolean isLoadMore = true;
+    private boolean isLoadMore = false;
     private String type = "1";//1-人气 2-最新 3-进度 4-总需从大到小 5-总需从小到大
 
 
@@ -92,7 +92,7 @@ public class TabOneChildFragment extends BaseFragment implements OnLoadMoreListe
         HashMap<String, Object> map = new HashMap<>();
         map.put("order_type", this.getType());
         map.put("curpage", mCurrentPage + "");
-        BSHttpUtils.get(mActivity, this, Constant.HOME_LIST_URL, map, ShopVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.HOME_LIST_URL, map, ShopVO.class);
     }
 
     @Override
@@ -110,9 +110,7 @@ public class TabOneChildFragment extends BaseFragment implements OnLoadMoreListe
         if (isLoadMore) {
             mAdapter.updateDataLast(list);
             isLoadMore = false;
-            mCurrentPage++;
         } else {
-            mCurrentPage++;
             mAdapter.updateData(list);
         }
         mAdapter.notifyDataSetChanged();
@@ -126,6 +124,7 @@ public class TabOneChildFragment extends BaseFragment implements OnLoadMoreListe
     @Override
     public void onLoadMore() {
         isLoadMore = true;
+        mCurrentPage++;
         getData();
     }
 

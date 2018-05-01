@@ -1,13 +1,19 @@
 package com.beisheng.snatch.fragment;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.beisheng.snatch.R;
+import com.beisheng.snatch.activity.ShopDetailActivity;
 import com.beisheng.snatch.adapter.RecordBuyAdapter;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.TABuyVO;
 import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
+import com.dou361.dialogui.DialogUIUtils;
+import com.dou361.dialogui.bean.BuildBean;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
@@ -17,11 +23,18 @@ import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DividerUtil;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
+import com.zhy.view.flowlayout.TagFlowLayout;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class RecordBuyFragment extends BaseFragment implements OnLoadMoreListener, ScrollableHelper.ScrollableContainer {
+import cn.bingoogolapple.baseadapter.BGAOnItemChildClickListener;
+import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
+
+public class RecordBuyFragment extends BaseFragment implements OnLoadMoreListener, ScrollableHelper.ScrollableContainer, BGAOnRVItemClickListener, BGAOnItemChildClickListener {
     private LuRecyclerView mRecyclerView;
     private RecordBuyAdapter mAdapter;
     private LuRecyclerViewAdapter mLuAdapter;
@@ -61,13 +74,15 @@ public class RecordBuyFragment extends BaseFragment implements OnLoadMoreListene
     @Override
     public void bindViewsListener() {
         mRecyclerView.setOnLoadMoreListener(this);
+        mAdapter.setOnRVItemClickListener(this);
+        mAdapter.setOnItemChildClickListener(this);
     }
 
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("uid", mActivity.getIntent().getStringExtra("id"));
-        BSHttpUtils.get(mActivity, this, Constant.OTHER_TAB_ONE_URL, map, TABuyVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.OTHER_TAB_ONE_URL, map, TABuyVO.class);
     }
 
     @Override
@@ -85,9 +100,7 @@ public class RecordBuyFragment extends BaseFragment implements OnLoadMoreListene
         if (isLoadMore) {
             mAdapter.updateDataLast(list);
             isLoadMore = false;
-            mCurrentPage++;
         } else {
-            mCurrentPage++;
             mAdapter.updateData(list);
         }
         mAdapter.notifyDataSetChanged();
@@ -101,6 +114,7 @@ public class RecordBuyFragment extends BaseFragment implements OnLoadMoreListene
     @Override
     public void onLoadMore() {
         isLoadMore = true;
+        mCurrentPage++;
         getData();
     }
 
@@ -113,5 +127,46 @@ public class RecordBuyFragment extends BaseFragment implements OnLoadMoreListene
     @Override
     public View getScrollableView() {
         return mRecyclerView;
+    }
+
+    @Override
+    public void onItemChildClick(ViewGroup parent, View childView, int position) {
+        TABuyVO.DataBean.ListBean bean = (TABuyVO.DataBean.ListBean) mAdapter.getItem(position);
+        showDialog(bean.getBuy_codes());
+    }
+
+    @Override
+    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+        if (mAdapter.getData().size() == 0)
+            return;
+        TABuyVO.DataBean.ListBean bean = (TABuyVO.DataBean.ListBean) mAdapter.getItem(position);
+        Bundle bundle = new Bundle();
+        bundle.putString("id", bean.getPanic_id());
+        mActivity.open(ShopDetailActivity.class, bundle, 0);
+    }
+
+    public void showDialog(List<String> allList) {
+        DialogUIUtils.init(mActivity);
+        View rootView = View.inflate(mActivity, R.layout.my_buy_number_dialog, null);
+        TextView buyCountTv = rootView.findViewById(R.id.buy_count_tv);
+        buyCountTv.setVisibility(View.GONE);
+        BaseCommonUtils.setTextThree(mActivity, buyCountTv, "你抢购了", allList.size()+"", "次(抢购号码如下)", R.color.colorAccent, 1.3f);
+        TagFlowLayout tagFlowLayout = rootView.findViewById(R.id.tag_flow_layout);
+        List<String> tmp=new ArrayList<>();
+        if(allList.size()>50){
+            tmp.addAll(allList.subList(0, 50));
+        }else {
+            tmp.addAll(allList);
+        }
+        tagFlowLayout.setAdapter(new TagAdapter<String>(tmp) {
+            @Override
+            public View getView(FlowLayout parent, int position, String s) {
+                TextView tv = new TextView(mActivity);
+                tv.setText(s);
+                return tv;
+            }
+        });
+        final BuildBean buildBean = DialogUIUtils.showCustomAlert(mActivity, rootView);
+        buildBean.show();
     }
 }

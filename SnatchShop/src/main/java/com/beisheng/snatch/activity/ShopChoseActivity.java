@@ -77,7 +77,7 @@ public class ShopChoseActivity extends BaseActivity  implements SwipeRefreshLayo
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("is_recommend", "1");
-        BSHttpUtils.get(mActivity, this, Constant.HOME_LIST_URL, map, ShopVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.HOME_LIST_URL, map, ShopVO.class);
     }
 
     @Override
@@ -95,9 +95,7 @@ public class ShopChoseActivity extends BaseActivity  implements SwipeRefreshLayo
         if (isLoadMore) {
             mAdapter.updateDataLast(list);
             isLoadMore = false;
-            mCurrentPage++;
         } else {
-            mCurrentPage++;
             mAdapter.updateData(list);
         }
         mAdapter.notifyDataSetChanged();
@@ -133,6 +131,7 @@ public class ShopChoseActivity extends BaseActivity  implements SwipeRefreshLayo
     @Override
     public void onLoadMore() {
         isLoadMore = true;
+        mCurrentPage++;
         getData();
     }
 

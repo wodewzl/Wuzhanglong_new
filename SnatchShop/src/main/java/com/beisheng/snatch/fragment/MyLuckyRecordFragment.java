@@ -26,6 +26,8 @@ import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.AddressVO;
 import com.beisheng.snatch.model.MyLuckyRecordVO;
 import com.beisheng.snatch.model.WuLiuVO;
+import com.dou361.dialogui.DialogUIUtils;
+import com.dou361.dialogui.bean.BuildBean;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.nanchen.compresshelper.CompressHelper;
@@ -144,7 +146,6 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
         map.put("curpage", mCurrentPage + "");
         map.put("type", this.getType());
         BSHttpUtils.post(mActivity, this, Constant.MY_LUCKY_RECORD_URL, map, MyLuckyRecordVO.class);
-
         getAddress();
     }
 
@@ -164,9 +165,7 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
             if (isLoadMore) {
                 mAdapter.updateDataLast(list);
                 isLoadMore = false;
-                mCurrentPage++;
             } else {
-                mCurrentPage++;
                 mAdapter.updateData(list);
             }
             mAdapter.notifyDataSetChanged();
@@ -190,6 +189,7 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
     @Override
     public void onLoadMore() {
         isLoadMore = true;
+        mCurrentPage++;
         getData();
     }
 
@@ -289,19 +289,6 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
                     return;
                 }
 
-
-//                MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
-//                requestBody.addFormDataPart("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no())
-//                        .addFormDataPart("id", mSelectVO.getId())
-//                        .addFormDataPart("title", mTitleEt.getText().toString())
-//                        .addFormDataPart("content", mDescEt.getText().toString());
-//
-//                for (int i = 0; i < mOneFiles.size(); i++) {
-//                    requestBody.addFormDataPart("images"+i, mOneFiles.get(i).getName(), RequestBody.create(MediaType.parse("image/*"), mOneFiles.get(i)));
-//                }
-//                MultipartBody rb = requestBody.build();
-
-
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
                 map.put("id", mSelectVO.getId());
@@ -325,7 +312,7 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
         mSelectCount = 0;
         for (int i = 0; i < mAdapter.getData().size(); i++) {
             MyLuckyRecordVO.DataBean.ListBean bean = (MyLuckyRecordVO.DataBean.ListBean) mAdapter.getData().get(i);
-            if (bean.isCheck()) {
+            if (bean.isCheck() && "0".equals(bean.getOvertime())) {
                 mSelectCount = mSelectCount + 1;
             }
         }
@@ -500,24 +487,39 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
     @Override
     public void onItemChildClick(ViewGroup parent, View childView, int position) {
         mSelectVO = (MyLuckyRecordVO.DataBean.ListBean) mAdapter.getItem(position);
-        if ("1".equals(mSelectVO.getDelivery_status())) {
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
-            map.put("id", mSelectVO.getId());
-            BSHttpUtils.postCallBack(mActivity, Constant.WU_LIU_URL, map, WuLiuVO.class, this);
-        } else if ("2".equals(mSelectVO.getDelivery_status())) {
-            mDialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.show_order_dialog);
-            mPhotoLayout = mDialog.getWindow().getDecorView().findViewById(R.id.phone_layout);
-            mPhotoLayout.setMaxItemCount(3);
-            mPhotoLayout.setEditable(true);//有加号，有删除，可以点加号选择，false没有加号，点其他按钮选择，也没有删除
-            mPhotoLayout.setPlusEnable(true);//有加号，可以点加号选择，false没有加号，点其他按钮选择
-            mPhotoLayout.setSortable(true);//排序
-            mPhotoLayout.setDelegate(this);
-            mTitleEt = mDialog.getWindow().getDecorView().findViewById(R.id.title_et);
-            mDescEt = mDialog.getWindow().getDecorView().findViewById(R.id.desc_et);
-            mShowTv = mDialog.getWindow().getDecorView().findViewById(R.id.show_tv);
-            mShowTv.setOnClickListener(this);
-        }
 
+        if ("1".equals(mSelectVO.getIs_virtual())) {
+            showDialog();
+        } else {
+            if ("1".equals(mSelectVO.getDelivery_status())) {
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+                map.put("id", mSelectVO.getId());
+                BSHttpUtils.postCallBack(mActivity, Constant.WU_LIU_URL, map, WuLiuVO.class, this);
+
+            } else if ("2".equals(mSelectVO.getDelivery_status())) {
+                if ("0".equals(mSelectVO.getIs_evaluate())) {
+                    mDialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.show_order_dialog);
+                    mPhotoLayout = mDialog.getWindow().getDecorView().findViewById(R.id.phone_layout);
+                    mPhotoLayout.setMaxItemCount(3);
+                    mPhotoLayout.setEditable(true);//有加号，有删除，可以点加号选择，false没有加号，点其他按钮选择，也没有删除
+                    mPhotoLayout.setPlusEnable(true);//有加号，可以点加号选择，false没有加号，点其他按钮选择
+                    mPhotoLayout.setSortable(true);//排序
+                    mPhotoLayout.setDelegate(this);
+                    mTitleEt = mDialog.getWindow().getDecorView().findViewById(R.id.title_et);
+                    mDescEt = mDialog.getWindow().getDecorView().findViewById(R.id.desc_et);
+                    mShowTv = mDialog.getWindow().getDecorView().findViewById(R.id.show_tv);
+                    mShowTv.setOnClickListener(this);
+                }
+            }
+        }
+    }
+
+    public void showDialog() {
+        DialogUIUtils.init(mActivity);
+        View rootView = View.inflate(mActivity, R.layout.card_password_dialog, null);
+
+        final BuildBean buildBean = DialogUIUtils.showCustomAlert(mActivity, rootView);
+        buildBean.show();
     }
 }

@@ -108,20 +108,6 @@ public class MyScortActivity extends BaseActivity implements View.OnClickListene
                 open(DailyTaskActivity.class, bundle, 0);
                 break;
             case R.id.rule_tv:
-                final RxDialogSure dialogSure = new RxDialogSure(this);
-                dialogSure.setContent(mMyScortVO.getData().getPoint_way());
-                dialogSure.getTvContent().setTextColor(ContextCompat.getColor(this, R.color.C6));
-                dialogSure.getIvLogo().setVisibility(View.GONE);
-                dialogSure.getTvTitle().setTextSize(13);
-                dialogSure.setTitle("");
-                dialogSure.getTvSure().setTextSize(13);
-                dialogSure.getTvSure().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialogSure.cancel();
-                    }
-                });
-                dialogSure.show();
 
                 showCustomDialog("积分获取",mMyScortVO.getData().getPoint_way());
 

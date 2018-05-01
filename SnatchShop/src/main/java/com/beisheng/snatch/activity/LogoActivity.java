@@ -73,6 +73,7 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
         Intent intent = new Intent();
         intent.putExtra("fragment_list", (Serializable) list);
         intent.setClass(this, HomeActivity.class);
+//        intent.setClass(this, HomeWebActivity.class);
         startActivity(intent);
         this.finish();
     }
@@ -89,6 +90,7 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
             Intent intent = new Intent();
             intent.putExtra("fragment_list", (Serializable) list);
             intent.setClass(this, HomeActivity.class);
+//            intent.setClass(this, HomeWebActivity.class);
             startActivity(intent);
             this.finish();
         } else {

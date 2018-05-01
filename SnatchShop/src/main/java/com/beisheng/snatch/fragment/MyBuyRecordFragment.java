@@ -85,7 +85,7 @@ public class MyBuyRecordFragment extends BaseFragment implements OnLoadMoreListe
         map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
         map.put("curpage", mCurrentPage + "");
         map.put("type", this.getType());
-        BSHttpUtils.get(mActivity, this, Constant.MY_BUY_RECORD_URL, map, MyBuyRecordVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.MY_BUY_RECORD_URL, map, MyBuyRecordVO.class);
     }
 
     @Override
@@ -103,9 +103,7 @@ public class MyBuyRecordFragment extends BaseFragment implements OnLoadMoreListe
         if (isLoadMore) {
             mAdapter.updateDataLast(list);
             isLoadMore = false;
-            mCurrentPage++;
         } else {
-            mCurrentPage++;
             mAdapter.updateData(list);
         }
         mAdapter.notifyDataSetChanged();
@@ -125,6 +123,7 @@ public class MyBuyRecordFragment extends BaseFragment implements OnLoadMoreListe
     @Override
     public void onLoadMore() {
         isLoadMore = true;
+        mCurrentPage++;
         getData();
     }
 

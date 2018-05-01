@@ -35,6 +35,7 @@ public class RecordBuyAdapter extends RecyclerBaseAdapter {
         pb.setProgress(BaseCommonUtils.parseInt(vo.getPercent()));
         BaseCommonUtils.setTextThree(mContext, helper.getTextView(R.id.tv_04), "剩余：", vo.getRemain_count(), "人次", R.color.colorAccent, 1.3f);
         BaseCommonUtils.setTextThree(mContext, helper.getTextView(R.id.tv_05), "本次抢购：", vo.getTotal_count(), "人次", R.color.colorAccent, 1.3f);
+        helper.setItemChildClickListener(R.id.tv_07);
     }
 
 

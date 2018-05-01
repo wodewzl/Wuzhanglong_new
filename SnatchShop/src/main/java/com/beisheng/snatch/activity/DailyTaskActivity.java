@@ -76,7 +76,7 @@ public class DailyTaskActivity extends BaseActivity implements BGAOnRVItemClickL
         HashMap<String, Object> map = new HashMap<>();
         if(AppApplication.getInstance().getUserInfoVO()!=null)
         map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
-        BSHttpUtils.get(mActivity, this, Constant.DAILY_TASK_URL, map, DailyTaskVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.DAILY_TASK_URL, map, DailyTaskVO.class);
     }
 
     @Override

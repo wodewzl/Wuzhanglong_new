@@ -155,9 +155,7 @@ public class ShowDetailActivity extends BaseActivity implements BGANinePhotoLayo
             if (isLoadMore) {
                 mAdapter.updateDataLast(list);
                 isLoadMore = false;
-                mCurrentPage++;
             } else {
-                mCurrentPage++;
                 mAdapter.updateData(list);
             }
             mAdapter.notifyDataSetChanged();
@@ -212,6 +210,7 @@ public class ShowDetailActivity extends BaseActivity implements BGANinePhotoLayo
     @Override
     public void onLoadMore() {
         isLoadMore = true;
+        mCurrentPage++;
         getData();
     }
 

@@ -72,12 +72,14 @@ public class MyLuckyRecordAdapter extends RecyclerBaseAdapter {
                     helper.setVisibility(R.id.tv_04, View.VISIBLE);
                 } else if ("2".equals(bean.getDelivery_status())) {
                     if ("0".equals(bean.getIs_evaluate())) {
+                        helper.setVisibility(R.id.tv_04, View.VISIBLE);
                         helper.setText(R.id.tv_04, "晒单有礼");
                         helper.setVisibility(R.id.tv_04, View.VISIBLE);
                         helper.setVisibility(R.id.status_img, View.VISIBLE);
                         helper.setImageResource(R.id.status_img, R.drawable.show_scuss);
                     } else {
                         helper.setVisibility(R.id.status_img, View.GONE);
+                        helper.setVisibility(R.id.tv_04, View.GONE);
                     }
                 }
             }

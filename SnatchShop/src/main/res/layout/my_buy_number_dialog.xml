@@ -17,14 +17,15 @@
             android:id="@+id/buy_count_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="我爱你样衣杨玉环"/>
+            android:text="我爱你样衣杨玉环"
+          />
 
         <com.zhy.view.flowlayout.TagFlowLayout
             android:id="@+id/tag_flow_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            zhy:max_select="-1">
+            zhy:max_select="-1"/>
 
-        </com.zhy.view.flowlayout.TagFlowLayout>
+
     </LinearLayout>
 </LinearLayout>

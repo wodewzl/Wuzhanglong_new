@@ -63,7 +63,7 @@ public class DisscussActivity extends BaseActivity implements BGAOnRVItemClickLi
 //        map.put("goods_id", this.getIntent().getStringExtra("id"));
         map.put("goods_id", "61");
         map.put("curpage", mCurrentPage + "");
-        BSHttpUtils.get(mActivity, this, Constant.DISSCUSS_URL, map, DiscussVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.DISSCUSS_URL, map, DiscussVO.class);
     }
 
     @Override

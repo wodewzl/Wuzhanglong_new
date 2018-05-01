@@ -190,7 +190,7 @@ public class PersonalCenterActivity extends BaseActivity {
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("uid", this.getIntent().getStringExtra("id"));
-        BSHttpUtils.get(mActivity, this, Constant.OTHER_HEAD_URL, map, TAInfoVO.class);
+        BSHttpUtils.post(mActivity, this, Constant.OTHER_HEAD_URL, map, TAInfoVO.class);
     }
 
     @Override

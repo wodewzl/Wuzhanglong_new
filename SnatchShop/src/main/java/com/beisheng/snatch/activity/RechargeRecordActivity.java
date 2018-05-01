@@ -79,9 +79,7 @@ public class RechargeRecordActivity extends BaseActivity implements OnLoadMoreLi
         if (isLoadMore) {
             mAdapter.updateDataLast(list);
             isLoadMore = false;
-            mCurrentPage++;
         } else {
-            mCurrentPage++;
             mAdapter.updateData(list);
         }
         mAdapter.notifyDataSetChanged();
@@ -102,6 +100,7 @@ public class RechargeRecordActivity extends BaseActivity implements OnLoadMoreLi
     @Override
     public void onLoadMore() {
         isLoadMore = true;
+        mCurrentPage++;
         getData();
     }
 

@@ -1,5 +1,6 @@
 package com.beisheng.snatch.activity;
 
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.text.InputType;
@@ -22,8 +23,12 @@ import com.squareup.picasso.Picasso;
 import com.vondear.rxtools.view.dialog.RxDialogEditSureCancel;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.BSHttpUtils;
+import com.wuzhanglong.library.interfaces.PayCallback;
+import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.mode.PayInfoVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
+import com.wuzhanglong.library.utils.PayUtis;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
 
 import java.util.ArrayList;
@@ -33,7 +38,7 @@ import java.util.List;
 import cn.bingoogolapple.baseadapter.BGAOnItemChildCheckedChangeListener;
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 
-public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickListener, BGAOnItemChildCheckedChangeListener {
+public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickListener, BGAOnItemChildCheckedChangeListener,View.OnClickListener,PostCallback {
     private String[] mOneyArray = {"20", "50", "100", "200", "500", "其他金额"};
     private LuRecyclerView mRecyclerView;
     private MoneyAdapter mAdapter;
@@ -44,6 +49,8 @@ public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickLis
     private TextView mFlowTv;
     private ImageView mFlowImg;
     private TextView mDescTv;
+    private TextView mOkTv;
+
 
     @Override
     public void baseSetContentView() {
@@ -79,6 +86,7 @@ public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickLis
         mPayRecyclerView = getViewById(R.id.recycler_view_pay);
         mPayTypeAdapter = new PayTypeAdapter(mPayRecyclerView);
         RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, mPayRecyclerView, mPayTypeAdapter, R.dimen.dp_1, R.color.C3, false);
+        mOkTv=getViewById(R.id.ok_tv);
     }
 
     @Override
@@ -86,7 +94,7 @@ public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickLis
         mAdapter.setOnRVItemClickListener(this);
         mPayTypeAdapter.setOnRVItemClickListener(this);
 //        mPayTypeAdapter.setOnItemChildCheckedChangeListener(this);
-
+        mOkTv.setOnClickListener(this);
     }
 
     @Override
@@ -107,6 +115,7 @@ public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickLis
         BaseCommonUtils.setTextThree(this, mFlowTv, "选择购买：", mOneyArray[0], "元", R.color.color_yellow, 1.3f);
 
         mPayTypeAdapter.updateData(list);
+
     }
 
     @Override
@@ -162,6 +171,10 @@ public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickLis
         rxDialogEditTextSureCancle.getTvSure().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(BaseCommonUtils.parseInt(rxDialogEditTextSureCancle.getEditText().getText().toString())<=0){
+                    showCustomToast("充值金额要大于20元");
+                 return;
+                }
                 mSelectVO.setMoney(rxDialogEditTextSureCancle.getEditText().getText().toString());
                 BaseCommonUtils.setTextThree(BuyFlowActivity.this, mFlowTv, "选择购买：", rxDialogEditTextSureCancle.getEditText().getText().toString(), "元", R.color.color_yellow, 1.3f);
 
@@ -171,10 +184,70 @@ public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickLis
         rxDialogEditTextSureCancle.getTvCancel().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mSelectVO.setSelect(false);
+                mSelectVO= (MyFlowVO) mAdapter.getItem(0);
+                mSelectVO.setSelect(true);
+                mAdapter.notifyDataSetChanged();
+                BaseCommonUtils.setTextThree(BuyFlowActivity.this, mFlowTv, "选择购买：", mOneyArray[0], "元", R.color.color_yellow, 1.3f);
                 rxDialogEditTextSureCancle.cancel();
             }
         });
         rxDialogEditTextSureCancle.show();
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ok_tv:
+
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+                map.put("recharge_money", mSelectVO.getMoney());
+                map.put("payment_code", mDefaultVO.getPayment_code());
+                map.put("platform", "1");
+                BSHttpUtils.postCallBack(mActivity, Constant.BUY_FLOW_URL, map, PayInfoVO.class, this);
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void success(BaseVO vo) {
+        PayInfoVO payInfoVO = (PayInfoVO) vo;
+
+        if ("200".equals(vo.getCode())) {
+            if ("WPAY".equals(mDefaultVO.getPayment_code())) {
+                PayUtis.weiXinPay(mActivity, payInfoVO.getData().getWxpay_params());
+            } else if ("ALIPAY".equals(mDefaultVO.getPayment_code())) {
+                String payInfo = payInfoVO.getData().getAlipay_string();
+                PayUtis.zhiFuBaoPay(mActivity, payInfo, new PayCallback() {
+                    @Override
+                    public void payResult(int type) {
+                        buyRecord();
+                    }
+                });
+            } else if ("ALIWAP".equals(mDefaultVO.getPayment_code())) {
+                Bundle bundle = new Bundle();
+                bundle.putString("title", "支付宝支付");
+                bundle.putString("content", payInfoVO.getData().getAlipay_wap_html());
+                mActivity.open(WebViewActivity.class, bundle, 0);
+            } else if ("WSCAN".equals(mDefaultVO.getPayment_code())) {
+                Bundle bundle = new Bundle();
+                bundle.putString("img", payInfoVO.getData().getWx_native_qrcode());
+                bundle.putString("url", payInfoVO.getData().getPayment_status_api());
+                mActivity.open(QRCodeActivity.class, bundle, 0);
+            } else if ("BALANCE".equals(mDefaultVO.getPayment_code())) {
+                mActivity.showCustomToast(vo.getDesc());
+                buyRecord();
+            }
+
+        }
+    }
+
+    public void buyRecord(){
+        openActivity(RechargeRecordActivity.class);
     }
 }
