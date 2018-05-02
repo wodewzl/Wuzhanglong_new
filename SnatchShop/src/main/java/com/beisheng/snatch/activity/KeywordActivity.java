@@ -37,7 +37,7 @@ public class KeywordActivity extends BaseActivity implements  TextView.OnEditorA
     private List<String> mHotKeyword = new ArrayList<>();
     private LinearLayout mHistoryLayout;
     private TextView mDeleteTv;
-
+    private TextView mBackTv;
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.keyword_activity);
@@ -53,7 +53,7 @@ public class KeywordActivity extends BaseActivity implements  TextView.OnEditorA
         mSearchEt.setInputType(EditorInfo.TYPE_CLASS_TEXT);
         mHistoryLayout=getViewById(R.id.history_layout);
         mDeleteTv=getViewById(R.id.delete_tv);
-
+        mBackTv=getViewById(R.id.back_iv);
     }
 
     @Override
@@ -93,6 +93,7 @@ public class KeywordActivity extends BaseActivity implements  TextView.OnEditorA
         mDeleteTv.setOnClickListener(this);
         mHistoryFlowLayout.setOnTagClickListener(this);
         mHotFlowLayout.setOnTagClickListener(this);
+        mBackTv.setOnClickListener(this);
     }
 
     @Override
@@ -147,20 +148,30 @@ public class KeywordActivity extends BaseActivity implements  TextView.OnEditorA
     }
 
     @Override
-    public void onClick(View view) {
-        new SweetAlertDialog(mActivity, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("确定要删除?")
-                .setConfirmText("确定")
-                .setCancelText("取消")
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        ACache.get(KeywordActivity.this).put("history_keyword", "");
-                        initHistoryData();
-                        sDialog.dismissWithAnimation();//直接消失
-                    }
-                })
-                .show();
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.delete_tv:
+                new SweetAlertDialog(mActivity, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("确定要删除?")
+                        .setConfirmText("确定")
+                        .setCancelText("取消")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                ACache.get(KeywordActivity.this).put("history_keyword", "");
+                                initHistoryData();
+                                sDialog.dismissWithAnimation();//直接消失
+                            }
+                        })
+                        .show();
+                break;
+            case R.id.back_iv:
+                this.finish();
+                break;
+            default:
+                break;
+        }
+
     }
 
     @Override

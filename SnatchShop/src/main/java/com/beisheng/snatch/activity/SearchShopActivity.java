@@ -97,7 +97,7 @@ public class SearchShopActivity extends BaseActivity implements SwipeRefreshLayo
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
         if (!TextUtils.isEmpty(mKeyword))
-            map.put("keyword", mKeyword);
+            map.put("keywords", mKeyword);
         if (this.getIntent().getStringExtra("id") != null)
             map.put("category_id", this.getIntent().getStringExtra("id"));
         BSHttpUtils.post(mActivity, this, Constant.KEYWORD_LIST_URL, map, SearchShopVO.class);
