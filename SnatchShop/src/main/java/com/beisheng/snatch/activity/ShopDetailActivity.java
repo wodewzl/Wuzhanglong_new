@@ -56,6 +56,7 @@ import com.squareup.picasso.Picasso;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.vondear.rxtools.view.dialog.RxDialogSure;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.cache.ACache;
@@ -144,7 +145,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     private NumberButton mNumberButton;
     private TextView mLoginTv, mRegistTv, mLoginWeixinTv, mLoginQqTv;
     private UserInfoVO mUserInfoVO;
-    private LinearLayout mRankOneLayout, mRankTwoLayout, mRankThreeLayout;
+    private LinearLayout mRankOneLayout, mRankTwoLayout, mRankThreeLayout, mRankRuleLayout;
 
     @Override
     public void baseSetContentView() {
@@ -221,6 +222,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mRankOneLayout = getViewById(R.id.rank_one_layout);
         mRankTwoLayout = getViewById(R.id.rank_two_layout);
         mRankThreeLayout = getViewById(R.id.rank_three_layout);
+        mRankRuleLayout = getViewById(R.id.rank_rule_layout);
         initLineChart();
     }
 
@@ -376,6 +378,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mRankOneLayout.setOnClickListener(this);
         mRankTwoLayout.setOnClickListener(this);
         mRankThreeLayout.setOnClickListener(this);
+        mRankRuleLayout.setOnClickListener(this);
     }
 
 
@@ -1018,6 +1021,9 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
                 bundle.putString("id", mShopDetailVO.getXdz_data().getUid());
                 open(PersonalCenterActivity.class, bundle, 0);
                 break;
+            case R.id.rank_rule_layout:
+                showCustomDialog("上榜规则",mShopDetailVO.getHonor_rule());
+                break;
             default:
 
                 break;
@@ -1400,5 +1406,23 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
         mLoginBindPhoneTv = mBindPhoneDialog.findViewById(R.id.login_bind_phone_tv);
         mLoginMsgGetCodeTv.setOnClickListener(this);
         mLoginBindPhoneTv.setOnClickListener(this);
+    }
+
+
+    public void showCustomDialog(String title, String content) {
+        final RxDialogSure dialog = new RxDialogSure(this);
+        dialog.setContent(content);
+        dialog.getTvContent().setTextColor(ContextCompat.getColor(this, R.color.C6));
+        dialog.getIvLogo().setVisibility(View.GONE);
+        dialog.getTvTitle().setTextSize(13);
+        dialog.setTitle(title);
+        dialog.getTvSure().setTextSize(13);
+        dialog.getTvSure().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+        dialog.show();
     }
 }

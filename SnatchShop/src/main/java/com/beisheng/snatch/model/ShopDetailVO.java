@@ -102,6 +102,15 @@ public class ShopDetailVO extends BaseVO{
         private JoinFirstPageBean join_first_page;
         private List<String> img_list;
         private List<ChartDataBean> chart_data;
+        private String honor_rule;
+
+        public String getHonor_rule() {
+            return honor_rule;
+        }
+
+        public void setHonor_rule(String honor_rule) {
+            this.honor_rule = honor_rule;
+        }
 
         public String getCalc_detail_url() {
             return calc_detail_url;

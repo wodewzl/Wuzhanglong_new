@@ -30,11 +30,11 @@ public class RecordBuyAdapter extends RecyclerBaseAdapter {
             Picasso.with(mContext).load(vo.getGoods_image()).into(helper.getImageView(R.id.img));
         helper.setText(R.id.tv_01, vo.getGoods_name());
         BaseCommonUtils.setTextThree(mContext, helper.getTextView(R.id.tv_02), "期号：第", vo.getIssue_no(), "期", R.color.C7, 1.3f);
-        helper.setText(R.id.tv_03, "总需：" + vo.getTotal_buy() + "人次");
+        helper.setText(R.id.tv_03, "总需：" + vo.getTotal_count() + "人次");
         ProgressBar pb = helper.getView(R.id.progress_bar);
         pb.setProgress(BaseCommonUtils.parseInt(vo.getPercent()));
         BaseCommonUtils.setTextThree(mContext, helper.getTextView(R.id.tv_04), "剩余：", vo.getRemain_count(), "人次", R.color.colorAccent, 1.3f);
-        BaseCommonUtils.setTextThree(mContext, helper.getTextView(R.id.tv_05), "本次抢购：", vo.getTotal_count(), "人次", R.color.colorAccent, 1.3f);
+        BaseCommonUtils.setTextThree(mContext, helper.getTextView(R.id.tv_05), "本次抢购：", vo.getTotal_buy(), "人次", R.color.colorAccent, 1.3f);
         helper.setItemChildClickListener(R.id.tv_07);
     }
 

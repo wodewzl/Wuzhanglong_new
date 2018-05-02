@@ -168,7 +168,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="8dp"
-                    android:text="充气娃娃吾问无为谓无无充气娃娃吾问无为谓无无充气娃娃吾问无为谓无无"
                     android:textSize="14sp"/>
 
                 <TextView
@@ -181,7 +180,6 @@
                     android:paddingLeft="6dp"
                     android:paddingRight="6dp"
                     android:paddingTop="2dp"
-                    android:text="充气娃"
                     android:textColor="@color/C9"
                     android:textSize="11sp"/>
             </RelativeLayout>
@@ -257,12 +255,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/rank_rule_layout"
                 style="@style/padding_15_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/C1"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -274,10 +274,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="5dp"
-                    android:drawableRight="@drawable/my_go"
+                    android:drawableRight="@drawable/rank_rule"
                     android:text="上榜规则"
                     android:textColor="@color/colorAccent"
-                    android:textSize="11sp"/>
+                    android:textSize="11sp"
+                    android:gravity="center_vertical"/>
             </LinearLayout>
 
             <LinearLayout

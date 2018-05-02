@@ -38,6 +38,7 @@ public class LotteryingActivity extends BaseActivity {
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
         mRecyclerView.setLoadMoreEnabled(true);
+
     }
 
     @Override

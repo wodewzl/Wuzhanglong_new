@@ -72,7 +72,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TabOneFragment extends BaseFragment implements View.OnClickListener,PostCallback{
+public class TabOneFragment extends BaseFragment implements View.OnClickListener, PostCallback {
     private String[] mTitleDataList = {"人气", "最新", "进度", "总需人次"};
     private ScrollableLayout mScrollableLayout;
 
@@ -83,7 +83,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     private ImageView mOneImg, mOrderImg, mSearchImg;
     private String mStatus = "4";//4为升序5为降序
     private TextView mMenu01Tv, mMenu02Tv, mMenu03Tv, mMenu04Tv;
-    private ImageView mMenu01Img,mMenu02Img,mMenu03Img,mMenu04Img;
+    private ImageView mMenu01Img, mMenu02Img, mMenu03Img, mMenu04Img;
     private ImageView mSginImg;
     private LinearLayout mHeadLayout;
     private HomeVO mHomeVO;
@@ -101,6 +101,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     private TextView mLoginTv, mRegistTv, mLoginWeixinTv, mLoginQqTv;
     private UserInfoVO mUserInfoVO;
     private CheckBox mRegistCheckBox;
+    private ImageView mBackTv;
 
     @Override
     public void setContentView() {
@@ -123,24 +124,25 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mMenu02Tv = getViewById(R.id.menu_02_tv);
         mMenu03Tv = getViewById(R.id.menu_03_tv);
         mMenu04Tv = getViewById(R.id.menu_04_tv);
-        mMenu01Img=getViewById(R.id.menu_01_img);
-        mMenu02Img=getViewById(R.id.menu_02_img);
-        mMenu03Img=getViewById(R.id.menu_03_img);
-        mMenu04Img=getViewById(R.id.menu_04_img);
+        mMenu01Img = getViewById(R.id.menu_01_img);
+        mMenu02Img = getViewById(R.id.menu_02_img);
+        mMenu03Img = getViewById(R.id.menu_03_img);
+        mMenu04Img = getViewById(R.id.menu_04_img);
         mSginImg = getViewById(R.id.sgin_img);
-        mHeadLayout=getViewById(R.id.head_layouat);
+        mHeadLayout = getViewById(R.id.head_layouat);
+        mBackTv = getViewById(R.id.back_tv);
         initMagicIndicator();
     }
 
     @Override
     public void bindViewsListener() {
+        mBackTv.setOnClickListener(this);
         mOrderImg.setOnClickListener(this);
         mSearchImg.setOnClickListener(this);
         mMenu01Img.setOnClickListener(this);
         mMenu02Img.setOnClickListener(this);
         mMenu03Img.setOnClickListener(this);
         mMenu04Img.setOnClickListener(this);
-
         mSginImg.setOnClickListener(this);
         mScrollableLayout.setOnScrollListener(new ScrollableLayout.OnScrollListener() {
             @Override
@@ -257,7 +259,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void hasData(BaseVO vo) {
         final HomeVO homeVO = (HomeVO) vo;
-        mHomeVO= (HomeVO) vo;
+        mHomeVO = (HomeVO) vo;
         mBanner.setImages(homeVO.getData().getMulti_adv());
         Banner banner = mBanner.setImageLoader(new ImageLoader() {
             @Override
@@ -271,13 +273,13 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
             @Override
             public void OnBannerClick(int position) {
-                Bundle bundle= new Bundle();
-                if("1".equals(homeVO.getData().getMulti_adv().get(position).getJump_type())){
-                    bundle.putString("keyword",homeVO.getData().getMulti_adv().get(position).getAdv_url());
-                    mActivity.open(SearchShopActivity.class,bundle,0);
-                }else {
-                    bundle.putString("url",homeVO.getData().getMulti_adv().get(position).getAdv_url());
-                    mActivity.open(WebViewActivity.class,bundle,0);
+                Bundle bundle = new Bundle();
+                if ("1".equals(homeVO.getData().getMulti_adv().get(position).getJump_type())) {
+                    bundle.putString("keyword", homeVO.getData().getMulti_adv().get(position).getAdv_url());
+                    mActivity.open(SearchShopActivity.class, bundle, 0);
+                } else {
+                    bundle.putString("url", homeVO.getData().getMulti_adv().get(position).getAdv_url());
+                    mActivity.open(WebViewActivity.class, bundle, 0);
                 }
 
             }
@@ -312,10 +314,10 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mMenu03Tv.setText(homeVO.getData().getNav_list().get(2).getNav_title());
         mMenu04Tv.setText(homeVO.getData().getNav_list().get(3).getNav_title());
 
-        ACache.get(mActivity).put("share_title",homeVO.getData().getShare_params().getTitle());
-        ACache.get(mActivity).put("share_desc",homeVO.getData().getShare_params().getDescX());
-        ACache.get(mActivity).put("share_img",homeVO.getData().getShare_params().getImage());
-        ACache.get(mActivity).put("share_url",homeVO.getData().getShare_params().getUrl());
+        ACache.get(mActivity).put("share_title", homeVO.getData().getShare_params().getTitle());
+        ACache.get(mActivity).put("share_desc", homeVO.getData().getShare_params().getDescX());
+        ACache.get(mActivity).put("share_img", homeVO.getData().getShare_params().getImage());
+        ACache.get(mActivity).put("share_url", homeVO.getData().getShare_params().getUrl());
     }
 
     @Override
@@ -346,6 +348,9 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
                 }
                 break;
 
+            case R.id.back_tv:
+                break;
+
             case R.id.search_img:
                 mActivity.openActivity(KeywordActivity.class);
                 break;
@@ -359,12 +364,14 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
                 mActivity.openActivity(DailyTaskActivity.class);
                 break;
             case R.id.menu_04_img:
-                bundle.putString("title",mHomeVO.getData().getNav_list().get(3).getNav_title());
-                bundle.putString("url",mHomeVO.getData().getNav_list().get(3).getNav_url());
-                mActivity.open(WebViewActivity.class,bundle,0);
+                mActivity.showCustomToast("正在开发中");
+
+//                bundle.putString("title",mHomeVO.getData().getNav_list().get(3).getNav_title());
+//                bundle.putString("url",mHomeVO.getData().getNav_list().get(3).getNav_url());
+//                mActivity.open(WebViewActivity.class,bundle,0);
                 break;
             case R.id.sgin_img:
-                if(AppApplication.getInstance().getUserInfoVO()==null){
+                if (AppApplication.getInstance().getUserInfoVO() == null) {
                     login();
                     return;
                 }

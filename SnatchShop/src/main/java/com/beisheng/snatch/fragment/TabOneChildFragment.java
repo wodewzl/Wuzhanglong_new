@@ -77,7 +77,8 @@ public class TabOneChildFragment extends BaseFragment implements OnLoadMoreListe
                 }
             }
         });
-
+        mRecyclerView.setFooterViewHint("正在加载中","一一一 我们是有底线的 一一一","");
+        mRecyclerView.setFooterViewColor(R.color.colorAccent,R.color.C5,R.color.C3);
     }
 
     @Override

@@ -64,7 +64,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     private Uri resultUri;
     private UserInfoVO mUserInfo;
     private TextView mTextView01, mTextView02, mTextView03, mTextView04, mTextView05, mTextView06, mTextView07, mTextView08;
-    private LinearLayout mLayout03,mLayout04,mLayout05,mLayout06,mLayout07;
+    private LinearLayout mLayout03, mLayout04, mLayout05, mLayout06, mLayout07;
     private CircleImageView mHeadImg;
     private Button mBt;
     private BGAPhotoHelper mPhotoHelper;
@@ -81,7 +81,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         mBaseTitleTv.setText("个人信息");
 
         mLayout03 = getViewById(R.id.layout_03);
-        mLayout04=getViewById(R.id.layout_04);
+        mLayout04 = getViewById(R.id.layout_04);
         mLayout05 = getViewById(R.id.layout_05);
         mLayout06 = getViewById(R.id.layout_06);
         mLayout07 = getViewById(R.id.layout_07);
@@ -105,7 +105,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         if (AppApplication.getInstance().getUserInfoVO() != null) {
             if (!TextUtils.isEmpty(AppApplication.getInstance().getUserInfoVO().getData().getAvatar()))
                 Picasso.with(mActivity).load(AppApplication.getInstance().getUserInfoVO().getData().getAvatar()).into(mHeadImg);
-            mTextView02.setText("ID:"+AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
+            mTextView02.setText("ID:" + AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
             mTextView03.setText(AppApplication.getInstance().getUserInfoVO().getData().getNickname());
             mTextView04.setText(AppApplication.getInstance().getUserInfoVO().getData().getSex_text());
             mTextView05.setText(AppApplication.getInstance().getUserInfoVO().getData().getDefault_address());
@@ -166,6 +166,9 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 openActivity(AddressActivity.class);
                 break;
             case R.id.layout_06:
+                if (AppApplication.getInstance().getUserInfoVO() != null && !TextUtils.isEmpty(AppApplication.getInstance().getUserInfoVO().getData().getWx_nickname())) {
+                    return;
+                }
                 new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("确定要绑定微信码?")
                         .setConfirmText("确定")
@@ -183,6 +186,9 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
                 break;
             case R.id.layout_07:
+                if (AppApplication.getInstance().getUserInfoVO() != null && !TextUtils.isEmpty(AppApplication.getInstance().getUserInfoVO().getData().getQq_nickname())) {
+                    return;
+                }
                 new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("确定要绑定QQ吗?")
                         .setConfirmText("确定")
@@ -423,7 +429,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
-    public void updateSex(){
+    public void updateSex() {
         final List<TieBean> datas = new ArrayList<TieBean>();
         datas.add(new TieBean("男", 1));
         datas.add(new TieBean("女", 2));
@@ -433,7 +439,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             public void onItemClick(CharSequence text, int position) {
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
-                map.put("sex", datas.get(position).getId()+"");
+                map.put("sex", datas.get(position).getId() + "");
                 BSHttpUtils.postCallBack(mActivity, Constant.USER_INFO_SEX_URL, map, UserInfoVO.class, UserInfoActivity.this);
                 String str = (String) text;
             }
