@@ -407,7 +407,7 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
             mBanner.setImageLoader(new ImageLoader() {
                 @Override
                 public void displayImage(Context context, Object o, ImageView imageView) {
-//                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    imageView.setScaleType(ImageView.ScaleType.CENTER);
                     String url = (String) o;
                     Picasso.with(context).load(url).into(imageView);
                 }
