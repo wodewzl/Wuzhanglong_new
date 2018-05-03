@@ -12,6 +12,7 @@ public class Constant {
     public static final String ADDRESS_DELETE_URL = "/index.php/Api/Member/delete_member_address";//删除地址
     public static final String ADDRESS_SET_URL = "/index.php/Api/Member/update_address_default";//设置默认收货地址
     public static final String ADDRESS_ADD_URL = "/index.php/Api/Member/add_member_address";//添加收货地址
+    public static final String ADDRESS_UPDATA_URL = "/index.php/Api/Member/update_member_address";//更新收货地址
     public static final String GET_CITY_URL = "/index.php/Api/Dbindex/get_area_list";// 获取城市列表
     public static final String SHOP_CART_BUY_URL = "/index.php/Api/Member/buy_from_cart";
     public static final String SHOP_CART_URL = "/index.php/Api/Member/cart_list";//清单列表
@@ -76,6 +77,9 @@ public class Constant {
     public static final String BUY_FLOW_URL = "/index.php/Api/Member/add_recharge";//购买流量
     public static final String CARD_PWD_URL = "/index.php/Api/Member/get_virtual_info";//查看卡密
     public static final String UPDATE_APP_URL = "/index.php/Api/Dbindex/check_version";//App更新
+
+    public static final String DISCOVERY_INDEX = "/index.php/Api/Dbindex/discovery";//发现主页
+
 
 
 }

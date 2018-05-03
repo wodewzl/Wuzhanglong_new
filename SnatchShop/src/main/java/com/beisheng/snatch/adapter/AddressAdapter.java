@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.model.AddressVO;
+import com.google.gson.Gson;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
 import com.wuzhanglong.library.mode.EBMessageVO;
 
@@ -36,7 +37,7 @@ public class AddressAdapter extends RecyclerBaseAdapter {
         AddressVO.DataBean.ListBean vo = (AddressVO.DataBean.ListBean) model;
         helper.setText(R.id.name_tv, vo.getConsigner());
         helper.setText(R.id.phone_tv, vo.getMobile());
-        helper.setText(R.id.address_tv, vo.getAddress_info() + vo.getAddress());
+        helper.setText(R.id.address_tv, vo.getProvince()+vo.getCity()+vo.getDistrict()+vo.getAddress());
         if ("1".equals(vo.getIs_default())) {
             helper.setImageResource(R.id.check_img, R.drawable.check_select);
             mDefalutVO = vo;
@@ -114,7 +115,7 @@ public class AddressAdapter extends RecyclerBaseAdapter {
                      */
                     case R.id.tv_edit:
 
-                        EBMessageVO ebMessageVO = new EBMessageVO("address_edit",i+"");
+                        EBMessageVO ebMessageVO = new EBMessageVO("address_edit",new Gson().toJson(vo));
                         EventBus.getDefault().post(ebMessageVO);
 
                         break;

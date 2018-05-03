@@ -17,8 +17,10 @@ import android.widget.TextView;
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.application.AppApplication;
 import com.beisheng.snatch.constant.Constant;
+import com.beisheng.snatch.model.AddressVO;
 import com.beisheng.snatch.model.CityVO;
 import com.bigkoo.pickerview.OptionsPickerView;
+import com.google.gson.Gson;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.http.HttpGetDataUtil;
@@ -47,6 +49,8 @@ public class AddressAddActivity extends BaseActivity implements View.OnClickList
     private Button mButton;
     private ImageView mLocationImg;
     private RelativeLayout rl_select_user;
+    private String address_info;
+    private AddressVO.DataBean.ListBean listBean;
 
     @Override
     public void baseSetContentView() {
@@ -55,7 +59,7 @@ public class AddressAddActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void initView() {
-        mBaseTitleTv.setText("新增地址");
+
         mNameEt = getViewById(R.id.name_et);
         mPhoneEt = getViewById(R.id.phone_et);
         mDescEt = getViewById(R.id.desc_et);
@@ -64,6 +68,30 @@ public class AddressAddActivity extends BaseActivity implements View.OnClickList
         mLocationImg = getViewById(R.id.location_img);
 
         rl_select_user = getViewById(R.id.rl_select_user);
+
+
+        address_info = getIntent().getStringExtra("address_info");
+        if (TextUtils.isEmpty(address_info)){
+            mBaseTitleTv.setText("新增地址");
+            mButton.setText("添加新地址");
+        }else {
+            mBaseTitleTv.setText("编辑地址");
+            mButton.setText("保存修改");
+
+            Gson gson=new Gson();
+            listBean = gson.fromJson(address_info, AddressVO.DataBean.ListBean.class);
+
+            mNameEt.setText(listBean.getConsigner());
+            mPhoneEt.setText(listBean.getMobile());
+            mAddressTv.setText(listBean.getProvince()+listBean.getCity()+listBean.getDistrict());
+            mDescEt.setText(listBean.getAddress());
+
+            mProvince=listBean.getProvince();
+            mCity=listBean.getCity();
+            mArea=listBean.getDistrict();
+
+
+        }
 
     }
 
@@ -187,7 +215,19 @@ public class AddressAddActivity extends BaseActivity implements View.OnClickList
 
                 showProgressDialog();
                 HashMap<String, Object> map = new HashMap<>();
-                String mUrl = Constant.ADDRESS_ADD_URL;
+
+
+                String mUrl;
+                if (TextUtils.isEmpty(address_info)){
+                     mUrl = Constant.ADDRESS_ADD_URL;
+                }else {
+                     mUrl=Constant.ADDRESS_UPDATA_URL;
+                     map.put(" id",listBean.getId());
+
+                }
+
+
+
                 if (AppApplication.getInstance().getUserInfoVO() != null)
                     map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
                 map.put("consigner", mNameEt.getText().toString());

@@ -96,7 +96,7 @@
             android:layout_marginTop="10dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:drawableLeft="@drawable/delete"
+            android:drawableLeft="@drawable/address_edit"
             android:drawablePadding="5dp"
             android:text="编辑"
             android:gravity="center"

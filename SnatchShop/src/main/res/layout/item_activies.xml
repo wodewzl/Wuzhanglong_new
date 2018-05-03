@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll_player_guide"
+        style="@style/padding_15_13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/C1"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_activities"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/find_img_03"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_activities_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="新手指南"/>
+
+            <TextView
+                android:id="@+id/tv_activitiew_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="老司机帮帮你"
+                android:textColor="@color/C6"
+                android:textSize="11sp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/my_go"/>
+
+    </LinearLayout>
+
+</LinearLayout>
