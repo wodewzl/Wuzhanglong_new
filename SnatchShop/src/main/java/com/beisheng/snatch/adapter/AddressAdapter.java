@@ -47,6 +47,8 @@ public class AddressAdapter extends RecyclerBaseAdapter {
         helper.setItemChildClickListener(R.id.delete_tv);
         helper.setItemChildClickListener(R.id.edit_text);
         helper.setItemChildClickListener(R.id.check_img);
+        helper.setItemChildClickListener(R.id.tv_edit);
+
         helper.setOnItemChildClickListener(new BGAOnItemChildClickListener() {
             @Override
             public void onItemChildClick(ViewGroup viewGroup, View v, final int i) {
@@ -105,6 +107,18 @@ public class AddressAdapter extends RecyclerBaseAdapter {
 
 
                         break;
+
+
+                    /**
+                     * 地址编辑按钮
+                     */
+                    case R.id.tv_edit:
+
+                        EBMessageVO ebMessageVO = new EBMessageVO("address_edit",i+"");
+                        EventBus.getDefault().post(ebMessageVO);
+
+                        break;
+
                     default:
                         break;
                 }

@@ -18,11 +18,31 @@
 
     <View style="@style/view_divider" />
 
-    <com.github.jdsjlzx.recyclerview.LuRecyclerView
-        android:id="@+id/dialog_recycler_view"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp" />
+        android:layout_height="170dp">
 
+
+        <!--没有收货地址-->
+        <TextView
+            android:id="@+id/tv_no_address"
+            android:layout_centerInParent="true"
+            android:textSize="14sp"
+            android:textColor="@color/_6"
+            android:text="您还没有收货地址，请添加"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <!--有收货地址-->
+        <com.github.jdsjlzx.recyclerview.LuRecyclerView
+            android:id="@+id/dialog_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+
+    <View style="@style/view_divider" />
     <TextView
         android:id="@+id/add_address_tv"
         android:layout_width="match_parent"

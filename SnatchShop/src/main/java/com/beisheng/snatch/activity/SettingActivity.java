@@ -167,6 +167,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                                 AppApplication.getInstance().saveUserInfoVO(null);
                                 EventBus.getDefault().post(new EBMessageVO("login_out"));
                                 mTv09.setText("登陆");
+
+                               finish();
 //                                JPushInterface.setAlias(mActivity, "", new TagAliasCallback() {
 //                                    @Override
 //                                    public void gotResult(int i, String s, Set<String> set) {

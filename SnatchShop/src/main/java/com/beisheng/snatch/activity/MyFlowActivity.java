@@ -67,6 +67,10 @@ public class MyFlowActivity extends BaseActivity implements BGAOnRVItemClickList
         for (int i = 1; i <= mOneyArray.length; i++) {
             MyFlowVO myFlowVO = new MyFlowVO();
             myFlowVO.setMoney(mOneyArray[i - 1]);
+//            if (i == 1) {
+//                mSelectVO = myFlowVO;
+//                myFlowVO.setSelect(true);
+//            }
             myFlowVO.setId(i + "");
             list.add(myFlowVO);
         }
@@ -112,6 +116,7 @@ public class MyFlowActivity extends BaseActivity implements BGAOnRVItemClickList
                     showCustomToast("请选择充值的流量");
                     return;
                 }
+
 
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());

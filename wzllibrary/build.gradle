@@ -2,12 +2,12 @@ apply plugin: 'com.android.library'
 //apply plugin: 'com.android.application'
 android {
     signingConfigs {
-        release {
-            keyAlias 'wzl'
-            keyPassword 'wuzhanglong'
-            storeFile file('D:/studio_project/Wuzhanglong_new/wzllibrary/wodewzl.jks')
-            storePassword 'wuzhanglong'
-        }
+//        release {
+//            keyAlias 'wzl'
+//            keyPassword 'wuzhanglong'
+//            storeFile file('D:/studio_project/Wuzhanglong_new/wzllibrary/wodewzl.jks')
+//            storePassword 'wuzhanglong'
+//        }
     }
     compileSdkVersion 27
     buildToolsVersion '27.0.1'
@@ -20,24 +20,24 @@ android {
         versionName "1.0"
 //        ndk { abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86","arm64-v8a","x86_64" }
 //        multiDexEnabled true
-
+//        manifestPlaceholders = [qqappid: "1106176952"]
     }
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-        }
-        debug {
-            signingConfig signingConfigs.release
-        }
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+//        }
+//        debug {
+//            signingConfig signingConfigs.release
+//        }
     }
     configurations.all {
         resolutionStrategy.eachDependency { DependencyResolveDetails details ->
             def requested = details.requested
             if (requested.group == 'com.android.support') {
                 if (!requested.name.startsWith("multidex")) {
-                    details.useVersion '27.0.0'
+                    details.useVersion '27.0.1'
                 }
             }
         }
@@ -66,7 +66,7 @@ dependencies {
     // -------------------- 九宫格图片选择显示----------------------------
 
     //动态获取权限
-    compile 'pub.devrel:easypermissions:1.2.0'
+    compile 'pub.devrel:easypermissions:0.4.0'
 
     //viewPager 指示器
     compile 'me.relex:circleindicator:1.2.2'
@@ -192,19 +192,12 @@ dependencies {
 
     //多样式Dialog
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
-    compile 'com.github.iwgang:countdownview:2.1.6'
+    compile 'com.github.iwgang:countdownview:2.1.6'//倒计时
+    compile 'com.hyman:flowlayout-lib:1.1.2'//hongyang 流布局类似关键字
+    compile 'com.melnykov:floatingactionbutton:1.3.0'//悬浮按钮
+    compile 'com.allenliu.versionchecklib:library:2.0.3'//自动更新
+    compile 'com.teprinciple:updateapputils:1.4'//自动更新
+    compile 'com.meiqia:meiqiasdk:3.4.3@aar'
 
-    //倒计时
-    compile 'com.hyman:flowlayout-lib:1.1.2'
-
-    //hongyang 流布局类似关键字
-    compile 'com.melnykov:floatingactionbutton:1.3.0'
-
-    //悬浮按钮
-    compile 'com.allenliu.versionchecklib:library:2.0.3'
-
-    //    //自动更新
-
-    //    compile 'com.teprinciple:updateapputils:1.4'
 
 }

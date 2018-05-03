@@ -1,1 +1,1 @@
-include ':app', ':wzllibrary', ':SnatchShop'
+include  ':wzllibrary', ':SnatchShop'

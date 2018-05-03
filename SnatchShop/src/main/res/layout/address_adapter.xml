@@ -84,6 +84,25 @@
             android:textColor="@color/C5"
             android:textSize="11sp" />
 
+
+
+        <TextView
+            android:id="@+id/tv_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/delete_tv"
+            android:layout_marginRight="@dimen/dp_15"
+            android:layout_below="@id/divier"
+            android:layout_marginTop="10dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:drawableLeft="@drawable/delete"
+            android:drawablePadding="5dp"
+            android:text="编辑"
+            android:gravity="center"
+            android:textColor="@color/C5"
+            android:textSize="11sp" />
+
     </RelativeLayout>
 
 </LinearLayout>

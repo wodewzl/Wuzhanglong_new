@@ -2,6 +2,9 @@ package com.beisheng.snatch.activity;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.adapter.MyFlowRecordAdapter;
@@ -27,6 +30,8 @@ public class MyFlowRecordActivity extends BaseActivity implements OnLoadMoreList
     private MyFlowRecordAdapter mAdapter;
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
+    private LinearLayout ll_no_data;
+    private TextView tv_to_buy;
 
     @Override
     public void baseSetContentView() {
@@ -36,15 +41,21 @@ public class MyFlowRecordActivity extends BaseActivity implements OnLoadMoreList
     @Override
     public void initView() {
         mBaseTitleTv.setText("兑换记录");
+        ll_no_data = getViewById(R.id.ll_no_data);
+        tv_to_buy = getViewById(R.id.tv_to_buy);
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
         mRecyclerView = getViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         mAdapter = new MyFlowRecordAdapter(mRecyclerView);
-        LuRecyclerViewAdapter adapter = new LuRecyclerViewAdapter(mAdapter);
-        mRecyclerView.setAdapter(adapter);
-        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
-        mRecyclerView.setLoadMoreEnabled(true);
+
+        tv_to_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(BuyFlowActivity.class);
+            }
+        });
+
     }
 
     @Override
@@ -64,23 +75,54 @@ public class MyFlowRecordActivity extends BaseActivity implements OnLoadMoreList
     @Override
     public void hasData(BaseVO vo) {
         MyFlowRecordVO bean = (MyFlowRecordVO) vo;
-        if (BaseCommonUtils.parseInt(bean.getData().getCount()) == 1) {
-            mRecyclerView.setLoadMoreEnabled(false);
+
+        List<MyFlowRecordVO.DataBean.ListBean> listBeans = bean.getData().getList();
+
+        if(!"[]".equals(listBeans.toString())) {
+
+            mRecyclerView.setVisibility(View.VISIBLE);
+            ll_no_data.setVisibility(View.GONE);
+
+            LuRecyclerViewAdapter adapter = new LuRecyclerViewAdapter(mAdapter);
+            mRecyclerView.setAdapter(adapter);
+            mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
+            mRecyclerView.setLoadMoreEnabled(true);
+
+            if (BaseCommonUtils.parseInt(bean.getData().getCount()) == 1) {
+                mRecyclerView.setLoadMoreEnabled(false);
+            }
+            if (mCurrentPage == BaseCommonUtils.parseInt(bean.getData().getCount())) {
+                mRecyclerView.setNoMore(true);
+            } else {
+                mRecyclerView.setNoMore(false);
+            }
+            List<MyFlowRecordVO.DataBean.ListBean> list = bean.getData().getList();
+            if (isLoadMore) {
+                mAdapter.updateDataLast(list);
+                isLoadMore = false;
+            } else {
+                mAdapter.updateData(list);
+            }
+            mAdapter.notifyDataSetChanged();
+
+        }else {
+
+            ll_no_data.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+
+
         }
-        if (mCurrentPage == BaseCommonUtils.parseInt(bean.getData().getCount())) {
-            mRecyclerView.setNoMore(true);
-        } else {
-            mRecyclerView.setNoMore(false);
-        }
-        List<MyFlowRecordVO.DataBean.ListBean> list = bean.getData().getList();
-        if (isLoadMore) {
-            mAdapter.updateDataLast(list);
-            isLoadMore = false;
-        } else {
-            mAdapter.updateData(list);
-        }
-        mAdapter.notifyDataSetChanged();
+
         mAutoSwipeRefreshLayout.setRefreshing(false);
+
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
     }
 
     @Override

@@ -114,6 +114,7 @@ public class AddressActivity extends BaseActivity implements View.OnClickListene
             BSHttpUtils.postCallBack(this, Constant.ADDRESS_DELETE_URL, map, BaseVO.class, this);
         } else if ("address_edit".equals(event.getMessage())) {
             getData();
+
         } else if ("address_defalut".equals(event.getMessage())) {
             HashMap<String, Object> map = new HashMap<>();
             map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
