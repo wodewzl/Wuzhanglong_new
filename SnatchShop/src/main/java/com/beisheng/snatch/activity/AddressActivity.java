@@ -1,5 +1,6 @@
 package com.beisheng.snatch.activity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -113,7 +114,13 @@ public class AddressActivity extends BaseActivity implements View.OnClickListene
             map.put("id", event.getMsg());
             BSHttpUtils.postCallBack(this, Constant.ADDRESS_DELETE_URL, map, BaseVO.class, this);
         } else if ("address_edit".equals(event.getMessage())) {
-            getData();
+
+            String msg = event.getMsg();
+            Intent intent=new Intent(this,AddressAddActivity.class);
+            intent.putExtra("address_info",msg);
+            startActivity(intent);
+
+
         } else if ("address_defalut".equals(event.getMessage())) {
             HashMap<String, Object> map = new HashMap<>();
             map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());

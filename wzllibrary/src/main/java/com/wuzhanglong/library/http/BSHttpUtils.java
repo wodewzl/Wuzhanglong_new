@@ -57,7 +57,6 @@ public class BSHttpUtils {
                         callback.baseHasData(vo);
                     }
                 });
-
                 if (!HttpUtils.isNetworkAvailable(activity)) {
                     return;
                 }

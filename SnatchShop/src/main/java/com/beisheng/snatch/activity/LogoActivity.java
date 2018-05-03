@@ -94,7 +94,7 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
             startActivity(intent);
             this.finish();
         } else {
-            EasyPermissions.requestPermissions(this, "", REQUEST_PERMISSIONS, perms);
+            EasyPermissions.requestPermissions(this, "是否申请必要的权限？", REQUEST_PERMISSIONS, perms);
         }
     }
 }

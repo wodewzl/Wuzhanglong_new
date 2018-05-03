@@ -601,6 +601,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
             mFlowTv.setText("0");
             mRedTv.setText("0");
             mScortTv.setText("0");
+            mHeadImg.setImageResource(R.drawable.user_icon_def);
             BaseCommonUtils.setTextThree(mActivity, mBuyCountTv, "购买次数：", "0", "次", R.color.colorAccent, 1.1f);
         } else if ("update_userinfo".equals(event.getMessage())) {
             getData();

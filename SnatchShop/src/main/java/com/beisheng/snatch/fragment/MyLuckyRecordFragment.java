@@ -222,41 +222,65 @@ public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreLis
             case R.id.ok_tv:
                 final BottomSheetDialog dialog = BottomDialogUtil.initBottomDialog(mActivity, R.layout.address_list_dialog);
                 LuRecyclerView recyclerView = dialog.getWindow().getDecorView().findViewById(R.id.dialog_recycler_view);
-                mAddressDialogAdapter = new AddressDialogAdapter(recyclerView);
-                RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, recyclerView, mAddressDialogAdapter, R.dimen.dp_1, R.color.C3, false);
+                TextView tv_no_address=dialog.getWindow().getDecorView().findViewById(R.id.tv_no_address);
+
                 TextView addAddressTv = dialog.getWindow().getDecorView().findViewById(R.id.add_address_tv);
                 addAddressTv.setOnClickListener(this);
-                mAddressDialogAdapter.updateData(mAddressVO.getData().getList());
-                mAddressDialogAdapter.setOnRVItemClickListener(new BGAOnRVItemClickListener() {
-                    @Override
-                    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
-                        final AddressVO.DataBean.ListBean bean = (AddressVO.DataBean.ListBean) mAddressDialogAdapter.getItem(position);
-                        for (int i = 0; i < mAddressDialogAdapter.getData().size(); i++) {
-                            AddressVO.DataBean.ListBean vo = (AddressVO.DataBean.ListBean) mAddressDialogAdapter.getData().get(i);
-                            vo.setIs_default("0");
-                        }
-                        bean.setIs_default("1");
-                        mAddressDialogAdapter.notifyDataSetChanged();
 
-                        new SweetAlertDialog(mActivity, SweetAlertDialog.WARNING_TYPE)
-                                .setTitleText("确认要领取？")
+                if (mAddressVO.getData().getList().size()>0) {
+
+                    /**
+                     * 有收货地址
+                     */
+                    tv_no_address.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+
+                    mAddressDialogAdapter = new AddressDialogAdapter(recyclerView);
+                    RecyclerViewUtil.initRecyclerViewLinearLayout(mActivity, recyclerView, mAddressDialogAdapter, R.dimen.dp_1, R.color.C3, false);
+                    mAddressDialogAdapter.updateData(mAddressVO.getData().getList());
+                    mAddressDialogAdapter.setOnRVItemClickListener(new BGAOnRVItemClickListener() {
+                        @Override
+                        public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+                            final AddressVO.DataBean.ListBean bean = (AddressVO.DataBean.ListBean) mAddressDialogAdapter.getItem(position);
+                            for (int i = 0; i < mAddressDialogAdapter.getData().size(); i++) {
+                                AddressVO.DataBean.ListBean vo = (AddressVO.DataBean.ListBean) mAddressDialogAdapter.getData().get(i);
+                                vo.setIs_default("0");
+                            }
+                            bean.setIs_default("1");
+                            mAddressDialogAdapter.notifyDataSetChanged();
+
+                            new SweetAlertDialog(mActivity, SweetAlertDialog.WARNING_TYPE)
+                                    .setTitleText("确认要领取？")
 //                            .setContentText("删除成功")
-                                .setConfirmText("确定")
-                                .setCancelText("取消")
+                                    .setConfirmText("确定")
+                                    .setCancelText("取消")
 
-                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sDialog) {
-                                        getShop(bean.getId());
-                                        sDialog.dismissWithAnimation();//直接消失
-                                        dialog.dismiss();
-                                    }
-                                })
-                                .show();
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sDialog) {
+                                            getShop(bean.getId());
+                                            sDialog.dismissWithAnimation();//直接消失
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .show();
 
 
-                    }
-                });
+                        }
+                    });
+                }else {
+
+                    /**
+                     * 没有收货地址
+                     */
+
+                    tv_no_address.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+
+
+
+
+                }
                 break;
             case R.id.add_address_tv:
                 mActivity.openActivity(AddressAddActivity.class);

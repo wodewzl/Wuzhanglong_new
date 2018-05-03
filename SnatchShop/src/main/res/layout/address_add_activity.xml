@@ -15,26 +15,59 @@
         android:orientation="vertical"
         tools:context="com.beisheng.snatch.activity.AddressAddActivity">
 
-        <EditText
-            android:id="@+id/name_et"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:background="@color/C1"
-            android:hint="收货人姓名（请使用真实姓名）"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"/>
+     <LinearLayout
+         android:orientation="horizontal"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+        
+         <LinearLayout
+             android:orientation="vertical"
+             android:layout_weight="1"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/phone_et"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_marginTop="1dp"
-            android:background="@color/C1"
-            android:hint="手机号"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:inputType="number"
-            android:maxLength="11"/>
+             <EditText
+                 android:id="@+id/name_et"
+                 android:layout_width="match_parent"
+                 android:layout_height="44dp"
+                 android:background="@color/C1"
+                 android:hint="收货人姓名（请使用真实姓名）"
+                 android:paddingLeft="15dp"
+                 android:paddingRight="15dp"/>
+
+             <EditText
+                 android:id="@+id/phone_et"
+                 android:layout_width="match_parent"
+                 android:layout_height="44dp"
+                 android:layout_marginTop="1dp"
+                 android:background="@color/C1"
+                 android:hint="手机号"
+                 android:paddingLeft="15dp"
+                 android:paddingRight="15dp"
+                 android:inputType="number"
+                 android:maxLength="11"/>
+             
+         </LinearLayout>
+
+
+         
+         <RelativeLayout
+             android:id="@+id/rl_select_user"
+             android:layout_marginLeft="1dp"
+             android:background="@color/C1"
+             android:layout_width="88dp"
+             android:layout_height="88dp">
+
+             <ImageView
+                 android:layout_centerInParent="true"
+                 android:src="@drawable/open_contact"
+                 android:layout_width="44dp"
+                 android:layout_height="44dp" />
+
+
+         </RelativeLayout>
+         
+     </LinearLayout>
 
         <LinearLayout
             android:id="@+id/address_layout"

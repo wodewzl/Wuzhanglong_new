@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.beisheng.snatch.R;
 import com.beisheng.snatch.model.AddressVO;
+import com.google.gson.Gson;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
 import com.wuzhanglong.library.mode.EBMessageVO;
 
@@ -36,7 +37,7 @@ public class AddressAdapter extends RecyclerBaseAdapter {
         AddressVO.DataBean.ListBean vo = (AddressVO.DataBean.ListBean) model;
         helper.setText(R.id.name_tv, vo.getConsigner());
         helper.setText(R.id.phone_tv, vo.getMobile());
-        helper.setText(R.id.address_tv, vo.getAddress_info() + vo.getAddress());
+        helper.setText(R.id.address_tv, vo.getProvince()+vo.getCity()+vo.getDistrict()+vo.getAddress());
         if ("1".equals(vo.getIs_default())) {
             helper.setImageResource(R.id.check_img, R.drawable.check_select);
             mDefalutVO = vo;
@@ -47,6 +48,8 @@ public class AddressAdapter extends RecyclerBaseAdapter {
         helper.setItemChildClickListener(R.id.delete_tv);
         helper.setItemChildClickListener(R.id.edit_text);
         helper.setItemChildClickListener(R.id.check_img);
+        helper.setItemChildClickListener(R.id.tv_edit);
+
         helper.setOnItemChildClickListener(new BGAOnItemChildClickListener() {
             @Override
             public void onItemChildClick(ViewGroup viewGroup, View v, final int i) {
@@ -105,6 +108,18 @@ public class AddressAdapter extends RecyclerBaseAdapter {
 
 
                         break;
+
+
+                    /**
+                     * 地址编辑按钮
+                     */
+                    case R.id.tv_edit:
+
+                        EBMessageVO ebMessageVO = new EBMessageVO("address_edit",new Gson().toJson(vo));
+                        EventBus.getDefault().post(ebMessageVO);
+
+                        break;
+
                     default:
                         break;
                 }

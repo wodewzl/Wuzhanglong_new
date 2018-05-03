@@ -38,7 +38,10 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
+
+            <!--寄售宝-->
             <LinearLayout
+                android:visibility="gone"
                 style="@style/padding_15_13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,7 +82,11 @@
 
             </LinearLayout>
 
+
+
+            <!--晒图分享-->
             <LinearLayout
+                android:id="@+id/ll_photo_share"
                 style="@style/padding_15_13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -120,7 +127,11 @@
 
             </LinearLayout>
 
+
+
+            <!--新手指南-->
             <LinearLayout
+                android:id="@+id/ll_player_guide"
                 style="@style/padding_15_13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -161,87 +172,17 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                style="@style/padding_15_13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+
+            <android.support.v7.widget.RecyclerView
                 android:layout_marginTop="10dp"
-                android:background="@color/C1"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/find_img_04"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="百万红包刮出来"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="没人仅可参与一次"
-                        android:textColor="@color/C6"
-                        android:textSize="11sp"/>
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/my_go"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/padding_15_13"
+                android:id="@+id/recyclerview_active"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:background="@color/C1"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/find_img_05"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+            </android.support.v7.widget.RecyclerView>
 
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="兑满即开"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="兑宝无需等待"
-                        android:textColor="@color/C6"
-                        android:textSize="11sp"/>
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/my_go"/>
-            </LinearLayout>
         </LinearLayout>
     </com.wuzhanglong.library.view.ReboundScrollView>
 </LinearLayout>
