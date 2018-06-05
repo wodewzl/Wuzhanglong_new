@@ -34,7 +34,6 @@
 
                 android:textColor="@color/C1"
                 android:textSize="14sp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 />
 
@@ -60,7 +59,7 @@
                 android:gravity="center"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
+
                 android:clickable="true"  />
         </RelativeLayout>
 

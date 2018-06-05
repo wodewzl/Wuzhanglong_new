@@ -1,25 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        realse {
-            keyAlias 'wzl'
-            keyPassword 'wuzhanglong'
-            storeFile file('keystore/wodewzl.jks')
-            storePassword 'wuzhanglong'
-        }
-    }
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.beisheng.snatch"
+        applicationId "com.wzl.caipiao"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -36,7 +28,6 @@ android {
             }
         }
     }
-
 }
 
 dependencies {
