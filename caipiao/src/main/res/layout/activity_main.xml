@@ -24,25 +24,33 @@
             android:layout_weight="1"
             android:background="@color/C1"
             android:textSize="13sp"
-            android:text="dddd"
+            android:inputType="number"
+            android:maxLines="1"
             android:textColor="@color/C9"
             android:layout_marginRight="15dp"/>
 
         <TextView
             android:id="@+id/commit_tv"
             android:layout_width="60dp"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
             android:gravity="center"
             android:background="@color/C9"
             android:textColor="@color/C1"
             android:text="提交"/>
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_2"
+        android:background="@color/colorAccent"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="5dp">
+  >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="dddd"
+
                 android:textColor="@color/C9" />
         </LinearLayout>
 
@@ -110,7 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="dddd"
+
                 android:textColor="@color/C9" />
         </LinearLayout>
 

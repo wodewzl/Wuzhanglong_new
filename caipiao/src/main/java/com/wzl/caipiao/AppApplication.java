@@ -6,11 +6,11 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.List;
 
 
 public class AppApplication extends Application {
@@ -30,27 +30,28 @@ public class AppApplication extends Application {
     }
 
 
-    public UserInfoVO getUserInfoVO() {
+    public List<UserInfoVO> getDataVO() {
         try {
             FileInputStream stream = this.openFileInput("data.UserInfoVO");
             ObjectInputStream ois = new ObjectInputStream(stream);
-            UserInfoVO userInfoVO = (UserInfoVO) ois.readObject();
-            return userInfoVO;
+            List<UserInfoVO> list = (List<UserInfoVO>) ois.readObject();
+            return list;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public void saveUserInfoVO(UserInfoVO userInfoVO) {
+    public void saveDataVO(List<UserInfoVO> list) {
         try {
             FileOutputStream stream = this.openFileOutput("data.UserInfoVO", MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(stream);
-            oos.writeObject(userInfoVO);// td is an Instance of TableData;
+            oos.writeObject(list);// td is an Instance of TableData;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
 
     @Override

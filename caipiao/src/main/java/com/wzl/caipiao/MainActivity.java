@@ -1,40 +1,32 @@
 package com.wzl.caipiao;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.wuzhanglong.library.activity.BaseActivity;
-import com.wuzhanglong.library.cache.ACache;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
-
-
-import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import java.util.TreeSet;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private EditText mNumberEt;
     private TextView mTv1, mTv2, mTv3, mTv4, mCommitTv;
-    private List<String> mList = new ArrayList<>();
+    //    private List<String> mList = new ArrayList<>();
     private LuRecyclerView mRecyclerView;
     private MainAdapter mMainAdapter;
-    private Map<String, String> mMap = new IdentityHashMap<String, String>();
+
 
     @Override
     public void baseSetContentView() {
@@ -45,6 +37,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void initView() {
         mBaseTitleTv.setText("预测");
         mBaseOkTv.setText("保存");
+        mNumberEt = getViewById(R.id.number_et);
         mTv1 = getViewById(R.id.tv_1);
         mTv2 = getViewById(R.id.tv_2);
         mTv3 = getViewById(R.id.tv_3);
@@ -54,7 +47,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mMainAdapter = new MainAdapter(mRecyclerView);
         RecyclerViewUtil.initRecyclerViewLinearLayout(this, mRecyclerView, mMainAdapter, R.dimen.dp_1, R.color.colorAccent, false);
 
-
+        if (AppApplication.getInstance().getDataVO() != null) {
+            List<UserInfoVO> list = AppApplication.getInstance().getDataVO();
+            mMainAdapter.updateDataFrist(list);
+            countData(mMainAdapter.getData());
+        }
     }
 
     @Override
@@ -87,8 +84,40 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-//            case R.id.commit_tv:
-//                break;
+            case R.id.commit_tv:
+                String reslut = mNumberEt.getText().toString();
+                if (TextUtils.isEmpty(reslut)) {
+                    showCustomToast("请输入开奖结果");
+                    return;
+                }
+                List<UserInfoVO> list = new ArrayList<>();
+                for (int i = 0; i < reslut.length(); i++) {
+                    UserInfoVO userInfoVO = new UserInfoVO();
+                    userInfoVO.setResult(String.valueOf(reslut.charAt(i)));
+//                    userInfoVO.setYuce1(mTv3.getText().toString());
+//                    userInfoVO.setYuce2(mTv4.getText().toString());
+                    list.add(userInfoVO);
+                }
+                mMainAdapter.updateDataFrist(list);
+                countData(mMainAdapter.getData());
+                mNumberEt.setText("");
+                break;
+            case R.id.ok_tv:
+                new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("确定要保存数据吗吗?")
+                        .setConfirmText("确定")
+                        .setCancelText("取消")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();//直接消失
+                                AppApplication.getInstance().saveDataVO(mMainAdapter.getData());
+                                UserInfoVO dataVO = new UserInfoVO();
+                                dataVO.setList(mMainAdapter.getData());
+                            }
+                        })
+                        .show();
+                break;
             default:
                 break;
         }
@@ -97,65 +126,64 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private static String sortMapByValue(Map<String, Integer> map) {
-        StringBuffer sb=new StringBuffer();
+        StringBuffer sb = new StringBuffer();
         List<Map.Entry<String, Integer>> mapList = new ArrayList<Map.Entry<String, Integer>>(
                 map.entrySet());
         Collections.sort(mapList, new Comparator<Map.Entry<String, Integer>>() {
             @Override
             public int compare(Map.Entry<String, Integer> o1,
                                Map.Entry<String, Integer> o2) {
-                return o2.getValue()-o1.getValue();
+                return o2.getValue() - o1.getValue();
             }
         });
-        Map<String,Integer> result = new LinkedHashMap<String,Integer>();
-        for(Map.Entry<String, Integer> entry:mapList){
+        Map<String, Integer> result = new LinkedHashMap<String, Integer>();
+        for (Map.Entry<String, Integer> entry : mapList) {
 //            result.put(entry.getKey(), entry.getValue());
             sb.append(entry.getKey());
         }
         return sb.toString();
     }
 
-    public  void getlocalData(List<String> list){
-
-        Random random = new Random();
-        for (int i = 0; i < 10; i++) {
-            //指定种子数100
-            mList.add(random.nextInt(10) + "");
-        }
-//        ACache.get(this).put("list",mList);
-        final Gson gson = new Gson();
-        String listStr=gson.toJson(mList);
-        ACache.get(this).put("list", listStr);
-        final String cacheStr = ACache.get(this).getAsString("list");
-
-
+    public void countData(List<UserInfoVO> list) {
+        if (list == null)
+            return;
 
         StringBuffer sb1 = new StringBuffer();
         StringBuffer sb2 = new StringBuffer();
         HashMap<String, Integer> map = new HashMap<String, Integer>();
-        for (int i = 0; i < mList.size(); i++) {
-            String key = mList.get(i);
-            Integer count = map.get(key);
-            if(count == null){
-                count = 1;
-            }else{
-                count ++;
-            }
-            map.put(key, count);
-
-            if (sb1.toString().contains(mList.get(i))) {
-                if (!sb2.toString().contains(mList.get(i))) {
-                    sb2.append(mList.get(i));
+        for (int i = 0; i < list.size(); i++) {
+            //统计双数
+            if (sb1.toString().contains(list.get(i).getResult())) {
+                if (!sb2.toString().contains(list.get(i).getResult())) {
+                    sb2.append(list.get(i).getResult());
                 }
             } else {
-                sb1.append(mList.get(i));
+                sb1.append(list.get(i).getResult());
+            }
+            String tv1Str = sb2.toString();
+            mTv1.setText(tv1Str);
+            if (sb2.toString().length() > 1) {
+                mTv3.setText(sb2.toString().substring(0, 2));
+                list.get(i).setYuce1(mTv3.getText().toString());
+            }
+
+            //统计数量
+            if (list.size() > 120) {
+                String key = list.get(i).getResult();
+                Integer count = map.get(key);
+                if (count == null) {
+                    count = 1;
+                } else {
+                    count++;
+                }
+                map.put(key, count);
+                String tv2Str = sortMapByValue(map);
+                mTv2.setText(tv2Str);
+                if (tv2Str.length() > 1) {
+                    mTv4.setText(tv2Str.substring(0, 2));
+                }
             }
         }
-        if (sb2.toString().length() == 10) {
-            System.out.println("");
-            mMap.size();
-        }
-
-        sortMapByValue(map);
+        mMainAdapter.notifyDataSetChanged();
     }
 }
