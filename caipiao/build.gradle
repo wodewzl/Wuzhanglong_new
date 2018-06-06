@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        realse {
+            keyAlias 'wzl'
+            keyPassword 'wuzhanglong'
+            storeFile file('keystore/wodewzl.jks')
+            storePassword 'wuzhanglong'
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.wzl.caipiao"
@@ -11,7 +19,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
-
     buildTypes {
         release {
             minifyEnabled false
