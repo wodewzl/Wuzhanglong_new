@@ -2,6 +2,7 @@ package com.wzl.caipiao;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -17,17 +18,17 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
+import cn.bingoogolapple.baseadapter.BGAOnRVItemLongClickListener;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener ,BGAOnRVItemLongClickListener{
     private EditText mNumberEt;
     private TextView mTv1, mTv2, mTv3, mTv4, mCommitTv;
     //    private List<String> mList = new ArrayList<>();
     private LuRecyclerView mRecyclerView;
     private MainAdapter mMainAdapter;
-
+    private double mBackPressed;
 
     @Override
     public void baseSetContentView() {
@@ -59,6 +60,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void bindViewsListener() {
         mCommitTv.setOnClickListener(this);
         mBaseOkTv.setOnClickListener(this);
+        mMainAdapter.setOnRVItemLongClickListener(this);
     }
 
     @Override
@@ -209,5 +211,40 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isShow()) {
+//            dismissProgressDialog();
+        } else {
+            if (mBackPressed + 3000 > System.currentTimeMillis()) {
+                finish();
+                super.onBackPressed();
+            } else
+                showCustomToast("再次点击，退出" + this.getResources().getString(R.string.app_name));
+            mBackPressed = System.currentTimeMillis();
+        }
+    }
+
+    @Override
+    public boolean onRVItemLongClick(ViewGroup parent, View itemView, final int position) {
+        if (mMainAdapter.getData().size() == 0)
+            return false;
+        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("确定要删除吗?")
+                .setConfirmText("确定")
+                .setCancelText("取消")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();//直接消失
+                        mMainAdapter.getData().remove(position);
+                        mMainAdapter.notifyDataSetChanged();
+                    }
+                })
+                .show();
+
+        return false;
     }
 }
