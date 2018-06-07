@@ -203,6 +203,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                     mTv2.setText(tv2Str);
                     if (tv2Str.length() > 1) {
                         mTv4.setText(tv2Str.substring(0, 2));
+                        ((UserInfoVO) mMainAdapter.getData().get(j)).setYuce2(mTv4.getText().toString());
                     }
                 }
 
