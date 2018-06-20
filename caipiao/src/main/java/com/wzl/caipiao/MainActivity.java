@@ -91,7 +91,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         switch (view.getId()) {
             case R.id.commit_tv:
                 StringBuffer sb = new StringBuffer(mNumberEt.getText().toString());
-                sb.reverse();
+//                sb.reverse();
                 String reslut = sb.toString();
 
 //                StringBuffer sb = new StringBuffer();
