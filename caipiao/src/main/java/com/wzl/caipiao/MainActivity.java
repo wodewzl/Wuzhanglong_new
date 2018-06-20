@@ -90,17 +90,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.commit_tv:
-//                StringBuffer sb = new StringBuffer(mNumberEt.getText().toString());
-//                sb.reverse();
-//                String reslut = sb.toString();
-
-                StringBuffer sb = new StringBuffer();
-                for (int i = 0; i < 150; i++) {
-                    Random random=new Random();
-                    String str= random.nextInt(10)+"";
-                    sb.append(str);
-                }
+                StringBuffer sb = new StringBuffer(mNumberEt.getText().toString());
+                sb.reverse();
                 String reslut = sb.toString();
+
+//                StringBuffer sb = new StringBuffer();
+//                for (int i = 0; i < 150; i++) {
+//                    Random random=new Random();
+//                    String str= random.nextInt(10)+"";
+//                    sb.append(str);
+//                }
+//                String reslut = sb.toString();
 
                 if (TextUtils.isEmpty(reslut)) {
                     showCustomToast("请输入开奖结果");

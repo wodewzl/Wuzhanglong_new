@@ -48,10 +48,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    compile 'com.android.support:multidex:1.0.1'
+    implementation 'com.android.support:multidex:1.0.1'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-    compile 'com.github.dongjunkun:CouponView:1.0.3'
-    compile 'com.meiqia:meiqiasdk:3.4.3@aar'
+    implementation 'com.github.dongjunkun:CouponView:1.0.3'
+    implementation 'com.meiqia:meiqiasdk:3.4.3@aar'
     //    compile 'com.android.support:support-v4:23.1.1'
     //    compile 'com.squareup.okhttp3:okhttp:3.5.0'
     implementation project(':wzllibrary')
