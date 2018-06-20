@@ -37,5 +37,13 @@
             android:gravity="center"
             android:text="预测2"
             android:textColor="@color/C4"/>
+        <TextView
+            android:id="@+id/tv_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="预测3"
+            android:textColor="@color/C4"/>
     </LinearLayout>
 </LinearLayout>

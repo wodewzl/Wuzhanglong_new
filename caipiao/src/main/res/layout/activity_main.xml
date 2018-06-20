@@ -142,6 +142,26 @@
                 android:layout_weight="1"
                 android:textColor="@color/C9" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="预测3："
+                android:textColor="@color/C4" />
+
+            <TextView
+                android:id="@+id/tv_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/C9" />
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -171,6 +191,13 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="预测2"
+            android:textColor="@color/C4" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="预测3"
             android:textColor="@color/C4" />
     </LinearLayout>
 

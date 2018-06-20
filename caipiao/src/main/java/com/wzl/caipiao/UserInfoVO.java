@@ -21,6 +21,7 @@ public class UserInfoVO implements Serializable {
     private String result;
     private String yuce1;
     private String yuce2;
+    private String yuce3;
 
     public String getResult() {
         return result;
@@ -44,5 +45,13 @@ public class UserInfoVO implements Serializable {
 
     public void setYuce2(String yuce2) {
         this.yuce2 = yuce2;
+    }
+
+    public String getYuce3() {
+        return yuce3;
+    }
+
+    public void setYuce3(String yuce3) {
+        this.yuce3 = yuce3;
     }
 }

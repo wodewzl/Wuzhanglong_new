@@ -20,9 +20,10 @@ public class MainAdapter extends RecyclerBaseAdapter {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
-        UserInfoVO userInfoVO= (UserInfoVO) model;
-        helper.setText(R.id.result_tv,userInfoVO.getResult());
-        helper.setText(R.id.tv_1,userInfoVO.getYuce1());
-        helper.setText(R.id.tv_2,userInfoVO.getYuce2());
+        UserInfoVO userInfoVO = (UserInfoVO) model;
+        helper.setText(R.id.result_tv, userInfoVO.getResult());
+        helper.setText(R.id.tv_1, userInfoVO.getYuce1());
+        helper.setText(R.id.tv_2, userInfoVO.getYuce2());
+        helper.setText(R.id.tv_3, userInfoVO.getYuce3());
     }
 }

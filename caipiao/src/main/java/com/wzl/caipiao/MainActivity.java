@@ -18,13 +18,14 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemLongClickListener;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener ,BGAOnRVItemLongClickListener{
+public class MainActivity extends BaseActivity implements View.OnClickListener, BGAOnRVItemLongClickListener {
     private EditText mNumberEt;
-    private TextView mTv1, mTv2, mTv3, mTv4, mCommitTv;
+    private TextView mTv1, mTv2, mTv3, mTv4, mTv5, mCommitTv;
     //    private List<String> mList = new ArrayList<>();
     private LuRecyclerView mRecyclerView;
     private MainAdapter mMainAdapter;
@@ -44,6 +45,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
         mTv2 = getViewById(R.id.tv_2);
         mTv3 = getViewById(R.id.tv_3);
         mTv4 = getViewById(R.id.tv_4);
+        mTv5 = getViewById(R.id.tv_5);
         mCommitTv = getViewById(R.id.commit_tv);
         mRecyclerView = getViewById(R.id.recycler_view);
         mMainAdapter = new MainAdapter(mRecyclerView);
@@ -88,17 +90,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.commit_tv:
-                StringBuffer sb = new StringBuffer(mNumberEt.getText().toString());
-                sb.reverse();
-                String reslut = sb.toString();
-
-//                StringBuffer sb = new StringBuffer();
-//                for (int i = 0; i < 150; i++) {
-//                    Random random=new Random();
-//                    String str= random.nextInt(10)+"";
-//                    sb.append(str);
-//                }
+//                StringBuffer sb = new StringBuffer(mNumberEt.getText().toString());
+//                sb.reverse();
 //                String reslut = sb.toString();
+
+                StringBuffer sb = new StringBuffer();
+                for (int i = 0; i < 150; i++) {
+                    Random random=new Random();
+                    String str= random.nextInt(10)+"";
+                    sb.append(str);
+                }
+                String reslut = sb.toString();
 
                 if (TextUtils.isEmpty(reslut)) {
                     showCustomToast("请输入开奖结果");
@@ -110,7 +112,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                     userInfoVO.setResult(String.valueOf(reslut.charAt(i)));
                     list.add(userInfoVO);
                 }
-                mMainAdapter.updateDataFrist(list);
+//                mMainAdapter.updateDataFrist(list);
                 countData(list);
                 mNumberEt.setText("");
                 break;
@@ -161,57 +163,129 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
             return;
 
 
-        if (mMainAdapter.getData().size() > 10) {
+//        if (mMainAdapter.getData().size() > 10) {
+//            for (int j = 0; j < list.size(); j++) {
+//                StringBuffer sb1 = new StringBuffer();
+//                StringBuffer sb2 = new StringBuffer();
+//                HashMap<String, Integer> map = new HashMap<String, Integer>();
+//                for (int i = j; i < mMainAdapter.getData().size(); i++) {
+//                    //统计双数
+//                    if (sb1.toString().contains(((UserInfoVO) mMainAdapter.getData().get(i)).getResult())) {
+//                        if (!sb2.toString().contains(((UserInfoVO) mMainAdapter.getData().get(i)).getResult())) {
+//                            sb2.append(((UserInfoVO) mMainAdapter.getData().get(i)).getResult());
+//                        }
+//                    } else {
+//                        sb1.append(((UserInfoVO) mMainAdapter.getData().get(i)).getResult());
+//                    }
+//                    String tv1Str = sb2.toString();
+//                    mTv1.setText(tv1Str);
+//
+//
+//                    //统计数量
+//                    if (mMainAdapter.getData().size() > 120 && i < 120) {
+//                        String key = ((UserInfoVO) mMainAdapter.getData().get(i)).getResult();
+//                        Integer count = map.get(key);
+//                        if (count == null) {
+//                            count = 1;
+//                        } else {
+//                            count++;
+//                        }
+//                        map.put(key, count);
+//                    }
+//                }
+//
+//                if (sb2.toString().length() > 1) {
+//                    mTv3.setText(sb2.toString().substring(0, 2));
+//                    ((UserInfoVO) mMainAdapter.getData().get(j)).setYuce1(mTv3.getText().toString());
+//                }
+//
+//                if (mMainAdapter.getData().size() > 120) {
+//                    String tv2Str = sortMapByValue(map);
+//                    mTv2.setText(tv2Str);
+//                    if (tv2Str.length() > 1) {
+//                        mTv4.setText(tv2Str.substring(0, 2));
+//                        mTv5.setText(tv2Str.substring(tv2Str.length()-2, tv2Str.length()));
+//                        ((UserInfoVO) mMainAdapter.getData().get(j)).setYuce2(mTv4.getText().toString());
+//                        ((UserInfoVO) mMainAdapter.getData().get(j)).setYuce3(mTv5.getText().toString());
+//                    }
+//                }
+//                mMainAdapter.notifyDataSetChanged();
+//            }
+//
+//
+//        }
 
-            for (int j = 0; j < list.size(); j++) {
-                StringBuffer sb1 = new StringBuffer();
-                StringBuffer sb2 = new StringBuffer();
-                HashMap<String, Integer> map = new HashMap<String, Integer>();
-                for (int i = j; i < mMainAdapter.getData().size(); i++) {
-                    //统计双数
-                    if (sb1.toString().contains(((UserInfoVO) mMainAdapter.getData().get(i)).getResult())) {
-                        if (!sb2.toString().contains(((UserInfoVO) mMainAdapter.getData().get(i)).getResult())) {
-                            sb2.append(((UserInfoVO) mMainAdapter.getData().get(i)).getResult());
-                        }
-                    } else {
-                        sb1.append(((UserInfoVO) mMainAdapter.getData().get(i)).getResult());
-                    }
-                    String tv1Str = sb2.toString();
-                    mTv1.setText(tv1Str);
+        for (int i = 0; i < list.size(); i++) {
+            if(!TextUtils.isEmpty(mTv3.getText().toString())){
+                list.get(i).setYuce1(mTv3.getText().toString());
+            }
+            mMainAdapter.getData().add(0,list.get(i));
 
+            if(!TextUtils.isEmpty(mTv4.getText().toString())){
+                list.get(i).setYuce2(mTv4.getText().toString());
+            }
 
-                    //统计数量
-                    if (mMainAdapter.getData().size() > 120 && i < 120) {
-                        String key = ((UserInfoVO) mMainAdapter.getData().get(i)).getResult();
-                        Integer count = map.get(key);
-                        if (count == null) {
-                            count = 1;
-                        } else {
-                            count++;
-                        }
-                        map.put(key, count);
-                    }
-                }
+            if(!TextUtils.isEmpty(mTv5.getText().toString())){
+                list.get(i).setYuce3(mTv5.getText().toString());
+            }
 
-                if (sb2.toString().length() > 1) {
-                    mTv3.setText(sb2.toString().substring(0, 2));
-                    ((UserInfoVO) mMainAdapter.getData().get(j)).setYuce1(mTv3.getText().toString());
-                }
+            StringBuffer sb1 = new StringBuffer();
+            StringBuffer sb2 = new StringBuffer();
+            HashMap<String, Integer> map = new HashMap<String, Integer>();
+//            if (mMainAdapter.getData().size() < 15) {
+//                mMainAdapter.notifyDataSetChanged();
+//                return;
+//            }
 
-                if (mMainAdapter.getData().size() > 120) {
-                    String tv2Str = sortMapByValue(map);
-                    mTv2.setText(tv2Str);
-                    if (tv2Str.length() > 1) {
-                        mTv4.setText(tv2Str.substring(0, 2));
-                        ((UserInfoVO) mMainAdapter.getData().get(j)).setYuce2(mTv4.getText().toString());
-                    }
-                }
-
-                mMainAdapter.notifyDataSetChanged();
+            if (i==list.size() -3) {
+                System.out.println("=======");
             }
 
 
+            for (int j = 0; j < mMainAdapter.getData().size(); j++) {
+                //统计双数
+                if (sb1.toString().contains(((UserInfoVO) mMainAdapter.getData().get(j)).getResult())) {
+                    if (!sb2.toString().contains(((UserInfoVO) mMainAdapter.getData().get(j)).getResult())) {
+                        sb2.append(((UserInfoVO) mMainAdapter.getData().get(j)).getResult());
+                    }
+                } else {
+                    sb1.append(((UserInfoVO) mMainAdapter.getData().get(j)).getResult());
+                }
+                String tv1Str = sb2.toString();
+                mTv1.setText(tv1Str);
+
+
+                //统计数量
+                if (mMainAdapter.getData().size() > 120 && j < 120) {
+                    String key = ((UserInfoVO) mMainAdapter.getData().get(j)).getResult();
+                    Integer count = map.get(key);
+                    if (count == null) {
+                        count = 1;
+                    } else {
+                        count++;
+                    }
+                    map.put(key, count);
+                }
+            }
+
+            if (sb2.toString().length() > 1) {
+                mTv3.setText(sb2.toString().substring(0, 2));
+//                ((UserInfoVO) mMainAdapter.getData().get(i)).setYuce1(mTv3.getText().toString());
+            }
+
+            if (mMainAdapter.getData().size() > 120) {
+                String tv2Str = sortMapByValue(map);
+                mTv2.setText(tv2Str);
+                if (tv2Str.length() > 1) {
+                    mTv4.setText(tv2Str.substring(0, 2));
+                    mTv5.setText(tv2Str.substring(tv2Str.length() - 2, tv2Str.length()));
+//                    ((UserInfoVO) mMainAdapter.getData().get(i)).setYuce2(mTv4.getText().toString());
+//                    ((UserInfoVO) mMainAdapter.getData().get(i)).setYuce3(mTv5.getText().toString());
+                }
+            }
+
         }
+        mMainAdapter.notifyDataSetChanged();
     }
 
     @Override
