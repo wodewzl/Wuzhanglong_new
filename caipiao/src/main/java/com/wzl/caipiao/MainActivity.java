@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemLongClickListener;
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -31,7 +30,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private LuRecyclerView mRecyclerView;
     private MainAdapter mMainAdapter;
     private double mBackPressed;
-    private int mPreCount=150;
+//    private int mPreCount=280;
+        private int mPreCount=150;
 
     @Override
     public void baseSetContentView() {
@@ -268,7 +268,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 mTv2.setText(tv2Str);
                 if (tv2Str.length() > 1) {
                     mTv4.setText(tv2Str.substring(0, 2));
-//                    mTv5.setText(tv2Str.substring(8, 10));
+//                    mTv5.setText(tv2Str.substring(tv2Str.length()-2,tv2Str.length()));
                     mTv5.setText(tv2Str);
 
                 }
