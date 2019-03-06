@@ -2,7 +2,6 @@ package com.beisheng.snatch.constant;
 
 public class Constant {
     public static final String SDCARD_CACHE = "com.beisheng/snatch/files/"; // 文件sdk缓存
-    //get 最后加 &
     public static final String HOME_TITLE_URL = "/index.php/Api/Dbindex/index";//首页
     public static final String HOME_LIST_URL = "/index.php/Api/Dbindex/get_more";//首页
     public static final String SHOP_CATEGORY_URL = "/index.php/Api/Dbindex/categorys";//商品分类
@@ -77,10 +76,6 @@ public class Constant {
     public static final String BUY_FLOW_URL = "/index.php/Api/Member/add_recharge";//购买流量
     public static final String CARD_PWD_URL = "/index.php/Api/Member/get_virtual_info";//查看卡密
     public static final String UPDATE_APP_URL = "/index.php/Api/Dbindex/check_version";//App更新
-
     public static final String DISCOVERY_INDEX = "/index.php/Api/Dbindex/discovery";//发现主页
-
-
-
 }
 

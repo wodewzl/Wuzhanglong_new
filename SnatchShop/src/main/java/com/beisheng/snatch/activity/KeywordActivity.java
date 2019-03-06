@@ -14,6 +14,7 @@ import com.beisheng.snatch.R;
 import com.beisheng.snatch.constant.Constant;
 import com.beisheng.snatch.model.KeywordVO;
 import com.google.gson.Gson;
+import com.vondear.rxtools.view.dialog.RxDialog;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.cache.ACache;
 import com.wuzhanglong.library.http.BSHttpUtils;
@@ -117,8 +118,6 @@ public class KeywordActivity extends BaseActivity implements  TextView.OnEditorA
                     return tv;
                 }
             });
-
-
     }
 
     @Override

@@ -30,8 +30,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private LuRecyclerView mRecyclerView;
     private MainAdapter mMainAdapter;
     private double mBackPressed;
-//    private int mPreCount=280;
-        private int mPreCount=150;
+    private int mPreCount=280;
+//        private int mPreCount=150;
+//    private int mPreCount=15;
 
     @Override
     public void baseSetContentView() {
@@ -43,7 +44,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mBaseTitleTv.setText("预测");
         mBaseOkTv.setText("保存");
         mBaseBackTv.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
-        mBaseBackTv.setText("150");
+        mBaseBackTv.setText("280");
         mNumberEt = getViewById(R.id.number_et);
         mTv1 = getViewById(R.id.tv_1);
         mTv2 = getViewById(R.id.tv_2);
@@ -222,11 +223,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
             StringBuffer sb1 = new StringBuffer();
             StringBuffer sb2 = new StringBuffer();
+            StringBuffer sb3 = new StringBuffer();
             HashMap<String, Integer> map = new HashMap<String, Integer>();
-
-            if (i == list.size() - 3) {
-                System.out.println("=======");
-            }
 
 
             for (int j = 0; j < mMainAdapter.getData().size(); j++) {
@@ -234,7 +232,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     break;
                 //统计双数
                 if (sb1.toString().contains(((UserInfoVO) mMainAdapter.getData().get(j)).getResult())) {
-                    if (!sb2.toString().contains(((UserInfoVO) mMainAdapter.getData().get(j)).getResult())) {
+                    if (sb2.toString().contains(((UserInfoVO) mMainAdapter.getData().get(j)).getResult())) {
+//                        if (!sb3.toString().contains(((UserInfoVO) mMainAdapter.getData().get(j)).getResult())) {
+//                            sb3.append(((UserInfoVO) mMainAdapter.getData().get(j)).getResult());
+//                        }
+                    }else {
                         sb2.append(((UserInfoVO) mMainAdapter.getData().get(j)).getResult());
                     }
                 } else {
@@ -258,7 +260,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
             }
 
-            if (sb2.toString().length() > 1) {
+            if (sb2.toString().length() ==10) {
                 mTv3.setText(sb2.toString().substring(0, 2));
 //                ((UserInfoVO) mMainAdapter.getData().get(i)).setYuce1(mTv3.getText().toString());
             }
@@ -267,7 +269,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 String tv2Str = sortMapByValue(map);
                 mTv2.setText(tv2Str);
                 if (tv2Str.length() > 1) {
-                    mTv4.setText(tv2Str.substring(0, 2));
+                    mTv4.setText(tv2Str.substring(0, 3));
 //                    mTv5.setText(tv2Str.substring(tv2Str.length()-2,tv2Str.length()));
                     mTv5.setText(tv2Str);
 

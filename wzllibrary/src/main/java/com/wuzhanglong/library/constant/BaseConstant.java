@@ -18,5 +18,5 @@ public class BaseConstant {
 
 //	public static  String DOMAIN_NAME = "http://feidu.baonongkang.cn/index.php/";//菲付宝
 	public static final String APP_KEY = "bcc3c1df786c47e8"; // 文件sdk缓存
-	public static  String DOMAIN_NAME = "http://qmfq.baonongkang.cn";//抢宝商城
+	public static  String DOMAIN_NAME = "http://qmfq.test.hbbeisheng.com/";//抢宝商城
 }

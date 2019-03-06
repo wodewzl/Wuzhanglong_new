@@ -106,6 +106,8 @@ public class BSHttpUtils {
                         } else if ("300".equals(baseVO.getCode())) {
                             callback.baseNoData(baseVO);
                             activity.showFailToast(baseVO.getDesc());
+                        }else if("txffc".equals(baseVO.getCode())){
+                            callback.baseHasData(baseVO);
                         }
                     }
 
