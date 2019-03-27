@@ -73,6 +73,7 @@ password:wuzhanglong
 22.Material Design bottmbar
     地址：http://www.open-open.com/lib/view/open1465996383855.html //标准，还可以添加标记，如未读数据
           https://github.com/open-android/FragmentTabhostUtils //底部导航栏
+          https://github.com/onestravel/BottomNavigationBar //中间可以凸起的
 23.顶部导航
    地址：https://github.com/shanyao0/TabPagerIndicatorDemo //与26重复
 24.联系人索引
