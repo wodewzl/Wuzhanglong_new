@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SnatchShop/SnatchShop.iml" filepath="$PROJECT_DIR$/SnatchShop/SnatchShop.iml" />
       <module fileurl="file://$PROJECT_DIR$/Wuzhanglong_new.iml" filepath="$PROJECT_DIR$/Wuzhanglong_new.iml" />
+      <module fileurl="file://$PROJECT_DIR$/txffc/txffc.iml" filepath="$PROJECT_DIR$/txffc/txffc.iml" />
       <module fileurl="file://$PROJECT_DIR$/wzllibrary/wzllibrary.iml" filepath="$PROJECT_DIR$/wzllibrary/wzllibrary.iml" />
     </modules>
   </component>

@@ -68,7 +68,17 @@
         />
 
 
+    <!--<cn.onestravel.navigation.view.BottomNavigationBar-->
+        <!--android:id="@+id/BottomLayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:background="@android:color/white"-->
+        <!--android:paddingTop="5dp"-->
+        <!--android:paddingBottom="5dp"-->
+        <!--&gt;-->
 
+    <!--</cn.onestravel.navigation.view.BottomNavigationBar>-->
 
     <!--<com.roughike.bottombar.BottomBar-->
     <!--android:id="@+id/bottomBar"-->

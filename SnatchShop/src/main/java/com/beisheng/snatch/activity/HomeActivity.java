@@ -45,7 +45,7 @@ public class HomeActivity extends HomeFragmentActivity {
 
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.home_1, "首页"))
                 .addItem(new BottomNavigationItem(R.drawable.home_2, "最新"))
-                .addItem(new BottomNavigationItem(R.drawable.home_3, "发现"))
+                .addItem(new BottomNavigationItem(R.drawable.home_3, ""))
                 .addItem(new BottomNavigationItem(R.drawable.home_4, "清单"))
                 .addItem(new BottomNavigationItem(R.drawable.home_5, "个人"))
 //                .setFirstSelectedPosition(0)

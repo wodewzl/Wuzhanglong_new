@@ -29,17 +29,18 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
-    public static final String URL = "http://api.b1api.com/api?";
+    public static final String URL = "http://api.b1api.com/api?";//易网
     private MainAdapter mAdapter;
     private LuRecyclerView mRecyclerView;
     private UserInfoVO mUserInfoVO;
     private List<String> mList = new ArrayList<>();
     private String mLimit = "20";
     private Timer mTimer = new Timer();
-    private TextView mNumTv, mResultTv, mYuCeTv, mSortTv;
+    private TextView mNumTv, mResultTv, mYuCeTv, mSortTv,mLastTv;
     private StringBuffer mSortStrSb = new StringBuffer();
     private StringBuffer mSortStrSb1 = new StringBuffer();
     private double mBackPressed;
+
 
     @Override
     public void baseSetContentView() {
@@ -55,11 +56,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mResultTv = findViewById(R.id.result_tv);
         mYuCeTv = findViewById(R.id.yuce_tv);
         mSortTv = findViewById(R.id.sort_tv);
+        mLastTv=findViewById(R.id.last_tv);
         mRecyclerView = getViewById(R.id.recycler_view);
         mAdapter = new MainAdapter(mRecyclerView);
         RecyclerViewUtil.initRecyclerViewLinearLayout(this, mRecyclerView, mAdapter, R.dimen.dp_1, R.color.colorAccent, false);
 //        mTimer.schedule(mTimerTask, 6, 6);
-
     }
 
     @Override
@@ -70,12 +71,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void getData() {
+
         HashMap<String, Object> map = new HashMap<>();
         map.put("p", "json");
         map.put("t", "txffc");
         map.put("limit", mLimit);
-        map.put("token", "F0AB156E84ED3A17");
+        map.put("token", "F0AB156E84ED3A17");//易网
         BSHttpUtils.get(mActivity, this, URL, map, UserInfoVO.class);
+
     }
 
     @Override
@@ -97,10 +100,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     public void countData() {
         mList.clear();
+        StringBuffer mLastSb = new StringBuffer();
         for (int i = 0; i < mUserInfoVO.getData().size(); i++) {
             for (int j = 0; j < 5; j++) {
                 String result = mUserInfoVO.getData().get(i).getOpencode().replace(",", "");
                 mList.add(String.valueOf(result.charAt(j)));
+                if(!mLastSb.toString().contains(String.valueOf(result.charAt(j)))){
+                    mLastSb.append(String.valueOf(result.charAt(j)));
+                }
             }
         }
         Map<String, Integer> map = new HashMap<String, Integer>();
@@ -124,8 +131,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         printMap(sortMap);
         mNumTv.setText(mUserInfoVO.getData().get(0).getExpect().substring(8, mUserInfoVO.getData().get(0).getExpect().length()));
         mResultTv.setText(mUserInfoVO.getData().get(0).getOpencode().replaceAll(",", ""));
-        mYuCeTv.setText(mSortStrSb.substring(mSortStrSb.length() - 2, mSortStrSb.length()));
+        mYuCeTv.setText(mSortStrSb.substring(mSortStrSb.length() - 3, mSortStrSb.length()));
         mSortTv.setText(mSortStrSb1.toString());
+        mLastTv.setText(mLastSb.toString());
     }
 
     private Map<String, Integer> sortMapByValue(Map<String, Integer> map) {

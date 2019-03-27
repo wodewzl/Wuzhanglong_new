@@ -9,6 +9,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/SnatchShop" />
+            <option value="$PROJECT_DIR$/caipiao" />
+            <option value="$PROJECT_DIR$/txffc" />
             <option value="$PROJECT_DIR$/wzllibrary" />
           </set>
         </option>
