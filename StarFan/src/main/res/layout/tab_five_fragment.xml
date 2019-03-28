@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical">
+
+    <com.wuzhanglong.library.view.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/C3"
+        android:fillViewport="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/item_01_tv"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/C1"
+                android:drawableLeft="@mipmap/my_focus"
+                android:drawablePadding="8dp"
+                android:drawableRight="@mipmap/my_go"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textSize="13sp"
+                android:text="我的关注" />
+
+            <TextView
+                android:id="@+id/item_02_tv"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/C1"
+                android:drawableLeft="@mipmap/my_task_center"
+                android:drawablePadding="8dp"
+                android:drawableRight="@mipmap/my_go"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="任务中心" />
+
+            <TextView
+                android:id="@+id/item_03_tv"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/C1"
+                android:drawableLeft="@mipmap/my_purse"
+                android:drawablePadding="8dp"
+                android:drawableRight="@mipmap/my_go"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="我的钱包" />
+
+            <TextView
+                android:id="@+id/item_04_tv"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/C1"
+                android:drawableLeft="@mipmap/my_member_centre"
+                android:drawablePadding="8dp"
+                android:drawableRight="@mipmap/my_go"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="会员中心" />
+
+            <TextView
+                android:id="@+id/item_05_tv"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/C1"
+                android:drawableLeft="@mipmap/my_posts"
+                android:drawablePadding="8dp"
+                android:drawableRight="@mipmap/my_go"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="我的帖子" />
+
+            <TextView
+                android:id="@+id/item_06_tv"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/C1"
+                android:drawableLeft="@mipmap/my_setting"
+                android:drawablePadding="8dp"
+                android:drawableRight="@mipmap/my_go"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="设置" />
+
+            <TextView
+                android:id="@+id/item_07_tv"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/C1"
+                android:drawableLeft="@mipmap/contact_us"
+                android:drawablePadding="8dp"
+                android:drawableRight="@mipmap/my_go"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="联系我们" />
+
+        </LinearLayout>
+    </com.wuzhanglong.library.view.ReboundScrollView>
+</LinearLayout>

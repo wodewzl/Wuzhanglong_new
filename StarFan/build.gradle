@@ -24,23 +24,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    configurations.all {
-        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-            def requested = details.requested
-            if (requested.group == 'com.android.support') {
-                if (!requested.name.startsWith("multidex")) {
-                    details.useVersion '27.0.1'
-                }
-            }
-        }
-    }
+//    configurations.all {
+//        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+//            def requested = details.requested
+//            if (requested.group == 'com.android.support') {
+//                if (!requested.name.startsWith("multidex")) {
+//                    details.useVersion '27.0.1'
+//                }
+//            }
+//        }
+//    }
 
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.meiqia:meiqiasdk:3.4.3@aar'
-    implementation rootProject.ext.dependencies["MPAndroidChart"]
-    implementation rootProject.ext.dependencies["multidex"]
-//    implementation project(':wzllibrary')
+    implementation project(':wzllibrary')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
