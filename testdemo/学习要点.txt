@@ -1,0 +1,215 @@
+自定义快捷键 
+
+rxjava 
+Observable 被观察者 数据发射源（触发的事件被监听）
+Observable<String> sender = Observable.create(new Observable.OnSubscribe<String>() {
+           @Override
+            public void call(Subscriber<? super String> subscriber) {
+                subscriber.onNext("Hi，Weavey！");  //发送数据"Hi，Weavey！"//触发事件
+            }
+        });
+Observer 观察者，接收数据（监听Observable触发的事件）
+Observer<String> receiver = new Observer<String>() {
+           
+            @Override
+            public void onCompleted() {
+
+                //数据接收完成时调用
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+                //发生错误调用
+            }
+
+            @Override
+            public void onNext(String s) {
+
+               //正常接收数据调用
+                System.out.print(s);  //将接收到来自sender的问候"Hi，Weavey！"
+            }
+        };
+ sender.subscribe(receiver); 绑定监听
+//更新UI线程扩展：
+observable.subscribeOn(Schedulers.immediate())//在当前线程执行subscribe()方法
+.observeOn(AndroidSchedulers.mainThread())//在UI线程执行观察者的方法
+.subscribe(subscriber);
+
+Observable.from(items);  items为列表
+Observable.just("just1","just1"}//多个参数
+Observable.from(items).repeat(2);  //重复执行2次，不参数会一直执行
+
+
+Lambda表达式
+gradle 配置：
+	jackOptions{
+				enabled true
+			}
+	compileOptions{
+	   sourceCompatibility JavaVersion.VERSION_1_8
+	   targetCompatibility JavaVersion.VERSION_1_8
+	 }
+使用：
+	一：指向方法实现体：
+	1.匿名内部类无参数 
+	常用方法：
+	 private void threadTest() {
+        /**普通写法**/
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }).start();
+		Lambda使用：
+	 new Thread(() -> Log.d(TAG, "this is a lambda Thread")).start();
+	 2.匿名内部类一个参数
+	 setOnClickListener(v -> Log.d(TAG, "this is a lambda onClick"));
+	 3.匿名内部类多个参数	
+	 setOnCheckedChangeListener((buttonView, isChecked) -> {
+            Log.d(TAG, "this is a lambda onCheckedChanged");
+            Log.d(TAG, "this is a lambda onCheckedChanged_isChecked=" + isChecked);
+        });
+	二：指向方法：
+	    observable.subscribeOn(Schedulers.io())//被观察者 （发射源）
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(this::response, this::throwException));//被观察者 绑定 观察者（接收源）
+		
+		
+lambda总结:
+场景是使用匿名类部类，简写了内部类，只关心参数与方法体的实现。简写的形式有3种，无参数的；一个参数的；多个参数的
+
+
+DataBinding
+数据与view双向绑定
+android {
+ dataBinding {
+    enabled = true
+ }
+}
+布局文件： 根布局变为layout 多了一个data元素
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.zx.databindingdemo.bean.UserBean" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--注意：这里age是int类型，必须转化为String，否则会运行时异常-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(user.age)}" />
+    </LinearLayout>
+</layout>
+Activity代码:
+ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+UserBean userBean = new UserBean ("张三", "25");
+binding.setUser(userBean );
+
+
+ValueAnimator：这个动画是针对属性的值进行动画的 ，不会对UI造成改变，不能直接实现动画效果。需要通过对动画的监听去做一些操作，在监听中将这个值设置给对应的属性，对应的属性才会改变。
+ObjectAnimator：直接动画所给的对象,他会调用对象对应属性的get/set方法吧属性的值设置给对象的属性，直接实现动画效果。
+ObjectAnimator objectAnimator=ObjectAnimator.ofInt(textView,"backgroundColor", Color.GREEN,Color.RED);
+只要对象有set/get方法就能通过ObjectAnimator动画改变属性 第二个参数属性提取规程setXxxYy() set后面字母第一个字母小写 "xxxYy"  
+
+  v.setTranslationY(dy);//不需要时间的移动，一般是结合手势的
+Animator:
+缩放动画
+1. fromX ：动画在水平方向X的结束缩放倍数
+2. toX ：动画在水平方向X的结束缩放倍数
+3. fromY ：动画开始前在竖直方向Y的起始缩放倍数
+4. toY：动画在竖直方向Y的结束缩放倍数
+5. pivotXType:缩放轴点的x坐标的模式
+6. pivotXValue:缩放轴点x坐标的相对值
+7. pivotYType:缩放轴点的y坐标的模式
+8. pivotYValue:缩放轴点y坐标的相对值
+   pivotXType = Animation.ABSOLUTE:缩放轴点的x坐标 =  View左上角的原点 在x方向 加上 pivotXValue数值的点(y方向同理)
+   pivotXType = Animation.RELATIVE_TO_SELF:缩放轴点的x坐标 = View左上角的原点 在x方向 加上 自身宽度乘上pivotXValue数值的值(y方向同理)
+   pivotXType = Animation.RELATIVE_TO_PARENT:缩放轴点的x坐标 = View左上角的原点 在x方向 加上 父控件宽度乘上pivotXValue数值的值 (y方向同理)
+
+加速器   
+android:interpolator="@android:anim/accelerate_interpolator" 设置动画为加速动画(动画播放中越来越快)  
+  
+android:interpolator="@android:anim/decelerate_interpolator" 设置动画为减速动画(动画播放中越来越慢)  
+  
+android:interpolator="@android:anim/accelerate_decelerate_interpolator" 设置动画为先加速在减速(开始速度最快 逐渐减慢)  
+  
+android:interpolator="@android:anim/anticipate_interpolator" 先反向执行一段，然后再加速反向回来（相当于我们弹簧，先反向压缩一小段，然后在加速弹出）  
+  
+android:interpolator="@android:anim/anticipate_overshoot_interpolator" 同上先反向一段，然后加速反向回来，执行完毕自带回弹效果（更形象的弹簧效果）  
+  
+android:interpolator="@android:anim/bounce_interpolator" 执行完毕之后会回弹跳跃几段（相当于我们高空掉下一颗皮球，到地面是会跳动几下）  
+  
+android:interpolator="@android:anim/cycle_interpolator" 循环，动画循环一定次数，值的改变为一正弦函数：Math.sin(2* mCycles* Math.PI* input)  
+  
+android:interpolator="@android:anim/linear_interpolator" 线性均匀改变  
+  
+android:interpolator="@android:anim/overshoot_interpolator" 加速执行，结束之后回弹     
+
+反射应用：
+Class[] params = new Class[]{String[].class};
+Method targetMethod = this.mTarget.getClass().getDeclaredMethod(method, params);
+targetMethod.invoke(this.mTarget, json);
+注意： this.mTarget 代表一个对象 这个对象里有这个方法getDeclaredMethod（）；
+targetMethod.invoke(this.mTarget, json);执行这个this.mTarget对象这个targetMethod的一个方法，json为targetMethod的参数
+
+studio 常见错误
+Manifest merger failed with multiple errors, see logs
+1.manifest 的lable重复
+2.依赖的libary 的最低版本与主项目的最低版本不一致
+
+
+recyclerView 已滑动的距离
+private int getDistance(){  
+    LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();  
+    View firstVisibItem = mRecyclerView.getChildAt(0);  
+    int firstItemPosition = layoutManager.findFirstVisibleItemPosition();  
+    int itemCount = layoutManager.getItemCount();  
+    int recycleViewHeight = mRecyclerView.getHeight();  
+    int itemHeight = firstVisibItem.getHeight();  
+    int firstItemBottom = layoutManager.getDecoratedBottom(firstVisibItem);  
+    return (firstItemPosition + 1)*itemHeight - firstItemBottom;  
+}  
+recyclerView 剩余的距离
+private int getDistance(){  
+    LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();  
+    View firstVisibItem = mRecyclerView.getChildAt(0);  
+    int firstItemPosition = layoutManager.findFirstVisibleItemPosition();  
+    int itemCount = layoutManager.getItemCount();  
+    int recycleViewHeight = mRecyclerView.getHeight();  
+    int itemHeight = firstVisibItem.getHeight();  
+    int firstItemBottom = layoutManager.getDecoratedBottom(firstVisibItem);  
+    return (itemCount - firstItemPosition - 1)* itemHeight - recycleViewHeight;  
+}  
+
+
+setprop debug.layout 1 //查看布局绘制
+adb shell wm size 1280x720
+android:includeFontPadding="false"  取消文字内置上下边距
+adb shell screencap -p /sdcard/10.png
+cat app.prop
+adb shell dumpsys activity activities查看activity栈
+
+笔记本热点
+1.netsh wlan set hostednetwork mode=allow ssid=JayFan key=wzl666666
+2.netsh wlan start hostednetwork
+3.netsh wlan stop hostednetwork 关闭
+
+车机升级密码：
+36356
+ANR:
+Input dispatching timed out (Waiting because no window has focus but there is a focused application that may eventually add a window when it finishes starting up.)
+关键字眼：InputDispatcher: Application is not responding: 
+
+setEnabled() 和 setClickable() 的区别
+setEnabled 是总开关，false 时按钮是灰色，且setClickable 无效了，true时按钮是正常的
+setClickable true 可点击（设置为true时，即使不设置监听事件，也不会响应父控件的事件）false 不可点击
