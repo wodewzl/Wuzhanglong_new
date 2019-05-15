@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              style="@style/padding_15_10"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/C1"
+              android:orientation="horizontal">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/head_img"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/user_icon_def"
+/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="女王大人"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="wood的劳动力大军链接发来放假啊两地分居啊"
+            android:textColor="@color/star_gray_title"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="2019-04-26"
+                android:textColor="@color/star_gray"
+                android:textSize="10sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/like_press"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="222"
+                android:textColor="@color/star_gray"
+                android:textSize="10sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:drawableLeft="@mipmap/message_press"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="222"
+                android:textColor="@color/star_gray"
+                android:textSize="10sp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

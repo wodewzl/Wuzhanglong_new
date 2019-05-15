@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.MyMessageActivity">
+
+
+    <net.lucode.hackware.magicindicator.MagicIndicator
+        android:id="@+id/magic_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/C1"/>
+
+
+    <com.cpoopc.scrollablelayoutlib.ScrollableLayout
+        android:id="@+id/scrollable_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/C1">
+
+        <LinearLayout
+            android:id="@+id/head_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="117dp"
+                style="@style/margin_15_10"
+                android:layout_gravity="center"
+                android:background="@color/colorAccent"/>
+            <LinearLayout
+                android:id="@+id/search_layout"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                style="@style/margin_15_10"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_15"
+                android:background="@color/colorAccent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15">
+
+                <EditText
+                    android:id="@+id/search_et"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/corners_white"
+                    android:drawableRight="@drawable/search_icon"
+                    android:hint="搜索你感兴趣的商品"
+                    android:imeOptions="actionSearch"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:textColorHint="@color/C6"
+                    android:textSize="@dimen/sp_12"
+                    />
+
+                <TextView
+                    android:id="@+id/back_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="取消"
+                    android:textColor="@color/C1"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            style="@style/margin_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="本周实时"/>
+
+
+            <TextView
+                android:layout_width="63dp"
+                android:layout_height="36dp"
+                android:background="@color/colorAccent"
+                android:textColor="@color/C1"
+                android:text="往期"
+                android:gravity="center"
+                android:textSize="@dimen/sp_10"/>
+        </LinearLayout>
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </com.cpoopc.scrollablelayoutlib.ScrollableLayout>
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>

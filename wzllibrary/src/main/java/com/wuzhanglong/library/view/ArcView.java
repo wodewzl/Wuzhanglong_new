@@ -57,6 +57,7 @@ public class ArcView extends View {
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(mBgColor);
 
+
         Rect rect = new Rect(0, 0, mWidth, mHeight - mArcHeight);
         canvas.drawRect(rect, mPaint);
 

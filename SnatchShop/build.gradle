@@ -5,12 +5,14 @@ android {
         realse {
             keyAlias 'wzl'
             keyPassword 'wuzhanglong'
-            storeFile file('keystore/wodewzl.jks')
+            storeFile file('../keystore/wodewzl.jks')
             storePassword 'wuzhanglong'
         }
     }
     compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
     defaultConfig {
+        applicationId "com.beisheng.snatch"
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
@@ -18,22 +20,23 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    configurations.all {
-        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-            def requested = details.requested
-            if (requested.group == 'com.android.support') {
-                if (!requested.name.startsWith("multidex")) {
-                    details.useVersion '27.0.1'
-                }
-            }
-        }
-    }
+//    configurations.all {
+//        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+//            def requested = details.requested
+//            if (requested.group == 'com.android.support') {
+//                if (!requested.name.startsWith("multidex")) {
+//                    details.useVersion rootProject.ext.android.VSupportSdk
+//                }
+//            }
+//        }
+//    }
 
 }
 
@@ -41,6 +44,6 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.meiqia:meiqiasdk:3.4.3@aar'
     implementation rootProject.ext.dependencies["MPAndroidChart"]
-    implementation rootProject.ext.dependencies["multidex"]
+    implementation 'com.android.support:multidex:1.0.1'
     implementation project(':wzllibrary')
 }

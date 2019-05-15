@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              style="@style/padding_15_10"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/C1"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/head_img"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/user_icon_def"
+            app:civ_border_color="@color/colorAccent"
+            app:civ_border_width="1dp"/>
+
+        <TextView
+            android:id="@+id/name_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="女王大人"
+            android:textSize="14sp"
+            />
+
+        <ImageView
+            android:id="@+id/favor_iv"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:padding="5dp"
+            android:src="@mipmap/favor_select"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/content_one_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="我喜欢刘亦菲我喜欢刘亦菲我喜欢刘亦菲我喜欢刘亦菲我喜欢刘亦菲我喜欢刘亦菲我喜欢刘亦菲"/>
+
+    <cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout
+        android:id="@+id/photo_layout"
+        style="@style/MatchWrap"
+        android:layout_below="@id/content_tv"
+        android:layout_marginTop="10dp"
+        app:bga_npl_itemCornerRadius="0dp"
+        app:bga_npl_itemSpanCount="3"
+        app:bga_npl_itemWhiteSpacing="6dp"
+        app:bga_npl_itemWidth="106dp"
+        app:bga_npl_otherWhiteSpacing="0dp"
+        app:bga_npl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
+        app:bga_npl_showAsLargeWhenOnlyOne="false"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="11月28日 18：19"
+            android:textColor="@color/star_gray"
+            android:textSize="10sp"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="2dp"
+            android:src="@mipmap/message_press"
+            />
+
+        <ImageView
+            android:id="@+id/like_iv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="2dp"
+            android:src="@mipmap/like_press"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/like_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:lineSpacingExtra="10dp"
+            android:text="            我爱你刘亦菲我爱你刘亦菲我爱你刘亦菲我爱你刘亦菲我爱你刘亦菲我爱你刘亦菲"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/like_fans"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/reply_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+</LinearLayout>

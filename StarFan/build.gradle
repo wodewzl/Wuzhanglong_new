@@ -5,7 +5,7 @@ android {
         realse {
             keyAlias 'wzl'
             keyPassword 'wuzhanglong'
-            storeFile file('keystore/wodewzl.jks')
+            storeFile file('../keystore/wodewzl.jks')
             storePassword 'wuzhanglong'
         }
     }
@@ -22,6 +22,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.realse
+        }
+        debug {
+            signingConfig signingConfigs.realse
         }
     }
 //    configurations.all {
@@ -42,4 +46,5 @@ dependencies {
     implementation 'com.meiqia:meiqiasdk:3.4.3@aar'
     implementation project(':wzllibrary')
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.qiniu:qiniu-android-sdk:7.3.15'
 }

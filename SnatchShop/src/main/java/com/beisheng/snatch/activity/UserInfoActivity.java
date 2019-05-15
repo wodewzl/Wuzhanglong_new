@@ -28,7 +28,7 @@ import com.squareup.picasso.Picasso;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.vondear.rxtools.view.dialog.RxDialogEditSureCancel;
+import com.vondear.rxui.view.dialog.RxDialogEditSureCancel;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.constant.BaseConstant;
 import com.wuzhanglong.library.http.BSHttpUtils;
@@ -337,14 +337,15 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 //            }
 //        });
 
+
         final RxDialogEditSureCancel rxDialogEditTextSureCancle = new RxDialogEditSureCancel(this);//提示弹窗
         rxDialogEditTextSureCancle.setTitle(title);
-        rxDialogEditTextSureCancle.getTvTitle().setBackgroundColor(ContextCompat.getColor(this, R.color.C1));
-        rxDialogEditTextSureCancle.getTvTitle().setTextSize(15);
+        rxDialogEditTextSureCancle.getTitleView().setBackgroundColor(ContextCompat.getColor(this, R.color.C1));
+        rxDialogEditTextSureCancle.getTitleView().setTextSize(15);
         rxDialogEditTextSureCancle.getEditText().setHint(hint);
         rxDialogEditTextSureCancle.getEditText().setTextSize(13);
         rxDialogEditTextSureCancle.getEditText().setHintTextColor(ContextCompat.getColor(this, R.color.C6));
-        rxDialogEditTextSureCancle.getTvSure().setOnClickListener(new View.OnClickListener() {
+        rxDialogEditTextSureCancle.getSureView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (type == 1) {
@@ -355,7 +356,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 rxDialogEditTextSureCancle.cancel();
             }
         });
-        rxDialogEditTextSureCancle.getTvCancel().setOnClickListener(new View.OnClickListener() {
+        rxDialogEditTextSureCancle.getCancelView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 rxDialogEditTextSureCancle.cancel();

@@ -5,20 +5,33 @@ android {
         realse {
             keyAlias 'wzl'
             keyPassword 'wuzhanglong'
-            storeFile file('keystore/wodewzl.jks')
+            storeFile file('../keystore/wodewzl.jks')
             storePassword 'wuzhanglong'
         }
     }
-    compileSdkVersion 26
+//    compileSdkVersion 26
+//    defaultConfig {
+//        applicationId "com.wzl.txffc"
+//        minSdkVersion 19
+//        targetSdkVersion 25
+//        versionCode 1
+//        versionName "1.0"
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//        multiDexEnabled true
+//    }
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
     defaultConfig {
-        applicationId "com.wzl.caipiao"
-        minSdkVersion 19
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        applicationId "com.wzl.txffc"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
+
+
     buildTypes {
         release {
             minifyEnabled false
@@ -29,16 +42,7 @@ android {
             signingConfig signingConfigs.realse
         }
     }
-    configurations.all {
-        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-            def requested = details.requested
-            if (requested.group == 'com.android.support') {
-                if (!requested.name.startsWith("multidex")) {
-                    details.useVersion '27.0.1'
-                }
-            }
-        }
-    }
+
 }
 
 dependencies {

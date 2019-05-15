@@ -894,7 +894,7 @@ public class BaseCommonUtils {
             StringBuffer sb = null;
             while (it.hasNext()) {
                 String key = it.next();
-                String value = (String) params.get(key);
+                Object value = params.get(key);
                 if (value==null){
                     value="";
                 }
@@ -907,7 +907,7 @@ public class BaseCommonUtils {
                 sb.append(key);
                 sb.append("=");
                 try {
-                    sb.append(URLEncoder.encode(value, "UTF-8"));
+                    sb.append(URLEncoder.encode((String) value, "UTF-8"));
 
                 } catch (Exception e) {
                     sb.append(value);

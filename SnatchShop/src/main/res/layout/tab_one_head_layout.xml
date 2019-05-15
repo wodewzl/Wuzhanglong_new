@@ -167,7 +167,7 @@
             android:src="@drawable/notify_img"
             />
 
-        <com.vondear.rxtools.view.RxTextviewVertical
+        <com.vondear.rxui.view.RxRunTextView
             android:id="@+id/rx_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.wuzhanglong.library.view.ReboundScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/C3"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.MyBindPhoneActivity">
+
+        <EditText
+            style="@style/padding_left_18_right_18"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/C1"
+            android:hint="请入输入手机号"/>
+
+        <EditText
+            style="@style/padding_left_18_right_18"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:hint="请设置密码"/>
+
+        <LinearLayout
+            style="@style/padding_left_18_right_18"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@color/C1"
+                android:hint="请输入验证码"
+                android:textColor="@color/colorAccent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="获取验证码"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_gradient_yellow"
+            android:gravity="center"
+            android:text="立即绑定"
+            android:textColor="@color/C1"
+            android:textSize="15dp"/>
+
+        <TextView
+            style="@style/padding_left_18_right_18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_30"
+            android:text="绑定手机号后，除了原来方式登陆该账号，你也可用当前绑定的手机号 和密码登录。"
+            android:textSize="@dimen/sp_10"/>
+    </LinearLayout>
+</com.wuzhanglong.library.view.ReboundScrollView>

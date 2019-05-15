@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              style="@style/padding_15_10"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/C1"
+              android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_gradient"
+        android:gravity="center_vertical|right"
+        android:orientation="vertical"
+        android:paddingRight="@dimen/dp_24">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="爱奇艺会员卡"
+            android:textColor="@color/C1"
+            android:textSize="@dimen/sp_15"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="300米粒"
+            android:textColor="@color/color_eaeaea"
+            android:textSize="@dimen/sp_15"/>
+
+        <TextView
+            android:layout_width="72dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/C1"
+            android:gravity="center"
+            android:text="立即兑换"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="wood的劳动力大军链接发来放假啊两地分居啊"
+            android:textColor="@color/star_gray_title"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="系统抽奖"
+            android:textColor="@color/colorAccent"
+            />
+    </LinearLayout>
+
+</LinearLayout>

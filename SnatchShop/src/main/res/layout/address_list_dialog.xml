@@ -28,7 +28,7 @@
             android:id="@+id/tv_no_address"
             android:layout_centerInParent="true"
             android:textSize="14sp"
-            android:textColor="@color/_6"
+            android:textColor="@color/C6"
             android:text="您还没有收货地址，请添加"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

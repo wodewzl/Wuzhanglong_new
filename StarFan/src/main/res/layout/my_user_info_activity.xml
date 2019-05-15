@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/C3"
+              android:orientation="vertical">
+
+    <com.wuzhanglong.library.view.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/C3"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout_01"
+                style="@style/padding_left_18_right_26"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/C1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="修改头像"
+                    android:textSize="12sp"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/head_img"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    app:civ_border_color="@color/C3_1"
+                    app:civ_border_width="2dp"
+                    android:src="@drawable/user_icon_def"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/layout_02"
+                style="@style/padding_left_18_right_26"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/C1"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="用户ID"
+                   />
+
+                <TextView
+                    android:id="@+id/tv_02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/name_tv"
+                    android:drawablePadding="5dp"
+                    android:textColor="@color/star_gray"
+                    android:textSize="10sp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/layout_03"
+                style="@style/padding_left_18_right_26"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/C1"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="昵称"/>
+
+                <TextView
+                    android:id="@+id/tv_03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/name_tv"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@mipmap/my_go"
+                    android:textColor="@color/star_gray"
+                    android:textSize="10sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_04"
+                style="@style/padding_left_18_right_26"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/C1"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="性别"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/name_tv"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@mipmap/my_go"
+                    android:textColor="@color/C6"
+                    android:textSize="10sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_05"
+                style="@style/padding_left_18_right_26"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/C1"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="生日"
+                 />
+
+                <TextView
+                    android:id="@+id/tv_05"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/name_tv"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@mipmap/my_go"
+                    android:textColor="@color/star_gray"
+                    android:textSize="10sp"
+                    android:text="1988-05-05"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_06"
+                style="@style/padding_left_18_right_26"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/C1"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="个性签名"
+             />
+
+                <TextView
+                    android:id="@+id/tv_06"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/name_tv"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@mipmap/my_go"
+                    android:textColor="@color/star_gray"
+                    android:text="永远爱你陈雪涛"
+                    android:textSize="10sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_07"
+                style="@style/padding_left_18_right_26"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/C1"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="绑定手机"
+ />
+
+                <TextView
+                    android:id="@+id/tv_07"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/name_tv"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@mipmap/my_go"
+                    android:text="未绑定"
+                    android:textColor="@color/star_gray"
+                    android:textSize="10sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_08"
+                style="@style/padding_left_18_right_26"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/C1"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="认证粉丝会/媒体机构"
+                  />
+
+                <TextView
+                    android:id="@+id/tv_08"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/name_tv"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@mipmap/my_go"
+                    android:textColor="@color/star_gray"
+                    android:textSize="10sp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.wuzhanglong.library.view.ReboundScrollView>
+
+</LinearLayout>

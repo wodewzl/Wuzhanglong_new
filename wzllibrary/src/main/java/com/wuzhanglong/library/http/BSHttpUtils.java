@@ -106,20 +106,18 @@ public class BSHttpUtils {
                         } else if ("300".equals(baseVO.getCode())) {
                             callback.baseNoData(baseVO);
                             activity.showFailToast(baseVO.getDesc());
-                        }else if("txffc".equals(baseVO.getCode())||"QQFFC".equals(baseVO.getCode())){
+                        } else if ("txffc".equals(baseVO.getCode()) || "QQFFC".equals(baseVO.getCode())) {
                             callback.baseHasData(baseVO);
                         }
                     }
 
                     @Override
                     public void onError(Object o, Throwable throwable) {
-                        System.out.println("===========");
                         activity.dismissProgressDialog();
                     }
 
                     @Override
                     public void onCancel(Object o, Throwable throwable) {
-                        System.out.println("===========");
                         activity.dismissProgressDialog();
                     }
                 });
@@ -128,14 +126,14 @@ public class BSHttpUtils {
 
     public static <T> void post(final BaseActivity activity, final UpdateCallback callback, final String url, final Map<String, Object> params, final Class<T> className) {
         final Gson gson = new Gson();
-        final String allUrl ;
+        final String allUrl;
         if (params == null || params.size() == 0) {
-            allUrl=BaseConstant.DOMAIN_NAME + url;
-            Log.i("get_url",allUrl );
+            allUrl = BaseConstant.DOMAIN_NAME + url;
+            Log.i("get_url", allUrl);
 
         } else {
-            allUrl=BaseConstant.DOMAIN_NAME + url + BaseCommonUtils.getUrl((HashMap<String, Object>) params);
-            Log.i("get_url",allUrl );
+            allUrl = BaseConstant.DOMAIN_NAME + url + BaseCommonUtils.getUrl((HashMap<String, Object>) params);
+            Log.i("get_url", allUrl);
         }
 
         final String cacheStr = ACache.get(activity).getAsString(allUrl);
@@ -160,7 +158,7 @@ public class BSHttpUtils {
             }
         }
 
-        params.put("timestamp", (System.currentTimeMillis() / 1000)+"");
+        params.put("timestamp", (System.currentTimeMillis() / 1000) + "");
         Map<String, Object> resultMap = sortMapByKey(params);
         StringBuffer signSb = new StringBuffer();
         for (Map.Entry<String, Object> entry : resultMap.entrySet()) {
@@ -204,12 +202,12 @@ public class BSHttpUtils {
                     activity.showCustomToast(baseVO.getDesc());
                     callback.baseHasData(baseVO);
                     if (!TextUtils.isEmpty(s)) {
-                        ACache.get(activity).put(allUrl , s, 60 * 60 * 24);
+                        ACache.get(activity).put(allUrl, s, 60 * 60 * 24);
                     }
                 } else if ("202".equals(baseVO.getCode())) {
                     callback.baseHasData(baseVO);
                     if (!TextUtils.isEmpty(s)) {
-                        ACache.get(activity).put(allUrl , s, 60 * 60 * 24);
+                        ACache.get(activity).put(allUrl, s, 60 * 60 * 24);
                     }
                 } else if ("400".equals(baseVO.getCode())) {
                     callback.baseNoData(baseVO);
@@ -234,7 +232,7 @@ public class BSHttpUtils {
             Log.i("get_url", BaseConstant.DOMAIN_NAME + url + BaseCommonUtils.getUrl((HashMap<String, Object>) params));
         }
 
-        params.put("timestamp", (System.currentTimeMillis() / 1000)+"");
+        params.put("timestamp", (System.currentTimeMillis() / 1000) + "");
         Map<String, Object> resultMap = sortMapByKey(params);
         StringBuffer signSb = new StringBuffer();
         for (Map.Entry<String, Object> entry : resultMap.entrySet()) {
@@ -300,7 +298,7 @@ public class BSHttpUtils {
 
 
     //提交文件
-    public static <T> void postFile(final BaseActivity activity, final String url,  final Map<String, Object> params, final Class<T> className, final PostCallback postCallback) {
+    public static <T> void postFile(final BaseActivity activity, final String url, final Map<String, Object> params, final Class<T> className, final PostCallback postCallback) {
         final Gson gson = new Gson();
         MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
@@ -308,18 +306,18 @@ public class BSHttpUtils {
         Map<String, Object> resultMap = sortMapByKey(params);
         StringBuffer signSb = new StringBuffer();
         for (Map.Entry<String, Object> entry : resultMap.entrySet()) {
-            if(entry.getValue() instanceof File){
-                File file= (File) entry.getValue();
-                        requestBody.addFormDataPart("image", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
-            }else {
+            if (entry.getValue() instanceof File) {
+                File file = (File) entry.getValue();
+                requestBody.addFormDataPart("image", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+            } else {
                 signSb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
-                requestBody.addFormDataPart(entry.getKey(), entry.getValue()+"");
+                requestBody.addFormDataPart(entry.getKey(), entry.getValue() + "");
             }
         }
         signSb.append(BaseConstant.APP_KEY);
         String sign = MD5.Md5(signSb.toString());
         params.put("sign", sign);
-        params.put("timestamp", System.currentTimeMillis() / 1000+"");
+        params.put("timestamp", System.currentTimeMillis() / 1000 + "");
         requestBody.addFormDataPart("sign", sign);
         MultipartBody rb = requestBody.build();
         new Novate.Builder(activity)

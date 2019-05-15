@@ -1,12 +1,23 @@
 ext {
+
+    //    compileSdkVersion 26
+//    defaultConfig {
+//        applicationId "com.wzl.txffc"
+//        minSdkVersion 19
+//        targetSdkVersion 25
+//        versionCode 1
+//        versionName "1.0"
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//        multiDexEnabled true
+//    }
     android = [
             compileSdkVersion: 27,
-            buildToolsVersion: "27.0.3",
-            minSdkVersion    : 15,
-            targetSdkVersion : 24,
+            buildToolsVersion: "28.0.3",
+            minSdkVersion    : 19,
+            targetSdkVersion : 27,
             versionCode      : 1,
             versionName      : '1.0.0',
-            VSupportSdk      : '25.1.0'
+            VSupportSdk      : '27.0.0'
     ]
 
     dependencies = [
@@ -21,14 +32,14 @@ ext {
             "eventbus"            : "org.greenrobot:eventbus:3.0.0",//消息传递
             "avi-loading"         : "com.wang.avi:library:2.1.3",   //进度提示框
             "bga-photopicker"     : "cn.bingoogolapple:bga-photopicker:1.2.6",//九宫格图片选择显示
-            "bga-baseadapter"     : "cn.bingoogolapple:bga-baseadapter:1.2.7",//adapter适配器
+            "bga-baseadapter"     : "cn.bingoogolapple:bga-baseadapter:1.2.8",//adapter适配器
             "easypermissions"     : "pub.devrel:easypermissions:0.4.0",//动态权限获取
             "circleindicator"     : "me.relex:circleindicator:1.2.2",//viewPager 指示器
             "LRecyclerView"       : "com.github.jdsjlzx:LRecyclerView:1.5.0",//上拉刷新，下拉加载更多的recyclerview
             "statusbarutil"       : "com.jaeger.statusbarutil:library:1.4.0",//沉浸式状态栏
             "MagicIndicator"      : "com.github.hackware1993:MagicIndicator:1.5.0",//多页指示器
             "banner"              : "com.youth.banner:banner:1.4.9",//轮播图
-            "RxTools"             : "com.github.vondear:RxTools:v1.6.5",//工具类
+            "RxTools"             : "com.github.vondear.RxTool:RxUI:v2.2.7",//工具类
             "material"            : "com.github.rey5137:material:1.2.4",//material组件
             "circleimageview"     : "de.hdodenhof:circleimageview:2.1.0",//圆形头像
             "badgeview"           : "q.rorbin:badgeview:1.1.0",//气泡消息提示
@@ -43,7 +54,7 @@ ext {
             "novate"              : "com.tamic.novate:novate:1.5.5",//联网框架
             "constraint-layout"   : "com.android.support.constraint:constraint-layout:1.0.2",//约束性布局
             "updateapputils"      : "com.teprinciple:updateapputils:1.4",//自动更新
-            "versionchecklib"     : "com.allenliu.versionchecklib:library:2.0.3",//自动更新
+            "versionchecklib"     : "com.allenliu.versionchecklib:library:2.1.9",//自动更新
             "floatingactionbutton": "com.melnykov:floatingactionbutton:1.3.0",//悬浮按钮
             "countdownview"       : "com.github.iwgang:countdownview:2.1.6",//倒计时
             "wechat-sdk"          : "com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+",//微信支付
@@ -53,9 +64,10 @@ ext {
             "recyclerview-helper" : "cc.solart:turbo-recyclerview-helper:1.0.3-beta",//商品分类
             "customedittext"      : "net.anumbrella:customedittext:1.0.0",//EditText提示语文字上移
             "navigation"          : "com.ashokvarma.android:bottom-navigation-bar:1.4.1",//底部导航栏
-            "multidex"          : "com.android.support:multidex:1.0.1",//底部导航栏
-            "MPAndroidChart"          : "com.github.PhilJay:MPAndroidChart:v3.0.3",//图库
+            "multidex"            : "com.android.support:multidex:1.0.1",
+            "MPAndroidChart"      : "com.github.PhilJay:MPAndroidChart:v3.0.3",//图库
             "CouponView"          : "com.github.dongjunkun:CouponView:1.0.3",//齿轮背景
+            "BottomNavigationBar" : "com.github.onestravel:BottomNavigationBar:TAG",//底部凸起的导航栏
 
     ]
 }

@@ -20,7 +20,7 @@ import com.beisheng.snatch.model.PayTypeVO;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.squareup.picasso.Picasso;
-import com.vondear.rxtools.view.dialog.RxDialogEditSureCancel;
+import com.vondear.rxui.view.dialog.RxDialogEditSureCancel;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.interfaces.PayCallback;
@@ -160,15 +160,15 @@ public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickLis
     public void showCustomDialog(String title, String hint) {
         final RxDialogEditSureCancel rxDialogEditTextSureCancle = new RxDialogEditSureCancel(this);//提示弹窗
         rxDialogEditTextSureCancle.setTitle(title);
-        rxDialogEditTextSureCancle.getTvTitle().setBackgroundColor(ContextCompat.getColor(this, R.color.C1));
-        rxDialogEditTextSureCancle.getTvTitle().setTextSize(13);
-        rxDialogEditTextSureCancle.getTvCancel().setTextSize(13);
-        rxDialogEditTextSureCancle.getTvSure().setTextSize(13);
+        rxDialogEditTextSureCancle.getTitleView().setBackgroundColor(ContextCompat.getColor(this, R.color.C1));
+        rxDialogEditTextSureCancle.getTitleView().setTextSize(13);
+        rxDialogEditTextSureCancle.getCancelView().setTextSize(13);
+        rxDialogEditTextSureCancle.getSureView().setTextSize(13);
         rxDialogEditTextSureCancle.getEditText().setHint(hint);
         rxDialogEditTextSureCancle.getEditText().setTextSize(11);
         rxDialogEditTextSureCancle.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
         rxDialogEditTextSureCancle.getEditText().setHintTextColor(ContextCompat.getColor(this, R.color.C6));
-        rxDialogEditTextSureCancle.getTvSure().setOnClickListener(new View.OnClickListener() {
+        rxDialogEditTextSureCancle.getSureView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(BaseCommonUtils.parseInt(rxDialogEditTextSureCancle.getEditText().getText().toString())<=0){
@@ -181,7 +181,7 @@ public class BuyFlowActivity extends BaseActivity implements BGAOnRVItemClickLis
                 rxDialogEditTextSureCancle.cancel();
             }
         });
-        rxDialogEditTextSureCancle.getTvCancel().setOnClickListener(new View.OnClickListener() {
+        rxDialogEditTextSureCancle.getCancelView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mSelectVO.setSelect(false);

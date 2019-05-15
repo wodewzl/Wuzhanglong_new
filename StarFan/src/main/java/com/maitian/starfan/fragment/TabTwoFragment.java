@@ -1,54 +1,88 @@
 package com.maitian.starfan.fragment;
 
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
+import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
+import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.maitian.starfan.R;
-import com.umeng.socialize.UMAuthListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.maitian.starfan.adapter.RiceCircleAdapter;
+import com.maitian.starfan.adapter.RiceCircleAdapter.ChildClikCallback;
+import com.maitian.starfan.constant.Constant;
+import com.maitian.starfan.model.RiceCircleVO;
 import com.wuzhanglong.library.fragment.BaseFragment;
+import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
-import com.wuzhanglong.library.mode.EBMessageVO;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.wuzhanglong.library.utils.RecyclerViewUtil;
+import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 
 import java.io.Serializable;
-import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
 
-public class TabTwoFragment extends BaseFragment implements View.OnClickListener, PostCallback, Serializable {
-
-
-    //登录
-
-
+public class TabTwoFragment extends BaseFragment implements View.OnClickListener, Serializable, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener, PostCallback , ChildClikCallback {
+    private LuRecyclerView mRecyclerView;
+    private RiceCircleAdapter mAdapter;
+    private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
+    private boolean isLoadMore = true;
+    private int mCurrentPage = 1;
 
     @Override
     public void setContentView() {
-        contentInflateView(R.layout.tab_five_fragment);
+        contentInflateView(R.layout.tab_two_fragment);
     }
 
     @Override
     public void initView(View view) {
+        mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
+        mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
+        mRecyclerView = getViewById(R.id.recycler_view);
+        mAdapter = new RiceCircleAdapter(mRecyclerView);
 
+        RecyclerViewUtil.initRecyclerViewLinearLayout(this.getActivity(), mRecyclerView, mAdapter, R.dimen.dp_1, R.color.C3, true);
     }
 
     @Override
     public void bindViewsListener() {
-        EventBus.getDefault().register(this);
+        mAutoSwipeRefreshLayout.setOnRefreshListener(this);
+//        mAdapter.setOnRVItemClickListener(this);
+        mRecyclerView.setOnLoadMoreListener(this);
+        mAdapter.setChildClikCallback(this);
     }
 
 
     @Override
     public void getData() {
-        showView();
+//        http://132.232.197.128:8080/topic/userTopicList?pageNum=1&pageSize=10&userId=4337
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("idolId", "2");
+        map.put("userId", "4338");
+        map.put("pageNum", mCurrentPage + "");
+        map.put("pageSize", "10");
+        StartHttpUtils.get(mActivity, this, Constant.RICE_CIRCLE_LIST, map, RiceCircleVO.class);
+
 
     }
 
     @Override
     public void hasData(BaseVO vo) {
+        RiceCircleVO riceCircleVO = (RiceCircleVO) vo;
+        if (riceCircleVO.getObj().isHasNextPage()) {
+            mRecyclerView.setNoMore(true);
+        } else {
+            mRecyclerView.setNoMore(false);
+        }
+        mAutoSwipeRefreshLayout.setRefreshing(false);
+        List<RiceCircleVO.ObjBean.ListBeanXX> list = riceCircleVO.getObj().getList();
+        if (isLoadMore) {
+            mAdapter.updateDataLast(list);
+            isLoadMore = false;
+        } else {
+            mAdapter.updateData(list);
+        }
+        mAdapter.notifyDataSetChanged();
 
     }
 
@@ -68,71 +102,54 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+    }
 
 
+    @Override
+    public void onRefresh() {
+        mCurrentPage = 1;
+        getData();
+    }
 
-    class UMShareListener implements Serializable, UMAuthListener {
-        /**
-         * @param platform 平台名称
-         * @desc 授权开始的回调
-         */
-        @Override
-        public void onStart(SHARE_MEDIA platform) {
-        }
-
-        /**
-         * @param platform 平台名称
-         * @param action   行为序号，开发者用不上
-         * @param data     用户资料返回
-         * @desc 授权成功的回调
-         */
-        @Override
-        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-
-        }
-
-        /**
-         * @param platform 平台名称
-         * @param action   行为序号，开发者用不上
-         * @param t        错误原因
-         * @desc 授权失败的回调
-         */
-        @Override
-        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-            mActivity.showFailToast("登录失败");
-        }
-
-        /**
-         * @param platform 平台名称
-         * @param action   行为序号，开发者用不上
-         * @desc 授权取消的回调
-         */
-        @Override
-        public void onCancel(SHARE_MEDIA platform, int action) {
-            mActivity.showCustomToast("登录取消");
-        }
+    @Override
+    public void onLoadMore() {
+        isLoadMore = true;
+        mCurrentPage++;
+        getData();
     }
 
 
     @Override
     public void success(BaseVO vo) {
-
-    }
-
-
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(EBMessageVO event) {
-
+        mActivity.showCustomToast(vo.getMsg());
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+    public void favorPost(String topicId) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("topicId", topicId);
+        map.put("userId", "4338");
+        StartHttpUtils.postCallBack(mActivity,  Constant.FAVORIATE_TOPIC, map, BaseVO.class,this);
     }
 
-    public void bindPhone() {
+    @Override
+    public void likePost(String topicId) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("topicId", topicId);
+        map.put("userId", "4338");
+        StartHttpUtils.postCallBack(mActivity,  Constant.LIKE_TOPIC, map, BaseVO.class,this);
+    }
 
+    @Override
+    public void replayLikePost(String id) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("commentId", id);
+        map.put("userId", "4338");
+        map.put("type", "4338");
+        StartHttpUtils.postCallBack(mActivity,  Constant.LIKE_TOPIC, map, BaseVO.class,this);
     }
 }

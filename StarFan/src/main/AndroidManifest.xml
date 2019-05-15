@@ -4,6 +4,7 @@
           package="com.maitian.starfan">
 
     <application
+        android:name=".application.AppApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,6 +12,40 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup,icon,theme,label">
+        <activity android:name=".StarActivity">
+        </activity>
+        <activity android:name=".activity.RiceCircleStarActivity">
+        </activity>
+        <activity android:name=".activity.LoginActivity">
+        </activity>
+        <activity android:name=".activity.RiceCircleDetailActivity">
+        </activity>
+        <activity android:name=".activity.HomeWelfareActivity">
+        </activity>
+        <activity android:name=".activity.HomePromotionsActivity">
+        </activity>
+        <activity android:name=".activity.HomeNewsActivity">
+        </activity>
+        <activity android:name=".activity.HomeHitListActivity">
+        </activity>
+        <activity android:name=".activity.MyPostsActivity">
+        </activity>
+        <activity android:name=".activity.MySettingPrivacyActivity">
+        </activity>
+        <activity android:name=".activity.MyUpdatePwdActivity">
+        </activity>
+        <activity android:name=".activity.MySettiingsActivity">
+        </activity>
+        <activity android:name=".activity.MyMemberCentreActivity">
+        </activity>
+        <activity android:name=".activity.MyPaurseDetailActivity">
+        </activity>
+        <activity android:name=".activity.MyPurseActivity">
+        </activity>
+        <activity android:name=".activity.MyTaskActivity">
+        </activity>
+        <activity android:name=".activity.MyAttentionActivity">
+        </activity>
         <activity
             android:name=".activity.LogoActivity"
             android:launchMode="singleTop"
@@ -29,8 +64,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activity.MyActivity"/>
-
-
+        <activity android:name=".activity.MyUserInfoActivity"/>
+        <activity android:name=".activity.MyMessageActivity"/>
+        <activity android:name=".activity.MyLegalizeActivity"/>
+        <activity android:name=".activity.MyBindPhoneActivity"/>
+        <activity android:name=".activity.MyUpdateInfoActivity"/>
+        <activity android:name=".activity.MyAboutActivity"/>
     </application>
 
 </manifest>

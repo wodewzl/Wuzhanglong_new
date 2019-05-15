@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:zhy="http://schemas.android.com/apk/res-auto"
+              style="@style/padding_15_10"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/C1"
+    android:orientation="vertical">
+
+
+    <EditText
+        android:id="@+id/content_et"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:gravity="top"
+        android:hint="写点什么吧..."
+        android:background="@color/C1"/>
+
+    <!--<cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout-->
+        <!--android:id="@+id/photo_layout"-->
+        <!--style="@style/MatchWrap"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--app:bga_npl_itemCornerRadius="0dp"-->
+        <!--app:bga_npl_itemSpanCount="3"-->
+        <!--app:bga_npl_itemWhiteSpacing="4dp"-->
+        <!--app:bga_npl_itemWidth="80dp"-->
+        <!--app:bga_npl_otherWhiteSpacing="0dp"-->
+        <!--app:bga_npl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"-->
+        <!--app:bga_npl_showAsLargeWhenOnlyOne="false"/>-->
+
+    <cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout
+        android:id="@+id/photo_layout"
+        style="@style/MatchMatch"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        app:bga_snpl_deleteDrawable="@mipmap/bga_pp_ic_delete"
+        app:bga_snpl_deleteDrawableOverlapQuarter="false"
+        app:bga_snpl_editable="true"
+        app:bga_snpl_itemCornerRadius="0dp"
+        app:bga_snpl_itemSpanCount="3"
+        app:bga_snpl_itemWhiteSpacing="15dp"
+        app:bga_snpl_itemWidth="0dp"
+        app:bga_snpl_maxItemCount="3"
+        app:bga_snpl_otherWhiteSpacing="0dp"
+        app:bga_snpl_placeholderDrawable="@mipmap/bga_pp_ic_holder_dark"
+        app:bga_snpl_plusDrawable="@mipmap/push_post"
+        app:bga_snpl_plusEnable="true"
+        app:bga_snpl_sortable="true"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="明星推荐"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="（至少选一个标签）"
+            android:textColor="@color/star_gray"
+            android:layout_marginLeft="10dp"/>
+
+    </LinearLayout>
+    <com.zhy.view.flowlayout.TagFlowLayout
+        android:id="@+id/flow_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        zhy:max_select="-1">
+
+    </com.zhy.view.flowlayout.TagFlowLayout>
+</LinearLayout>

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.wuzhanglong.library.view.ReboundScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/C3"
+    android:fadingEdge="none"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/C1"
+            android:gravity="center"
+            android:text="你还有新手任务未完成，请完善资料"
+            android:textColor="@color/colorAccent"/>
+
+
+        <LinearLayout
+            style="@style/padding_left_15_right_15"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/my_focus"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="签到"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/name_tv"
+                android:layout_weight="1"
+                android:text="1000米币"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/name_tv"
+                android:layout_weight="1"
+                />
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:text="签到"
+                android:textColor="@color/C1"
+                android:textSize="10sp"/>
+        </LinearLayout>
+        <LinearLayout
+            style="@style/padding_left_15_right_15"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical"
+            android:layout_marginTop="1dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/my_focus"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="评论"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/name_tv"
+                android:layout_weight="1"
+                android:text="1000米币"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/name_tv"
+                android:layout_weight="1"
+                />
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:text="签到"
+                android:textColor="@color/C1"
+                android:textSize="10sp"/>
+        </LinearLayout>
+        <LinearLayout
+            style="@style/padding_left_15_right_15"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/my_focus"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="点赞"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/name_tv"
+                android:layout_weight="1"
+                android:text="1000米币"
+            />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/name_tv"
+                android:layout_weight="1"
+                android:text="0/5"
+          android:gravity="center" />
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:background="@color/colorAccent"
+                android:text="签到"
+                android:textColor="@color/C1"
+                android:textSize="10sp"
+                android:gravity="center"
+             />
+        </LinearLayout>
+        <LinearLayout
+            style="@style/padding_left_15_right_15"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/my_focus"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="转发"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/name_tv"
+                android:layout_weight="1"
+                android:text="1000米币"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/name_tv"
+                android:layout_weight="1"
+                />
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:text="签到"
+                android:textColor="@color/C1"
+                android:textSize="10sp"/>
+        </LinearLayout>
+
+
+        <TextView
+            style="@style/padding_left_15_right_15"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center_vertical"
+            android:text="特殊任务"
+            android:textColor="@color/star_gray_title"/>
+        <LinearLayout
+            style="@style/padding_left_15_right_15"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/my_focus"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="参与话题讨论"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/name_tv"
+                android:layout_weight="1"
+                android:text="1000米币"
+               />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:text="签到"
+                android:textColor="@color/C1"
+                android:textSize="10sp"/>
+        </LinearLayout>
+        <LinearLayout
+            style="@style/padding_left_15_right_15"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/my_focus"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="点击广告链接"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/name_tv"
+                android:layout_weight="1"
+                android:text="1000米币"
+                />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:text="签到"
+                android:textColor="@color/C1"
+                android:textSize="10sp"/>
+        </LinearLayout>
+        <LinearLayout
+            style="@style/padding_left_15_right_15"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/my_focus"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="每日一投"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/name_tv"
+                android:layout_weight="1"
+                android:text="1000米币"
+                />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:text="签到"
+                android:textColor="@color/C1"
+                android:textSize="10sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</com.wuzhanglong.library.view.ReboundScrollView>
+
+

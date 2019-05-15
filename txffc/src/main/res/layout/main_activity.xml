@@ -8,7 +8,7 @@
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
     tools:context=".MainActivity"
-    android:background="@color/white">
+    android:background="#fff">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="1234567"
-            android:textColor="@color/red" />
+            android:textColor="#f00" />
     </LinearLayout>
 
     <LinearLayout
@@ -47,7 +47,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="1234567"
-            android:textColor="@color/red" />
+            android:textColor="#f00" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="1234567"
-            android:textColor="@color/red" />
+            android:textColor="#f00" />
     </LinearLayout>
 
     <LinearLayout
@@ -86,7 +86,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="1234567"
-            android:textColor="@color/red" />
+            android:textColor="#f00" />
     </LinearLayout>
 
     <LinearLayout
@@ -106,7 +106,46 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="1234567"
-            android:textColor="@color/red" />
+            android:textColor="#f00" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="7dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="个位：" />
+
+        <TextView
+            android:id="@+id/single_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="1234567"
+            android:textColor="#f00" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="7dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="砸吧：" />
+
+        <TextView
+            android:id="@+id/zaba_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="1234567"
+            android:textColor="#f00" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

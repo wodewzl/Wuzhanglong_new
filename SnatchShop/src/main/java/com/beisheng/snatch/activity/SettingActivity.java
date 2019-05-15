@@ -208,6 +208,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
                     }
                 })
-                .excuteMission(this);
+                .executeMission(this);
     }
 }

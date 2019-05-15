@@ -69,7 +69,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class MyLuckyRecordFragment extends BaseFragment implements OnLoadMoreListener, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, MyLuckyRecordAdapter.MyLuckyRecordListener,
         BGAOnRVItemClickListener, BGASortableNinePhotoLayout.Delegate, PostCallback, BGAOnItemChildClickListener {
     private static final int PRC_PHOTO_PICKER = 1;
-    private static final int RC_CHOOSE_PHOTO = 1;
+    private static final int RC_CHOOSE_PHOTO = 3;
     private static final int RC_PHOTO_PREVIEW = 2;
     private BGASortableNinePhotoLayout mPhotoLayout;
     public ArrayList<String> mSelectList = new ArrayList<>();

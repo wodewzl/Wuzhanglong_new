@@ -1,1 +1,1 @@
-include  ':wzllibrary', ':SnatchShop',  ':caipiao', ':txffc'
+include  ':wzllibrary', ':SnatchShop',  ':StarFan', ':txffc'

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wuzhanglong.library.view.ReboundScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/C3"
+    android:fadingEdge="none"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/C3"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/C1"
+            android:drawableRight="@mipmap/my_go"
+            android:gravity="center_vertical"
+            android:text="修改密码"
+            android:textColor="@color/star_black"/>
+
+        <TextView
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:drawableRight="@mipmap/my_go"
+            android:gravity="center_vertical"
+            android:text="关于我们"
+            android:textColor="@color/star_black"/>
+    </LinearLayout>
+
+</com.wuzhanglong.library.view.ReboundScrollView>
+

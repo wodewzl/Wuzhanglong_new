@@ -2,14 +2,23 @@ package com.maitian.starfan.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.text.TextUtils;
 
+import com.google.gson.Gson;
 import com.maitian.starfan.R;
+import com.maitian.starfan.constant.Constant;
 import com.maitian.starfan.fragment.TabFiveFragment;
 import com.maitian.starfan.fragment.TabFourFragment;
 import com.maitian.starfan.fragment.TabOneFragment;
 import com.maitian.starfan.fragment.TabThreeFragment;
 import com.maitian.starfan.fragment.TabTwoFragment;
+import com.maitian.starfan.model.AppConfigVO;
+import com.tamic.novate.Novate;
+import com.tamic.novate.Throwable;
+import com.tamic.novate.callback.RxStringCallback;
 import com.wuzhanglong.library.activity.BaseLogoActivity;
+import com.wuzhanglong.library.cache.ACache;
+import com.wuzhanglong.library.constant.BaseConstant;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.mode.EBMessageVO;
 
@@ -18,6 +27,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -45,6 +55,8 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
         list.add(three);
         list.add(four);
         list.add(five);
+
+        getAppConfig();
     }
 
 
@@ -60,6 +72,7 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -88,12 +101,63 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
         if (EasyPermissions.hasPermissions(this, perms)) {
             Intent intent = new Intent();
             intent.putExtra("fragment_list", (Serializable) list);
-            intent.setClass(this, MainActivity.class);
-//            intent.setClass(this, HomeWebActivity.class);
+//            intent.setClass(this, MainActivity.class);
+//            intent.setClass(this, MyBindPhoneActivity.class);
+//            intent.setClass(this, MyLegalizeActivity.class);
+//            intent.setClass(this, MyMessageActivity.class);
+//            intent.setClass(this, MyAboutActivity.class);
+//                        intent.setClass(this, MyAttentionActivity.class);
+//            intent.setClass(this, MyTaskActivity.class);
+//            intent.setClass(this, MyPurseActivity.class);
+//            intent.setClass(this, MyPaurseDetailActivity.class);
+//            intent.setClass(this, MyMemberCentreActivity.class);
+//            intent.setClass(this, MySettiingsActivity.class);
+//            intent.setClass(this, MyUpdatePwdActivity.class);
+//            intent.setClass(this, HomeHitListActivity.class);
+//            intent.setClass(this, HomeNewsActivity.class);
+//            intent.setClass(this, HomePromotionsActivity.class);//主页—活动
+            intent.setClass(this, RiceCircleStarActivity.class);//明星守护列表
             startActivity(intent);
             this.finish();
         } else {
             EasyPermissions.requestPermissions(this, "是否申请必要的权限？", REQUEST_PERMISSIONS, perms);
         }
     }
+
+    public void getAppConfig() {
+        if (!TextUtils.isEmpty(ACache.get(this).getAsString("domain_ulr"))) {
+            Constant.DOMAIN_UR = ACache.get(this).getAsString("domain_ulr");
+            return;
+        }
+        final Gson gson = new Gson();
+        HashMap<String, Object> map = new HashMap<>();
+        new Novate.Builder(this)
+                .baseUrl(BaseConstant.DOMAIN_NAME)
+                .addCache(false)
+                .build()
+                .rxGet(Constant.APP_CONFIG, map, new RxStringCallback() {
+                    @Override
+                    public void onError(Object tag, Throwable e) {
+                        System.out.println();
+                    }
+
+                    @Override
+                    public void onCancel(Object tag, Throwable e) {
+                        System.out.println();
+                    }
+
+                    @Override
+                    public void onNext(Object o, String s) {
+                        AppConfigVO vo = gson.fromJson(s, AppConfigVO.class);
+                        ACache.get(LogoActivity.this).put("domain_ulr", vo.getObj().getImgDomain());
+
+//                        AppConfigVO vo = gson.fromJson(s, AppConfigVO.class);
+//                        AppApplication.getInstance().saveAppConfigVO(vo);
+                    }
+
+
+                });
+    }
+
+
 }

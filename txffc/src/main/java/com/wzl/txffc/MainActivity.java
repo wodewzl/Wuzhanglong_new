@@ -1,19 +1,15 @@
 package com.wzl.txffc;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.wuzhanglong.library.activity.BaseActivity;
-import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -24,9 +20,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+
+import static com.wuzhanglong.library.http.BSHttpUtils.get;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     public static final String URL = "http://api.b1api.com/api?";//易网
@@ -36,7 +31,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private List<String> mList = new ArrayList<>();
     private String mLimit = "20";
     private Timer mTimer = new Timer();
-    private TextView mNumTv, mResultTv, mYuCeTv, mSortTv,mLastTv;
+    private TextView mNumTv, mResultTv, mYuCeTv, mSortTv, mLastTv, mGeWeiTv, mZabaTv;
     private StringBuffer mSortStrSb = new StringBuffer();
     private StringBuffer mSortStrSb1 = new StringBuffer();
     private double mBackPressed;
@@ -52,11 +47,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mBaseTitleTv.setText("TXFFC");
         mBaseOkTv.setText(mLimit);
         mBaseOkTv.setText("刷新");
-        mNumTv = findViewById(R.id.num_tv);
-        mResultTv = findViewById(R.id.result_tv);
-        mYuCeTv = findViewById(R.id.yuce_tv);
-        mSortTv = findViewById(R.id.sort_tv);
-        mLastTv=findViewById(R.id.last_tv);
+        mNumTv = getViewById(R.id.num_tv);
+        mResultTv = getViewById(R.id.result_tv);
+        mYuCeTv = getViewById(R.id.yuce_tv);
+        mSortTv = getViewById(R.id.sort_tv);
+        mLastTv = getViewById(R.id.last_tv);
+        mGeWeiTv = getViewById(R.id.single_tv);
+        mZabaTv = getViewById(R.id.zaba_tv);
         mRecyclerView = getViewById(R.id.recycler_view);
         mAdapter = new MainAdapter(mRecyclerView);
         RecyclerViewUtil.initRecyclerViewLinearLayout(this, mRecyclerView, mAdapter, R.dimen.dp_1, R.color.colorAccent, false);
@@ -77,7 +74,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         map.put("t", "txffc");
         map.put("limit", mLimit);
         map.put("token", "F0AB156E84ED3A17");//易网
-        BSHttpUtils.get(mActivity, this, URL, map, UserInfoVO.class);
+        get(mActivity, this, URL, map, UserInfoVO.class);
 
     }
 
@@ -101,11 +98,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void countData() {
         mList.clear();
         StringBuffer mLastSb = new StringBuffer();
+        StringBuffer geWeiSbOne = new StringBuffer();
+        StringBuffer geWeiSb = new StringBuffer();
         for (int i = 0; i < mUserInfoVO.getData().size(); i++) {
+            String result = mUserInfoVO.getData().get(i).getOpencode().replace(",", "");
+
+            if (i > 4) {
+                if (geWeiSbOne.toString().contains(String.valueOf(result.charAt(4)))) {
+                    if (!geWeiSb.toString().contains(String.valueOf(result.charAt(4)))) {
+                        geWeiSb.append(String.valueOf(result.charAt(4)));
+                    }
+                } else {
+                    geWeiSbOne.append(String.valueOf(result.charAt(4)));
+                }
+            }
+
+
             for (int j = 0; j < 5; j++) {
-                String result = mUserInfoVO.getData().get(i).getOpencode().replace(",", "");
                 mList.add(String.valueOf(result.charAt(j)));
-                if(!mLastSb.toString().contains(String.valueOf(result.charAt(j)))){
+                if (!mLastSb.toString().contains(String.valueOf(result.charAt(j)))) {
                     mLastSb.append(String.valueOf(result.charAt(j)));
                 }
             }
@@ -133,7 +144,50 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mResultTv.setText(mUserInfoVO.getData().get(0).getOpencode().replaceAll(",", ""));
         mYuCeTv.setText(mSortStrSb.substring(mSortStrSb.length() - 3, mSortStrSb.length()));
         mSortTv.setText(mSortStrSb1.toString());
+        mGeWeiTv.setText(geWeiSb.toString().substring(0, 3));
         mLastTv.setText(mLastSb.toString());
+
+        String[] wei = {"0", "1", "2", "3", "4"};
+        List<String> list = Arrays.asList(wei);
+        List<String> list2=new ArrayList<>();
+        list2.addAll(list);
+        for (int i = 0; i < 5; i++) {
+            String result2 = mUserInfoVO.getData().get(i).getOpencode().replace(",", "");
+            for (int j = 0; j < 5; j++) {
+                if (mGeWeiTv.getText().toString().contains(String.valueOf(result2.charAt(j))) && list2.contains(j + "")) {
+                    list2.remove(j + "");
+                }
+            }
+        }
+
+        StringBuffer zabaSb = new StringBuffer();
+        if (list2.size() == 0) {
+            mZabaTv.setText("暂无");
+            return;
+        }
+        for (int i = 0; i < list2.size(); i++) {
+            switch (list2.get(i)) {
+                case "0":
+                    zabaSb.append("万位: " + mGeWeiTv.getText().toString());
+                    break;
+                case "1":
+                    zabaSb.append("千位: " + mGeWeiTv.getText().toString());
+                    break;
+                case "2":
+                    zabaSb.append("百位: " + mGeWeiTv.getText().toString());
+                    break;
+                case "3":
+                    zabaSb.append("十位: " + mGeWeiTv.getText().toString());
+                    break;
+                case "4":
+                    zabaSb.append("个位: " + mGeWeiTv.getText().toString());
+                    break;
+                default:
+                    zabaSb.append("暂无");
+                    break;
+            }
+        }
+        mZabaTv.setText(zabaSb.toString());
     }
 
     private Map<String, Integer> sortMapByValue(Map<String, Integer> map) {
@@ -160,7 +214,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             System.out.println("Key : " + entry.getKey() + " Value : "
                     + entry.getValue());
             mSortStrSb.append(entry.getKey());
-            mSortStrSb1.append(entry.getKey()).append("(" + entry.getValue() + ")");
+//            mSortStrSb1.append(entry.getKey()).append("(" + entry.getValue() + ")");
+            mSortStrSb1.append(entry.getKey());
         }
     }
 
@@ -200,7 +255,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 finish();
                 super.onBackPressed();
             } else {
-                showCustomToast("再次点击，退出" + this.getResources().getString(com.wuzhanglong.library.R.string.app_name));
+                showCustomToast("再次点击，退出" + getString(R.string.app_name));
 
             }
             mBackPressed = System.currentTimeMillis();

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
 
-    android:orientation="vertical">
+              android:orientation="vertical">
 
     <com.wuzhanglong.library.view.ReboundScrollView
         android:layout_width="match_parent"
@@ -19,105 +19,196 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:background="@color/alpha_80_white">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="146dp"
+                    android:background="@color/colorAccent"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/C1"
+                    android:text="我的"
+                   />
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@mipmap/my_msg"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:padding="6dp"
+                    android:layout_marginTop="24dp"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/head_img"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="94dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/user_icon_def"
+                    app:civ_border_color="@color/C1"
+                    app:civ_border_width="2dp"/>
+
+                <TextView
+                    android:id="@+id/name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/head_img"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:text="wodewzl"
+                    android:textColor="@color/star_gray"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/sin_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/name_tv"
+                    android:layout_alignTop="@id/name_tv"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:drawableLeft="@drawable/bg_circle_sign"
+                    android:drawablePadding="4dp"
+                    android:text="签到"
+                    android:textSize="@dimen/dp_10"
+                    android:textColor="@color/C1"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/desc_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name_tv"
+                    android:layout_centerHorizontal="true"
+                    android:text="陈雪涛，我喜欢你到老"
+                    android:layout_marginTop="6dp"
+                    android:textColor="@color/star_gray"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="登录注册"
+                    android:textColor="@color/C4"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="20dp"
+                    android:textSize="18sp"/>
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/item_01_tv"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="48dp"
                 android:background="@color/C1"
                 android:drawableLeft="@mipmap/my_focus"
-                android:drawablePadding="8dp"
                 android:drawableRight="@mipmap/my_go"
+                android:drawablePadding="6dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:textSize="13sp"
-                android:text="我的关注" />
+                android:paddingLeft="18dp"
+                android:paddingRight="26dp"
+                android:text="我的关注"
+                android:textColor="@color/star_black"
+               />
 
             <TextView
                 android:id="@+id/item_02_tv"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="1dp"
+                android:layout_height="48dp"
                 android:background="@color/C1"
                 android:drawableLeft="@mipmap/my_task_center"
-                android:drawablePadding="8dp"
                 android:drawableRight="@mipmap/my_go"
+                android:drawablePadding="6dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:text="任务中心" />
+                android:paddingLeft="18dp"
+                android:paddingRight="26dp"
+                android:text="任务中心"
+                android:textColor="@color/star_black"/>
 
             <TextView
                 android:id="@+id/item_03_tv"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="1dp"
+                android:layout_height="48dp"
                 android:background="@color/C1"
                 android:drawableLeft="@mipmap/my_purse"
-                android:drawablePadding="8dp"
                 android:drawableRight="@mipmap/my_go"
+                android:drawablePadding="6dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:text="我的钱包" />
+                android:paddingLeft="18dp"
+                android:paddingRight="26dp"
+                android:text="我的钱包"
+                android:textColor="@color/star_black"/>
 
             <TextView
                 android:id="@+id/item_04_tv"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="1dp"
+                android:layout_height="48dp"
                 android:background="@color/C1"
                 android:drawableLeft="@mipmap/my_member_centre"
-                android:drawablePadding="8dp"
                 android:drawableRight="@mipmap/my_go"
+                android:drawablePadding="6dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:text="会员中心" />
+                android:paddingLeft="18dp"
+                android:paddingRight="26dp"
+                android:text="会员中心"
+                android:textColor="@color/star_black" />
 
             <TextView
                 android:id="@+id/item_05_tv"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="1dp"
+                android:layout_height="48dp"
                 android:background="@color/C1"
                 android:drawableLeft="@mipmap/my_posts"
-                android:drawablePadding="8dp"
                 android:drawableRight="@mipmap/my_go"
+                android:drawablePadding="6dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:text="我的帖子" />
+                android:paddingLeft="18dp"
+                android:paddingRight="26dp"
+                android:text="我的帖子"
+                android:textColor="@color/star_black"/>
 
             <TextView
                 android:id="@+id/item_06_tv"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/C1"
                 android:drawableLeft="@mipmap/my_setting"
-                android:drawablePadding="8dp"
                 android:drawableRight="@mipmap/my_go"
+                android:drawablePadding="6dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:text="设置" />
+                android:paddingLeft="18dp"
+                android:paddingRight="26dp"
+                android:text="设置"
+                android:textColor="@color/star_black"/>
 
             <TextView
                 android:id="@+id/item_07_tv"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="1dp"
+                android:layout_height="48dp"
                 android:background="@color/C1"
                 android:drawableLeft="@mipmap/contact_us"
-                android:drawablePadding="8dp"
                 android:drawableRight="@mipmap/my_go"
+                android:drawablePadding="6dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:text="联系我们" />
+                android:paddingLeft="18dp"
+                android:paddingRight="26dp"
+                android:text="联系我们"
+                android:textColor="@color/star_black"/>
 
         </LinearLayout>
     </com.wuzhanglong.library.view.ReboundScrollView>

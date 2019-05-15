@@ -3,4 +3,26 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF8FA9</color>
+
+    <!--<color name="star_gray">#DEDEDE</color>-->
+    <!--<color name="star_gray_title">#C4C4C4</color>-->
+    <!--<color name="star_black">#434343</color>-->
+    <!--<color name="star_black_1ow">#777777</color>-->
+
+    <color name="star_gray_title">#666666</color>
+    <color name="star_gray">#aaaaaa</color>
+    <color name="star_black">#000000</color>
+    <color name="star_yellow">#FFD900</color>
+    <color name="star_gray_divider">#EFEFEF</color>
+
+    <color name="bg_gradient_yellow_end">#FFE2B8</color>
+    <color name="bg_gradient_yellow_start">#D4A725</color>
+
+    <color name="hit_one">#FF786E</color>
+    <color name="hit_two">#FFA856</color>
+    <color name="hit_three">#FFD12C</color>
+    <color name="hit_bg">#FFDFDF</color>
+    <color name="color_eaeaea">#EAEAEA</color>
+    <color name="color_F5F5F5">#F5F5F5</color>
+    <color name="color_FAD6D6">#FAD6D6</color>
 </resources>

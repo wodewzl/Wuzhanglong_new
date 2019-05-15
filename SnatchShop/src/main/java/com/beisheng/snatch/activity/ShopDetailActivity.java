@@ -56,7 +56,7 @@ import com.squareup.picasso.Picasso;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.vondear.rxtools.view.dialog.RxDialogSure;
+import com.vondear.rxui.view.dialog.RxDialogSure;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.cache.ACache;
@@ -1412,12 +1412,12 @@ public class ShopDetailActivity extends BaseActivity implements ScrollableHelper
     public void showCustomDialog(String title, String content) {
         final RxDialogSure dialog = new RxDialogSure(this);
         dialog.setContent(content);
-        dialog.getTvContent().setTextColor(ContextCompat.getColor(this, R.color.C6));
-        dialog.getIvLogo().setVisibility(View.GONE);
-        dialog.getTvTitle().setTextSize(13);
+        dialog.getContentView().setTextColor(ContextCompat.getColor(this, R.color.C6));
+        dialog.getLogoView().setVisibility(View.GONE);
+        dialog.getTitleView().setTextSize(13);
         dialog.setTitle(title);
-        dialog.getTvSure().setTextSize(13);
-        dialog.getTvSure().setOnClickListener(new View.OnClickListener() {
+        dialog.getSureView().setTextSize(13);
+        dialog.getSureView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.cancel();

@@ -14,54 +14,60 @@
         android:orientation="vertical"
         >
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/base_head_layout"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:background="@color/colorAccent"
-            android:visibility="visible"
-            >
+            android:layout_width="wrap_content"
+            android:layout_height="68dp"
+            android:background="@drawable/bg_gradient"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/base_back_tv"
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp"
-                android:drawableLeft="@drawable/base_ic_head_back"
-                android:drawablePadding="5dp"
-                android:gravity="center_vertical"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="24dp"
+                android:visibility="visible"
+                >
 
-                android:textColor="@color/C1"
-                android:textSize="14sp"
-                android:clickable="true"
-                />
+                <TextView
+                    android:id="@+id/base_back_tv"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:clickable="true"
+                    android:drawableLeft="@drawable/base_ic_head_back"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/C1"
+                    android:textSize="14sp"
+                    />
 
-            <TextView
-                android:id="@+id/base_title_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:gravity="center"
-                android:maxLength="10"
-                android:text="标题"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/base_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:maxLength="10"
+                    android:text="标题"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"/>
 
-            <TextView
-                android:id="@+id/base_ok_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
-                android:gravity="center"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp"
+                <TextView
+                    android:id="@+id/base_ok_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:textColor="#FFFFFF"
 
-                android:clickable="true"  />
-        </RelativeLayout>
+                    android:textSize="14sp"/>
+            </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -84,8 +90,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawablePadding="5dp"
                 android:drawableTop="@drawable/base_no_content"
+                android:drawablePadding="5dp"
                 android:text="暂无相关数据"
                 android:textColor="@color/C5"
                 android:visibility="gone"/>
@@ -95,8 +101,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawablePadding="5dp"
                 android:drawableTop="@drawable/no_net"
+                android:drawablePadding="5dp"
                 android:text="网络异常,请重新尝试"
                 android:textColor="@color/C5"
                 android:visibility="gone"/>

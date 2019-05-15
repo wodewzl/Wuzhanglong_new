@@ -2,14 +2,17 @@ package com.maitian.starfan.fragment;
 
 
 import android.view.View;
+import android.widget.TextView;
 
 import com.maitian.starfan.R;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.mode.EBMessageVO;
+import com.wuzhanglong.library.utils.BaseCommonUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -19,6 +22,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 public class TabFiveFragment extends BaseFragment implements View.OnClickListener, PostCallback, Serializable {
+    private TextView mSinTv;
 
     @Override
     public void setContentView() {
@@ -27,6 +31,9 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void initView(View view) {
+        mSinTv = getViewById(R.id.sin_tv);
+        mSinTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 12, R.color.star_yellow, R.color.star_yellow));
+        BaseActivity activity= (BaseActivity) this.getActivity();
 
     }
 
@@ -63,8 +70,6 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
     public void onClick(View v) {
 
     }
-
-
 
 
     class UMShareListener implements Serializable, UMAuthListener {
@@ -114,7 +119,6 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
     public void success(BaseVO vo) {
 
     }
-
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -8,11 +8,9 @@ import android.view.View;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.maitian.starfan.R;
-import com.umeng.socialize.UMShareAPI;
 import com.wuzhanglong.library.activity.BaseHomeActivity;
 
 public class MainActivity extends BaseHomeActivity {
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
@@ -31,7 +29,7 @@ public class MainActivity extends BaseHomeActivity {
 
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.home_1, "首页"))
                 .addItem(new BottomNavigationItem(R.mipmap.home_2, "饭圈"))
-                .addItem(new BottomNavigationItem(R.mipmap.home_3, ""))
+                .addItem(new BottomNavigationItem(R.mipmap.home_3, "").setInActiveColor(R.color.C15))
                 .addItem(new BottomNavigationItem(R.mipmap.home_4, "发现"))
                 .addItem(new BottomNavigationItem(R.mipmap.home_5, "我的"))
 //                .setFirstSelectedPosition(0)
@@ -46,6 +44,8 @@ public class MainActivity extends BaseHomeActivity {
 //                checkUpdate();
             }
         }, 1000);
+
+
     }
 
 
@@ -55,9 +55,7 @@ public class MainActivity extends BaseHomeActivity {
     }
 
     @Override
-    protected void onActivityResult(int arg0, int arg1, Intent arg2) {
-        super.onActivityResult(arg0, arg1, arg2);
-        UMShareAPI.get(this).onActivityResult(arg0, arg1, arg2);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
-
 }

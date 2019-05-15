@@ -2,20 +2,40 @@
 
     <!-- Base application theme. -->
     <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
-        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+    <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+    <!--<item name="colorAccent">@color/colorAccent</item>-->
     <!--</style>-->
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:textColor">@color/C4</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/star_black</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="colorPrimaryDark">@color/colorAccent</item>
     </style>
+
     <style name="AppStartLogo" parent="android:Theme.NoTitleBar.Fullscreen">
         <item name="android:windowBackground">@mipmap/logo</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+
+    <style name="StartCheckBox">
+        <item name="cbd_width">32dp</item>
+        <item name="cbd_height">32dp</item>
+        <item name="cbd_boxSize">15dp</item>
+        <item name="cbd_cornerRadius">100dp</item>
+        <item name="cbd_strokeSize">2dp</item> <!--边框-->
+        <item name="cbd_strokeColor">@color/colorAccent</item>
+        <!--<item name="cbd_tickColor">@color/C9</item>选择勾的颜色-->
+        <item name="cbd_animDuration">@android:integer/config_mediumAnimTime</item>
+    </style>
+
 </resources>

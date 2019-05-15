@@ -39,7 +39,7 @@ import com.squareup.picasso.Picasso;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.vondear.rxtools.view.RxTextviewVertical;
+import com.vondear.rxui.view.RxRunTextView;
 import com.wuzhanglong.library.cache.ACache;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.BSHttpUtils;
@@ -76,7 +76,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     private String[] mTitleDataList = {"人气", "最新", "进度", "总需人次"};
     private ScrollableLayout mScrollableLayout;
 
-    private RxTextviewVertical mRxText;
+    private RxRunTextView mRxText;
     private ViewPager mViewPager;
     private ArrayList<TabOneChildFragment> mFragmentList;
     private Banner mBanner;
@@ -116,7 +116,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 //        mBanner.setIndicatorGravity(BannerConfig.RIGHT);
         mScrollableLayout = getViewById(R.id.scrollable_layout);
         mOneImg = getViewById(R.id.one_img);
-        mRxText = (RxTextviewVertical) getViewById(R.id.rx_text);
+        mRxText = (RxRunTextView) getViewById(R.id.rx_text);
         mViewPager = getViewById(R.id.view_pager);
         mOrderImg = getViewById(R.id.order_img);
         mSearchImg = getViewById(R.id.search_img);
@@ -291,18 +291,18 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         for (int i = 0; i < homeVO.getData().getRecord_list().size(); i++) {
             list.add(homeVO.getData().getRecord_list().get(i).getPrise_desc());
         }
-        mRxText.setTextList(list);
-        mRxText.setText(14, 5, 0xff766156);//设置属性
-        mRxText.setTextStillTime(3000);//设置停留时长间隔
-        mRxText.setAnimTime(300);//设置进入和退出的时间间隔
-        mRxText.setOnItemClickListener(new RxTextviewVertical.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Bundle bundle = new Bundle();
-
-            }
-        });
-        mRxText.startAutoScroll();
+//        mRxText.setTextList(list);
+//        mRxText.setText(14, 5, 0xff766156);//设置属性
+//        mRxText.setTextStillTime(3000);//设置停留时长间隔
+//        mRxText.setAnimTime(300);//设置进入和退出的时间间隔
+//        mRxText.setOnItemClickListener(new RxTextviewVertical.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position) {
+//                Bundle bundle = new Bundle();
+//
+//            }
+//        });
+//        mRxText.startAutoScroll();
 
 
         Picasso.with(mActivity).load(homeVO.getData().getNav_list().get(0).getNav_icon()).into(mMenu01Img);

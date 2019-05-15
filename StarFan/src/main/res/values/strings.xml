@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">星米粒</string>
+    <string name="title_activity_my_update_info">MyUpdateInfoActivity</string>
 </resources>

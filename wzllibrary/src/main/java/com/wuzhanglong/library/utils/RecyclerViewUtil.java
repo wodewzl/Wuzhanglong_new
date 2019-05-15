@@ -19,8 +19,11 @@ import cn.bingoogolapple.baseadapter.BGAGridDivider;
 public class RecyclerViewUtil {
     public static void initRecyclerViewLinearLayout(Context context, LuRecyclerView recyclerView, RecyclerBaseAdapter baseAdapter,int dividerHigh, int dividerColor, boolean loadMore){
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        DividerDecoration divider = DividerUtil.linnerDivider(context, dividerHigh,dividerColor);
-        recyclerView.addItemDecoration(divider);
+        if(dividerHigh!=0){
+            DividerDecoration divider = DividerUtil.linnerDivider(context, dividerHigh,dividerColor);
+            recyclerView.addItemDecoration(divider);
+        }
+
         LuRecyclerViewAdapter adapter = new LuRecyclerViewAdapter(baseAdapter);
         recyclerView.setAdapter(adapter);
         recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);

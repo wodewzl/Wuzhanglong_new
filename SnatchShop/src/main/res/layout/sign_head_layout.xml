@@ -32,6 +32,7 @@
                 android:layout_width="35dp"
                 android:layout_height="20dp"
                 app:sb_show_indicator="false"/>
+
         </LinearLayout>
 
         <LinearLayout
