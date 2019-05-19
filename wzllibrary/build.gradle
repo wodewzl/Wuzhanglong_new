@@ -63,6 +63,6 @@ dependencies {
     api rootProject.ext.dependencies["customedittext"]
     api rootProject.ext.dependencies["navigation"]
     api rootProject.ext.dependencies["CouponView"]
-//    api rootProject.ext.dependencies["BottomNavigationBar"]
+
 
 }

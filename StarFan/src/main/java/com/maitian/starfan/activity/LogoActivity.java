@@ -101,7 +101,9 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
         if (EasyPermissions.hasPermissions(this, perms)) {
             Intent intent = new Intent();
             intent.putExtra("fragment_list", (Serializable) list);
-//            intent.setClass(this, MainActivity.class);
+            intent.setClass(this, MainActivity.class);
+
+
 //            intent.setClass(this, MyBindPhoneActivity.class);
 //            intent.setClass(this, MyLegalizeActivity.class);
 //            intent.setClass(this, MyMessageActivity.class);
@@ -116,7 +118,7 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
 //            intent.setClass(this, HomeHitListActivity.class);
 //            intent.setClass(this, HomeNewsActivity.class);
 //            intent.setClass(this, HomePromotionsActivity.class);//主页—活动
-            intent.setClass(this, RiceCircleStarActivity.class);//明星守护列表
+//            intent.setClass(this, RiceCircleStarActivity.class);//明星守护列表
             startActivity(intent);
             this.finish();
         } else {

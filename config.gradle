@@ -67,7 +67,6 @@ ext {
             "multidex"            : "com.android.support:multidex:1.0.1",
             "MPAndroidChart"      : "com.github.PhilJay:MPAndroidChart:v3.0.3",//图库
             "CouponView"          : "com.github.dongjunkun:CouponView:1.0.3",//齿轮背景
-            "BottomNavigationBar" : "com.github.onestravel:BottomNavigationBar:TAG",//底部凸起的导航栏
-
+            "bottom-tab-strip"    : "me.majiajie:pager-bottom-tab-strip:2.3.0",//底部凸起的导航栏
     ]
 }
