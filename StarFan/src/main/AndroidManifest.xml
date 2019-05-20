@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.maitian.starfan">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.maitian.starfan">
 
     <application
         android:name=".application.AppApplication"
@@ -12,40 +12,29 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup,icon,theme,label">
-        <activity android:name=".StarActivity">
-        </activity>
-        <activity android:name=".activity.RiceCircleStarActivity">
-        </activity>
-        <activity android:name=".activity.LoginActivity">
-        </activity>
-        <activity android:name=".activity.RiceCircleDetailActivity">
-        </activity>
-        <activity android:name=".activity.HomeWelfareActivity">
-        </activity>
-        <activity android:name=".activity.HomePromotionsActivity">
-        </activity>
-        <activity android:name=".activity.HomeNewsActivity">
-        </activity>
-        <activity android:name=".activity.HomeHitListActivity">
-        </activity>
-        <activity android:name=".activity.MyPostsActivity">
-        </activity>
-        <activity android:name=".activity.MySettingPrivacyActivity">
-        </activity>
-        <activity android:name=".activity.MyUpdatePwdActivity">
-        </activity>
-        <activity android:name=".activity.MySettiingsActivity">
-        </activity>
-        <activity android:name=".activity.MyMemberCentreActivity">
-        </activity>
-        <activity android:name=".activity.MyPaurseDetailActivity">
-        </activity>
-        <activity android:name=".activity.MyPurseActivity">
-        </activity>
-        <activity android:name=".activity.MyTaskActivity">
-        </activity>
-        <activity android:name=".activity.MyAttentionActivity">
-        </activity>
+        <activity android:name=".activity.FindTopicActivity"></activity>
+        <activity android:name=".activity.FindServiceActivity" />
+        <activity android:name=".activity.FindVoteDetailActivity" />
+        <activity android:name=".activity.FindVoteActivity" />
+        <activity android:name=".activity.FindWelfareExchangeActivity" />
+        <activity android:name=".activity.FindWelfareActivity" />
+        <activity android:name=".StarActivity" />
+        <activity android:name=".activity.RiceCircleStarActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.RiceCircleDetailActivity" />
+        <activity android:name=".activity.HomeWelfareActivity" />
+        <activity android:name=".activity.HomePromotionsActivity" />
+        <activity android:name=".activity.HomeNewsActivity" />
+        <activity android:name=".activity.HomeHitListActivity" />
+        <activity android:name=".activity.MyPostsActivity" />
+        <activity android:name=".activity.MySettingPrivacyActivity" />
+        <activity android:name=".activity.MyUpdatePwdActivity" />
+        <activity android:name=".activity.MySettiingsActivity" />
+        <activity android:name=".activity.MyMemberCentreActivity" />
+        <activity android:name=".activity.MyPaurseDetailActivity" />
+        <activity android:name=".activity.MyPurseActivity" />
+        <activity android:name=".activity.MyTaskActivity" />
+        <activity android:name=".activity.MyAttentionActivity" />
         <activity
             android:name=".activity.LogoActivity"
             android:launchMode="singleTop"
@@ -53,23 +42,23 @@
             android:theme="@style/AppStartLogo"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".activity.MyActivity"/>
-        <activity android:name=".activity.MyUserInfoActivity"/>
-        <activity android:name=".activity.MyMessageActivity"/>
-        <activity android:name=".activity.MyLegalizeActivity"/>
-        <activity android:name=".activity.MyBindPhoneActivity"/>
-        <activity android:name=".activity.MyUpdateInfoActivity"/>
-        <activity android:name=".activity.MyAboutActivity"/>
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activity.MyActivity" />
+        <activity android:name=".activity.MyUserInfoActivity" />
+        <activity android:name=".activity.MyMessageActivity" />
+        <activity android:name=".activity.MyLegalizeActivity" />
+        <activity android:name=".activity.MyBindPhoneActivity" />
+        <activity android:name=".activity.MyUpdateInfoActivity" />
+        <activity android:name=".activity.MyAboutActivity" />
     </application>
 
 </manifest>

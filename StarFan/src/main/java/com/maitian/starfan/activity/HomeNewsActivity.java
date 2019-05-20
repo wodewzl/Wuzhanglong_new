@@ -39,10 +39,7 @@ public class HomeNewsActivity extends BaseActivity implements BGAOnRVItemClickLi
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         mAdapter = new NewsAdapter(mRecyclerView);
         RecyclerViewUtil.initRecyclerViewLinearLayout(this, mRecyclerView, mAdapter, R.dimen.dp_10, R.color.C3, true);
-        LuRecyclerViewAdapter adapter = new LuRecyclerViewAdapter(mAdapter);
-        mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
-        mRecyclerView.setLoadMoreEnabled(true);
     }
 
     @Override

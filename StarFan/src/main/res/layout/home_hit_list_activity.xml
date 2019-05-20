@@ -53,7 +53,7 @@
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_weight="1"
-                    android:background="@drawable/corners_white"
+                    android:background="@drawable/corners_white_15"
                     android:drawableRight="@drawable/search_icon"
                     android:hint="搜索你感兴趣的商品"
                     android:imeOptions="actionSearch"

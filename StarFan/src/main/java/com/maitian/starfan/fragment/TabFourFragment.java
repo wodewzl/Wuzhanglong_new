@@ -1,38 +1,53 @@
 package com.maitian.starfan.fragment;
 
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.LinearLayout;
 
+import com.github.jdsjlzx.recyclerview.LuRecyclerView;
+import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
+import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.maitian.starfan.R;
-import com.umeng.socialize.UMAuthListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.maitian.starfan.activity.FindServiceActivity;
+import com.maitian.starfan.activity.FindVoteActivity;
+import com.maitian.starfan.activity.FindWelfareActivity;
+import com.maitian.starfan.adapter.FindAdapter;
+import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.mode.EBMessageVO;
+import com.wuzhanglong.library.utils.DividerUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
-import java.util.Map;
 
 public class TabFourFragment extends BaseFragment implements View.OnClickListener, PostCallback, Serializable {
-
-
-    //登录
-
+    private LuRecyclerView mRecyclerView;
+    private FindAdapter mAdapter;
 
 
     @Override
     public void setContentView() {
-        contentInflateView(R.layout.tab_five_fragment);
+        contentInflateView(R.layout.tab_four_fragment);
     }
 
     @Override
     public void initView(View view) {
-
+        mRecyclerView = getViewById(R.id.recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
+        DividerDecoration divider = DividerUtil.linnerDivider(mActivity, R.dimen.dp_10, R.color.C3);
+        mRecyclerView.addItemDecoration(divider);
+        mAdapter = new FindAdapter(mRecyclerView);
+        LuRecyclerViewAdapter adapter = new LuRecyclerViewAdapter(mAdapter);
+        adapter.addHeaderView(findHeadView());
+        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        mRecyclerView.setLoadMoreEnabled(false);
     }
 
     @Override
@@ -44,7 +59,6 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void getData() {
         showView();
-
     }
 
     @Override
@@ -62,64 +76,34 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
 
     }
 
-
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.head_child_four_layout:
+                mActivity.openActivity(FindServiceActivity.class);
+                break;
 
-    }
+            case R.id.head_child_three_layout:
+                mActivity.openActivity(FindWelfareActivity.class);
+                break;
 
+            case R.id.head_child_two_layout:
+                mActivity.openActivity(FindVoteActivity.class);
+                break;
 
+            case R.id.head_child_one_layout:
+                mActivity.openActivity(FindVoteActivity.class);
+                break;
 
-
-    class UMShareListener implements Serializable, UMAuthListener {
-        /**
-         * @param platform 平台名称
-         * @desc 授权开始的回调
-         */
-        @Override
-        public void onStart(SHARE_MEDIA platform) {
-        }
-
-        /**
-         * @param platform 平台名称
-         * @param action   行为序号，开发者用不上
-         * @param data     用户资料返回
-         * @desc 授权成功的回调
-         */
-        @Override
-        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-
-        }
-
-        /**
-         * @param platform 平台名称
-         * @param action   行为序号，开发者用不上
-         * @param t        错误原因
-         * @desc 授权失败的回调
-         */
-        @Override
-        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-            mActivity.showFailToast("登录失败");
-        }
-
-        /**
-         * @param platform 平台名称
-         * @param action   行为序号，开发者用不上
-         * @desc 授权取消的回调
-         */
-        @Override
-        public void onCancel(SHARE_MEDIA platform, int action) {
-            mActivity.showCustomToast("登录取消");
+            default:
+                break;
         }
     }
-
 
     @Override
     public void success(BaseVO vo) {
 
     }
-
-
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EBMessageVO event) {
@@ -132,7 +116,12 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
         EventBus.getDefault().unregister(this);
     }
 
-    public void bindPhone() {
-
+    public View findHeadView() {
+        View view = View.inflate(mActivity, R.layout.find_adapter_head, null);
+        view.findViewById(R.id.head_child_four_layout).setOnClickListener(this);
+        view.findViewById(R.id.head_child_three_layout).setOnClickListener(this);
+        view.findViewById(R.id.head_child_two_layout).setOnClickListener(this);
+        view.findViewById(R.id.head_child_one_layout).setOnClickListener(this);
+        return view;
     }
 }

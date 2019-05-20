@@ -186,8 +186,6 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
         navigationController.setupWithViewPager(mVpHome);
         mBaseHeadLayout.setVisibility(View.GONE);
-
-
         mBaseHeadLayout.postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -60,7 +60,8 @@ public class TabThreeFragment extends BaseFragment implements OnClickListener, P
     private EditText mContentEt;
     private MyIdolsVO mMyIdlos;
     private StringBuffer mResultSb = new StringBuffer();
-    private ArrayList<Integer> mMyIdlosIdList=new ArrayList<>();
+    private ArrayList<Integer> mMyIdlosIdList = new ArrayList<>();
+    private TextView mOkTv;
 
     //登录
     @Override
@@ -71,19 +72,17 @@ public class TabThreeFragment extends BaseFragment implements OnClickListener, P
     @Override
     public void initView(View view) {
         mActivity = (BaseActivity) this.getActivity();
-        mActivity.mBaseTitleTv.setText("发布帖子");
-        mActivity.mBaseOkTv.setText("发布");
-        mActivity.mBaseHeadLayout.setVisibility(View.VISIBLE);
         mPhotoLayout = getViewById(R.id.photo_layout);
         mFlowLayout = getViewById(R.id.flow_layout);
         mContentEt = getViewById(R.id.content_et);
+        mOkTv = getViewById(R.id.ok_tv);
     }
 
     @Override
     public void bindViewsListener() {
         mPhotoLayout.setDelegate(this);
         mFlowLayout.setOnTagClickListener(this);
-        mActivity.mBaseOkTv.setOnClickListener(this);
+        mOkTv.setOnClickListener(this);
     }
 
 
@@ -133,7 +132,7 @@ public class TabThreeFragment extends BaseFragment implements OnClickListener, P
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.base_ok_tv:
+            case R.id.ok_tv:
                 mActivity.showProgressDialog();
                 uploadeFile();
                 break;
@@ -236,8 +235,8 @@ public class TabThreeFragment extends BaseFragment implements OnClickListener, P
 
         tv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 22, R.color.colorAccent, R.color.color_FAD6D6));
         tv.setTextColor(ContextCompat.getColor(mActivity, R.color.colorAccent));
-        int myIdlosId = mMyIdlos.getObj().get(position).getId() ;
-        if(!mMyIdlosIdList.contains(myIdlosId)){
+        int myIdlosId = mMyIdlos.getObj().get(position).getId();
+        if (!mMyIdlosIdList.contains(myIdlosId)) {
             mMyIdlosIdList.add(myIdlosId);
         }
         return false;
