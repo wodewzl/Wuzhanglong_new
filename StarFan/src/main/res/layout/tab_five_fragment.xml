@@ -85,7 +85,7 @@
                     android:text="签到"
                     android:textSize="@dimen/dp_10"
                     android:textColor="@color/C1"
-                    android:visibility="gone"/>
+                    android:visibility="visible"/>
 
                 <TextView
                     android:id="@+id/desc_tv"
@@ -96,7 +96,7 @@
                     android:text="陈雪涛，我喜欢你到老"
                     android:layout_marginTop="6dp"
                     android:textColor="@color/star_gray"
-                    android:visibility="gone"/>
+                    android:visibility="visible"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -106,7 +106,8 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="20dp"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:visibility="gone"/>
             </RelativeLayout>
 
 
@@ -119,7 +120,7 @@
                 android:drawableRight="@mipmap/my_go"
                 android:drawablePadding="6dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="18dp"
+                android:paddingLeft="15dp"
                 android:paddingRight="26dp"
                 android:text="我的关注"
                 android:textColor="@color/star_black"
@@ -134,7 +135,7 @@
                 android:drawableRight="@mipmap/my_go"
                 android:drawablePadding="6dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="18dp"
+                android:paddingLeft="15dp"
                 android:paddingRight="26dp"
                 android:text="任务中心"
                 android:textColor="@color/star_black"/>
@@ -148,7 +149,7 @@
                 android:drawableRight="@mipmap/my_go"
                 android:drawablePadding="6dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="18dp"
+                android:paddingLeft="15dp"
                 android:paddingRight="26dp"
                 android:text="我的钱包"
                 android:textColor="@color/star_black"/>
@@ -162,7 +163,7 @@
                 android:drawableRight="@mipmap/my_go"
                 android:drawablePadding="6dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="18dp"
+                android:paddingLeft="15dp"
                 android:paddingRight="26dp"
                 android:text="会员中心"
                 android:textColor="@color/star_black" />
@@ -176,7 +177,7 @@
                 android:drawableRight="@mipmap/my_go"
                 android:drawablePadding="6dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="18dp"
+                android:paddingLeft="15dp"
                 android:paddingRight="26dp"
                 android:text="我的帖子"
                 android:textColor="@color/star_black"/>
@@ -191,7 +192,7 @@
                 android:drawableRight="@mipmap/my_go"
                 android:drawablePadding="6dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="18dp"
+                android:paddingLeft="15dp"
                 android:paddingRight="26dp"
                 android:text="设置"
                 android:textColor="@color/star_black"/>
@@ -205,7 +206,7 @@
                 android:drawableRight="@mipmap/my_go"
                 android:drawablePadding="6dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="18dp"
+                android:paddingLeft="15dp"
                 android:paddingRight="26dp"
                 android:text="联系我们"
                 android:textColor="@color/star_black"/>

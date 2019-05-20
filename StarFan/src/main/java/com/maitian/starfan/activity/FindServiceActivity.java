@@ -1,5 +1,6 @@
 package com.maitian.starfan.activity;
 
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,7 +22,7 @@ public class FindServiceActivity extends BaseActivity {
     private FindAdapter mAdapter;
     private int mCurrentPage = 1;
     private boolean isLoadMore = true;
-
+    private TextToSpeech mTextToSpeech = null;
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.find_service_activity);

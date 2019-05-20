@@ -5,6 +5,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.maitian.starfan.R;
+import com.maitian.starfan.activity.MyAttentionActivity;
+import com.maitian.starfan.activity.MyMemberCentreActivity;
+import com.maitian.starfan.activity.MyPostsActivity;
+import com.maitian.starfan.activity.MyPurseActivity;
+import com.maitian.starfan.activity.MySettiingsActivity;
+import com.maitian.starfan.activity.MyTaskActivity;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.wuzhanglong.library.activity.BaseActivity;
@@ -22,7 +28,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 public class TabFiveFragment extends BaseFragment implements View.OnClickListener, PostCallback, Serializable {
-    private TextView mSinTv;
+    private TextView mSinTv, mItme01Tv, mItme02Tv, mItme03Tv, mItme04Tv, mItme05Tv, mItme06Tv, mItme07Tv;
 
     @Override
     public void setContentView() {
@@ -33,13 +39,27 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
     public void initView(View view) {
         mSinTv = getViewById(R.id.sin_tv);
         mSinTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 12, R.color.star_yellow, R.color.star_yellow));
-        BaseActivity activity= (BaseActivity) this.getActivity();
+        BaseActivity activity = (BaseActivity) this.getActivity();
 
+        mItme01Tv = getViewById(R.id.item_01_tv);
+        mItme02Tv = getViewById(R.id.item_02_tv);
+        mItme03Tv = getViewById(R.id.item_03_tv);
+        mItme04Tv = getViewById(R.id.item_04_tv);
+        mItme05Tv = getViewById(R.id.item_05_tv);
+        mItme06Tv = getViewById(R.id.item_06_tv);
+        mItme07Tv = getViewById(R.id.item_07_tv);
     }
 
     @Override
     public void bindViewsListener() {
         EventBus.getDefault().register(this);
+        mItme01Tv.setOnClickListener(this);
+        mItme02Tv.setOnClickListener(this);
+        mItme03Tv.setOnClickListener(this);
+        mItme04Tv.setOnClickListener(this);
+        mItme05Tv.setOnClickListener(this);
+        mItme06Tv.setOnClickListener(this);
+        mItme07Tv.setOnClickListener(this);
     }
 
 
@@ -68,7 +88,32 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.item_01_tv:
+                mActivity.openActivity(MyAttentionActivity.class);
+                break;
+            case R.id.item_02_tv:
+                mActivity.openActivity(MyTaskActivity.class);
+                break;
+            case R.id.item_03_tv:
+                mActivity.openActivity(MyPurseActivity.class);
+                break;
+            case R.id.item_04_tv:
+                mActivity.openActivity(MyMemberCentreActivity.class);
+                break;
+            case R.id.item_05_tv:
+                mActivity.openActivity(MyPostsActivity.class);
+                break;
+            case R.id.item_06_tv:
+                mActivity.openActivity(MySettiingsActivity.class);
+                break;
+            case R.id.item_07_tv:
+//                mActivity.openActivity(MyC.class);
+                break;
+            default:
+                break;
 
+        }
     }
 
 
