@@ -4,9 +4,9 @@ android {
     signingConfigs {
         realse {
             storeFile file('../StarFan/keystore/starmily.jks')
-            storePassword 'starmily'
-            keyPassword 'starmily'
-            keyAlias = 'maitian'
+            storePassword 'Maitian@#1213'
+            keyPassword 'Maitian@#1213'
+            keyAlias = 'starmily'
 
         }
 
