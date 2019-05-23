@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
 
-              android:orientation="vertical">
+    android:orientation="vertical">
 
     <com.wuzhanglong.library.view.ReboundScrollView
         android:layout_width="match_parent"
@@ -27,36 +27,35 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="146dp"
-                    android:background="@color/colorAccent"/>
+                    android:background="@color/colorAccent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="30dp"
-                    android:textSize="15sp"
-                    android:textColor="@color/C1"
                     android:text="我的"
-                   />
+                    android:textColor="@color/C1"
+                    android:textSize="15sp" />
 
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@mipmap/my_msg"
                     android:layout_alignParentRight="true"
+                    android:layout_marginTop="24dp"
                     android:layout_marginRight="15dp"
                     android:padding="6dp"
-                    android:layout_marginTop="24dp"/>
+                    android:src="@mipmap/my_msg" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/head_img"
                     android:layout_width="72dp"
                     android:layout_height="72dp"
-                    android:layout_marginTop="94dp"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="94dp"
                     android:src="@drawable/user_icon_def"
                     app:civ_border_color="@color/C1"
-                    app:civ_border_width="2dp"/>
+                    app:civ_border_width="2dp" />
 
                 <TextView
                     android:id="@+id/name_tv"
@@ -67,25 +66,23 @@
                     android:layout_marginTop="10dp"
                     android:text="wodewzl"
                     android:textColor="@color/star_gray"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/sin_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/name_tv"
-                    android:layout_alignTop="@id/name_tv"
-                    android:layout_marginLeft="@dimen/dp_12"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
+                    android:layout_width="50dp"
+                    android:layout_height="22dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="90dp"
+                    android:background="@color/star_yellow"
                     android:drawableLeft="@drawable/bg_circle_sign"
                     android:drawablePadding="4dp"
+                    android:gravity="center_vertical"
                     android:text="签到"
-                    android:textSize="@dimen/dp_10"
                     android:textColor="@color/C1"
-                    android:visibility="visible"/>
+                    android:textSize="@dimen/dp_10"
+                    android:visibility="visible" />
 
                 <TextView
                     android:id="@+id/desc_tv"
@@ -93,21 +90,21 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/name_tv"
                     android:layout_centerHorizontal="true"
-                    android:text="陈雪涛，我喜欢你到老"
                     android:layout_marginTop="6dp"
+                    android:text="陈雪涛，我喜欢你到老"
                     android:textColor="@color/star_gray"
-                    android:visibility="visible"/>
+                    android:visibility="visible" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="登录注册"
-                    android:textColor="@color/C4"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="20dp"
+                    android:text="登录注册"
+                    android:textColor="@color/C4"
                     android:textSize="18sp"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </RelativeLayout>
 
 
@@ -123,13 +120,13 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="26dp"
                 android:text="我的关注"
-                android:textColor="@color/star_black"
-               />
+                android:textColor="@color/star_black" />
 
             <TextView
                 android:id="@+id/item_02_tv"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:layout_marginTop="1dp"
                 android:background="@color/C1"
                 android:drawableLeft="@mipmap/my_task_center"
                 android:drawableRight="@mipmap/my_go"
@@ -138,12 +135,13 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="26dp"
                 android:text="任务中心"
-                android:textColor="@color/star_black"/>
+                android:textColor="@color/star_black" />
 
             <TextView
                 android:id="@+id/item_03_tv"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:layout_marginTop="1dp"
                 android:background="@color/C1"
                 android:drawableLeft="@mipmap/my_purse"
                 android:drawableRight="@mipmap/my_go"
@@ -152,12 +150,13 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="26dp"
                 android:text="我的钱包"
-                android:textColor="@color/star_black"/>
+                android:textColor="@color/star_black" />
 
             <TextView
                 android:id="@+id/item_04_tv"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:layout_marginTop="1dp"
                 android:background="@color/C1"
                 android:drawableLeft="@mipmap/my_member_centre"
                 android:drawableRight="@mipmap/my_go"
@@ -172,6 +171,7 @@
                 android:id="@+id/item_05_tv"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:layout_marginTop="1dp"
                 android:background="@color/C1"
                 android:drawableLeft="@mipmap/my_posts"
                 android:drawableRight="@mipmap/my_go"
@@ -180,7 +180,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="26dp"
                 android:text="我的帖子"
-                android:textColor="@color/star_black"/>
+                android:textColor="@color/star_black" />
 
             <TextView
                 android:id="@+id/item_06_tv"
@@ -195,12 +195,13 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="26dp"
                 android:text="设置"
-                android:textColor="@color/star_black"/>
+                android:textColor="@color/star_black" />
 
             <TextView
                 android:id="@+id/item_07_tv"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:layout_marginTop="1dp"
                 android:background="@color/C1"
                 android:drawableLeft="@mipmap/contact_us"
                 android:drawableRight="@mipmap/my_go"
@@ -209,7 +210,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="26dp"
                 android:text="联系我们"
-                android:textColor="@color/star_black"/>
+                android:textColor="@color/star_black" />
 
         </LinearLayout>
     </com.wuzhanglong.library.view.ReboundScrollView>
