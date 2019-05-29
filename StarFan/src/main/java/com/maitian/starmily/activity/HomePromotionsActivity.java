@@ -33,7 +33,7 @@ public class HomePromotionsActivity extends BaseActivity implements BGAOnRVItemC
 
     @Override
     public void initView() {
-        mBaseTitleTv.setText("咨询");
+        mBaseTitleTv.setText("活动");
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
         mRecyclerView = getViewById(R.id.recycler_view);

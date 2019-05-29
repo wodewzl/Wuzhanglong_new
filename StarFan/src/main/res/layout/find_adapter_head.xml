@@ -1,129 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:orientation="vertical">
-
-<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/head_child_one_layout"
-        style="@style/padding_15_10"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/C1"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/head_child_one_layout"
+            style="@style/padding_15_10"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="话题"
-            android:textColor="@color/star_black" />
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableRight="@mipmap/my_go"
-            android:drawablePadding="5dp"
-            android:text="参与话题赢取轮播图"
-            android:textColor="@color/star_gray"
-            android:textSize="10sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/find_huati"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="话题"
+                android:textColor="@color/star_black" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@mipmap/my_go"
+                android:drawablePadding="5dp"
+                android:text="参与话题赢取轮播图"
+                android:textColor="@color/star_gray"
+                android:textSize="10sp" />
 
-    <LinearLayout
-        android:id="@+id/head_child_two_layout"
-        style="@style/padding_15_10"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/C1"
-        android:gravity="center"
-        android:orientation="horizontal">
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/head_child_two_layout"
+            style="@style/padding_15_10"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="投票"
-            android:textColor="@color/star_black" />
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableRight="@mipmap/my_go"
-            android:drawablePadding="5dp"
-            android:text="投票进行中"
-            android:textColor="@color/star_gray"
-            android:textSize="10sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/find_toupiao"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="投票"
+                android:textColor="@color/star_black" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@mipmap/my_go"
+                android:drawablePadding="5dp"
+                android:text="投票进行中"
+                android:textColor="@color/star_gray"
+                android:textSize="10sp" />
 
-    <LinearLayout
-        android:id="@+id/head_child_three_layout"
-        style="@style/padding_15_10"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/C1"
-        android:gravity="center"
-        android:orientation="horizontal">
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/head_child_three_layout"
+            style="@style/padding_15_10"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="福利兑换"
-            android:textColor="@color/star_black" />
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableRight="@mipmap/my_go"
-            android:drawablePadding="5dp"
-            android:text="《战狼2》电影票兑换中"
-            android:textColor="@color/star_gray"
-            android:textSize="10sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/find_fuli"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="福利兑换"
+                android:textColor="@color/star_black" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@mipmap/my_go"
+                android:drawablePadding="5dp"
+                android:text="《战狼2》电影票兑换中"
+                android:textColor="@color/star_gray"
+                android:textSize="10sp" />
 
-    <LinearLayout
-        android:id="@+id/head_child_four_layout"
-        style="@style/padding_15_10"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/C1"
-        android:gravity="center"
-        android:orientation="horizontal">
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/head_child_four_layout"
+            style="@style/padding_15_10"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="服务"
-            android:textColor="@color/star_black" />
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableRight="@mipmap/my_go"
-            android:drawablePadding="5dp"
-            android:text="应援定制，卡片定制服务"
-            android:textColor="@color/star_gray"
-            android:textSize="10sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/find_server"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="服务"
+                android:textColor="@color/star_black" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@mipmap/my_go"
+                android:drawablePadding="5dp"
+                android:text="应援定制，卡片定制服务"
+                android:textColor="@color/star_gray"
+                android:textSize="10sp" />
+
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
 </RelativeLayout>

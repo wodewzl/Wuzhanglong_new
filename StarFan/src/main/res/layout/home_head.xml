@@ -27,6 +27,7 @@
         android:paddingBottom="10dp">
 
         <TextView
+            android:id="@+id/topic_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -36,6 +37,7 @@
             android:text="话题" />
 
         <TextView
+            android:id="@+id/news_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -45,6 +47,7 @@
             android:text="资讯" />
 
         <TextView
+            android:id="@+id/promotions_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -54,6 +57,7 @@
             android:text="活动" />
 
         <TextView
+            android:id="@+id/welfare_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

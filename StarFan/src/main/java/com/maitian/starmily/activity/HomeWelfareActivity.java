@@ -33,7 +33,7 @@ public class HomeWelfareActivity extends BaseActivity  implements BGAOnRVItemCli
 
     @Override
     public void initView() {
-        mBaseTitleTv.setText("咨询");
+        mBaseTitleTv.setText("福利");
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
         mRecyclerView = getViewById(R.id.recycler_view);

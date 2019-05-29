@@ -4,7 +4,7 @@
     package="com.maitian.starmily">
 
     <application
-        android:name="com.maitian.starmily.application.AppApplication"
+        android:name=".application.AppApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,30 +12,33 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup,icon,theme,label">
-        <activity android:name="com.maitian.starmily.activity.FindTopicActivity"></activity>
-        <activity android:name="com.maitian.starmily.activity.FindServiceActivity" />
-        <activity android:name="com.maitian.starmily.activity.FindVoteDetailActivity" />
-        <activity android:name="com.maitian.starmily.activity.FindVoteActivity" />
-        <activity android:name="com.maitian.starmily.activity.FindWelfareExchangeActivity" />
-        <activity android:name="com.maitian.starmily.activity.FindWelfareActivity" />
-        <activity android:name="com.maitian.starmily.activity.RiceCircleStarActivity" />
-        <activity android:name="com.maitian.starmily.activity.LoginActivity" />
-        <activity android:name="com.maitian.starmily.activity.RiceCircleDetailActivity" />
-        <activity android:name="com.maitian.starmily.activity.HomeWelfareActivity" />
-        <activity android:name="com.maitian.starmily.activity.HomePromotionsActivity" />
-        <activity android:name="com.maitian.starmily.activity.HomeNewsActivity" />
-        <activity android:name="com.maitian.starmily.activity.HomeHitListActivity" />
-        <activity android:name="com.maitian.starmily.activity.MyPostsActivity" />
-        <activity android:name="com.maitian.starmily.activity.MySettingPrivacyActivity" />
-        <activity android:name="com.maitian.starmily.activity.MyUpdatePwdActivity" />
-        <activity android:name="com.maitian.starmily.activity.MySettiingsActivity" />
-        <activity android:name="com.maitian.starmily.activity.MyMemberCentreActivity" />
-        <activity android:name="com.maitian.starmily.activity.MyPaurseDetailActivity" />
-        <activity android:name="com.maitian.starmily.activity.MyPurseActivity" />
-        <activity android:name="com.maitian.starmily.activity.MyTaskActivity" />
-        <activity android:name="com.maitian.starmily.activity.MyAttentionActivity" />
+        <activity android:name=".activity.PublishDiscussActivity"></activity>
+        <activity android:name=".activity.HomeNewsReplyActivity" />
+        <activity android:name=".activity.HomeNewsDetailActivity" />
+        <activity android:name=".activity.FindTopicActivity" />
+        <activity android:name=".activity.FindServiceActivity" />
+        <activity android:name=".activity.FindVoteDetailActivity" />
+        <activity android:name=".activity.FindVoteActivity" />
+        <activity android:name=".activity.FindWelfareExchangeActivity" />
+        <activity android:name=".activity.FindWelfareActivity" />
+        <activity android:name=".activity.RiceCircleStarActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.RiceCircleDetailActivity" />
+        <activity android:name=".activity.HomeWelfareActivity" />
+        <activity android:name=".activity.HomePromotionsActivity" />
+        <activity android:name=".activity.HomeNewsActivity" />
+        <activity android:name=".activity.HomeHitListActivity" />
+        <activity android:name=".activity.MyPostsActivity" />
+        <activity android:name=".activity.MySettingPrivacyActivity" />
+        <activity android:name=".activity.MyUpdatePwdActivity" />
+        <activity android:name=".activity.MySettiingsActivity" />
+        <activity android:name=".activity.MyMemberCentreActivity" />
+        <activity android:name=".activity.MyPaurseDetailActivity" />
+        <activity android:name=".activity.MyPurseActivity" />
+        <activity android:name=".activity.MyTaskActivity" />
+        <activity android:name=".activity.MyAttentionActivity" />
         <activity
-            android:name="com.maitian.starmily.activity.LogoActivity"
+            android:name=".activity.LogoActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppStartLogo"
@@ -47,17 +50,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.maitian.starmily.activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name="com.maitian.starmily.activity.MyActivity" />
-        <activity android:name="com.maitian.starmily.activity.MyUserInfoActivity" />
-        <activity android:name="com.maitian.starmily.activity.MyMessageActivity" />
-        <activity android:name="com.maitian.starmily.activity.MyLegalizeActivity" />
-        <activity android:name="com.maitian.starmily.activity.MyBindPhoneActivity" />
-        <activity android:name="com.maitian.starmily.activity.MyUpdateInfoActivity" />
-        <activity android:name="com.maitian.starmily.activity.MyAboutActivity" />
+        <activity android:name=".activity.MyActivity" />
+        <activity android:name=".activity.MyUserInfoActivity" />
+        <activity android:name=".activity.MyMessageActivity" />
+        <activity android:name=".activity.MyLegalizeActivity" />
+        <activity android:name=".activity.MyBindPhoneActivity" />
+        <activity android:name=".activity.MyUpdateInfoActivity" />
+        <activity android:name=".activity.MyAboutActivity" />
     </application>
 
 </manifest>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/C1"
+    android:orientation="vertical"
+    tools:context=".activity.HomeNewsDetailActivity">
+
+    <com.cpoopc.scrollablelayoutlib.ScrollableLayout
+        android:id="@+id/scrollable_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:background="@color/C1"
+        android:orientation="vertical">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/padding_15_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:ignore="WebViewLayout">
+
+                <TextView
+                    android:id="@+id/title_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/star_gray"
+                    android:textSize="10sp" />
+
+                <WebView
+                    android:id="@+id/webview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/C3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="7dp"
+                android:text="明星标签" />
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/flow_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                zhy:max_select="-1">
+
+            </com.zhy.view.flowlayout.TagFlowLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/padding_15_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/C3"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="评论" />
+
+            <TextView
+                android:id="@+id/order_tv"
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:background="@drawable/corners_two_colorent"
+                android:gravity="center"
+                android:text="按热度"
+                android:textColor="@color/colorAccent" />
+
+        </LinearLayout>
+
+        <com.github.jdsjlzx.recyclerview.LuRecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1" />
+
+    </com.cpoopc.scrollablelayoutlib.ScrollableLayout>
+
+    <LinearLayout
+        style="@style/padding_15_10"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/C3"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@color/C1"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="写评论"
+            android:textColor="@color/star_gray_title" />
+
+        <TextView
+            android:id="@+id/one_favor_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:drawableLeft="@mipmap/favor_select"
+            android:gravity="center"
+            android:textColor="@color/star_gray_title"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/one_discuss_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:drawableLeft="@mipmap/message_nomal"
+            android:gravity="center"
+            android:text="123"
+            android:textColor="@color/star_gray_title"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/one_like_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/like_press"
+            android:gravity="center"
+            android:text="123"
+            android:textColor="@color/star_gray_title"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+</RelativeLayout>

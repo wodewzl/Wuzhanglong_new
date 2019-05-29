@@ -1,0 +1,39 @@
+package com.maitian.starmily.adapter;
+
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+
+import com.maitian.starmily.R;
+import com.maitian.starmily.constant.Constant;
+import com.maitian.starmily.model.DiscussReplyBean;
+import com.maitian.starmily.model.MessageVO;
+import com.squareup.picasso.Picasso;
+import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
+import com.wuzhanglong.library.utils.DateUtils;
+
+import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
+
+/**
+ * Created by ${Wuzhanglong} on 2019/3/31.
+ */
+public class NewsReplyAdapter extends RecyclerBaseAdapter {
+    public NewsReplyAdapter(RecyclerView recyclerView) {
+        super(recyclerView, R.layout.news_reply_adapter);
+    }
+
+    @Override
+    public void initData(BGAViewHolderHelper helper, int position, Object model) {
+        DiscussReplyBean.ObjBean.ListBean bean = (DiscussReplyBean.ObjBean.ListBean) model;
+        if (!TextUtils.isEmpty(bean.getToIcon()))
+            Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + bean.getToIcon()).error(R.drawable.user_icon_def).into(helper.getImageView(R.id.head_img));
+        helper.setText(R.id.name_tv, bean.getToNickname());
+        helper.setText(R.id.content_tv, bean.getReplyMsg());
+        helper.setText(R.id.time_tv, DateUtils.parseDateDayAndHour(bean.getCreateTime() + ""));
+        helper.setText(R.id.content_tv, bean.getReplyMsg());
+        helper.setText(R.id.like_count_tv, bean.getLikeCount()+"");
+
+//        if("1".equals(bean.get)){
+//
+//        }
+    }
+}

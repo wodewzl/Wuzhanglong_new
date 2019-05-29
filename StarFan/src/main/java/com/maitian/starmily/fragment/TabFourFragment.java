@@ -1,6 +1,7 @@
 package com.maitian.starmily.fragment;
 
 
+import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
@@ -9,6 +10,7 @@ import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.maitian.starmily.R;
 import com.maitian.starmily.activity.FindServiceActivity;
+import com.maitian.starmily.activity.FindTopicActivity;
 import com.maitian.starmily.activity.FindVoteActivity;
 import com.maitian.starmily.activity.FindWelfareActivity;
 import com.maitian.starmily.adapter.FindAdapter;
@@ -91,7 +93,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
                 break;
 
             case R.id.head_child_one_layout:
-                mActivity.openActivity(FindVoteActivity.class);
+               mActivity.openActivity(FindTopicActivity.class);
                 break;
 
             default:

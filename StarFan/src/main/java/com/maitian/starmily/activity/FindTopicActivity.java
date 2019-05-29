@@ -1,22 +1,37 @@
 package com.maitian.starmily.activity;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
+import android.view.ViewGroup;
 
+import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.maitian.starmily.R;
 import com.maitian.starmily.adapter.FindServiceAdapter;
+import com.maitian.starmily.adapter.FindTopicAdapter;
+import com.maitian.starmily.constant.Constant;
+import com.maitian.starmily.model.FindTopicVO;
+import com.maitian.starmily.model.StarVO;
 import com.wuzhanglong.library.activity.BaseActivity;
+import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 
-public class FindTopicActivity extends BaseActivity {
+import java.util.HashMap;
+import java.util.List;
+
+import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
+
+public class FindTopicActivity extends BaseActivity implements BGAOnRVItemClickListener, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private LuRecyclerView mRecyclerView;
-    private FindServiceAdapter mAdapter;
+    private FindTopicAdapter mAdapter;
     private int mCurrentPage = 1;
-    private boolean isLoadMore = true;
+    private boolean isLoadMore = false;
+
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.find_topic_activity);
@@ -24,29 +39,50 @@ public class FindTopicActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        mBaseTitleTv.setText("服务中心");
+        mBaseTitleTv.setText("话题");
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
         mRecyclerView = getViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
-        mAdapter = new FindServiceAdapter(mRecyclerView);
-        RecyclerViewUtil.initRecyclerViewLinearLayout(this, mRecyclerView, mAdapter, R.dimen.dp_10, R.color.C1, true);
+        mAdapter = new FindTopicAdapter(mRecyclerView);
+        RecyclerViewUtil.initRecyclerViewLinearLayout(this, mRecyclerView, mAdapter, R.dimen.dp_10, R.color.C3, true);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
     }
 
     @Override
     public void bindViewsListener() {
-
+        mAutoSwipeRefreshLayout.setOnRefreshListener(this);
+        mAdapter.setOnRVItemClickListener(this);
+        mRecyclerView.setOnLoadMoreListener(this);
     }
 
     @Override
     public void getData() {
-
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("pageNum", mCurrentPage + "");
+        map.put("pageSize", "10");
+        map.put("type", "0");
+        StartHttpUtils.get(mActivity, this, Constant.FIND_NEWS_COLLECTION_BY_PAGE, map, FindTopicVO.class);
     }
 
     @Override
     public void hasData(BaseVO vo) {
-
+        FindTopicVO findTopicVO = (FindTopicVO) vo;
+        if (findTopicVO.getObj().isHasNextPage()) {
+            mRecyclerView.setNoMore(true);
+            mRecyclerView.setLoadMoreEnabled(false);
+        } else {
+            mRecyclerView.setNoMore(false);
+        }
+        mAutoSwipeRefreshLayout.setRefreshing(false);
+        List<FindTopicVO.ObjBean.ListBean> list = findTopicVO.getObj().getList();
+        if (isLoadMore) {
+            mAdapter.updateDataLast(list);
+            isLoadMore = false;
+        } else {
+            mAdapter.updateData(list);
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -56,6 +92,26 @@ public class FindTopicActivity extends BaseActivity {
 
     @Override
     public void noNet() {
+
+    }
+
+
+    @Override
+    public void onRefresh() {
+        mCurrentPage = 1;
+        mRecyclerView.setLoadMoreEnabled(true);
+        getData();
+    }
+
+    @Override
+    public void onLoadMore() {
+        isLoadMore = true;
+        mCurrentPage++;
+        getData();
+    }
+
+    @Override
+    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
 
     }
 }

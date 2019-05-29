@@ -1,10 +1,16 @@
 package com.maitian.starmily.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.View;
 
 import com.maitian.starmily.R;
+import com.maitian.starmily.constant.Constant;
 import com.maitian.starmily.model.MessageVO;
+import com.maitian.starmily.model.NewsBean;
+import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
+import com.wuzhanglong.library.utils.DateUtils;
 
 import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
 
@@ -18,24 +24,22 @@ public class NewsAdapter extends RecyclerBaseAdapter {
 
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
-        MessageVO bean= (MessageVO) model;
-//        helper.setText(R.id.money_tv,bean.getMoney());
-//        if(bean.isSelect()){
-//            helper.getTextView(R.id.money_tv).setBackground(BaseCommonUtils.setBackgroundShap(mContext,5,R.color.colorAccent,R.color.C1));
-//            helper.setTextColorRes(R.id.money_tv,R.color.colorAccent);
-//        }else {
-//            helper.getTextView(R.id.money_tv).setBackground(BaseCommonUtils.setBackgroundShap(mContext,5,R.color.C3_1,R.color.C1));
-//            helper.setTextColorRes(R.id.money_tv,R.color.C4);
-//        }
-    }
-
-    @Override
-    public int getItemCount() {
-        return 20;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return R.layout.news_adapter;
+        NewsBean.ObjBean.ListBean bean = (NewsBean.ObjBean.ListBean) model;
+        if (!TextUtils.isEmpty(bean.getIconUrl()))
+            Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + bean.getIconUrl()).into(helper.getImageView(R.id.head_img));
+        helper.setText(R.id.time_tv, DateUtils.getStandardDate(bean.getCreateTime() + ""));
+        helper.setText(R.id.like_count_tv, bean.getLikeCount() + "");
+        helper.setText(R.id.read_count_tv, bean.getCommentReplyCount() + "");
+        helper.setText(R.id.read_count_tv, bean.getCount() + "");
+        if (bean.getTop() == 1) {
+            helper.getView(R.id.top_tv).setVisibility(View.VISIBLE);
+        } else {
+            helper.getView(R.id.top_tv).setVisibility(View.GONE);
+        }
+        if (bean.getHot() == 1) {
+            helper.getView(R.id.hot_tv).setVisibility(View.VISIBLE);
+        } else {
+            helper.getView(R.id.hot_tv).setVisibility(View.GONE);
+        }
     }
 }

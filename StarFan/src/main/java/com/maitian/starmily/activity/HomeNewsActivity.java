@@ -1,5 +1,6 @@
 package com.maitian.starmily.activity;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -10,10 +11,16 @@ import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.maitian.starmily.R;
 import com.maitian.starmily.adapter.NewsAdapter;
+import com.maitian.starmily.constant.Constant;
+import com.maitian.starmily.model.NewsBean;
 import com.wuzhanglong.library.activity.BaseActivity;
+import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
+
+import java.util.HashMap;
+import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 
@@ -31,7 +38,7 @@ public class HomeNewsActivity extends BaseActivity implements BGAOnRVItemClickLi
 
     @Override
     public void initView() {
-        mBaseTitleTv.setText("咨询");
+        mBaseTitleTv.setText("资讯");
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
         mRecyclerView = getViewById(R.id.recycler_view);
@@ -50,34 +57,31 @@ public class HomeNewsActivity extends BaseActivity implements BGAOnRVItemClickLi
 
     @Override
     public void getData() {
-//        HashMap<String, Object> map = new HashMap<>();
-//        map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
-//        map.put("curpage", mCurrentPage+"");
-//        BSHttpUtils.post(mActivity, this, Constant.MY_MESSAGE_URL, map, MyMessageVO.class);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("pageNum", mCurrentPage + "");
+        map.put("pageSize", "10");
+        StartHttpUtils.get(mActivity, this, Constant.FIND_NEWS_BY_PAGE, map, NewsBean.class);
 
-        showView();
     }
 
     @Override
     public void hasData(BaseVO vo) {
-//        MyMessageVO myMessageVO = (MyMessageVO) vo;
-//        if (BaseCommonUtils.parseInt(myMessageVO.getData().getCount()) == 1) {
-//            mRecyclerView.setLoadMoreEnabled(false);
-//        }
-//        if (mCurrentPage == BaseCommonUtils.parseInt(myMessageVO.getData().getCount())) {
-//            mRecyclerView.setNoMore(true);
-//        } else {
-//            mRecyclerView.setNoMore(false);
-//        }
-//        List<MyMessageVO.DataBean.ListBean> list = myMessageVO.getData().getList();
-//        if (isLoadMore) {
-//            mAdapter.updateDataLast(list);
-//            isLoadMore = false;
-//        } else {
-//            mAdapter.updateData(list);
-//        }
-//        mAdapter.notifyDataSetChanged();
-//        mAutoSwipeRefreshLayout.setRefreshing(false);
+        NewsBean bean = (NewsBean) vo;
+        if (bean.getObj().isHasNextPage()) {
+            mRecyclerView.setNoMore(true);
+            mRecyclerView.setLoadMoreEnabled(false);
+        } else {
+            mRecyclerView.setNoMore(false);
+        }
+        mAutoSwipeRefreshLayout.setRefreshing(false);
+        List<NewsBean.ObjBean.ListBean> list = bean.getObj().getList();
+        if (isLoadMore) {
+            mAdapter.updateDataLast(list);
+            isLoadMore = false;
+        } else {
+            mAdapter.updateData(list);
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -92,20 +96,21 @@ public class HomeNewsActivity extends BaseActivity implements BGAOnRVItemClickLi
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
-//        if (mAdapter.getData().size() == 0)
-//            return;
-//
-//        MyMessageVO.DataBean.ListBean vo= (MyMessageVO.DataBean.ListBean) mAdapter.getItem(position);
-//
-//        Bundle bundle = new Bundle();
-//        bundle.putString("url", vo.getDetail_url());
-//        bundle.putString("title", "消息详情");
-//        open(WebViewActivity.class, bundle, 0);
+        if (mAdapter.getData().size() == 0)
+            return;
+
+        NewsBean.ObjBean.ListBean bean= (NewsBean.ObjBean.ListBean) mAdapter.getItem(position);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("newsId", bean.getNewsId()+"");
+        bundle.putString("userId", bean.getUserId()+"");
+        open(HomeNewsDetailActivity.class, bundle, 0);
     }
 
     @Override
     public void onRefresh() {
         mCurrentPage = 1;
+        mRecyclerView.setLoadMoreEnabled(true);
         getData();
     }
 
