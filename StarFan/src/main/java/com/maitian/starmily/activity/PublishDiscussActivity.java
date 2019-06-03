@@ -25,8 +25,10 @@ public class PublishDiscussActivity extends BaseActivity implements PostCallback
 
     @Override
     public void initView() {
+        mBaseTitleTv.setText("发布评论");
         mContentEt = getViewById(R.id.content_et);
         mBaseOkTv.setText("发送");
+        mType = this.getIntent().getStringExtra("type");
     }
 
     @Override
@@ -36,7 +38,7 @@ public class PublishDiscussActivity extends BaseActivity implements PostCallback
 
     @Override
     public void getData() {
-
+        showView();
     }
 
     @Override
@@ -56,26 +58,37 @@ public class PublishDiscussActivity extends BaseActivity implements PostCallback
 
     @Override
     public void success(BaseVO vo) {
-
+        this.finish();
     }
 
     public void commit() {
+        showProgressDialog();
         if ("1".equals(mType)) {
-
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("topicId", this.getIntent().getStringExtra("topicId"));
+            map.put("userId", "4338");
+            map.put("replyMsg", mContentEt.getText().toString());
+            StartHttpUtils.postCallBack(mActivity, Constant.TOPIC_SAVE_COMMENT, map, BaseVO.class, this);
         } else if ("2".equals(mType)) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("commentId", this.getIntent().getStringExtra("commentId"));
+            map.put("fromUserId", "4338");
+            map.put("toUserId", this.getIntent().getStringExtra("toUserId"));
+            map.put("replyMsg", mContentEt.getText().toString());
+            StartHttpUtils.postCallBack(mActivity, Constant.TOPIC_SAVE_REPLY, map, BaseVO.class, this);
 
         } else if ("3".equals(mType)) {
             HashMap<String, Object> map = new HashMap<>();
             map.put("newsId", this.getIntent().getStringExtra("newsId"));
-            map.put("userId", this.getIntent().getStringExtra("userId"));
-            map.put("replyMsg",mContentEt.getText().toString());
+            map.put("userId", "4338");
+            map.put("replyMsg", mContentEt.getText().toString());
             StartHttpUtils.postCallBack(mActivity, Constant.SAVE_COMMENT, map, BaseVO.class, this);
         } else if ("4".equals(mType)) {
             HashMap<String, Object> map = new HashMap<>();
-            map.put("commentId", this.getIntent().getStringExtra("newsId"));
-            map.put("fromUserId", this.getIntent().getStringExtra("userId"));
-            map.put("toUserId", this.getIntent().getStringExtra("userId"));
-            map.put("replyMsg",mContentEt.getText().toString());
+            map.put("commentId", this.getIntent().getStringExtra("commentId"));
+            map.put("fromUserId", "4338");
+            map.put("toUserId", this.getIntent().getStringExtra("toUserId"));
+            map.put("replyMsg", mContentEt.getText().toString());
             StartHttpUtils.postCallBack(mActivity, Constant.SAVE_REPLY, map, BaseVO.class, this);
         }
     }

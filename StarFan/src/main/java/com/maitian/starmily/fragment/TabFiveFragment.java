@@ -11,10 +11,13 @@ import com.maitian.starmily.activity.MyPostsActivity;
 import com.maitian.starmily.activity.MyPurseActivity;
 import com.maitian.starmily.activity.MySettiingsActivity;
 import com.maitian.starmily.activity.MyTaskActivity;
+import com.maitian.starmily.constant.Constant;
+import com.maitian.starmily.model.FindTopicVO;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.fragment.BaseFragment;
+import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.mode.EBMessageVO;
@@ -25,6 +28,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
 public class TabFiveFragment extends BaseFragment implements View.OnClickListener, PostCallback, Serializable {
@@ -37,10 +41,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void initView(View view) {
-        mSinTv = getViewById(R.id.sin_tv);
-        mSinTv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 12, R.color.star_yellow, R.color.star_yellow));
-        BaseActivity activity = (BaseActivity) this.getActivity();
-
+        mSinTv = getViewById(R.id.sign_tv);
         mItme01Tv = getViewById(R.id.item_01_tv);
         mItme02Tv = getViewById(R.id.item_02_tv);
         mItme03Tv = getViewById(R.id.item_03_tv);
@@ -60,19 +61,20 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
         mItme05Tv.setOnClickListener(this);
         mItme06Tv.setOnClickListener(this);
         mItme07Tv.setOnClickListener(this);
+        mSinTv.setOnClickListener(this);
     }
-
 
     @Override
     public void getData() {
-
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("userId", "10");
+        StartHttpUtils.get(mActivity, this, Constant.MY_HOME_PAGE, map, FindTopicVO.class);
         showView();
-
     }
 
     @Override
     public void hasData(BaseVO vo) {
-
+        showView();
     }
 
     @Override
@@ -109,6 +111,9 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.item_07_tv:
 //                mActivity.openActivity(MyC.class);
+                break;
+            case R.id.sign_tv:
+                sign();
                 break;
             default:
                 break;
@@ -162,7 +167,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void success(BaseVO vo) {
-
+        mActivity.showCustomToast("签到成功");
     }
 
 
@@ -177,7 +182,9 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
         EventBus.getDefault().unregister(this);
     }
 
-    public void bindPhone() {
-
+    public void sign() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("userId", "4337");
+        StartHttpUtils.postCallBack(mActivity, Constant.SIGN, map, BaseVO.class, this);
     }
 }

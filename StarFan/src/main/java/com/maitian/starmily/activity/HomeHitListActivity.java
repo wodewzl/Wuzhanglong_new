@@ -10,10 +10,13 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 
+import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.maitian.starmily.R;
 import com.maitian.starmily.fragment.HitListFragment;
+import com.maitian.starmily.fragment.HitPersonalFragment;
 import com.wuzhanglong.library.activity.BaseActivity;
+import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.WidthHigthUtil;
 
@@ -30,12 +33,13 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.Simple
 
 import java.util.ArrayList;
 
-public class HomeHitListActivity extends BaseActivity {
+public class HomeHitListActivity extends BaseActivity implements View.OnClickListener {
     private String[] mTitleDataList = {"周榜", "月榜", "贡献榜"};
     private ViewPager mViewPager;
-    private ArrayList<HitListFragment> mFragmentList;
+    private ArrayList<BaseFragment> mFragmentList;
     private ScrollableLayout mScrollableLayout;
     private LinearLayout mHeadLayout;
+
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.home_hit_list_activity);
@@ -43,9 +47,12 @@ public class HomeHitListActivity extends BaseActivity {
 
     @Override
     public void initView() {
+//        mBaseOkTv.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.search_img,0,0,0);
+        mBaseOkTv.setText("规则");
+        mBaseTitleTv.setText("刘亦菲女神");
         mViewPager = getViewById(R.id.view_pager);
         mScrollableLayout = getViewById(R.id.scrollable_layout);
-        mHeadLayout=getViewById(R.id.head_layout);
+        mHeadLayout = getViewById(R.id.head_layout);
         initMagicIndicator();
     }
 
@@ -60,9 +67,11 @@ public class HomeHitListActivity extends BaseActivity {
         mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                mScrollableLayout.getHelper().setCurrentScrollableContainer(mFragmentList.get(position));
+                mScrollableLayout.getHelper().setCurrentScrollableContainer((ScrollableHelper.ScrollableContainer)mFragmentList.get(position));
             }
         });
+
+        mBaseOkTv.setOnClickListener(this);
     }
 
     @Override
@@ -147,11 +156,13 @@ public class HomeHitListActivity extends BaseActivity {
 
     public void initViewPagerData() {
         mFragmentList = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             final HitListFragment fragment = new HitListFragment();
             mFragmentList.add(fragment);
         }
-        mScrollableLayout.getHelper().setCurrentScrollableContainer(mFragmentList.get(0));
+        HitPersonalFragment personalFragment=new HitPersonalFragment();
+        mFragmentList.add(personalFragment);
+        mScrollableLayout.getHelper().setCurrentScrollableContainer((ScrollableHelper.ScrollableContainer)mFragmentList.get(0));
         mViewPager.setOffscreenPageLimit(mTitleDataList.length);
         mViewPager.setAdapter(new FragmentPagerAdapter(mActivity.getSupportFragmentManager()) {
             @Override
@@ -169,5 +180,17 @@ public class HomeHitListActivity extends BaseActivity {
                 return mFragmentList.size();
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.base_ok_tv:
+                openActivity(HomeHitSerachActivity.class);
+                break;
+            default:
+                break;
+
+        }
     }
 }

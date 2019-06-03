@@ -69,10 +69,9 @@ public class FindTopicActivity extends BaseActivity implements BGAOnRVItemClickL
     public void hasData(BaseVO vo) {
         FindTopicVO findTopicVO = (FindTopicVO) vo;
         if (findTopicVO.getObj().isHasNextPage()) {
-            mRecyclerView.setNoMore(true);
-            mRecyclerView.setLoadMoreEnabled(false);
-        } else {
             mRecyclerView.setNoMore(false);
+        } else {
+            mRecyclerView.setNoMore(true);
         }
         mAutoSwipeRefreshLayout.setRefreshing(false);
         List<FindTopicVO.ObjBean.ListBean> list = findTopicVO.getObj().getList();
@@ -99,7 +98,6 @@ public class FindTopicActivity extends BaseActivity implements BGAOnRVItemClickL
     @Override
     public void onRefresh() {
         mCurrentPage = 1;
-        mRecyclerView.setLoadMoreEnabled(true);
         getData();
     }
 

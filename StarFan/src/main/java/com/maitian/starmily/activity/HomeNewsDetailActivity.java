@@ -179,22 +179,24 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
     public void onItemChildClick(ViewGroup parent, View childView, int position) {
         NewsDiscussBean.ObjBean.ListBeanX beanX = (NewsDiscussBean.ObjBean.ListBeanX) mAdapter.getItem(position);
         switch (childView.getId()) {
-            case R.id.reply_count_tv:
-//                Bundle bundleDiscuss = new Bundle();
-//
-//                map.put("commentId", this.getIntent().getStringExtra("newsId"));
-//                map.put("fromUserId", this.getIntent().getStringExtra("userId"));
-//                map.put("toUserId", this.getIntent().getStringExtra("userId"));
-//
-//                bundleDiscuss.putString("type", "3");
-//                bundleDiscuss.putString("commentId", beanX.getCommentId() + "");
-//                bundleDiscuss.putString("fromUserId", beanX.getCO() + "");
-//                bundleDiscuss.putString("toUserId", beanX.getNewsId() + "");
-//                open(PublishDiscussActivity.class, bundleDiscuss, 0);
+            case R.id.report_tv:
+                openActivity(ReportActivity.class);
                 break;
-            case R.id.reply_favout_tv:
+            case R.id.reply_count_tv:
+                Bundle bundleDiscuss = new Bundle();
+                bundleDiscuss.putString("type", "4");
+                bundleDiscuss.putString("commentId", beanX.getCommentId() + "");
+                bundleDiscuss.putString("fromUserId", "4338");
+                bundleDiscuss.putString("toUserId", beanX.getUserId() + "");
+                open(PublishDiscussActivity.class, bundleDiscuss, 0);
+                break;
+            case R.id.reply_like_tv:
                 //点赞
-                replayLikePost(beanX.getCommentId() + "");
+                if (beanX.getLikeStatus() == 1) {
+                    replayLikePost(beanX.getCommentId() + "", 0);
+                } else {
+                    replayLikePost(beanX.getCommentId() + "", 1);
+                }
                 break;
 
             case R.id.reply_people_tv:
@@ -214,18 +216,18 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
         }
     }
 
-    public void likePost(String newsId, String userId) {
+    public void likePost(String newsId) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("newsId", newsId);
-        map.put("userId", userId);
+        map.put("userId",  "4338");
 //        map.put("userId", userId);
         StartHttpUtils.postCallBack(mActivity, Constant.LIKE_NEWS, map, BaseVO.class, this);
     }
 
-    public void favorPost(String newsId, String userId) {
+    public void favorPost(String newsId) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("newsId", newsId);
-        map.put("userId", userId);
+        map.put("userId", "4339");
         StartHttpUtils.postCallBack(mActivity, Constant.FAVORIATE_NEWS, map, BaseVO.class, this);
     }
 
@@ -235,12 +237,12 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
     }
 
 
-    public void replayLikePost(String id) {
+    public void replayLikePost(String id, int likeCount) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("commentId", id);
         map.put("userId", "4338");
-        map.put("type", "4338");
-        StartHttpUtils.postCallBack(mActivity, Constant.LIKE_TOPIC, map, BaseVO.class, this);
+        map.put("type", likeCount+"");
+        StartHttpUtils.postCallBack(mActivity, Constant.LIKE_COMMENT, map, BaseVO.class, this);
     }
 
     @Override
@@ -250,15 +252,14 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
                 Bundle bundleDiscuss = new Bundle();
                 bundleDiscuss.putString("type", "3");
                 bundleDiscuss.putString("newsId", mBean.getObj().getNews().getUserId() + "");
-                bundleDiscuss.putString("userId", mBean.getObj().getNews().getNewsId() + "");
                 open(PublishDiscussActivity.class, bundleDiscuss, 0);
                 break;
             case R.id.one_like_tv:
-                likePost(mBean.getObj().getNews().getNewsId() + "", mBean.getObj().getNews().getUserId() + "");
+                likePost(mBean.getObj().getNews().getNewsId() + "");
                 break;
 
             case R.id.one_favor_tv:
-                favorPost(mBean.getObj().getNews().getNewsId() + "", mBean.getObj().getNews().getUserId() + "");
+                favorPost(mBean.getObj().getNews().getNewsId() + "");
                 break;
             case R.id.base_ok_tv:
                 break;

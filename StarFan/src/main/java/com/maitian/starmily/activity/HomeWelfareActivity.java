@@ -11,10 +11,18 @@ import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.maitian.starmily.R;
 import com.maitian.starmily.adapter.WelfareAdapter;
+import com.maitian.starmily.constant.Constant;
+import com.maitian.starmily.model.FindBean;
+import com.maitian.starmily.model.FindTopicVO;
+import com.maitian.starmily.model.WelfareBean;
 import com.wuzhanglong.library.activity.BaseActivity;
+import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
+
+import java.util.HashMap;
+import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 
@@ -55,34 +63,29 @@ public class HomeWelfareActivity extends BaseActivity  implements BGAOnRVItemCli
 
     @Override
     public void getData() {
-//        HashMap<String, Object> map = new HashMap<>();
-//        map.put("user_no", AppApplication.getInstance().getUserInfoVO().getData().getUser_no());
-//        map.put("curpage", mCurrentPage+"");
-//        BSHttpUtils.post(mActivity, this, Constant.MY_MESSAGE_URL, map, MyMessageVO.class);
-
-        showView();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("pageNum", mCurrentPage + "");
+        map.put("pageSize", "10");
+        StartHttpUtils.get(mActivity, this, Constant.PROPS_LIST, map, WelfareBean.class);
     }
 
     @Override
     public void hasData(BaseVO vo) {
-//        MyMessageVO myMessageVO = (MyMessageVO) vo;
-//        if (BaseCommonUtils.parseInt(myMessageVO.getData().getCount()) == 1) {
-//            mRecyclerView.setLoadMoreEnabled(false);
-//        }
-//        if (mCurrentPage == BaseCommonUtils.parseInt(myMessageVO.getData().getCount())) {
-//            mRecyclerView.setNoMore(true);
-//        } else {
-//            mRecyclerView.setNoMore(false);
-//        }
-//        List<MyMessageVO.DataBean.ListBean> list = myMessageVO.getData().getList();
-//        if (isLoadMore) {
-//            mAdapter.updateDataLast(list);
-//            isLoadMore = false;
-//        } else {
-//            mAdapter.updateData(list);
-//        }
-//        mAdapter.notifyDataSetChanged();
-//        mAutoSwipeRefreshLayout.setRefreshing(false);
+        WelfareBean bean = (WelfareBean) vo;
+        if (bean.getObj().isHasNextPage()) {
+            mRecyclerView.setNoMore(false);
+        } else {
+            mRecyclerView.setNoMore(true);
+        }
+        mAutoSwipeRefreshLayout.setRefreshing(false);
+        List<WelfareBean.ObjBean.ListBean> list = bean.getObj().getList();
+        if (isLoadMore) {
+            mAdapter.updateDataLast(list);
+            isLoadMore = false;
+        } else {
+            mAdapter.updateData(list);
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

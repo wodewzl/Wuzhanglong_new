@@ -104,9 +104,9 @@ public class TabThreeFragment extends BaseFragment implements OnClickListener, P
                 @Override
                 public View getView(FlowLayout parent, final int position, MyIdolsVO.ObjBean objBean) {
                     final TextView tv = new TextView(mActivity);
-                    tv.setPadding(15, 10, 15, 10);
+                    tv.setPadding(36, 12, 36, 12);
                     tv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 22, R.color.C3, R.color.C3));
-                    tv.setTextColor(ContextCompat.getColor(mActivity, R.color.C5));
+                    tv.setTextColor(ContextCompat.getColor(mActivity, R.color.star_gray_title));
                     tv.setText(objBean.getIdolName());
                     return tv;
                 }

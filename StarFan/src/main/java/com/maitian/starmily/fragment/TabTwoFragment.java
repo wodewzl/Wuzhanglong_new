@@ -22,7 +22,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
-public class TabTwoFragment extends BaseFragment implements View.OnClickListener, Serializable, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener, PostCallback , ChildClikCallback {
+public class TabTwoFragment extends BaseFragment implements View.OnClickListener, Serializable, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener, PostCallback, ChildClikCallback {
     private LuRecyclerView mRecyclerView;
     private RiceCircleAdapter mAdapter;
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
@@ -61,7 +61,7 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
         map.put("userId", "4338");
         map.put("pageNum", mCurrentPage + "");
         map.put("pageSize", "10");
-        StartHttpUtils.get(mActivity, this, Constant.RICE_CIRCLE_LIST, map, RiceCircleVO.class);
+        StartHttpUtils.get(mActivity, this, Constant.TOPIC_LIST, map, RiceCircleVO.class);
 
 
     }
@@ -133,7 +133,7 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
         HashMap<String, Object> map = new HashMap<>();
         map.put("topicId", topicId);
         map.put("userId", "4338");
-        StartHttpUtils.postCallBack(mActivity,  Constant.FAVORIATE_TOPIC, map, BaseVO.class,this);
+        StartHttpUtils.postCallBack(mActivity, Constant.FAVORIATE_TOPIC, map, BaseVO.class, this);
     }
 
     @Override
@@ -141,15 +141,19 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
         HashMap<String, Object> map = new HashMap<>();
         map.put("topicId", topicId);
         map.put("userId", "4338");
-        StartHttpUtils.postCallBack(mActivity,  Constant.LIKE_TOPIC, map, BaseVO.class,this);
+        StartHttpUtils.postCallBack(mActivity, Constant.LIKE_TOPIC, map, BaseVO.class, this);
     }
 
     @Override
-    public void replayLikePost(String id) {
+    public void replayLikePost(String id, int status) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("commentId", id);
         map.put("userId", "4338");
-        map.put("type", "4338");
-        StartHttpUtils.postCallBack(mActivity,  Constant.LIKE_TOPIC, map, BaseVO.class,this);
+        if (status == 1) {
+            map.put("type", "0");
+        } else {
+            map.put("type", "1");
+        }
+        StartHttpUtils.postCallBack(mActivity, Constant.LIKE_COMMENT, map, BaseVO.class, this);
     }
 }

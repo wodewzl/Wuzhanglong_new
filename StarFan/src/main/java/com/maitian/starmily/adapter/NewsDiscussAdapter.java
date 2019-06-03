@@ -48,18 +48,25 @@ public class NewsDiscussAdapter extends RecyclerBaseAdapter {
         helper.setText(R.id.reply_content_tv, vo.getReplyMsg());
         TextView replyPeopleTv = helper.getTextView(R.id.reply_people_tv);
         if (vo.getCommentReply() != null) {
-            BaseCommonUtils.setTextTwoBefore(mContext, replyPeopleTv, vo.getCommentReply().getList().get(0).getFromUserName(),
-                    " 等" + vo.getCommentReply().getSize() + "人觉得很赞", R.color.colorAccent, 1.0f);
+            helper.setVisibility(R.id.replay_content_layout, View.VISIBLE);
+            BaseCommonUtils.setTextThree(mContext, replyPeopleTv, vo.getCommentReply().getList().get(0).getFromUserName(),
+                    "  等人", "  共" + vo.getCommentReply().getSize() + "条回复", R.color.star_black, 1.0f);
             helper.setText(R.id.reply_count_tv, vo.getCommentReply().getTotal() + "");
         } else {
-            BaseCommonUtils.setTextTwoBefore(mContext, replyPeopleTv, "",
-                    " 等" + 0 + "人觉得很赞", R.color.colorAccent, 1.0f);
-            helper.setText(R.id.reply_count_tv, "0");
+            helper.setVisibility(R.id.replay_content_layout, View.GONE);
         }
-        helper.setText(R.id.reply_favout_tv, vo.getLikeCount() + "");
+        helper.setText(R.id.reply_like_tv, vo.getLikeCount() + "");
+
+        TextView replyLikeTv=helper.getTextView(R.id.reply_like_tv);
+        if (vo.getLikeStatus() == 1) {
+            replyLikeTv.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.like_press_small, 0, 0, 0);
+        } else {
+            replyLikeTv.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.like_normal_small, 0, 0, 0);
+        }
         helper.setItemChildClickListener(R.id.reply_count_tv);
-        helper.setItemChildClickListener(R.id.reply_favout_tv);
+        helper.setItemChildClickListener(R.id.reply_like_tv);
         helper.setItemChildClickListener(R.id.reply_people_tv);
+        helper.setItemChildClickListener(R.id.report_tv);
     }
 
 }

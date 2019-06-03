@@ -885,6 +885,7 @@ public class RiceCircleVO extends BaseVO {
                     private CommentReplyBean commentReply;
                     private String nickname;
                     private int likeCount;
+                    private int likeStatus;
                     private int id;
                     private String userName;
                     private int userId;
@@ -954,6 +955,14 @@ public class RiceCircleVO extends BaseVO {
 
                     public void setLikeCount(int likeCount) {
                         this.likeCount = likeCount;
+                    }
+
+                    public int getLikeStatus() {
+                        return likeStatus;
+                    }
+
+                    public void setLikeStatus(int likeStatus) {
+                        this.likeStatus = likeStatus;
                     }
 
                     public int getId() {

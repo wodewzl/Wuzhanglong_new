@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.HomeHitSerachActivity"
+    android:background="@color/C1">
+    <com.wuzhanglong.library.view.AutoSwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/C3"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/search_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/padding_15_10"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_gradient">
+
+                <TextView
+                    android:id="@+id/search_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:text="搜索"
+                    android:textColor="@color/C1" />
+
+                <EditText
+                    android:id="@+id/search_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/search_iv"
+                    android:layout_weight="1"
+                    android:background="@drawable/corners_white"
+                    android:drawableLeft="@drawable/search_icon"
+                    android:drawablePadding="8dp"
+                    android:hint="搜索你感兴趣的商品"
+                    android:imeOptions="actionSearch"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:textColorHint="@color/C1"
+                    android:textSize="@dimen/sp_12" />
+
+                <ImageView
+                    android:id="@+id/delete_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/delete_img"
+                    android:layout_toLeftOf="@id/search_iv"
+                    android:layout_marginRight="20dp"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone"/>
+
+
+            </RelativeLayout>
+            <com.github.jdsjlzx.recyclerview.LuRecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </com.wuzhanglong.library.view.AutoSwipeRefreshLayout>
+
+</LinearLayout>

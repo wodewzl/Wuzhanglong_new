@@ -18,6 +18,7 @@
         android:paddingRight="@dimen/dp_24">
 
         <TextView
+            android:id="@+id/name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="爱奇艺会员卡"
@@ -26,6 +27,7 @@
             />
 
         <TextView
+            android:id="@+id/money_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

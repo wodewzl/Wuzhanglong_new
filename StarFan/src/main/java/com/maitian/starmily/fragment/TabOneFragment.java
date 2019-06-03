@@ -9,6 +9,7 @@ import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.maitian.starmily.R;
 import com.maitian.starmily.activity.FindTopicActivity;
+import com.maitian.starmily.activity.HomeHitListActivity;
 import com.maitian.starmily.activity.HomeNewsActivity;
 import com.maitian.starmily.activity.HomePromotionsActivity;
 import com.maitian.starmily.activity.HomeWelfareActivity;
@@ -87,6 +88,9 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
             case R.id.welfare_tv:
                 mActivity.openActivity(HomeWelfareActivity.class);
                 break;
+            case R.id.rank_layout:
+                mActivity.openActivity(HomeHitListActivity.class);
+                break;
             default:
                 break;
 
@@ -108,6 +112,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
     public View findHeadView() {
         View view = View.inflate(mActivity, R.layout.home_head, null);
+        view.findViewById(R.id.rank_layout).setOnClickListener(this);
         view.findViewById(R.id.topic_tv).setOnClickListener(this);
         view.findViewById(R.id.news_tv).setOnClickListener(this);
         view.findViewById(R.id.promotions_tv).setOnClickListener(this);

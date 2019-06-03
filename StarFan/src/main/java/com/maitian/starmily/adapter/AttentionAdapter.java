@@ -1,9 +1,14 @@
 package com.maitian.starmily.adapter;
 
+import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 
 import com.maitian.starmily.R;
+import com.maitian.starmily.constant.Constant;
+import com.maitian.starmily.model.AttentionBean;
 import com.maitian.starmily.model.MessageVO;
+import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
 
 import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
@@ -18,24 +23,20 @@ public class AttentionAdapter extends RecyclerBaseAdapter {
 
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
-        MessageVO bean= (MessageVO) model;
-//        helper.setText(R.id.money_tv,bean.getMoney());
-//        if(bean.isSelect()){
-//            helper.getTextView(R.id.money_tv).setBackground(BaseCommonUtils.setBackgroundShap(mContext,5,R.color.colorAccent,R.color.C1));
-//            helper.setTextColorRes(R.id.money_tv,R.color.colorAccent);
-//        }else {
-//            helper.getTextView(R.id.money_tv).setBackground(BaseCommonUtils.setBackgroundShap(mContext,5,R.color.C3_1,R.color.C1));
-//            helper.setTextColorRes(R.id.money_tv,R.color.C4);
-//        }
+        AttentionBean.ObjBean bean = (AttentionBean.ObjBean) model;
+        if (!TextUtils.isEmpty(bean.getFollowIcon()))
+            Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + bean.getFollowIcon()).into(helper.getImageView(R.id.head_img));
+        helper.setText(R.id.name_tv, bean.getNickname());
+        if (bean.getStatus() == 1) {
+            helper.setBackgroundRes(R.id.status_tv, R.drawable.frame_kongxin_dark_15);
+            helper.setText(R.id.status_tv, "已关注");
+            helper.setTextColorRes(R.id.status_tv,R.color.color_858585);
+        } else {
+            helper.setBackgroundRes(R.id.status_tv, R.drawable.frame_kongxin_bright_15);
+            helper.setText(R.id.status_tv, "关注Ta");
+            helper.setTextColorRes(R.id.status_tv,R.color.colorAccent);
+        }
     }
 
-    @Override
-    public int getItemCount() {
-        return 20;
-    }
 
-    @Override
-    public int getItemViewType(int position) {
-        return R.layout.attention_adapter;
-    }
 }

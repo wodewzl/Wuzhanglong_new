@@ -1,6 +1,7 @@
 package com.maitian.starmily.activity;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
@@ -135,6 +136,9 @@ public class MyAttentionActivity extends BaseActivity {
         mFragmentList = new ArrayList<>();
         for (int i = 0; i <3 ; i++) {
             final AttentionFragment fragment =new AttentionFragment();
+            Bundle bundle=new Bundle();
+            bundle.putInt("type",i);//0我的爱豆1我的关注2我的粉丝
+            fragment.setArguments(bundle);
             mFragmentList.add(fragment);
         }
         mViewPager.setOffscreenPageLimit(mTitleDataList.length);

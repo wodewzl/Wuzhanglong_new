@@ -43,19 +43,28 @@
             android:textColor="@color/star_gray_title"
             android:textSize="10sp"/>
 
-        <TextView
-            android:id="@+id/reply_people_tv"
+        <LinearLayout
+            android:id="@+id/replay_content_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/color_F5F5F5"
-            android:paddingLeft="10dp"
-            android:paddingTop="8dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="8dp"
-            android:text="女王大人"
-            android:textColor="@color/star_gray_title"
-            android:textSize="10sp"/>
+            android:orientation="horizontal"
+            android:background="@color/color_F5F5F5">
+
+            <TextView
+                android:id="@+id/reply_people_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@mipmap/right_arrow"
+                android:drawablePadding="8dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="8dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="8dp"
+                android:text="女王大人"
+                android:textColor="@color/colorAccent"
+                android:textSize="10sp" />
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -69,26 +78,34 @@
                 android:layout_weight="1"
                 android:text="2019-04-20"
                 android:textColor="@color/star_gray"
-                android:textSize="10sp"/>
+                android:textSize="10sp" />
 
+            <TextView
+                android:id="@+id/report_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:drawableLeft="@mipmap/jubao"
+                android:textColor="@color/star_gray"
+                android:textSize="10sp" />
             <TextView
                 android:id="@+id/reply_count_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
                 android:drawableLeft="@mipmap/message_nomal_small"
-                android:text="123"
+                android:text="0"
                 android:textColor="@color/star_gray"
-                android:textSize="10sp"/>
+                android:textSize="10sp" />
 
             <TextView
-                android:id="@+id/reply_favout_tv"
+                android:id="@+id/reply_like_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@mipmap/like_press_small"
-                android:text="123"
+                android:text="0"
                 android:textColor="@color/star_gray"
-                android:textSize="10sp"/>
+                android:textSize="10sp" />
         </LinearLayout>
 
 

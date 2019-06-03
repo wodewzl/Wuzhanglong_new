@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/padding_15_10"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/C1"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/head_img"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/user_icon_def"
+        app:civ_border_color="@color/C1"
+        app:civ_border_width="2dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="吴章龙"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="75dp"
+        android:layout_height="34dp"
+        android:background="@drawable/corners_search_15"
+        android:gravity="center"
+        android:text="守护"
+        android:textColor="@color/C1" />
+</LinearLayout>

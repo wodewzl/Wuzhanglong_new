@@ -69,18 +69,18 @@
                     android:visibility="gone" />
 
                 <TextView
-                    android:id="@+id/sin_tv"
-                    android:layout_width="50dp"
+                    android:id="@+id/sign_tv"
+                    android:layout_width="65dp"
                     android:layout_height="22dp"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
+                    android:layout_marginRight="-10dp"
                     android:layout_marginBottom="90dp"
-                    android:background="@color/star_yellow"
-                    android:drawableLeft="@drawable/bg_circle_sign"
-                    android:drawablePadding="4dp"
-                    android:gravity="center_vertical"
+                    android:background="@mipmap/sign_bg"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="15dp"
                     android:text="签到"
-                    android:textColor="@color/C1"
+                    android:textColor="@color/star_yellow"
                     android:textSize="@dimen/dp_10"
                     android:visibility="visible" />
 

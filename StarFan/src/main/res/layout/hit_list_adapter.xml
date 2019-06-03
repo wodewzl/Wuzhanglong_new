@@ -79,7 +79,7 @@
         android:id="@+id/hit_tv"
         android:layout_width="50dp"
         android:layout_height="20dp"
-        android:background="@color/colorAccent"
+        android:background="@drawable/frame_kongxin_coloraccent"
         android:gravity="center"
         android:text="打榜"
         android:textColor="@color/colorAccent"

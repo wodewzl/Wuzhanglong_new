@@ -20,6 +20,7 @@ public class MyPaurseDetailActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        mBaseOkTv.setText("使用明细");
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
         mRecyclerView = getViewById(R.id.recycler_view);

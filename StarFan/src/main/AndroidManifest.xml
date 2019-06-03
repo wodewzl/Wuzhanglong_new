@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup,icon,theme,label">
-        <activity android:name=".activity.PublishDiscussActivity"></activity>
+        <activity android:name=".activity.RiceCircleGuardActivity"></activity>
+        <activity android:name=".activity.HomeHitSerachActivity" />
+        <activity android:name=".activity.ReportActivity" />
+        <activity android:name=".activity.PublishDiscussActivity" />
         <activity android:name=".activity.HomeNewsReplyActivity" />
         <activity android:name=".activity.HomeNewsDetailActivity" />
         <activity android:name=".activity.FindTopicActivity" />

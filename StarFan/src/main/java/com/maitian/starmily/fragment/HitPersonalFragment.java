@@ -7,6 +7,7 @@ import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.maitian.starmily.R;
 import com.maitian.starmily.adapter.HitListAdapter;
+import com.maitian.starmily.adapter.HitPersonalAdapter;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
@@ -17,13 +18,13 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.Serializable;
 
-public class HitListFragment extends BaseFragment implements View.OnClickListener, ScrollableHelper.ScrollableContainer, PostCallback, Serializable {
+public class HitPersonalFragment extends BaseFragment implements View.OnClickListener, ScrollableHelper.ScrollableContainer, PostCallback, Serializable {
     private LuRecyclerView mRecyclerView;
-    private HitListAdapter mAdapter;
+    private HitPersonalAdapter mAdapter;
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     @Override
     public void setContentView() {
-        contentInflateView(R.layout.hit_list_fragment);
+        contentInflateView(R.layout.hit_persional_fragment);
     }
 
     @Override
@@ -31,7 +32,7 @@ public class HitListFragment extends BaseFragment implements View.OnClickListene
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
         mRecyclerView = getViewById(R.id.recycler_view);
-        mAdapter = new HitListAdapter(mRecyclerView);
+        mAdapter = new HitPersonalAdapter(mRecyclerView);
         RecyclerViewUtil.initRecyclerViewLinearLayout(this.getActivity(), mRecyclerView, mAdapter, R.dimen.dp_10, R.color.C3, true);
     }
 

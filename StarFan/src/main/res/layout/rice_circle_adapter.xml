@@ -54,7 +54,7 @@
         app:bga_npl_itemCornerRadius="0dp"
         app:bga_npl_itemSpanCount="3"
         app:bga_npl_itemWhiteSpacing="6dp"
-        app:bga_npl_itemWidth="106dp"
+        app:bga_npl_itemWidth="109dp"
         app:bga_npl_otherWhiteSpacing="0dp"
         app:bga_npl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
         app:bga_npl_showAsLargeWhenOnlyOne="false"
@@ -75,6 +75,7 @@
             android:textSize="10sp"/>
 
         <ImageView
+            android:id="@+id/discuss_tv"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:padding="2dp"
@@ -90,6 +91,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/like_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -114,5 +116,14 @@
         android:orientation="vertical">
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/more_tv"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="10dp"
+        android:text="查看更多"
+        android:gravity="center"/>
 
 </LinearLayout>
