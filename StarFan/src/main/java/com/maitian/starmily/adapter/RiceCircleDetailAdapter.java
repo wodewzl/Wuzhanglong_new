@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import com.maitian.starmily.R;
 import com.maitian.starmily.model.MessageVO;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
+import com.wuzhanglong.library.utils.DateUtils;
 
 import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
 
@@ -27,6 +28,8 @@ public class RiceCircleDetailAdapter extends RecyclerBaseAdapter {
 //            helper.getTextView(R.id.money_tv).setBackground(BaseCommonUtils.setBackgroundShap(mContext,5,R.color.C3_1,R.color.C1));
 //            helper.setTextColorRes(R.id.money_tv,R.color.C4);
 //        }
+
+
     }
 
     @Override
@@ -36,6 +39,6 @@ public class RiceCircleDetailAdapter extends RecyclerBaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        return R.layout.news_adapter;
+        return R.layout.rice_circle_detail_adapter;
     }
 }

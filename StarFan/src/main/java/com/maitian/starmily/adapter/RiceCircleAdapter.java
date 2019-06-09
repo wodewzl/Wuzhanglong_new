@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.maitian.starmily.R;
+import com.maitian.starmily.activity.HomeNewsReplyActivity;
 import com.maitian.starmily.activity.PublishDiscussActivity;
 import com.maitian.starmily.activity.ReportActivity;
 import com.maitian.starmily.activity.RiceCircleDetailActivity;
@@ -162,7 +163,16 @@ public class RiceCircleAdapter extends RecyclerBaseAdapter implements BGANinePho
                         mActivity.open(PublishDiscussActivity.class, bundle, 0);
                         break;
                     case R.id.more_tv:
-                        mActivity.openActivity(RiceCircleDetailActivity.class);
+                        Bundle bundleMore=new Bundle();
+                        bundleMore.putInt("type",1);
+                        bundleMore.putString("head_url", beanXX.getIconUrl());
+                        bundleMore.putString("id", beanXX.getTopicId()+"");
+                        bundleMore.putString("name", beanXX.getNickname());
+                        bundleMore.putString("content", beanXX.getContent());
+                        bundleMore.putLong("time", beanXX.getCreateTime());
+                        bundleMore.putString("like_count", beanXX.getTopicLike().getTopicLikeUser().size() + "");
+                        bundleMore.putString("discuss_count", beanXX.getTopicComment() != null ? beanXX.getTopicComment().getTotal() + "" : "0");
+                        mActivity.open(HomeNewsReplyActivity.class,bundleMore,0);
                         break;
                     default:
                         break;
@@ -196,7 +206,16 @@ public class RiceCircleAdapter extends RecyclerBaseAdapter implements BGANinePho
         replayContentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mActivity.openActivity(RiceCircleDetailActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putInt("type",2);
+                bundle.putString("id", vo.getUserId()+"");
+                bundle.putString("head_url", vo.getIcon_url());
+                bundle.putString("name", vo.getNickname());
+                bundle.putString("content", vo.getReplyMsg());
+                bundle.putLong("time", vo.getCreateTime());
+                bundle.putString("like_count", vo.getLikeCount()+"");
+                bundle.putString("discuss_count", vo.getCommentReply() != null ? vo.getCommentReply().getTotal() + "" : "0");
+                mActivity.open(HomeNewsReplyActivity.class,bundle,0);
             }
         });
         TextView replyCountTv = view.findViewById(R.id.reply_count_tv);

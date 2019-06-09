@@ -15,6 +15,7 @@ import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 
@@ -62,8 +63,6 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
         map.put("pageNum", mCurrentPage + "");
         map.put("pageSize", "10");
         StartHttpUtils.get(mActivity, this, Constant.TOPIC_LIST, map, RiceCircleVO.class);
-
-
     }
 
     @Override

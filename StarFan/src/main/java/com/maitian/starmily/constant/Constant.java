@@ -17,6 +17,9 @@ public class Constant {
     public static final String LIKE_TOPIC = "topic/likeTopic/"; //点赞
     public static final String LIKE_COMMENT = "topic/likeComment/"; //评论点赞
     public static final String LIKE_REPLY = "topic/likeReply/"; //帖子回复点赞
+    public static final String TOPIC_FIND_COMMENT_BY_PAGE = "topic/findCommentByPage/"; //帖子评论分页
+    public static final String TOPIC_FIND_REPLY_BY_PAGE = "topic/findReplyByPage/"; //帖子回复分页
+
     public static final String REG_AND_LOG = "user/regAndLog/"; //登陆注册
     public static final String FIND_IDOLS_BY_PAGE = "user/findIdolsByPage/"; //明星守护列表
     public static final String GUARDIAN_IDOL = "user/guardianIdol/"; //明星守护

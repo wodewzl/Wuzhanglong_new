@@ -33,6 +33,7 @@ public class HomeNewsReplyActivity extends BaseActivity implements SwipeRefreshL
     private boolean isLoadMore = true;
     private CircleImageView mHeadIv;
     private TextView mNameTv, mContentTv, mTimeTv, mLikeCountTv, mDiscussCountTv;
+    private int mType=1;//帖子评论2帖子回复3资讯回复
 
     @Override
     public void baseSetContentView() {
@@ -64,6 +65,7 @@ public class HomeNewsReplyActivity extends BaseActivity implements SwipeRefreshL
         mTimeTv.setText(DateUtils.parseDateDayAndHour(intent.getLongExtra("time", 0)+""));
         mLikeCountTv.setText(intent.getStringExtra("like_count"));
         mDiscussCountTv.setText(intent.getStringExtra("discuss_count"));
+        mType=intent.getIntExtra("type",1);
     }
 
     @Override
@@ -77,8 +79,14 @@ public class HomeNewsReplyActivity extends BaseActivity implements SwipeRefreshL
         HashMap<String, Object> map = new HashMap<>();
         map.put("pageNum", mCurrentPage + "");
         map.put("pageSize", "10");
-        map.put("id", "35");
-        StartHttpUtils.get(mActivity, this, Constant.FIND_REPLY_BY_PAGE, map, DiscussReplyBean.class);
+        map.put("id", this.getIntent().getStringExtra("id"));
+        if(mType==1){
+            StartHttpUtils.get(mActivity, this, Constant.TOPIC_FIND_COMMENT_BY_PAGE, map, DiscussReplyBean.class);
+        }else if(mType==2){
+            StartHttpUtils.get(mActivity, this, Constant.TOPIC_FIND_REPLY_BY_PAGE, map, DiscussReplyBean.class);
+        }else if(mType==3){
+            StartHttpUtils.get(mActivity, this, Constant.FIND_REPLY_BY_PAGE, map, DiscussReplyBean.class);
+        }
     }
 
     @Override

@@ -11,9 +11,9 @@
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="51dp"
         android:layout_weight="1"
-        android:background="@color/C3"
-        android:layout_marginBottom="51dp">
+        android:background="@color/C3">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -84,21 +84,9 @@
                             android:gravity="center" />
 
                         <TextView
-                            android:id="@+id/like_count_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@mipmap/like_press"
-                            android:drawablePadding="5dp"
-                            android:gravity="center"
-                            android:text="222"
-                            android:textColor="@color/star_gray"
-                            android:textSize="10sp" />
-
-                        <TextView
                             android:id="@+id/discuss_count_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
                             android:drawableLeft="@mipmap/message_press"
                             android:drawablePadding="5dp"
                             android:gravity="center"
@@ -106,10 +94,19 @@
                             android:textColor="@color/star_gray"
                             android:textSize="10sp" />
 
+                        <TextView
+                            android:id="@+id/like_count_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:drawableLeft="@mipmap/like_press"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:text="222"
+                            android:textColor="@color/star_gray"
+                            android:textSize="10sp" />
                     </LinearLayout>
                 </LinearLayout>
-
-
             </LinearLayout>
 
             <com.github.jdsjlzx.recyclerview.LuRecyclerView

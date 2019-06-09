@@ -206,9 +206,10 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
                 bundle.putString("name", beanX.getNickname());
                 bundle.putString("content", beanX.getReplyMsg());
                 bundle.putLong("time", beanX.getCreateTime());
-                bundle.putString("like_count", beanX.getLikeCount() + "");
-                bundle.putString("discuss_count", beanX.getCommentReply() != null ? beanX.getCommentReply().getList().size() + "" : "0");
+                bundle.putString("like_count", beanX.getLikeCount()+ "");
+                bundle.putString("discuss_count", beanX.getCommentReply() != null ? beanX.getCommentReply().getTotal() + "" : "0");
                 open(HomeNewsReplyActivity.class, bundle, 0);
+
                 break;
             default:
                 break;

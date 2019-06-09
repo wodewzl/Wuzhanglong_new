@@ -60,12 +60,13 @@ public class RiceCircleDetailActivity extends BaseActivity implements SwipeRefre
 
     @Override
     public void getData() {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("topicId", "2");
-        map.put("userId", "4338");
-        map.put("pageNum", mCurrentPage + "");
-        map.put("pageSize", "10");
-        BSHttpUtils.post(mActivity, this, Constant.TOPIC_DETAILS, map, RiceCircleVO.class);
+//        HashMap<String, Object> map = new HashMap<>();
+//        map.put("topicId", "2");
+//        map.put("userId", "4338");
+//        map.put("pageNum", mCurrentPage + "");
+//        map.put("pageSize", "10");
+//        BSHttpUtils.post(mActivity, this, Constant.TOPIC_DETAILS, map, RiceCircleVO.class);
+        showView();
     }
 
     @Override
