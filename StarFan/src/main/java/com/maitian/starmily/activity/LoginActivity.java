@@ -1,25 +1,38 @@
 package com.maitian.starmily.activity;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.maitian.starmily.R;
+import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
+import com.maitian.starmily.fragment.TabFiveFragment;
+import com.maitian.starmily.fragment.TabFourFragment;
+import com.maitian.starmily.fragment.TabOneFragment;
+import com.maitian.starmily.fragment.TabThreeFragment;
+import com.maitian.starmily.fragment.TabTwoFragment;
 import com.maitian.starmily.model.UserInfoVO;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.wuzhanglong.library.activity.BaseActivity;
+import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.BSHttpUtils;
+import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener, PostCallback {
-    private TextView mLoginWeixinTv, mLoginQqTv;
+    private ImageView mLoginWeixinIv, mLoginQqIv, mLoginXinLangIv;
+    private TextView mLoginTv, mRegistTv;
 
     @Override
     public void baseSetContentView() {
@@ -28,19 +41,26 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void initView() {
-        mLoginWeixinTv = getViewById(R.id.login_weixin_tv);
-        mLoginQqTv = getViewById(R.id.login_qq_tv);
+        mBaseHeadLayout.setVisibility(View.GONE);
+        mLoginWeixinIv = getViewById(R.id.login_weixin_iv);
+        mLoginQqIv = getViewById(R.id.login_qq_iv);
+        mLoginTv = getViewById(R.id.login_tv);
+        mRegistTv = getViewById(R.id.regist_tv);
+        mLoginXinLangIv = getViewById(R.id.login_xinlang_iv);
     }
 
     @Override
     public void bindViewsListener() {
-        mLoginWeixinTv.setOnClickListener(this);
-        mLoginQqTv.setOnClickListener(this);
+        mLoginWeixinIv.setOnClickListener(this);
+        mLoginQqIv.setOnClickListener(this);
+        mLoginTv.setOnClickListener(this);
+        mRegistTv.setOnClickListener(this);
+        mLoginXinLangIv.setOnClickListener(this);
     }
 
     @Override
     public void getData() {
-
+        showView();
     }
 
     @Override
@@ -62,12 +82,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View v) {
         UMShareAPI shareAPI = UMShareAPI.get(mActivity);
         switch (v.getId()) {
-            case R.id.login_weixin_tv:
+            case R.id.login_weixin_iv:
                 shareAPI.getPlatformInfo(mActivity, SHARE_MEDIA.WEIXIN, new UMShareListener());
                 break;
-            case R.id.login_qq_tv:
+            case R.id.login_qq_iv:
                 shareAPI.getPlatformInfo(mActivity, SHARE_MEDIA.QQ, new UMShareListener());
+                break;
+            case R.id.login_xinlang_iv:
+                shareAPI.getPlatformInfo(mActivity, SHARE_MEDIA.SINA, new UMShareListener());
 
+                break;
+            case R.id.login_tv:
+                openActivity(LoginPhoneActivity.class);
+                break;
+            case R.id.regist_tv:
+                openActivity(RegistActivity.class);
                 break;
             default:
                 break;
@@ -76,7 +105,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void success(BaseVO vo) {
-
+        UserInfoVO userInfoVO= (UserInfoVO) vo;
+        if(userInfoVO.getObj()!=null){
+            AppApplication.getInstance().saveUserInfoVO(userInfoVO);
+            this.finish();
+            openActivity(MainActivity.class);
+        }
     }
 
     class UMShareListener implements Serializable, UMAuthListener {
@@ -86,6 +120,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
          */
         @Override
         public void onStart(SHARE_MEDIA platform) {
+            System.out.println("=============>");
         }
 
         /**
@@ -98,12 +133,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
             HashMap<String, Object> map = new HashMap<>();
             if (platform == SHARE_MEDIA.WEIXIN) {
-//                mSuccessType = "6";
-//        map.put("type", mOhterLoginType);
+                map.put("loginType", "2");
 //                map.put("openid", openid);
-//                map.put("nickname", nickname);
-//                map.put("platform", "1");
-//                map.put("headpicurl", headpicurl);
+                map.put("nickname", data.get("name"));
+                map.put("iconUrl", data.get("iconurl"));
+                map.put("wechatNo", data.get("uid"));
+
             } else {
 //                mSuccessType = "7";
             }
@@ -133,7 +168,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     public void otherLogin(HashMap<String, Object> map) {
+        StartHttpUtils.postCallBack(mActivity, Constant.REG_AND_LOG, map, UserInfoVO.class, this);
+    }
 
-        BSHttpUtils.postCallBack(mActivity, Constant.REG_AND_LOG, map, UserInfoVO.class, this);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 }

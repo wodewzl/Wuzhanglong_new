@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.maitian.starmily.R;
+import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
 import com.maitian.starmily.fragment.TabFiveFragment;
 import com.maitian.starmily.fragment.TabFourFragment;
@@ -36,7 +37,6 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class LogoActivity extends BaseLogoActivity implements EasyPermissions.PermissionCallbacks {
     private static final int REQUEST_PERMISSIONS = 1;
-    public List<BaseFragment> list = new ArrayList<>();
     private boolean mFlag = false;
 
     @Override
@@ -44,18 +44,6 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
         EventBus.getDefault().register(this);
         mLogoImageView.setBackgroundResource(R.mipmap.logo);
 //        initPermissions();
-        list = new ArrayList<>();
-        TabOneFragment one = new TabOneFragment();
-        TabTwoFragment two = new TabTwoFragment();
-        TabThreeFragment three = new TabThreeFragment();
-        TabFourFragment four = new TabFourFragment();
-        TabFiveFragment five = new TabFiveFragment();
-        list.add(one);
-        list.add(two);
-        list.add(three);
-        list.add(four);
-        list.add(five);
-
         getAppConfig();
     }
 
@@ -84,8 +72,11 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
         Intent intent = new Intent();
-        intent.putExtra("fragment_list", (Serializable) list);
-        intent.setClass(this, MainActivity.class);
+        if (AppApplication.getInstance().getUserInfoVO() != null) {
+            intent.setClass(this, MainActivity.class);
+        } else {
+            intent.setClass(this, LoginActivity.class);
+        }
         startActivity(intent);
         this.finish();
     }
@@ -100,8 +91,11 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
         String[] perms = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
         if (EasyPermissions.hasPermissions(this, perms)) {
             Intent intent = new Intent();
-            intent.putExtra("fragment_list", (Serializable) list);
-            intent.setClass(this, MainActivity.class);
+            if (AppApplication.getInstance().getUserInfoVO() != null) {
+                intent.setClass(this, MainActivity.class);
+            } else {
+                intent.setClass(this, LoginActivity.class);
+            }
 
 
 //            intent.setClass(this, MyBindPhoneActivity.class);

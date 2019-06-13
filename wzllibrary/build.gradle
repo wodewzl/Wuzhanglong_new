@@ -55,7 +55,7 @@ dependencies {
     api rootProject.ext.dependencies["versionchecklib"]
     api rootProject.ext.dependencies["floatingactionbutton"]
     api rootProject.ext.dependencies["countdownview"]
-    api rootProject.ext.dependencies["wechat-sdk"]
+
     api rootProject.ext.dependencies["jjdxm-dialogui"]
     api rootProject.ext.dependencies["integration"]
     api rootProject.ext.dependencies["FlowLayout"]
@@ -63,6 +63,18 @@ dependencies {
     api rootProject.ext.dependencies["customedittext"]
     api rootProject.ext.dependencies["navigation"]
     api rootProject.ext.dependencies["CouponView"]
+
+
+    //友盟统计  自动集成友盟，还需要在相应modle包名下新建wxapi里新建WXEntryActivity
+    api 'com.umeng.sdk:common:1.5.1'
+    api 'com.umeng.sdk:analytics:7.5.0'
+//友盟社会化分享
+    api 'com.umeng.sdk:share-core:6.9.1'
+    api 'com.umeng.sdk:share-qq:6.9.1.1'
+    api 'com.umeng.sdk:share-wechat:6.9.1'
+    api 'com.umeng.sdk:share-sina:6.9.1'
+//分享面板
+    api 'com.umeng.sdk:shareboard-widget:6.9.1'
 
 
 }

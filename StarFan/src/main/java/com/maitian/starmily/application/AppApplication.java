@@ -23,8 +23,10 @@ import java.io.ObjectOutputStream;
 public class AppApplication extends Application {
     private static AppApplication mAppApplication;
     {
-        PlatformConfig.setWeixin("wxafa13c7f68391fd5","087d98720a5f9cb9feb3e2e3de44d58e");
-        PlatformConfig.setQQZone("1106689363","kWwnHAXjYQ40YaQW");
+        PlatformConfig.setWeixin("wxee271193d3f2c8cc","c02a23423cf23c6a90db195405b2c3ac");
+        PlatformConfig.setQQZone("1109182431","tq6xQF7CT7NvHtLO");
+        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com");
+
     }
 
     @Override
@@ -34,8 +36,9 @@ public class AppApplication extends Application {
 //        RxUtils.init(this);
 //        JPushInterface.setDebugMode(true);
 //        JPushInterface.init(this);
-        UMConfigure.init(this,"5ad16d84b27b0a6346000067"
-                ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
+
+        UMConfigure.init(this,"5cede1a53fc195fe74000883"
+                ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");//58edcfeb310c93091c000be2 5965ee00734be40b580001a0
         initQiNiu();
 
     }

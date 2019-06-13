@@ -1,6 +1,7 @@
 package com.maitian.starmily.fragment;
 
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,8 +12,12 @@ import com.maitian.starmily.activity.MyPostsActivity;
 import com.maitian.starmily.activity.MyPurseActivity;
 import com.maitian.starmily.activity.MySettiingsActivity;
 import com.maitian.starmily.activity.MyTaskActivity;
+import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
 import com.maitian.starmily.model.FindTopicVO;
+import com.maitian.starmily.model.MyHomeBean;
+import com.maitian.starmily.model.UserInfoVO;
+import com.squareup.picasso.Picasso;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.wuzhanglong.library.activity.BaseActivity;
@@ -31,8 +36,12 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class TabFiveFragment extends BaseFragment implements View.OnClickListener, PostCallback, Serializable {
     private TextView mSinTv, mItme01Tv, mItme02Tv, mItme03Tv, mItme04Tv, mItme05Tv, mItme06Tv, mItme07Tv;
+    private TextView mDescTv, mNameTv, mLoginTv;
+    private CircleImageView mHeadIv;
 
     @Override
     public void setContentView() {
@@ -49,6 +58,24 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
         mItme05Tv = getViewById(R.id.item_05_tv);
         mItme06Tv = getViewById(R.id.item_06_tv);
         mItme07Tv = getViewById(R.id.item_07_tv);
+        mDescTv = getViewById(R.id.desc_tv);
+        mNameTv = getViewById(R.id.name_tv);
+        mLoginTv = getViewById(R.id.login_tv);
+        mHeadIv = getViewById(R.id.head_img);
+        if (AppApplication.getInstance().getUserInfoVO() != null) {
+            mNameTv.setVisibility(View.VISIBLE);
+            mDescTv.setVisibility(View.VISIBLE);
+            mLoginTv.setVisibility(View.GONE);
+            UserInfoVO userInfoVO = AppApplication.getInstance().getUserInfoVO();
+            mNameTv.setText(userInfoVO.getObj().getNikename());
+            if (!TextUtils.isEmpty(userInfoVO.getObj().getIconUrl())) {
+                Picasso.with(mActivity).load(Constant.DOMAIN_UR + "/" + userInfoVO.getObj().getIconUrl()).into(mHeadIv);
+            }
+        } else {
+            mNameTv.setVisibility(View.GONE);
+            mDescTv.setVisibility(View.GONE);
+            mLoginTv.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -67,9 +94,8 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("userId", "10");
-        StartHttpUtils.get(mActivity, this, Constant.MY_HOME_PAGE, map, FindTopicVO.class);
-        showView();
+        map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
+        StartHttpUtils.get(mActivity, this, Constant.MY_HOME_PAGE, map, MyHomeBean.class);
     }
 
     @Override

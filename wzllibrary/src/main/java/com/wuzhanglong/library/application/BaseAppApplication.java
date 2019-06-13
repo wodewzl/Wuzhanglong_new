@@ -13,5 +13,9 @@ public class BaseAppApplication extends Application {
 //        registerActivityLifecycleCallbacks(ActivityLifecycleHelper.build());//仿微信滑动返回
 //        RxUtils.init(this);//rx工具
 //        UMShareAPI.get(this);//友盟
+
+
+
+
     }
 }

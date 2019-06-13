@@ -5,5 +5,5 @@
         android:startColor="@color/gradient_start"
         />
 
-    <corners android:radius="@dimen/dp_5"/>
+    <corners android:radius="@dimen/dp_30"/>
 </shape>

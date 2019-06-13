@@ -18,6 +18,11 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.maitian.starmily.R;
 
+import com.maitian.starmily.fragment.TabFiveFragment;
+import com.maitian.starmily.fragment.TabFourFragment;
+import com.maitian.starmily.fragment.TabOneFragment;
+import com.maitian.starmily.fragment.TabThreeFragment;
+import com.maitian.starmily.fragment.TabTwoFragment;
 import com.maitian.starmily.view.SpecialTab;
 import com.maitian.starmily.view.SpecialTabRound;
 import com.wuzhanglong.library.activity.BaseActivity;
@@ -48,7 +53,17 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     @Override
     public void initView() {
-        mFragmentList = (ArrayList<BaseFragment>) this.getIntent().getSerializableExtra("fragment_list");
+//        mFragmentList = (ArrayList<BaseFragment>) this.getIntent().getSerializableExtra("fragment_list");
+        TabOneFragment one = new TabOneFragment();
+        TabTwoFragment two = new TabTwoFragment();
+        TabThreeFragment three = new TabThreeFragment();
+        TabFourFragment four = new TabFourFragment();
+        TabFiveFragment five = new TabFiveFragment();
+        mFragmentList.add(one);
+        mFragmentList.add(two);
+        mFragmentList.add(three);
+        mFragmentList.add(four);
+        mFragmentList.add(five);
 
         mVpHome = (ViewPager) findViewById(com.wuzhanglong.library.R.id.vp_home);
         mVpHome.setOffscreenPageLimit(4);

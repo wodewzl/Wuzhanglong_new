@@ -19,8 +19,9 @@ public class Constant {
     public static final String LIKE_REPLY = "topic/likeReply/"; //帖子回复点赞
     public static final String TOPIC_FIND_COMMENT_BY_PAGE = "topic/findCommentByPage/"; //帖子评论分页
     public static final String TOPIC_FIND_REPLY_BY_PAGE = "topic/findReplyByPage/"; //帖子回复分页
-
     public static final String REG_AND_LOG = "user/regAndLog/"; //登陆注册
+    public static final String VERIFY_CODE = "user/verifyCode/"; //获取验证吗
+    public static final String UPDATE_PASSWORD = "user/updatePassword/"; //修改密码
     public static final String FIND_IDOLS_BY_PAGE = "user/findIdolsByPage/"; //明星守护列表
     public static final String GUARDIAN_IDOL = "user/guardianIdol/"; //明星守护
     public static final String FIND_NEWS_COLLECTION_BY_PAGE = "news/findNewsCollectionByPage/"; //话题

@@ -103,7 +103,6 @@ public class StartHttpUtils {
     }
 
 
-
     public static <T> void post(final BaseActivity activity, final UpdateCallback callback, final String url, final Map<String, Object> params, final Class<T> className) {
         final Gson gson = new Gson();
         final String allUrl;

@@ -6,12 +6,15 @@ import android.widget.TextView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.utils.DateUtils;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -24,19 +27,19 @@ import java.util.TimerTask;
 import static com.wuzhanglong.library.http.BSHttpUtils.get;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
-    public static final String URL = "http://api.b1api.com/api?";//易网
+    public static final String URL = "http://api.b1api.com/api?";//博易网
+//public static final String URL = "http://api.b1api.com/t?";
     private MainAdapter mAdapter;
     private LuRecyclerView mRecyclerView;
     private UserInfoVO mUserInfoVO;
     private List<String> mList = new ArrayList<>();
     private String mLimit = "20";
     private Timer mTimer = new Timer();
-    private TextView mNumTv, mResultTv, mYuCeTv, mSortTv, mLastTv, mGeWeiTv, mZabaTv;
+    private TextView mNumTv, mResultTv, mYuCeTv, mSortTv, mLastTv, mGeWeiTv;
     private StringBuffer mSortStrSb = new StringBuffer();
     private StringBuffer mSortStrSb1 = new StringBuffer();
     private double mBackPressed;
-
-
+    private List<UserInfoVO.DataBean> mListData;
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.main_activity);
@@ -53,7 +56,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mSortTv = getViewById(R.id.sort_tv);
         mLastTv = getViewById(R.id.last_tv);
         mGeWeiTv = getViewById(R.id.single_tv);
-        mZabaTv = getViewById(R.id.zaba_tv);
+
         mRecyclerView = getViewById(R.id.recycler_view);
         mAdapter = new MainAdapter(mRecyclerView);
         RecyclerViewUtil.initRecyclerViewLinearLayout(this, mRecyclerView, mAdapter, R.dimen.dp_1, R.color.colorAccent, false);
@@ -72,17 +75,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         HashMap<String, Object> map = new HashMap<>();
         map.put("p", "json");
         map.put("t", "txffc");
-        map.put("limit", mLimit);
-        map.put("token", "F0AB156E84ED3A17");//易网
+//        map.put("limit", mLimit);
+//        map.put("token", "F0AB156E84ED3A17");//易网
+        map.put("token", "829C56AE65D54968");//易网
+        map.put("date", parseDateDay(System.currentTimeMillis()));
         get(mActivity, this, URL, map, UserInfoVO.class);
-
     }
-
+    public static String parseDateDay(long milliseconds) {
+        Date date = new Date(milliseconds);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        String format = simpleDateFormat.format(date);
+        return format;
+    }
     @Override
     public void hasData(BaseVO vo) {
         mUserInfoVO = (UserInfoVO) vo;
-        mAdapter.updateData(mUserInfoVO.getData());
-        countData();
+        List<UserInfoVO.DataBean> list=mUserInfoVO.getData().subList(0,80);
+        mAdapter.updateData(list);
+        countData(list);
     }
 
     @Override
@@ -95,13 +105,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
-    public void countData() {
+    public void countData( List<UserInfoVO.DataBean> listData) {
         mList.clear();
         StringBuffer mLastSb = new StringBuffer();
         StringBuffer geWeiSbOne = new StringBuffer();
         StringBuffer geWeiSb = new StringBuffer();
-        for (int i = 0; i < mUserInfoVO.getData().size(); i++) {
-            String result = mUserInfoVO.getData().get(i).getOpencode().replace(",", "");
+        for (int i = 0; i < listData.size(); i++) {
+            String result = listData.get(i).getOpencode().replace(",", "");
 
             if (i > 4) {
                 if (geWeiSbOne.toString().contains(String.valueOf(result.charAt(4)))) {
@@ -140,54 +150,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //printMap(map);
         Map<String, Integer> sortMap = sortMapByValue(map);
         printMap(sortMap);
-        mNumTv.setText(mUserInfoVO.getData().get(0).getExpect().substring(8, mUserInfoVO.getData().get(0).getExpect().length()));
-        mResultTv.setText(mUserInfoVO.getData().get(0).getOpencode().replaceAll(",", ""));
+        mNumTv.setText(listData.get(0).getExpect().substring(8, listData.get(0).getExpect().length()));
+        mResultTv.setText(listData.get(0).getOpencode().replaceAll(",", ""));
         mYuCeTv.setText(mSortStrSb.substring(mSortStrSb.length() - 3, mSortStrSb.length()));
         mSortTv.setText(mSortStrSb1.toString());
         mGeWeiTv.setText(geWeiSb.toString().substring(0, 3));
         mLastTv.setText(mLastSb.toString());
 
-        String[] wei = {"0", "1", "2", "3", "4"};
-        List<String> list = Arrays.asList(wei);
-        List<String> list2=new ArrayList<>();
-        list2.addAll(list);
-        for (int i = 0; i < 5; i++) {
-            String result2 = mUserInfoVO.getData().get(i).getOpencode().replace(",", "");
-            for (int j = 0; j < 5; j++) {
-                if (mGeWeiTv.getText().toString().contains(String.valueOf(result2.charAt(j))) && list2.contains(j + "")) {
-                    list2.remove(j + "");
-                }
-            }
-        }
-
-        StringBuffer zabaSb = new StringBuffer();
-        if (list2.size() == 0) {
-            mZabaTv.setText("暂无");
-            return;
-        }
-        for (int i = 0; i < list2.size(); i++) {
-            switch (list2.get(i)) {
-                case "0":
-                    zabaSb.append("万位: " + mGeWeiTv.getText().toString());
-                    break;
-                case "1":
-                    zabaSb.append("千位: " + mGeWeiTv.getText().toString());
-                    break;
-                case "2":
-                    zabaSb.append("百位: " + mGeWeiTv.getText().toString());
-                    break;
-                case "3":
-                    zabaSb.append("十位: " + mGeWeiTv.getText().toString());
-                    break;
-                case "4":
-                    zabaSb.append("个位: " + mGeWeiTv.getText().toString());
-                    break;
-                default:
-                    zabaSb.append("暂无");
-                    break;
-            }
-        }
-        mZabaTv.setText(zabaSb.toString());
     }
 
     private Map<String, Integer> sortMapByValue(Map<String, Integer> map) {

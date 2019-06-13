@@ -21,8 +21,6 @@ import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
 * */
 public abstract class RecyclerBaseAdapter<M> extends BGARecyclerViewAdapter {
     public BaseActivity mActivity;
-    public TextView mBaseAdapterTv;
-
 
     public abstract void initData(BGAViewHolderHelper helper, int position, Object model);
 

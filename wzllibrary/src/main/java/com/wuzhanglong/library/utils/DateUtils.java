@@ -537,8 +537,15 @@ public class DateUtils {
         if (null == milliseconds || milliseconds.equals("暂无") || "".equals(milliseconds)) {
             return "";
         }
-        long time = Long.parseLong(milliseconds) * 1000;
+        long time = Long.parseLong(milliseconds);
         Date date = new Date(time);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String format = simpleDateFormat.format(date);
+        return format;
+    }
+
+    public static String parseDateDay(long milliseconds) {
+        Date date = new Date(milliseconds);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String format = simpleDateFormat.format(date);
         return format;

@@ -7,10 +7,12 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="AppThemeSnatch" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppThemeTxffc" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textColor">@color/C4</item>
         <item name="android:textSize">13sp</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="colorPrimaryDark">@color/colorAccent</item>
     </style>
+
+
 </resources>
