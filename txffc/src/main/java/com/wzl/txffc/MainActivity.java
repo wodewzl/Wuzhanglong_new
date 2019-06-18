@@ -28,7 +28,7 @@ import static com.wuzhanglong.library.http.BSHttpUtils.get;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     public static final String URL = "http://api.b1api.com/api?";//博易网
-//public static final String URL = "http://api.b1api.com/t?";
+    //public static final String URL = "http://api.b1api.com/t?";
     private MainAdapter mAdapter;
     private LuRecyclerView mRecyclerView;
     private UserInfoVO mUserInfoVO;
@@ -40,6 +40,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private StringBuffer mSortStrSb1 = new StringBuffer();
     private double mBackPressed;
     private List<UserInfoVO.DataBean> mListData;
+
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.main_activity);
@@ -76,11 +77,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         map.put("p", "json");
         map.put("t", "txffc");
 //        map.put("limit", mLimit);
-//        map.put("token", "F0AB156E84ED3A17");//易网
-        map.put("token", "829C56AE65D54968");//易网
+        map.put("token", "F0AB156E84ED3A17");//易网
+//        map.put("token", "829C56AE65D54968");//易网
         map.put("date", parseDateDay(System.currentTimeMillis()));
         get(mActivity, this, URL, map, UserInfoVO.class);
     }
+
     public static String parseDateDay(long milliseconds) {
         Date date = new Date(milliseconds);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -90,7 +92,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void hasData(BaseVO vo) {
         mUserInfoVO = (UserInfoVO) vo;
-        List<UserInfoVO.DataBean> list=mUserInfoVO.getData().subList(0,80);
+        List<UserInfoVO.DataBean> list = mUserInfoVO.getData().subList(0, 80);
         mAdapter.updateData(list);
         countData(list);
     }
@@ -105,7 +107,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
-    public void countData( List<UserInfoVO.DataBean> listData) {
+    public void countData(List<UserInfoVO.DataBean> listData) {
         mList.clear();
         StringBuffer mLastSb = new StringBuffer();
         StringBuffer geWeiSbOne = new StringBuffer();
