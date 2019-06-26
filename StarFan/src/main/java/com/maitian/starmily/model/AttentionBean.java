@@ -43,6 +43,61 @@ public class AttentionBean extends BaseVO {
         private int status;
         private String followUserName;
 
+        private String idolName;
+        private String alias;
+        private Object groups;
+        private String iconUrl;
+        private Object backUrl;
+        private String info;
+
+        public String getIdolName() {
+            return idolName;
+        }
+
+        public void setIdolName(String idolName) {
+            this.idolName = idolName;
+        }
+
+        public String getAlias() {
+            return alias;
+        }
+
+        public void setAlias(String alias) {
+            this.alias = alias;
+        }
+
+        public Object getGroups() {
+            return groups;
+        }
+
+        public void setGroups(Object groups) {
+            this.groups = groups;
+        }
+
+        public String getIconUrl() {
+            return iconUrl;
+        }
+
+        public void setIconUrl(String iconUrl) {
+            this.iconUrl = iconUrl;
+        }
+
+        public Object getBackUrl() {
+            return backUrl;
+        }
+
+        public void setBackUrl(Object backUrl) {
+            this.backUrl = backUrl;
+        }
+
+        public String getInfo() {
+            return info;
+        }
+
+        public void setInfo(String info) {
+            this.info = info;
+        }
+
         public String getFollowIcon() {
             return followIcon;
         }

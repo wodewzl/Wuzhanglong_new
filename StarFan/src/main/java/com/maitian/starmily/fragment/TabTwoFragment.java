@@ -2,22 +2,36 @@ package com.maitian.starmily.fragment;
 
 
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.dou361.dialogui.DialogUIUtils;
+import com.dou361.dialogui.bean.BuildBean;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.maitian.starmily.R;
+import com.maitian.starmily.activity.RiceCircleStarActivity;
+import com.maitian.starmily.adapter.GuardAdapter;
 import com.maitian.starmily.adapter.RiceCircleAdapter;
 import com.maitian.starmily.adapter.RiceCircleAdapter.ChildClikCallback;
+import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
+import com.maitian.starmily.model.MyIdolsVO;
 import com.maitian.starmily.model.RiceCircleVO;
+import com.maitian.starmily.view.CustomDialog;
+import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
+import com.wuzhanglong.library.utils.WidthHigthUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -29,6 +43,11 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private boolean isLoadMore = true;
     private int mCurrentPage = 1;
+    private TextView mNameTv;
+    private ImageView mHeadIv, mGuardOneIv, mGuardTwoIv;
+    private String mIdolId = "";
+    private CustomDialog mCustomDialog;
+    private GuardAdapter mGuardAdapter;
 
     @Override
     public void setContentView() {
@@ -37,12 +56,51 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void initView(View view) {
+        mNameTv = getViewById(R.id.name_tv);
+        mHeadIv = getViewById(R.id.head_iv);
+        mGuardOneIv = getViewById(R.id.guard_one_iv);
+        mGuardTwoIv = getViewById(R.id.guard_two_iv);
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
         mRecyclerView = getViewById(R.id.recycler_view);
         mAdapter = new RiceCircleAdapter(mRecyclerView);
-
         RecyclerViewUtil.initRecyclerViewLinearLayout(this.getActivity(), mRecyclerView, mAdapter, R.dimen.dp_1, R.color.C3, true);
+        if (AppApplication.getInstance().getMyIdolsVO() != null) {
+            MyIdolsVO myIdolsVO = AppApplication.getInstance().getMyIdolsVO();
+            mIdolId = myIdolsVO.getObj().get(0).getId() + "";
+            mNameTv.setText(myIdolsVO.getObj().get(0).getIdolName());
+            if (!TextUtils.isEmpty(myIdolsVO.getObj().get(0).getBackUrl())) {
+                if (myIdolsVO.getObj().get(0).getBackUrl().contains("http://")) {
+                    Picasso.with(mActivity).load(myIdolsVO.getObj().get(0).getBackUrl()).into(mHeadIv);
+                } else {
+                    Picasso.with(mActivity).load(Constant.DOMAIN_UR + "/" + myIdolsVO.getObj().get(0).getBackUrl()).into(mHeadIv);
+                }
+            }
+            if (myIdolsVO.getObj().size() > 1) {
+                if (!TextUtils.isEmpty(myIdolsVO.getObj().get(1).getIconUrl())) {
+                    if (myIdolsVO.getObj().get(1).getBackUrl().contains("http://")) {
+                        Picasso.with(mActivity).load(myIdolsVO.getObj().get(1).getIconUrl()).into(mGuardOneIv);
+                    } else {
+                        Picasso.with(mActivity).load(Constant.DOMAIN_UR + "/" + myIdolsVO.getObj().get(1).getIconUrl()).into(mGuardOneIv);
+                    }
+                }
+                mGuardOneIv.setVisibility(View.VISIBLE);
+            } else {
+                mGuardOneIv.setVisibility(View.GONE);
+            }
+            if (myIdolsVO.getObj().size() > 2) {
+                if (!TextUtils.isEmpty(myIdolsVO.getObj().get(2).getIconUrl())) {
+                    if (myIdolsVO.getObj().get(2).getBackUrl().contains("http://")) {
+                        Picasso.with(mActivity).load(myIdolsVO.getObj().get(2).getIconUrl()).into(mGuardTwoIv);
+                    } else {
+                        Picasso.with(mActivity).load(Constant.DOMAIN_UR + "/" + myIdolsVO.getObj().get(2).getIconUrl()).into(mGuardTwoIv);
+                    }
+                }
+                mGuardTwoIv.setVisibility(View.VISIBLE);
+            } else {
+                mGuardTwoIv.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override
@@ -51,15 +109,17 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
 //        mAdapter.setOnRVItemClickListener(this);
         mRecyclerView.setOnLoadMoreListener(this);
         mAdapter.setChildClikCallback(this);
+        mGuardTwoIv.setOnClickListener(this);
+        mGuardOneIv.setOnClickListener(this);
+//        EventBus.getDefault().register(this);
     }
 
 
     @Override
     public void getData() {
-//        http://132.232.197.128:8080/topic/userTopicList?pageNum=1&pageSize=10&userId=4337
         HashMap<String, Object> map = new HashMap<>();
-        map.put("idolId", "2");
-        map.put("userId", "4338");
+        map.put("idolId", mIdolId);
+        map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
         map.put("pageNum", mCurrentPage + "");
         map.put("pageSize", "10");
         StartHttpUtils.get(mActivity, this, Constant.TOPIC_LIST, map, RiceCircleVO.class);
@@ -67,22 +127,23 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void hasData(BaseVO vo) {
-        RiceCircleVO riceCircleVO = (RiceCircleVO) vo;
-        if (riceCircleVO.getObj().isHasNextPage()) {
-            mRecyclerView.setNoMore(true);
-        } else {
-            mRecyclerView.setNoMore(false);
+        if (vo instanceof RiceCircleVO) {
+            RiceCircleVO riceCircleVO = (RiceCircleVO) vo;
+            if (riceCircleVO.getObj().isHasNextPage()) {
+                mRecyclerView.setNoMore(true);
+            } else {
+                mRecyclerView.setNoMore(false);
+            }
+            mAutoSwipeRefreshLayout.setRefreshing(false);
+            List<RiceCircleVO.ObjBean.ListBeanXX> list = riceCircleVO.getObj().getList();
+            if (isLoadMore) {
+                mAdapter.updateDataLast(list);
+                isLoadMore = false;
+            } else {
+                mAdapter.updateData(list);
+            }
+            mAdapter.notifyDataSetChanged();
         }
-        mAutoSwipeRefreshLayout.setRefreshing(false);
-        List<RiceCircleVO.ObjBean.ListBeanXX> list = riceCircleVO.getObj().getList();
-        if (isLoadMore) {
-            mAdapter.updateDataLast(list);
-            isLoadMore = false;
-        } else {
-            mAdapter.updateData(list);
-        }
-        mAdapter.notifyDataSetChanged();
-
     }
 
     @Override
@@ -98,15 +159,22 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.guard_one_iv:
+            case R.id.guard_two_iv:
+                showStarDialog();
+                break;
+            default:
+                break;
 
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+//        EventBus.getDefault().unregister(this);
     }
-
 
     @Override
     public void onRefresh() {
@@ -125,13 +193,14 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void success(BaseVO vo) {
         mActivity.showCustomToast(vo.getMsg());
+        getData();
     }
 
     @Override
     public void favorPost(String topicId) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("topicId", topicId);
-        map.put("userId", "4338");
+        map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
         StartHttpUtils.postCallBack(mActivity, Constant.FAVORIATE_TOPIC, map, BaseVO.class, this);
     }
 
@@ -139,7 +208,7 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
     public void likePost(String topicId) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("topicId", topicId);
-        map.put("userId", "4338");
+        map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
         StartHttpUtils.postCallBack(mActivity, Constant.LIKE_TOPIC, map, BaseVO.class, this);
     }
 
@@ -147,12 +216,51 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
     public void replayLikePost(String id, int status) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("commentId", id);
-        map.put("userId", "4338");
+        map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
         if (status == 1) {
             map.put("type", "0");
         } else {
             map.put("type", "1");
         }
         StartHttpUtils.postCallBack(mActivity, Constant.LIKE_COMMENT, map, BaseVO.class, this);
+    }
+
+    public void showStarDialog() {
+        View view = View.inflate(mActivity, R.layout.change_star, null);
+        LuRecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        mGuardAdapter = new GuardAdapter(recyclerView);
+        RecyclerViewUtil.initRecyclerViewGridLayoutManager(this.getActivity(), recyclerView, mGuardAdapter, 4, R.dimen.dp_5, R.color.C3, false);
+        MyIdolsVO myIdolsVO = AppApplication.getInstance().getMyIdolsVO();
+        mGuardAdapter.updateData(myIdolsVO.getObj());
+        CustomDialog.Builder builder = new CustomDialog.Builder(mActivity);
+        mCustomDialog = builder
+                .cancelTouchout(false)
+                .view(view)
+                .heightpx(WidthHigthUtil.getScreenHigh(mActivity))
+                .widthpx(WidthHigthUtil.getScreenWidth(mActivity))
+                .style(R.style.Dialog)
+                .addViewOnclick(R.id.close_iv, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mCustomDialog.dismiss();
+                    }
+                })
+                .addViewOnclick(R.id.add_more_bt, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mActivity.openActivity(RiceCircleStarActivity.class);
+                    }
+                })
+                .build();
+        mCustomDialog.show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mCustomDialog != null && mCustomDialog.isShowing()) {
+            MyIdolsVO myIdolsVO = AppApplication.getInstance().getMyIdolsVO();
+            mGuardAdapter.updateData(myIdolsVO.getObj());
+        }
     }
 }

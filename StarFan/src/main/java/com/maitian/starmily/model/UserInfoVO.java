@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class UserInfoVO extends BaseVO implements Serializable {
 
     /**
-     * obj : {"userId":1,"userName":"樊舒桐","password":"","phoneNo":"","wechatNo":"","qqNo":"","nikename":"0","sex":"0女1男","iconUrl":"132.232.197.128/group1/M00/00/00/rBsAD1xvuPyAMAVMAABQespvTuM068.jpg","address":"武汉","cityName":"武汉","cityCode":"420100","sign":"不服就干","status":0,"registrationId":"","lastloginType":1,"backUrl":"","idolType":1,"token":""}
+     * obj : {"userId":4355,"userName":null,"nickname":"宇轩","phoneNo":null,"wechatNo":"oe82L1JIw_qQHv4a_RCAnHRR01rA","qqNo":null,"microblogNo":null,"accessToken":"22_LNwmu6x9WIv3jACqelvS_0zMUOp4AuOmlMQ4aWlAEkXs049MZT27KpO0yStU6UruTrweXj-cb6wtcIv4-PCGJ93kQmPyxREjJHhtFmpBuCM","verifyCode":null,"exp":null,"sex":"1","iconUrl":"http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLSbMtbEEx4LWHQK19JHicAtq3FZqVyU78ibg8bKsFJm5gTTpbFGicibWiaraibL0t8icXRXbfGqFfsb335A/132","address":null,"cityName":null,"cityCode":null,"birthday":null,"sign":null,"onlineStatus":null,"loginTime":null,"authType":null,"status":0,"registrationId":null,"lastloginType":null,"backUrl":null,"loginType":"2","idolType":0,"token":"201eb9ac2b08a26286e5d78a10e4f7ff"}
      */
 
     private ObjBean obj;
@@ -23,46 +23,62 @@ public class UserInfoVO extends BaseVO implements Serializable {
         this.obj = obj;
     }
 
-    public static class ObjBean  implements Serializable {
+    public static class ObjBean implements Serializable {
         /**
-         * userId : 1
-         * userName : 樊舒桐
-         * password :
-         * phoneNo :
-         * wechatNo :
-         * qqNo :
-         * nikename : 0
-         * sex : 0女1男
-         * iconUrl : 132.232.197.128/group1/M00/00/00/rBsAD1xvuPyAMAVMAABQespvTuM068.jpg
-         * address : 武汉
-         * cityName : 武汉
-         * cityCode : 420100
-         * sign : 不服就干
+         * userId : 4355
+         * userName : null
+         * nickname : 宇轩
+         * phoneNo : null
+         * wechatNo : oe82L1JIw_qQHv4a_RCAnHRR01rA
+         * qqNo : null
+         * microblogNo : null
+         * accessToken : 22_LNwmu6x9WIv3jACqelvS_0zMUOp4AuOmlMQ4aWlAEkXs049MZT27KpO0yStU6UruTrweXj-cb6wtcIv4-PCGJ93kQmPyxREjJHhtFmpBuCM
+         * verifyCode : null
+         * exp : null
+         * sex : 1
+         * iconUrl : http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLSbMtbEEx4LWHQK19JHicAtq3FZqVyU78ibg8bKsFJm5gTTpbFGicibWiaraibL0t8icXRXbfGqFfsb335A/132
+         * address : null
+         * cityName : null
+         * cityCode : null
+         * birthday : null
+         * sign : null
+         * onlineStatus : null
+         * loginTime : null
+         * authType : null
          * status : 0
-         * registrationId :
-         * lastloginType : 1
-         * backUrl :
-         * idolType : 1
-         * token :
+         * registrationId : null
+         * lastloginType : null
+         * backUrl : null
+         * loginType : 2
+         * idolType : 0
+         * token : 201eb9ac2b08a26286e5d78a10e4f7ff
          */
 
         private int userId;
-        private String userName;
-        private String password;
-        private String phoneNo;
+        private Object userName;
+        private String nickname;
+        private Object phoneNo;
         private String wechatNo;
-        private String qqNo;
-        private String nikename;
+        private Object qqNo;
+        private Object microblogNo;
+        private String accessToken;
+        private Object verifyCode;
+        private Object exp;
         private String sex;
         private String iconUrl;
-        private String address;
-        private String cityName;
-        private String cityCode;
-        private String sign;
+        private Object address;
+        private Object cityName;
+        private Object cityCode;
+        private Object birthday;
+        private Object sign;
+        private Object onlineStatus;
+        private Object loginTime;
+        private Object authType;
         private int status;
-        private String registrationId;
-        private int lastloginType;
-        private String backUrl;
+        private Object registrationId;
+        private Object lastloginType;
+        private Object backUrl;
+        private String loginType;
         private int idolType;
         private String token;
 
@@ -74,27 +90,27 @@ public class UserInfoVO extends BaseVO implements Serializable {
             this.userId = userId;
         }
 
-        public String getUserName() {
+        public Object getUserName() {
             return userName;
         }
 
-        public void setUserName(String userName) {
+        public void setUserName(Object userName) {
             this.userName = userName;
         }
 
-        public String getPassword() {
-            return password;
+        public String getNickname() {
+            return nickname;
         }
 
-        public void setPassword(String password) {
-            this.password = password;
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
         }
 
-        public String getPhoneNo() {
+        public Object getPhoneNo() {
             return phoneNo;
         }
 
-        public void setPhoneNo(String phoneNo) {
+        public void setPhoneNo(Object phoneNo) {
             this.phoneNo = phoneNo;
         }
 
@@ -106,20 +122,44 @@ public class UserInfoVO extends BaseVO implements Serializable {
             this.wechatNo = wechatNo;
         }
 
-        public String getQqNo() {
+        public Object getQqNo() {
             return qqNo;
         }
 
-        public void setQqNo(String qqNo) {
+        public void setQqNo(Object qqNo) {
             this.qqNo = qqNo;
         }
 
-        public String getNikename() {
-            return nikename;
+        public Object getMicroblogNo() {
+            return microblogNo;
         }
 
-        public void setNikename(String nikename) {
-            this.nikename = nikename;
+        public void setMicroblogNo(Object microblogNo) {
+            this.microblogNo = microblogNo;
+        }
+
+        public String getAccessToken() {
+            return accessToken;
+        }
+
+        public void setAccessToken(String accessToken) {
+            this.accessToken = accessToken;
+        }
+
+        public Object getVerifyCode() {
+            return verifyCode;
+        }
+
+        public void setVerifyCode(Object verifyCode) {
+            this.verifyCode = verifyCode;
+        }
+
+        public Object getExp() {
+            return exp;
+        }
+
+        public void setExp(Object exp) {
+            this.exp = exp;
         }
 
         public String getSex() {
@@ -138,36 +178,68 @@ public class UserInfoVO extends BaseVO implements Serializable {
             this.iconUrl = iconUrl;
         }
 
-        public String getAddress() {
+        public Object getAddress() {
             return address;
         }
 
-        public void setAddress(String address) {
+        public void setAddress(Object address) {
             this.address = address;
         }
 
-        public String getCityName() {
+        public Object getCityName() {
             return cityName;
         }
 
-        public void setCityName(String cityName) {
+        public void setCityName(Object cityName) {
             this.cityName = cityName;
         }
 
-        public String getCityCode() {
+        public Object getCityCode() {
             return cityCode;
         }
 
-        public void setCityCode(String cityCode) {
+        public void setCityCode(Object cityCode) {
             this.cityCode = cityCode;
         }
 
-        public String getSign() {
+        public Object getBirthday() {
+            return birthday;
+        }
+
+        public void setBirthday(Object birthday) {
+            this.birthday = birthday;
+        }
+
+        public Object getSign() {
             return sign;
         }
 
-        public void setSign(String sign) {
+        public void setSign(Object sign) {
             this.sign = sign;
+        }
+
+        public Object getOnlineStatus() {
+            return onlineStatus;
+        }
+
+        public void setOnlineStatus(Object onlineStatus) {
+            this.onlineStatus = onlineStatus;
+        }
+
+        public Object getLoginTime() {
+            return loginTime;
+        }
+
+        public void setLoginTime(Object loginTime) {
+            this.loginTime = loginTime;
+        }
+
+        public Object getAuthType() {
+            return authType;
+        }
+
+        public void setAuthType(Object authType) {
+            this.authType = authType;
         }
 
         public int getStatus() {
@@ -178,28 +250,36 @@ public class UserInfoVO extends BaseVO implements Serializable {
             this.status = status;
         }
 
-        public String getRegistrationId() {
+        public Object getRegistrationId() {
             return registrationId;
         }
 
-        public void setRegistrationId(String registrationId) {
+        public void setRegistrationId(Object registrationId) {
             this.registrationId = registrationId;
         }
 
-        public int getLastloginType() {
+        public Object getLastloginType() {
             return lastloginType;
         }
 
-        public void setLastloginType(int lastloginType) {
+        public void setLastloginType(Object lastloginType) {
             this.lastloginType = lastloginType;
         }
 
-        public String getBackUrl() {
+        public Object getBackUrl() {
             return backUrl;
         }
 
-        public void setBackUrl(String backUrl) {
+        public void setBackUrl(Object backUrl) {
             this.backUrl = backUrl;
+        }
+
+        public String getLoginType() {
+            return loginType;
+        }
+
+        public void setLoginType(String loginType) {
+            this.loginType = loginType;
         }
 
         public int getIdolType() {

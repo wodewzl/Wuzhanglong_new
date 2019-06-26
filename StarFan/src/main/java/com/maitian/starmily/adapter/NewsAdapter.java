@@ -25,11 +25,23 @@ public class NewsAdapter extends RecyclerBaseAdapter {
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
         NewsBean.ObjBean.ListBean bean = (NewsBean.ObjBean.ListBean) model;
-        if (!TextUtils.isEmpty(bean.getIconUrl()))
-            Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + bean.getIconUrl()).into(helper.getImageView(R.id.head_img));
+        if (!TextUtils.isEmpty(bean.getIconUrl())){
+            if (bean.getIconUrl().contains("http:")) {
+                Picasso.with(mContext).load( bean.getIconUrl()).into(helper.getImageView(R.id.head_img));
+            }else {
+                Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + bean.getIconUrl()).into(helper.getImageView(R.id.head_img));
+            }
+        }
+        if (!TextUtils.isEmpty(bean.getAdImg())){
+            if (bean.getAdImg().contains("http:")) {
+                Picasso.with(mContext).load( bean.getIconUrl()).into(helper.getImageView(R.id.item_iv));
+            }else {
+                Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + bean.getAdImg()).into(helper.getImageView(R.id.item_iv));
+            }
+        }
         helper.setText(R.id.time_tv, DateUtils.getStandardDate(bean.getCreateTime() + ""));
         helper.setText(R.id.like_count_tv, bean.getLikeCount() + "");
-        helper.setText(R.id.read_count_tv, bean.getCommentReplyCount() + "");
+        helper.setText(R.id.replay_count_tv, bean.getCommentReplyCount() + "");
         helper.setText(R.id.read_count_tv, bean.getCount() + "");
         if (bean.getTop() == 1) {
             helper.getView(R.id.top_tv).setVisibility(View.VISIBLE);

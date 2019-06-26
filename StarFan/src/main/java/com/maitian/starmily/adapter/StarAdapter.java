@@ -30,11 +30,16 @@ public class StarAdapter extends RecyclerBaseAdapter {
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
         final StarVO.ObjBean.ListBean vo = (StarVO.ObjBean.ListBean) model;
-        if (!TextUtils.isEmpty(vo.getIcon_url()))
-            Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + vo.getIcon_url()).into(helper.getImageView(R.id.head_img));
-        helper.setText(R.id.name_tv, vo.getNickname());
+        if (!TextUtils.isEmpty(vo.getIconUrl())) {
+            if (vo.getIconUrl().contains("http://")) {
+                Picasso.with(mContext).load(vo.getIconUrl()).into(helper.getImageView(R.id.head_img));
+            } else {
+                Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + vo.getIconUrl()).into(helper.getImageView(R.id.head_img));
+            }
+        }
+        helper.setText(R.id.name_tv, vo.getIdolName());
         TextView statusTv = helper.getView(R.id.status_tv);
-        if ("0".equals(vo.getStatus())) {
+        if (vo.getStatus()==1) {
             statusTv.setBackground(BaseCommonUtils.setBackgroundShap(mContext, 17, R.color.C3, R.color.C3));
             statusTv.setTextColor(ContextCompat.getColor(mContext, R.color.star_gray_title));
             statusTv.setText("已守护");
@@ -52,7 +57,7 @@ public class StarAdapter extends RecyclerBaseAdapter {
                     case R.id.status_tv:
                         RiceCircleStarActivity activity = (RiceCircleStarActivity) mContext;
                         activity.defendStar(vo.getId() + "");
-                        vo.setStatus(0);
+                        vo.setStatus(1);
                         notifyDataSetChanged();
                         break;
                     default:
@@ -62,13 +67,5 @@ public class StarAdapter extends RecyclerBaseAdapter {
         });
     }
 
-    @Override
-    public int getItemCount() {
-        return 20;
-    }
 
-    @Override
-    public int getItemViewType(int position) {
-        return R.layout.star_adapter;
-    }
 }

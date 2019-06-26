@@ -15,6 +15,7 @@ import com.maitian.starmily.activity.HomeNewsReplyActivity;
 import com.maitian.starmily.activity.PublishDiscussActivity;
 import com.maitian.starmily.activity.ReportActivity;
 import com.maitian.starmily.activity.RiceCircleDetailActivity;
+import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
 import com.maitian.starmily.model.RiceCircleVO;
 import com.squareup.picasso.Picasso;
@@ -58,8 +59,13 @@ public class RiceCircleAdapter extends RecyclerBaseAdapter implements BGANinePho
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
 
         RiceCircleVO.ObjBean.ListBeanXX vo = (RiceCircleVO.ObjBean.ListBeanXX) model;
-        if (!TextUtils.isEmpty(vo.getIconUrl()))
-            Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + vo.getIconUrl()).into(helper.getImageView(R.id.head_img));
+        if (!TextUtils.isEmpty(vo.getIconUrl())) {
+            if (vo.getIconUrl().contains("http://")) {
+                Picasso.with(mContext).load(vo.getIconUrl()).into(helper.getImageView(R.id.head_img));
+            } else {
+                Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + vo.getIconUrl()).into(helper.getImageView(R.id.head_img));
+            }
+        }
         helper.setText(R.id.name_tv, vo.getNickname());
         helper.setText(R.id.content_one_tv, vo.getContent());
 
@@ -98,7 +104,7 @@ public class RiceCircleAdapter extends RecyclerBaseAdapter implements BGANinePho
             helper.setVisibility(R.id.like_layout, View.VISIBLE);
             StringBuffer stringBuffer = new StringBuffer();
             for (int i = 0; i < vo.getTopicLike().getTopicLikeUser().size(); i++) {
-                stringBuffer.append(vo.getTopicLike().getTopicLikeUser().get(i).getUserName()).append(" ");
+                stringBuffer.append(vo.getTopicLike().getTopicLikeUser().get(i).getNickname()).append(" ");
             }
             BaseCommonUtils.setTextTwoBefore(mContext, helper.getTextView(R.id.like_tv), "         " + stringBuffer.toString(),
                     "  等" + vo.getTopicLike().getCount() + "人觉得很赞", R.color.colorAccent, 1.0f);
@@ -136,43 +142,45 @@ public class RiceCircleAdapter extends RecyclerBaseAdapter implements BGANinePho
                 switch (childView.getId()) {
                     case R.id.favor_iv:
                         childClikCallback.favorPost(beanXX.getTopicId() + "");
-//                        if (beanXX.getFavoriateStatus() == 1) {
-//                            beanXX.setFavoriateStatus(0);
-//                        } else {
-//                            beanXX.setFavoriateStatus(1);
-//                        }
+                        if (beanXX.getFavoriateStatus() == 1) {
+                            beanXX.setFavoriateStatus(0);
+                        } else {
+                            beanXX.setFavoriateStatus(1);
+                        }
+
+                        notifyDataSetChanged();
                         break;
                     case R.id.like_iv:
                         childClikCallback.likePost(beanXX.getTopicId() + "");
-//                        if (beanXX.getLikeStatus() == 1) {
-//                            beanXX.setLikeStatus(0);
-//                        } else {
-//                            beanXX.setLikeStatus(1);
-//                        }
+                        if (beanXX.getLikeStatus() == 1) {
+                            beanXX.setLikeStatus(0);
+                        } else {
+                            beanXX.setLikeStatus(1);
+                        }
                         notifyDataSetChanged();
                         break;
                     case R.id.report_tv:
                         mActivity.openActivity(ReportActivity.class);
                         break;
                     case R.id.discuss_tv:
-//                        mActivity.openActivity(PublishDiscussActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("type", "1");
                         bundle.putString("topicId", beanXX.getTopicId() + "");
-                        bundle.putString("userId", 4338 + "");
+                        bundle.putString("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId()+"");
                         mActivity.open(PublishDiscussActivity.class, bundle, 0);
                         break;
                     case R.id.more_tv:
-                        Bundle bundleMore=new Bundle();
-                        bundleMore.putInt("type",1);
+                        Bundle bundleMore = new Bundle();
+                        bundleMore.putInt("type", 1);
                         bundleMore.putString("head_url", beanXX.getIconUrl());
-                        bundleMore.putString("id", beanXX.getTopicId()+"");
+                        bundleMore.putString("id", beanXX.getTopicId() + "");
                         bundleMore.putString("name", beanXX.getNickname());
                         bundleMore.putString("content", beanXX.getContent());
                         bundleMore.putLong("time", beanXX.getCreateTime());
                         bundleMore.putString("like_count", beanXX.getTopicLike().getTopicLikeUser().size() + "");
+                        bundleMore.putString("like_status", beanXX.getLikeStatus() + "");
                         bundleMore.putString("discuss_count", beanXX.getTopicComment() != null ? beanXX.getTopicComment().getTotal() + "" : "0");
-                        mActivity.open(HomeNewsReplyActivity.class,bundleMore,0);
+                        mActivity.open(HomeNewsReplyActivity.class, bundleMore, 0);
                         break;
                     default:
                         break;
@@ -195,8 +203,13 @@ public class RiceCircleAdapter extends RecyclerBaseAdapter implements BGANinePho
     public void addReplyLayout(LinearLayout layout, final RiceCircleVO.ObjBean.ListBeanXX.TopicCommentBean.ListBeanX vo, int position) {
         View view = View.inflate(mContext, R.layout.reply_layout, null);
         CircleImageView circleImageView = view.findViewById(R.id.reply_head_iv);
-        if (!TextUtils.isEmpty(vo.getIcon_url()))
-            Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + vo.getIcon_url()).into(circleImageView);
+        if (!TextUtils.isEmpty(vo.getIcon_url())){
+            if (vo.getIcon_url().contains("http://")) {
+                Picasso.with(mContext).load(vo.getIcon_url()).into(circleImageView);
+            }else {
+                Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + vo.getIcon_url()).into(circleImageView);
+            }
+        }
         TextView replyNameTv = view.findViewById(R.id.reply_name_tv);
         replyNameTv.setText(vo.getNickname());
         TextView replyContentTv = view.findViewById(R.id.reply_content_tv);
@@ -206,16 +219,18 @@ public class RiceCircleAdapter extends RecyclerBaseAdapter implements BGANinePho
         replayContentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle=new Bundle();
-                bundle.putInt("type",2);
-                bundle.putString("id", vo.getUserId()+"");
+                Bundle bundle = new Bundle();
+                bundle.putInt("type", 2);
+                bundle.putString("id", vo.getCommentId() + "");
                 bundle.putString("head_url", vo.getIcon_url());
                 bundle.putString("name", vo.getNickname());
                 bundle.putString("content", vo.getReplyMsg());
                 bundle.putLong("time", vo.getCreateTime());
-                bundle.putString("like_count", vo.getLikeCount()+"");
+                bundle.putString("like_count", vo.getLikeCount() + "");
+                bundle.putString("like_status", vo.getLikeStatus() + "");
                 bundle.putString("discuss_count", vo.getCommentReply() != null ? vo.getCommentReply().getTotal() + "" : "0");
-                mActivity.open(HomeNewsReplyActivity.class,bundle,0);
+                bundle.putString("user_id", vo.getUserId() + "");
+                mActivity.open(HomeNewsReplyActivity.class, bundle, 0);
             }
         });
         TextView replyCountTv = view.findViewById(R.id.reply_count_tv);
@@ -225,14 +240,14 @@ public class RiceCircleAdapter extends RecyclerBaseAdapter implements BGANinePho
                 Bundle bundleDiscuss = new Bundle();
                 bundleDiscuss.putString("type", "2");
                 bundleDiscuss.putString("commentId", vo.getCommentId() + "");
-                bundleDiscuss.putString("fromUserId", 4338 + "");
+                bundleDiscuss.putString("fromUserId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId()+"");
                 bundleDiscuss.putString("toUserId", vo.getUserId() + "");
                 mActivity.open(PublishDiscussActivity.class, bundleDiscuss, 0);
             }
         });
         if (vo.getCommentReply() != null) {
             replayContentLayout.setVisibility(View.VISIBLE);
-            BaseCommonUtils.setTextThree(mContext, replyPeopleTv, vo.getCommentReply().getList().get(0).getFromUserName(),
+            BaseCommonUtils.setTextThree(mContext, replyPeopleTv, vo.getCommentReply().getList().get(0).getToNickname(),
                     "  等人", "  共" + vo.getCommentReply().getSize() + "条回复", R.color.star_black, 1.0f);
             replyCountTv.setText(vo.getCommentReply().getTotal() + "");
 

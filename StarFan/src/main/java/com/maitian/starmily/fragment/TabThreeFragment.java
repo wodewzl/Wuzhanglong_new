@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.maitian.starmily.R;
+import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
 import com.maitian.starmily.model.MyIdolsVO;
 import com.maitian.starmily.model.UpTokenVO;
@@ -89,7 +90,7 @@ public class TabThreeFragment extends BaseFragment implements OnClickListener, P
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("userId", "4338");
+        map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
         StartHttpUtils.get(mActivity, this, Constant.MY_IDOLS, map, MyIdolsVO.class);
         HashMap<String, Object> mapToken = new HashMap<>();
         StartHttpUtils.get(mActivity, this, Constant.UP_TOKEN, mapToken, UpTokenVO.class);
@@ -232,12 +233,13 @@ public class TabThreeFragment extends BaseFragment implements OnClickListener, P
     public boolean onTagClick(View view, int position, FlowLayout parent) {
         TagView tagView = (TagView) view;
         TextView tv = (TextView) tagView.getChildAt(position);
-
-        tv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 22, R.color.colorAccent, R.color.color_FAD6D6));
-        tv.setTextColor(ContextCompat.getColor(mActivity, R.color.colorAccent));
-        int myIdlosId = mMyIdlos.getObj().get(position).getId();
-        if (!mMyIdlosIdList.contains(myIdlosId)) {
-            mMyIdlosIdList.add(myIdlosId);
+        if (tv != null) {
+            tv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 22, R.color.colorAccent, R.color.color_FAD6D6));
+            tv.setTextColor(ContextCompat.getColor(mActivity, R.color.colorAccent));
+            int myIdlosId = mMyIdlos.getObj().get(position).getId();
+            if (!mMyIdlosIdList.contains(myIdlosId)) {
+                mMyIdlosIdList.add(myIdlosId);
+            }
         }
         return false;
     }
@@ -273,7 +275,7 @@ public class TabThreeFragment extends BaseFragment implements OnClickListener, P
 
     public void pushPost() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("userId", "4338");
+        map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
         map.put("content", mContentEt.getText().toString());
         map.put("imgs", mResultSb.toString());
         map.put("idolIds", JsonUtil.toJson(mMyIdlosIdList));

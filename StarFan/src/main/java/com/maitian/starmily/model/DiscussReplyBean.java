@@ -236,6 +236,7 @@ public class DiscussReplyBean extends BaseVO {
             private int fromUserId;
             private String fromIcon;
             private int likeCount;
+            private int likeStatus;
             private int toUserId;
             private String toNickname;
             private String fromUserName;
@@ -245,6 +246,32 @@ public class DiscussReplyBean extends BaseVO {
             private int replyId;
             private int commentId;
             private String toUserName;
+            private String icon_url;
+            private String nickname;
+
+            public int getLikeStatus() {
+                return likeStatus;
+            }
+
+            public void setLikeStatus(int likeStatus) {
+                this.likeStatus = likeStatus;
+            }
+
+            public String getNickname() {
+                return nickname;
+            }
+
+            public void setNickname(String nickname) {
+                this.nickname = nickname;
+            }
+
+            public String getIcon_url() {
+                return icon_url;
+            }
+
+            public void setIcon_url(String icon_url) {
+                this.icon_url = icon_url;
+            }
 
             public String getToIcon() {
                 return toIcon;

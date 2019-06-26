@@ -7,7 +7,7 @@ import java.util.List;
 public class FindBean extends BaseVO {
 
     /**
-     * obj : {"pageNum":1,"pageSize":10,"size":2,"orderBy":null,"startRow":1,"endRow":2,"total":2,"pages":1,"list":[{"adImg":null,"createTime":1558802938000,"id":3837,"title":"星米粒团队test","type":1,"url":"http://132.232.197.128:8080/news/newsDetails?newsId=3835&userId=4337","status":0},{"adImg":null,"createTime":1558803131000,"id":3838,"title":"星米粒外部地址","type":0,"url":"https://mp.weixin.qq.com/s/lC72vZxN4jGqkzcLf4j6tw","status":0}],"firstPage":1,"prePage":0,"nextPage":0,"lastPage":1,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1]}
+     * obj : {"pageNum":1,"pageSize":10,"size":2,"orderBy":null,"startRow":1,"endRow":2,"total":2,"pages":1,"list":[{"newsId":3835,"adImg":"4B739B8D-F24E-42E9-BFF4-C38BCB45896F","createTime":1558802938000,"responseParam":"{\"newsId\":3835}","id":3837,"title":"星米粒团队test","type":1,"status":0,"url":"https://mp.weixin.qq.com/s/lC72vZxN4jGqkzcLf4j6tw"},{"adImg":"B4176CD4-4DAF-4B9E-8938-0746B9730909","createTime":1558803131000,"responseParam":"{\"url\":\"https://mp.weixin.qq.com/s/lC72vZxN4jGqkzcLf4j6tw\"}","id":3838,"title":"星米粒外部地址","type":0,"url":"https://mp.weixin.qq.com/s/lC72vZxN4jGqkzcLf4j6tw","status":0}],"firstPage":1,"prePage":0,"nextPage":0,"lastPage":1,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1]}
      */
 
     private ObjBean obj;
@@ -30,7 +30,7 @@ public class FindBean extends BaseVO {
          * endRow : 2
          * total : 2
          * pages : 1
-         * list : [{"adImg":null,"createTime":1558802938000,"id":3837,"title":"星米粒团队test","type":1,"url":"http://132.232.197.128:8080/news/newsDetails?newsId=3835&userId=4337","status":0},{"adImg":null,"createTime":1558803131000,"id":3838,"title":"星米粒外部地址","type":0,"url":"https://mp.weixin.qq.com/s/lC72vZxN4jGqkzcLf4j6tw","status":0}]
+         * list : [{"newsId":3835,"adImg":"4B739B8D-F24E-42E9-BFF4-C38BCB45896F","createTime":1558802938000,"responseParam":"{\"newsId\":3835}","id":3837,"title":"星米粒团队test","type":1,"status":0},{"adImg":"B4176CD4-4DAF-4B9E-8938-0746B9730909","createTime":1558803131000,"responseParam":"{\"url\":\"https://mp.weixin.qq.com/s/lC72vZxN4jGqkzcLf4j6tw\"}","id":3838,"title":"星米粒外部地址","type":0,"url":"https://mp.weixin.qq.com/s/lC72vZxN4jGqkzcLf4j6tw","status":0}]
          * firstPage : 1
          * prePage : 0
          * nextPage : 0
@@ -217,28 +217,40 @@ public class FindBean extends BaseVO {
 
         public static class ListBean {
             /**
-             * adImg : null
+             * newsId : 3835
+             * adImg : 4B739B8D-F24E-42E9-BFF4-C38BCB45896F
              * createTime : 1558802938000
+             * responseParam : {"newsId":3835}
              * id : 3837
              * title : 星米粒团队test
              * type : 1
-             * url : http://132.232.197.128:8080/news/newsDetails?newsId=3835&userId=4337
              * status : 0
+             * url : https://mp.weixin.qq.com/s/lC72vZxN4jGqkzcLf4j6tw
              */
 
-            private Object adImg;
+            private int newsId;
+            private String adImg;
             private long createTime;
+            private String responseParam;
             private int id;
             private String title;
             private int type;
-            private String url;
             private int status;
+            private String url;
 
-            public Object getAdImg() {
+            public int getNewsId() {
+                return newsId;
+            }
+
+            public void setNewsId(int newsId) {
+                this.newsId = newsId;
+            }
+
+            public String getAdImg() {
                 return adImg;
             }
 
-            public void setAdImg(Object adImg) {
+            public void setAdImg(String adImg) {
                 this.adImg = adImg;
             }
 
@@ -248,6 +260,14 @@ public class FindBean extends BaseVO {
 
             public void setCreateTime(long createTime) {
                 this.createTime = createTime;
+            }
+
+            public String getResponseParam() {
+                return responseParam;
+            }
+
+            public void setResponseParam(String responseParam) {
+                this.responseParam = responseParam;
             }
 
             public int getId() {
@@ -274,20 +294,20 @@ public class FindBean extends BaseVO {
                 this.type = type;
             }
 
-            public String getUrl() {
-                return url;
-            }
-
-            public void setUrl(String url) {
-                this.url = url;
-            }
-
             public int getStatus() {
                 return status;
             }
 
             public void setStatus(int status) {
                 this.status = status;
+            }
+
+            public String getUrl() {
+                return url;
+            }
+
+            public void setUrl(String url) {
+                this.url = url;
             }
         }
     }

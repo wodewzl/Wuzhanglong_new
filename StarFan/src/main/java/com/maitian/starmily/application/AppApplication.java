@@ -7,6 +7,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.maitian.starmily.model.AppConfigVO;
+import com.maitian.starmily.model.MyIdolsVO;
 import com.maitian.starmily.model.UserInfoVO;
 import com.qiniu.android.common.FixedZone;
 import com.qiniu.android.storage.Configuration;
@@ -71,28 +72,29 @@ public class AppApplication extends Application {
         }
     }
 
-
-    public AppConfigVO getAppConfigVO() {
+    public MyIdolsVO getMyIdolsVO() {
         try {
-            FileInputStream stream = this.openFileInput("data.AppConfigVO");
+            FileInputStream stream = this.openFileInput("data.MyIdolsVO");
             ObjectInputStream ois = new ObjectInputStream(stream);
-            AppConfigVO appConfigVO = (AppConfigVO) ois.readObject();
-            return appConfigVO;
+            MyIdolsVO myIdolsVO = (MyIdolsVO) ois.readObject();
+            return myIdolsVO;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public void saveAppConfigVO(AppConfigVO appConfigVO) {
+    public void saveMyIdolsVO(MyIdolsVO myIdolsVO) {
         try {
-            FileOutputStream stream = this.openFileOutput("data.AppConfigVO", MODE_PRIVATE);
+            FileOutputStream stream = this.openFileOutput("data.MyIdolsVO", MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(stream);
-            oos.writeObject(appConfigVO);// td is an Instance of TableData;
+            oos.writeObject(myIdolsVO);// td is an Instance of TableData;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 
 
     @Override

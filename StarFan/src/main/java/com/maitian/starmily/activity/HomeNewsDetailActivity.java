@@ -14,6 +14,7 @@ import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.maitian.starmily.R;
 import com.maitian.starmily.adapter.NewsDiscussAdapter;
+import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
 import com.maitian.starmily.model.DiscussReplyBean;
 import com.maitian.starmily.model.NewsDetailBeans;
@@ -104,7 +105,7 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
         discussMap.put("pageNum", mCurrentPage + "");
         discussMap.put("pageSize", "10");
         discussMap.put("newsId", this.getIntent().getStringExtra("newsId"));
-        discussMap.put("userId", this.getIntent().getStringExtra("userId"));
+        discussMap.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
         StartHttpUtils.get(mActivity, this, Constant.FIND_COMMENT_BY_PAGE, discussMap, NewsDiscussBean.class);
     }
 
@@ -186,7 +187,7 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
                 Bundle bundleDiscuss = new Bundle();
                 bundleDiscuss.putString("type", "4");
                 bundleDiscuss.putString("commentId", beanX.getCommentId() + "");
-                bundleDiscuss.putString("fromUserId", "4338");
+                bundleDiscuss.putString("fromUserId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId()+"");
                 bundleDiscuss.putString("toUserId", beanX.getUserId() + "");
                 open(PublishDiscussActivity.class, bundleDiscuss, 0);
                 break;
@@ -220,7 +221,7 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
     public void likePost(String newsId) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("newsId", newsId);
-        map.put("userId",  "4338");
+        map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
 //        map.put("userId", userId);
         StartHttpUtils.postCallBack(mActivity, Constant.LIKE_NEWS, map, BaseVO.class, this);
     }
@@ -228,7 +229,7 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
     public void favorPost(String newsId) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("newsId", newsId);
-        map.put("userId", "4339");
+        map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
         StartHttpUtils.postCallBack(mActivity, Constant.FAVORIATE_NEWS, map, BaseVO.class, this);
     }
 

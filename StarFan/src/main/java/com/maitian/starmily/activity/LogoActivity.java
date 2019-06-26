@@ -14,6 +14,7 @@ import com.maitian.starmily.fragment.TabOneFragment;
 import com.maitian.starmily.fragment.TabThreeFragment;
 import com.maitian.starmily.fragment.TabTwoFragment;
 import com.maitian.starmily.model.AppConfigVO;
+import com.maitian.starmily.model.MyIdolsVO;
 import com.tamic.novate.Novate;
 import com.tamic.novate.Throwable;
 import com.tamic.novate.callback.RxStringCallback;
@@ -45,6 +46,7 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
         mLogoImageView.setBackgroundResource(R.mipmap.logo);
 //        initPermissions();
         getAppConfig();
+        getMyIdol();
     }
 
 
@@ -146,12 +148,37 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
                     public void onNext(Object o, String s) {
                         AppConfigVO vo = gson.fromJson(s, AppConfigVO.class);
                         ACache.get(LogoActivity.this).put("domain_ulr", vo.getObj().getImgDomain());
+                    }
+                });
+    }
 
-//                        AppConfigVO vo = gson.fromJson(s, AppConfigVO.class);
-//                        AppApplication.getInstance().saveAppConfigVO(vo);
+    public void getMyIdol(){
+        if(AppApplication.getInstance().getUserInfoVO()==null)
+            return;
+        HashMap<String, Object> idolMap = new HashMap<>();
+        idolMap.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
+        final Gson gson = new Gson();
+        new Novate.Builder(this)
+                .baseUrl(BaseConstant.DOMAIN_NAME)
+                .addCache(false)
+                .build()
+                .rxGet(Constant.MY_IDOLS, idolMap, new RxStringCallback() {
+                    @Override
+                    public void onError(Object tag, Throwable e) {
+                        System.out.println();
                     }
 
+                    @Override
+                    public void onCancel(Object tag, Throwable e) {
+                        System.out.println();
+                    }
 
+                    @Override
+                    public void onNext(Object o, String s) {
+                        MyIdolsVO vo = gson.fromJson(s, MyIdolsVO.class);
+                        if(vo.getObj().size()>0)
+                            AppApplication.getInstance().saveMyIdolsVO(vo);
+                    }
                 });
     }
 

@@ -108,8 +108,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         UserInfoVO userInfoVO= (UserInfoVO) vo;
         if(userInfoVO.getObj()!=null){
             AppApplication.getInstance().saveUserInfoVO(userInfoVO);
+            if(userInfoVO.getObj().getIdolType()==0){
+                openActivity(RiceCircleStarActivity.class);
+            }else {
+                openActivity(MainActivity.class);
+            }
             this.finish();
-            openActivity(MainActivity.class);
         }
     }
 
@@ -138,6 +142,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 map.put("nickname", data.get("name"));
                 map.put("iconUrl", data.get("iconurl"));
                 map.put("wechatNo", data.get("uid"));
+                map.put("accessToken", data.get("access_token"));
+
 
             } else {
 //                mSuccessType = "7";

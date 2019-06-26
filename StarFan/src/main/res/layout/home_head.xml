@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/C1"
+    android:background="@color/C3"
     android:orientation="vertical">
 
     <com.youth.banner.Banner
@@ -15,16 +15,17 @@
         app:indicator_height="8dp"
         app:indicator_margin="4dp"
         app:indicator_width="8dp"
-        app:title_height="80dp" />
+        app:title_height="80dp"
+        android:background="@color/C1"/>
 
     <LinearLayout
-        style="@style/margin_15_10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/corners_white"
         android:orientation="horizontal"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp">
+        android:paddingBottom="10dp"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/topic_tv"
@@ -75,7 +76,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:background="@color/C1"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -96,7 +98,8 @@
         style="@style/margin_15_10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="match_parent"

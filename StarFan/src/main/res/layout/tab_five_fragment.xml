@@ -45,7 +45,8 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginRight="15dp"
                     android:padding="6dp"
-                    android:src="@mipmap/my_msg" />
+                    android:src="@mipmap/my_msg"
+                    android:visibility="invisible"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/head_img"
@@ -151,7 +152,8 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="26dp"
                 android:text="我的钱包"
-                android:textColor="@color/star_black" />
+                android:textColor="@color/star_black"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/item_04_tv"
@@ -166,7 +168,8 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="26dp"
                 android:text="会员中心"
-                android:textColor="@color/star_black" />
+                android:textColor="@color/star_black"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/item_05_tv"
@@ -211,7 +214,8 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="26dp"
                 android:text="联系我们"
-                android:textColor="@color/star_black" />
+                android:textColor="@color/star_black"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </com.wuzhanglong.library.view.ReboundScrollView>

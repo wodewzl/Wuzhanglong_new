@@ -42,8 +42,13 @@ public class NewsDiscussAdapter extends RecyclerBaseAdapter {
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
         NewsDiscussBean.ObjBean.ListBeanX vo = (NewsDiscussBean.ObjBean.ListBeanX) model;
-        if (!TextUtils.isEmpty(vo.getIcon_url()))
-            Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + vo.getIcon_url()).into(helper.getImageView(R.id.reply_head_iv));
+        if (!TextUtils.isEmpty(vo.getIcon_url())){
+            if (vo.getIcon_url().contains("http://")) {
+                Picasso.with(mContext).load(vo.getIcon_url()).into(helper.getImageView(R.id.reply_head_iv));
+            }else {
+                Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + vo.getIcon_url()).into(helper.getImageView(R.id.reply_head_iv));
+            }
+        }
         helper.setText(R.id.reply_name_tv, vo.getUserName());
         helper.setText(R.id.reply_content_tv, vo.getReplyMsg());
         TextView replyPeopleTv = helper.getTextView(R.id.reply_people_tv);

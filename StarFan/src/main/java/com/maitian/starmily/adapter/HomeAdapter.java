@@ -1,10 +1,15 @@
 package com.maitian.starmily.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 
 import com.maitian.starmily.R;
+import com.maitian.starmily.constant.Constant;
+import com.maitian.starmily.model.HomeBean;
 import com.maitian.starmily.model.MessageVO;
+import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
+import com.wuzhanglong.library.utils.DateUtils;
 
 import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
 
@@ -18,24 +23,18 @@ public class HomeAdapter extends RecyclerBaseAdapter {
 
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
-        MessageVO bean= (MessageVO) model;
-//        helper.setText(R.id.money_tv,bean.getMoney());
-//        if(bean.isSelect()){
-//            helper.getTextView(R.id.money_tv).setBackground(BaseCommonUtils.setBackgroundShap(mContext,5,R.color.colorAccent,R.color.C1));
-//            helper.setTextColorRes(R.id.money_tv,R.color.colorAccent);
-//        }else {
-//            helper.getTextView(R.id.money_tv).setBackground(BaseCommonUtils.setBackgroundShap(mContext,5,R.color.C3_1,R.color.C1));
-//            helper.setTextColorRes(R.id.money_tv,R.color.C4);
-//        }
+        HomeBean.ObjBean.ListBean bean = (HomeBean.ObjBean.ListBean) model;
+        helper.setText(R.id.title_tv, bean.getTitle());
+        if (!TextUtils.isEmpty(bean.getAdImg())){
+            if (bean.getAdImg().contains("http://")) {
+                Picasso.with(mContext).load(bean.getAdImg()).into(helper.getImageView(R.id.pic_iv));
+
+            }else {
+                Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + bean.getAdImg()).into(helper.getImageView(R.id.pic_iv));
+            }
+        }
+        helper.setText(R.id.content_tv, DateUtils.parseDateDayAndHour(bean.getCreateTime()));
+
     }
 
-    @Override
-    public int getItemCount() {
-        return 20;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return R.layout.home_adapter;
-    }
 }

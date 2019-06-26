@@ -12,6 +12,7 @@
 
 
     <TextView
+        android:id="@+id/back_pwd_tv"
         style="@style/padding_15_10"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -113,7 +114,8 @@
     </LinearLayout>
 
 
-    <TextView
+    <Button
+        android:id="@+id/login_out_bt"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_44"
         android:layout_marginTop="@dimen/dp_20"

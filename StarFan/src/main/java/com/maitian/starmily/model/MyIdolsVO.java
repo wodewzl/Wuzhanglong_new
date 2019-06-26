@@ -2,12 +2,13 @@ package com.maitian.starmily.model;
 
 import com.wuzhanglong.library.mode.BaseVO;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by ${Wuzhanglong} on 2019/4/21.
  */
-public class MyIdolsVO extends BaseVO {
+public class MyIdolsVO extends BaseVO implements Serializable {
 
     private List<ObjBean> obj;
 
@@ -19,7 +20,7 @@ public class MyIdolsVO extends BaseVO {
         this.obj = obj;
     }
 
-    public static class ObjBean {
+    public static class ObjBean implements Serializable {
         /**
          * id : 2
          * idolName : 迪丽热巴
@@ -37,8 +38,8 @@ public class MyIdolsVO extends BaseVO {
         private String nickname;
         private String alias;
         private Object groups;
-        private Object iconUrl;
-        private Object backUrl;
+        private String iconUrl;
+        private String backUrl;
         private String info;
         private Object createTime;
 
@@ -82,19 +83,19 @@ public class MyIdolsVO extends BaseVO {
             this.groups = groups;
         }
 
-        public Object getIconUrl() {
+        public String getIconUrl() {
             return iconUrl;
         }
 
-        public void setIconUrl(Object iconUrl) {
+        public void setIconUrl(String iconUrl) {
             this.iconUrl = iconUrl;
         }
 
-        public Object getBackUrl() {
+        public String getBackUrl() {
             return backUrl;
         }
 
-        public void setBackUrl(Object backUrl) {
+        public void setBackUrl(String backUrl) {
             this.backUrl = backUrl;
         }
 

@@ -31,8 +31,6 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.Simple
 import java.util.ArrayList;
 
 public class MyAttentionActivity extends BaseActivity {
-
-
     private String[] mTitleDataList = {"我的爱豆", "我的关注", "我的粉丝"};
     private ViewPager mViewPager;
     private ArrayList<BaseFragment> mFragmentList;
@@ -43,6 +41,7 @@ public class MyAttentionActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        mBaseTitleTv.setText("我的关注");
         mViewPager = getViewById(R.id.view_pager);
         initMagicIndicator();
     }

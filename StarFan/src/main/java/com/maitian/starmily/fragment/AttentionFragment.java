@@ -2,13 +2,16 @@ package com.maitian.starmily.fragment;
 
 
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.maitian.starmily.R;
 import com.maitian.starmily.adapter.AttentionAdapter;
+import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
 import com.maitian.starmily.model.AttentionBean;
 import com.maitian.starmily.model.FindTopicVO;
+import com.maitian.starmily.model.MyIdolsVO;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
@@ -22,11 +25,13 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
-public class AttentionFragment extends BaseFragment implements View.OnClickListener, PostCallback, Serializable {
+import cn.bingoogolapple.baseadapter.BGAOnItemChildClickListener;
+
+public class AttentionFragment extends BaseFragment implements View.OnClickListener, PostCallback, Serializable, BGAOnItemChildClickListener {
     private LuRecyclerView mRecyclerView;
     private AttentionAdapter mAdapter;
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
-    private int mType=0;//0我的爱豆1我的关注2我的粉丝
+    private int mType=0;//0我的爱豆1我的粉丝2我的关注
     @Override
     public void setContentView() {
         contentInflateView(R.layout.attention_fragment);
@@ -40,6 +45,7 @@ public class AttentionFragment extends BaseFragment implements View.OnClickListe
         mAdapter = new AttentionAdapter(mRecyclerView);
         RecyclerViewUtil.initRecyclerViewLinearLayout(this.getActivity(), mRecyclerView, mAdapter, R.dimen.dp_10, R.color.C3, false);
         mType= this.getArguments().getInt("type");
+        mAdapter.setType(mType);
     }
 
     @Override
@@ -52,15 +58,15 @@ public class AttentionFragment extends BaseFragment implements View.OnClickListe
     public void getData() {
         if(mType==0){
             HashMap<String, Object> map = new HashMap<>();
-            map.put("userId", "4341");
-            StartHttpUtils.get(mActivity, this, Constant.MY_FOLLOWS, map, AttentionBean.class);
+            map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
+            StartHttpUtils.get(mActivity, this, Constant.MY_IDOLS, map, AttentionBean.class);
         }else if(mType==1){
             HashMap<String, Object> map = new HashMap<>();
-            map.put("userId", "4341");
+            map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
             StartHttpUtils.get(mActivity, this, Constant.MY_FOLLOWS, map, AttentionBean.class);
         }else if(mType==2){
             HashMap<String, Object> map = new HashMap<>();
-            map.put("userId", "4341");
+            map.put("userId",AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
             StartHttpUtils.get(mActivity, this, Constant.MY_FANS, map, AttentionBean.class);
         }
 
@@ -69,7 +75,7 @@ public class AttentionFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void hasData(BaseVO vo) {
-        AttentionBean attentionBean = (AttentionBean) vo;
+
 //        if (attentionBean.getObj().isHasNextPage()) {
 //            mRecyclerView.setNoMore(false);
 //        } else {
@@ -84,9 +90,10 @@ public class AttentionFragment extends BaseFragment implements View.OnClickListe
 //            mAdapter.updateData(list);
 //        }
 
-
+        AttentionBean attentionBean = (AttentionBean) vo;
         List<AttentionBean.ObjBean> list = attentionBean.getObj();
         mAdapter.updateData(list);
+
 
     }
 
@@ -123,7 +130,31 @@ public class AttentionFragment extends BaseFragment implements View.OnClickListe
         EventBus.getDefault().unregister(this);
     }
 
-    public void bindPhone() {
+    public void attent(String id) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
+        if(mType==0){
+
+        }else if(mType==1){
+
+        }
+        else {
+            map.put("followUserId", id);
+            StartHttpUtils.postCallBack(mActivity, Constant.FOLLOW_USER, map, BaseVO.class, this);
+        }
+    }
+
+    @Override
+    public void onItemChildClick(ViewGroup parent, View childView, int position) {
+        AttentionBean.ObjBean bean= (AttentionBean.ObjBean) mAdapter.getItem(position);
+
+        if(mType==0){
+            attent(bean.getId()+"");
+        }else if(mType==1){
+            attent(bean.getUserId()+"");
+        }else {
+            attent(bean.getFollowUserId()+"");
+        }
 
     }
 }

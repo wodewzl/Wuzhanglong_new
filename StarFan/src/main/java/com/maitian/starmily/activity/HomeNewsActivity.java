@@ -100,10 +100,8 @@ public class HomeNewsActivity extends BaseActivity implements BGAOnRVItemClickLi
             return;
 
         NewsBean.ObjBean.ListBean bean= (NewsBean.ObjBean.ListBean) mAdapter.getItem(position);
-
         Bundle bundle = new Bundle();
         bundle.putString("newsId", bean.getNewsId()+"");
-        bundle.putString("userId", bean.getUserId()+"");
         open(HomeNewsDetailActivity.class, bundle, 0);
     }
 

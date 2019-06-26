@@ -79,7 +79,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:padding="2dp"
-            android:src="@mipmap/message_press"
+            android:src="@mipmap/message_nomal"
             />
 
         <ImageView
@@ -113,7 +113,8 @@
         android:id="@+id/reply_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
 
     </LinearLayout>
 

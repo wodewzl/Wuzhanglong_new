@@ -1,6 +1,7 @@
 package com.maitian.starmily.fragment;
 
 
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -14,19 +15,16 @@ import com.maitian.starmily.activity.MySettiingsActivity;
 import com.maitian.starmily.activity.MyTaskActivity;
 import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
-import com.maitian.starmily.model.FindTopicVO;
 import com.maitian.starmily.model.MyHomeBean;
 import com.maitian.starmily.model.UserInfoVO;
 import com.squareup.picasso.Picasso;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.mode.EBMessageVO;
-import com.wuzhanglong.library.utils.BaseCommonUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -67,9 +65,15 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
             mDescTv.setVisibility(View.VISIBLE);
             mLoginTv.setVisibility(View.GONE);
             UserInfoVO userInfoVO = AppApplication.getInstance().getUserInfoVO();
-            mNameTv.setText(userInfoVO.getObj().getNikename());
+            mNameTv.setText(userInfoVO.getObj().getNickname());
+            System.out.println("===============>getNikename: "+userInfoVO.getObj().getNickname());
             if (!TextUtils.isEmpty(userInfoVO.getObj().getIconUrl())) {
-                Picasso.with(mActivity).load(Constant.DOMAIN_UR + "/" + userInfoVO.getObj().getIconUrl()).into(mHeadIv);
+                if (userInfoVO.getObj().getIconUrl().contains("http://")) {
+                    Picasso.with(mActivity).load(userInfoVO.getObj().getIconUrl()).into(mHeadIv);
+                }else {
+                    Picasso.with(mActivity).load(userInfoVO.getObj().getIconUrl()).into(mHeadIv);
+                    Picasso.with(mActivity).load(Constant.DOMAIN_UR + "/" + userInfoVO.getObj().getIconUrl()).into(mHeadIv);
+                }
             }
         } else {
             mNameTv.setVisibility(View.GONE);
@@ -96,6 +100,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
         HashMap<String, Object> map = new HashMap<>();
         map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
         StartHttpUtils.get(mActivity, this, Constant.MY_HOME_PAGE, map, MyHomeBean.class);
+        showView();
     }
 
     @Override
@@ -116,6 +121,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        Bundle bundle=new Bundle();
         switch (v.getId()) {
             case R.id.item_01_tv:
                 mActivity.openActivity(MyAttentionActivity.class);
@@ -130,7 +136,8 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
                 mActivity.openActivity(MyMemberCentreActivity.class);
                 break;
             case R.id.item_05_tv:
-                mActivity.openActivity(MyPostsActivity.class);
+                bundle.putString("followUserId",AppApplication.getInstance().getUserInfoVO().getObj().getUserId()+"");
+                mActivity.open(MyPostsActivity.class,bundle,0);
                 break;
             case R.id.item_06_tv:
                 mActivity.openActivity(MySettiingsActivity.class);
@@ -210,7 +217,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
 
     public void sign() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("userId", "4337");
+        map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
         StartHttpUtils.postCallBack(mActivity, Constant.SIGN, map, BaseVO.class, this);
     }
 }

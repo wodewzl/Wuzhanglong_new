@@ -4,10 +4,13 @@ import android.view.View;
 
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.maitian.starmily.R;
+import com.maitian.starmily.adapter.MyPostAdapter;
 import com.maitian.starmily.adapter.PaurseDetailAdapter;
 import com.maitian.starmily.adapter.PostAdapter;
 import com.maitian.starmily.adapter.RiceCircleAdapter;
+import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
+import com.maitian.starmily.model.MyPostBean;
 import com.maitian.starmily.model.RiceCircleVO;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.StartHttpUtils;
@@ -20,7 +23,7 @@ import java.util.List;
 
 public class MyPostsActivity extends BaseActivity {
     private LuRecyclerView mRecyclerView;
-    private RiceCircleAdapter mAdapter;
+    private MyPostAdapter mAdapter;
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private int mCurrentPage = 1;
     private boolean isLoadMore = false;
@@ -36,7 +39,7 @@ public class MyPostsActivity extends BaseActivity {
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
         mRecyclerView = getViewById(R.id.recycler_view);
-        mAdapter = new RiceCircleAdapter(mRecyclerView);
+        mAdapter = new MyPostAdapter(mRecyclerView);
         RecyclerViewUtil.initRecyclerViewLinearLayout(this, mRecyclerView, mAdapter, R.dimen.dp_10, R.color.C3, true);
     }
 
@@ -48,11 +51,11 @@ public class MyPostsActivity extends BaseActivity {
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("userId", "4337");
+        map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId()+"");
+        map.put("followUserId", this.getIntent().getStringExtra("followUserId"));
         map.put("pageNum", mCurrentPage + "");
         map.put("pageSize", "10");
-        StartHttpUtils.get(mActivity, this, Constant.USER_TOPIC_LIST, map, RiceCircleVO.class);
-
+        StartHttpUtils.get(mActivity, this, Constant.USER_TOPIC_LIST, map, MyPostBean.class);
     }
 
     @Override

@@ -8,7 +8,7 @@ public class Constant {
     public static String DOMAIN_UR = "";//七牛图片的地址
     public static final String TOPIC_LIST = "topic/topicList/"; // 饭圈列表
     public static final String USER_TOPIC_LIST = "topic/userTopicList/"; // 某个人帖子
-    public static final String MY_IDOLS = "user/myIdols/"; // 我守护的明星
+    public static final String MY_IDOLS = "user/myIdols/"; // 我守护、关注的明星
     public static final String UP_TOKEN = "file/upToken/"; // 七牛图片上传token
     public static final String SAVE_TOPIC = "topic/saveTopic/"; // 发布帖子
     public static final String APP_CONFIG = "file/appConfig/"; // 获取APP的配置
@@ -38,10 +38,14 @@ public class Constant {
     public static final String MY_HOME_PAGE = "user/myHomePage/"; //我的首页
     public static final String MY_FOLLOWS = "user/myFollows/"; //我的关注
     public static final String MY_FANS = "user/myFans/"; //我的粉丝
-    public static final String SIGN = "user/sign/"; //我的粉丝
+    public static final String FOLLOW_USER = "user/followUser/"; //关注
+    public static final String SIGN = "user/sign/"; //签到
     public static final String TOPIC_SAVE_COMMENT = "topic/saveComment/"; //饭圈帖子评论
     public static final String TOPIC_SAVE_REPLY = "topic/saveReply/"; //饭圈回复评论
-
+    public static final String TURNS_PICTURES = "home/turnsPictures/"; //首页轮播图
+    public static final String HOME_PAGE = "home/homePage/"; //首页
+    public static final String CUSTOM_SERVICE_LIST = "find/customServiceList/"; //定制服务列表
+    public static final String GET_USER_TASK = "task/getUserTask/"; //任务列表
 
 }
 

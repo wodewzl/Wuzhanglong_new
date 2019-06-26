@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.maitian.starmily.R;
+import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.StartHttpUtils;
@@ -66,13 +67,13 @@ public class PublishDiscussActivity extends BaseActivity implements PostCallback
         if ("1".equals(mType)) {
             HashMap<String, Object> map = new HashMap<>();
             map.put("topicId", this.getIntent().getStringExtra("topicId"));
-            map.put("userId", "4338");
+            map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
             map.put("replyMsg", mContentEt.getText().toString());
             StartHttpUtils.postCallBack(mActivity, Constant.TOPIC_SAVE_COMMENT, map, BaseVO.class, this);
         } else if ("2".equals(mType)) {
             HashMap<String, Object> map = new HashMap<>();
             map.put("commentId", this.getIntent().getStringExtra("commentId"));
-            map.put("fromUserId", "4338");
+            map.put("fromUserId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
             map.put("toUserId", this.getIntent().getStringExtra("toUserId"));
             map.put("replyMsg", mContentEt.getText().toString());
             StartHttpUtils.postCallBack(mActivity, Constant.TOPIC_SAVE_REPLY, map, BaseVO.class, this);
@@ -80,13 +81,13 @@ public class PublishDiscussActivity extends BaseActivity implements PostCallback
         } else if ("3".equals(mType)) {
             HashMap<String, Object> map = new HashMap<>();
             map.put("newsId", this.getIntent().getStringExtra("newsId"));
-            map.put("userId", "4338");
+            map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
             map.put("replyMsg", mContentEt.getText().toString());
             StartHttpUtils.postCallBack(mActivity, Constant.SAVE_COMMENT, map, BaseVO.class, this);
         } else if ("4".equals(mType)) {
             HashMap<String, Object> map = new HashMap<>();
             map.put("commentId", this.getIntent().getStringExtra("commentId"));
-            map.put("fromUserId", "4338");
+            map.put("fromUserId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
             map.put("toUserId", this.getIntent().getStringExtra("toUserId"));
             map.put("replyMsg", mContentEt.getText().toString());
             StartHttpUtils.postCallBack(mActivity, Constant.SAVE_REPLY, map, BaseVO.class, this);
