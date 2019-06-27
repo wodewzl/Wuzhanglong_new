@@ -4,7 +4,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/C3"
+              android:background="@color/C1"
               android:orientation="vertical">
 
     <com.wuzhanglong.library.view.AutoSwipeRefreshLayout
@@ -25,7 +25,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
                 android:layout_weight="1"
-                style="@style/margin_15_10"/>
+               />
         </LinearLayout>
     </com.wuzhanglong.library.view.AutoSwipeRefreshLayout>
 </LinearLayout>

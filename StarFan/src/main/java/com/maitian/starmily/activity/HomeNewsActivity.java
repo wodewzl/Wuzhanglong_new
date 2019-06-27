@@ -68,10 +68,9 @@ public class HomeNewsActivity extends BaseActivity implements BGAOnRVItemClickLi
     public void hasData(BaseVO vo) {
         NewsBean bean = (NewsBean) vo;
         if (bean.getObj().isHasNextPage()) {
-            mRecyclerView.setNoMore(true);
-            mRecyclerView.setLoadMoreEnabled(false);
-        } else {
             mRecyclerView.setNoMore(false);
+        } else {
+            mRecyclerView.setNoMore(true);
         }
         mAutoSwipeRefreshLayout.setRefreshing(false);
         List<NewsBean.ObjBean.ListBean> list = bean.getObj().getList();

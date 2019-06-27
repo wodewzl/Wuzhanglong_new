@@ -66,7 +66,7 @@ public class HomeWelfareActivity extends BaseActivity  implements BGAOnRVItemCli
         HashMap<String, Object> map = new HashMap<>();
         map.put("pageNum", mCurrentPage + "");
         map.put("pageSize", "10");
-        StartHttpUtils.get(mActivity, this, Constant.PROPS_LIST, map, WelfareBean.class);
+        StartHttpUtils.get(mActivity, this, Constant.WELFARE_LIST, map, WelfareBean.class);
     }
 
     @Override
@@ -100,8 +100,8 @@ public class HomeWelfareActivity extends BaseActivity  implements BGAOnRVItemCli
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
-//        if (mAdapter.getData().size() == 0)
-//            return;
+        if (mAdapter.getData().size() == 0)
+            return;
 //
 //        MyMessageVO.DataBean.ListBean vo= (MyMessageVO.DataBean.ListBean) mAdapter.getItem(position);
 //

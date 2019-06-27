@@ -97,8 +97,8 @@ public class HomeWelfareDetailActivity extends BaseActivity  implements BGAOnRVI
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
-//        if (mAdapter.getData().size() == 0)
-//            return;
+        if (mAdapter.getData().size() == 0)
+            return;
 //
 //        MyMessageVO.DataBean.ListBean vo= (MyMessageVO.DataBean.ListBean) mAdapter.getItem(position);
 //

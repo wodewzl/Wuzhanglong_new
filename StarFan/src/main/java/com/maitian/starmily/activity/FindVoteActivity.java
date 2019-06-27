@@ -75,6 +75,8 @@ public class FindVoteActivity extends BaseActivity implements BGAOnRVItemClickLi
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+        if (mAdapter.getData().size() == 0)
+            return;
         openActivity(FindVoteDetailActivity.class);
     }
 

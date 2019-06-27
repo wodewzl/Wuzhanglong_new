@@ -59,8 +59,7 @@ public class FindTopicActivity extends BaseActivity implements BGAOnRVItemClickL
         HashMap<String, Object> map = new HashMap<>();
         map.put("pageNum", mCurrentPage + "");
         map.put("pageSize", "10");
-        map.put("type", "0");
-        StartHttpUtils.get(mActivity, this, Constant.FIND_NEWS_COLLECTION_BY_PAGE, map, FindTopicVO.class);
+        StartHttpUtils.get(mActivity, this, Constant.FIND_THEME_BY_PAGE, map, FindTopicVO.class);
     }
 
     @Override
@@ -108,6 +107,7 @@ public class FindTopicActivity extends BaseActivity implements BGAOnRVItemClickL
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
-
+        if (mAdapter.getData().size() == 0)
+            return;
     }
 }

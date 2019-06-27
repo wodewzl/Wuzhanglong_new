@@ -16,6 +16,7 @@ import com.maitian.starmily.activity.PublishDiscussActivity;
 import com.maitian.starmily.activity.ReportActivity;
 import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
+import com.maitian.starmily.model.MyPostBean;
 import com.maitian.starmily.model.RiceCircleVO;
 import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.adapter.RecyclerBaseAdapter;
@@ -56,7 +57,7 @@ public class MyPostAdapter extends RecyclerBaseAdapter implements BGANinePhotoLa
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
 
-        RiceCircleVO.ObjBean.ListBeanXX vo = (RiceCircleVO.ObjBean.ListBeanXX) model;
+        MyPostBean.ObjBean.TopicsBean.ListBeanXX vo = (MyPostBean.ObjBean.TopicsBean.ListBeanXX) model;
         if (!TextUtils.isEmpty(vo.getIconUrl())) {
             if (vo.getIconUrl().contains("http://")) {
                 Picasso.with(mContext).load(vo.getIconUrl()).into(helper.getImageView(R.id.head_img));
@@ -116,7 +117,7 @@ public class MyPostAdapter extends RecyclerBaseAdapter implements BGANinePhotoLa
             helper.setVisibility(R.id.reply_layout, View.VISIBLE);
             boolean isLast = false;
             for (int i = 0; i < vo.getTopicComment().getList().size(); i++) {
-                addReplyLayout(linearLayout, vo.getTopicComment().getList().get(i), i);
+                addReplyLayout(linearLayout, vo.getTopicComment().getList().get(i), i,vo.getTopicComment().getList().size());
                 if (i == 2) {
                     break;
                 }
@@ -198,7 +199,7 @@ public class MyPostAdapter extends RecyclerBaseAdapter implements BGANinePhotoLa
         return R.layout.rice_circle_adapter;
     }
 
-    public void addReplyLayout(LinearLayout layout, final RiceCircleVO.ObjBean.ListBeanXX.TopicCommentBean.ListBeanX vo, int position) {
+    public void addReplyLayout(LinearLayout layout, final MyPostBean.ObjBean.TopicsBean.ListBeanXX.TopicCommentBean.ListBeanX vo, int position,int count) {
         View view = View.inflate(mContext, R.layout.reply_layout, null);
         CircleImageView circleImageView = view.findViewById(R.id.reply_head_iv);
         if (!TextUtils.isEmpty(vo.getIcon_url())){
@@ -272,7 +273,7 @@ public class MyPostAdapter extends RecyclerBaseAdapter implements BGANinePhotoLa
                 mActivity.openActivity(ReportActivity.class);
             }
         });
-        if (position == 2) {
+        if (position == 2||count==1) {
             view.findViewById(R.id.divider_view).setVisibility(View.GONE);
         } else {
             view.findViewById(R.id.divider_view).setVisibility(View.VISIBLE);

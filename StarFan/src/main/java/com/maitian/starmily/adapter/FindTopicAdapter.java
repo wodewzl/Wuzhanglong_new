@@ -24,11 +24,11 @@ public class FindTopicAdapter extends RecyclerBaseAdapter {
     @Override
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
         FindTopicVO.ObjBean.ListBean bean = (FindTopicVO.ObjBean.ListBean) model;
-        if (!TextUtils.isEmpty(bean.getAdImg())){
-            if (bean.getAdImg().contains("http://")) {
-                Picasso.with(mContext).load( bean.getAdImg()).into(helper.getImageView(R.id.item_img));
+        if (!TextUtils.isEmpty(bean.getQiNiuAddress())){
+            if (bean.getQiNiuAddress().contains("http://")) {
+                Picasso.with(mContext).load( bean.getQiNiuAddress()).into(helper.getImageView(R.id.item_img));
             }else {
-                Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + bean.getAdImg()).into(helper.getImageView(R.id.item_img));
+                Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + bean.getQiNiuAddress()).into(helper.getImageView(R.id.item_img));
             }
         }
         helper.setText(R.id.title_tv, bean.getEventTitle());

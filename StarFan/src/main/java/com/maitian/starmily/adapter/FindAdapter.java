@@ -25,14 +25,14 @@ public class FindAdapter extends RecyclerBaseAdapter {
     public void initData(BGAViewHolderHelper helper, int position, Object model) {
         FindBean.ObjBean.ListBean bean= (FindBean.ObjBean.ListBean) model;
 //        helper.setText(R.id.title_tv,bean.getTitle());
-        if (!TextUtils.isEmpty(bean.getAdImg())){
-            if (bean.getAdImg().contains("http://")) {
-                Picasso.with(mContext).load(bean.getAdImg()).into(helper.getImageView(R.id.item_iv));
+        if (!TextUtils.isEmpty(bean.getPicturesAddress())){
+            if (bean.getPicturesAddress().contains("http://")) {
+                Picasso.with(mContext).load(bean.getPicturesAddress()).into(helper.getImageView(R.id.item_iv));
             }else {
-                Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + bean.getAdImg()).into(helper.getImageView(R.id.item_iv));
+                Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + bean.getPicturesAddress()).into(helper.getImageView(R.id.item_iv));
             }
         }
-        helper.setText(R.id.content_tv, bean.getTitle());
+        helper.setText(R.id.content_tv, bean.getEventTitle());
     }
 
 }

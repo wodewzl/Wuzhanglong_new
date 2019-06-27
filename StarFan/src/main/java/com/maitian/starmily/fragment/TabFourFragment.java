@@ -81,7 +81,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
         HashMap<String, Object> map = new HashMap<>();
         map.put("pageNum", mCurrentPage + "");
         map.put("pageSize", "10");
-        StartHttpUtils.get(mActivity, this, Constant.FIND_PAGE, map, FindBean.class);
+        StartHttpUtils.get(mActivity, this, Constant.FIND_RECOMMEND, map, FindBean.class);
     }
 
     @Override
@@ -177,6 +177,7 @@ public class TabFourFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
-
+        if (mAdapter.getData().size() == 0)
+            return;
     }
 }

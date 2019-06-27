@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.maitian.starmily.R;
 import com.maitian.starmily.activity.HomeNewsReplyActivity;
+import com.maitian.starmily.activity.MyPostsActivity;
 import com.maitian.starmily.activity.PublishDiscussActivity;
 import com.maitian.starmily.activity.ReportActivity;
 import com.maitian.starmily.activity.RiceCircleDetailActivity;
@@ -84,7 +85,7 @@ public class RiceCircleAdapter extends RecyclerBaseAdapter implements BGANinePho
         helper.setItemChildClickListener(R.id.report_tv);
         helper.setItemChildClickListener(R.id.discuss_tv);
         helper.setItemChildClickListener(R.id.more_tv);
-
+        helper.setItemChildClickListener(R.id.head_img);
         BGANinePhotoLayout photoLayout = helper.getView(R.id.photo_layout);
         //九宫格
         if (vo.getImgs() != null) {
@@ -118,7 +119,7 @@ public class RiceCircleAdapter extends RecyclerBaseAdapter implements BGANinePho
             helper.setVisibility(R.id.reply_layout, View.VISIBLE);
             boolean isLast = false;
             for (int i = 0; i < vo.getTopicComment().getList().size(); i++) {
-                addReplyLayout(linearLayout, vo.getTopicComment().getList().get(i), i);
+                addReplyLayout(linearLayout, vo.getTopicComment().getList().get(i), i, vo.getTopicComment().getList().size());
                 if (i == 2) {
                     break;
                 }
@@ -166,7 +167,7 @@ public class RiceCircleAdapter extends RecyclerBaseAdapter implements BGANinePho
                         Bundle bundle = new Bundle();
                         bundle.putString("type", "1");
                         bundle.putString("topicId", beanXX.getTopicId() + "");
-                        bundle.putString("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId()+"");
+                        bundle.putString("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId() + "");
                         mActivity.open(PublishDiscussActivity.class, bundle, 0);
                         break;
                     case R.id.more_tv:
@@ -181,6 +182,11 @@ public class RiceCircleAdapter extends RecyclerBaseAdapter implements BGANinePho
                         bundleMore.putString("like_status", beanXX.getLikeStatus() + "");
                         bundleMore.putString("discuss_count", beanXX.getTopicComment() != null ? beanXX.getTopicComment().getTotal() + "" : "0");
                         mActivity.open(HomeNewsReplyActivity.class, bundleMore, 0);
+                        break;
+                    case R.id.head_img:
+                        Bundle bundlePost = new Bundle();
+                        bundlePost.putString("followUserId",beanXX.getUserId()+"");
+                        mActivity.open(MyPostsActivity.class,bundlePost,0);
                         break;
                     default:
                         break;
@@ -200,13 +206,13 @@ public class RiceCircleAdapter extends RecyclerBaseAdapter implements BGANinePho
         return R.layout.rice_circle_adapter;
     }
 
-    public void addReplyLayout(LinearLayout layout, final RiceCircleVO.ObjBean.ListBeanXX.TopicCommentBean.ListBeanX vo, int position) {
+    public void addReplyLayout(LinearLayout layout, final RiceCircleVO.ObjBean.ListBeanXX.TopicCommentBean.ListBeanX vo, int position, int count) {
         View view = View.inflate(mContext, R.layout.reply_layout, null);
         CircleImageView circleImageView = view.findViewById(R.id.reply_head_iv);
-        if (!TextUtils.isEmpty(vo.getIcon_url())){
+        if (!TextUtils.isEmpty(vo.getIcon_url())) {
             if (vo.getIcon_url().contains("http://")) {
                 Picasso.with(mContext).load(vo.getIcon_url()).into(circleImageView);
-            }else {
+            } else {
                 Picasso.with(mContext).load(Constant.DOMAIN_UR + "/" + vo.getIcon_url()).into(circleImageView);
             }
         }
@@ -240,7 +246,7 @@ public class RiceCircleAdapter extends RecyclerBaseAdapter implements BGANinePho
                 Bundle bundleDiscuss = new Bundle();
                 bundleDiscuss.putString("type", "2");
                 bundleDiscuss.putString("commentId", vo.getCommentId() + "");
-                bundleDiscuss.putString("fromUserId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId()+"");
+                bundleDiscuss.putString("fromUserId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId() + "");
                 bundleDiscuss.putString("toUserId", vo.getUserId() + "");
                 mActivity.open(PublishDiscussActivity.class, bundleDiscuss, 0);
             }
@@ -274,7 +280,7 @@ public class RiceCircleAdapter extends RecyclerBaseAdapter implements BGANinePho
                 mActivity.openActivity(ReportActivity.class);
             }
         });
-        if (position == 2) {
+        if (position == 2 || count == 1) {
             view.findViewById(R.id.divider_view).setVisibility(View.GONE);
         } else {
             view.findViewById(R.id.divider_view).setVisibility(View.VISIBLE);

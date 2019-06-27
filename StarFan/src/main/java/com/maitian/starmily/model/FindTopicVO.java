@@ -6,9 +6,8 @@ import java.util.List;
 
 public class FindTopicVO extends BaseVO {
 
-
     /**
-     * obj : {"pageNum":1,"pageSize":10,"size":2,"orderBy":null,"startRow":1,"endRow":2,"total":2,"pages":1,"list":[{"newsId":3835,"eventTitle":"#米粒话题#123","adImg":null,"id":3837,"type":0},{"newsId":3835,"eventTitle":"#米粒话题#123","adImg":null,"id":3837,"type":0}],"firstPage":1,"prePage":0,"nextPage":0,"lastPage":1,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1]}
+     * obj : {"pageNum":1,"pageSize":10,"size":1,"orderBy":null,"startRow":1,"endRow":1,"total":1,"pages":1,"list":[{"id":1,"createTime":1561015262000,"updateTime":1561566572000,"delFlag":0,"type":2,"linkAddress":"","newsId":3835,"eventTitle":"星米粒话题","qiNiuAddress":"http://img.starmily.com/99f91ffb-bca9-45a1-9933-eba69b8c54f0","createUserId":null,"updateUserId":null}],"firstPage":1,"prePage":0,"nextPage":0,"lastPage":1,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1]}
      */
 
     private ObjBean obj;
@@ -25,13 +24,13 @@ public class FindTopicVO extends BaseVO {
         /**
          * pageNum : 1
          * pageSize : 10
-         * size : 2
+         * size : 1
          * orderBy : null
          * startRow : 1
-         * endRow : 2
-         * total : 2
+         * endRow : 1
+         * total : 1
          * pages : 1
-         * list : [{"newsId":3835,"eventTitle":"#米粒话题#123","adImg":null,"id":3837,"type":0},{"newsId":3835,"eventTitle":"#米粒话题#123","adImg":null,"id":3837,"type":0}]
+         * list : [{"id":1,"createTime":1561015262000,"updateTime":1561566572000,"delFlag":0,"type":2,"linkAddress":"","newsId":3835,"eventTitle":"星米粒话题","qiNiuAddress":"http://img.starmily.com/99f91ffb-bca9-45a1-9933-eba69b8c54f0","createUserId":null,"updateUserId":null}]
          * firstPage : 1
          * prePage : 0
          * nextPage : 0
@@ -218,18 +217,78 @@ public class FindTopicVO extends BaseVO {
 
         public static class ListBean {
             /**
+             * id : 1
+             * createTime : 1561015262000
+             * updateTime : 1561566572000
+             * delFlag : 0
+             * type : 2
+             * linkAddress :
              * newsId : 3835
-             * eventTitle : #米粒话题#123
-             * adImg : null
-             * id : 3837
-             * type : 0
+             * eventTitle : 星米粒话题
+             * qiNiuAddress : http://img.starmily.com/99f91ffb-bca9-45a1-9933-eba69b8c54f0
+             * createUserId : null
+             * updateUserId : null
              */
 
+            private int id;
+            private long createTime;
+            private long updateTime;
+            private int delFlag;
+            private int type;
+            private String linkAddress;
             private int newsId;
             private String eventTitle;
-            private String adImg;
-            private int id;
-            private int type;
+            private String qiNiuAddress;
+            private Object createUserId;
+            private Object updateUserId;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public long getCreateTime() {
+                return createTime;
+            }
+
+            public void setCreateTime(long createTime) {
+                this.createTime = createTime;
+            }
+
+            public long getUpdateTime() {
+                return updateTime;
+            }
+
+            public void setUpdateTime(long updateTime) {
+                this.updateTime = updateTime;
+            }
+
+            public int getDelFlag() {
+                return delFlag;
+            }
+
+            public void setDelFlag(int delFlag) {
+                this.delFlag = delFlag;
+            }
+
+            public int getType() {
+                return type;
+            }
+
+            public void setType(int type) {
+                this.type = type;
+            }
+
+            public String getLinkAddress() {
+                return linkAddress;
+            }
+
+            public void setLinkAddress(String linkAddress) {
+                this.linkAddress = linkAddress;
+            }
 
             public int getNewsId() {
                 return newsId;
@@ -247,28 +306,28 @@ public class FindTopicVO extends BaseVO {
                 this.eventTitle = eventTitle;
             }
 
-            public String getAdImg() {
-                return adImg;
+            public String getQiNiuAddress() {
+                return qiNiuAddress;
             }
 
-            public void setAdImg(String adImg) {
-                this.adImg = adImg;
+            public void setQiNiuAddress(String qiNiuAddress) {
+                this.qiNiuAddress = qiNiuAddress;
             }
 
-            public int getId() {
-                return id;
+            public Object getCreateUserId() {
+                return createUserId;
             }
 
-            public void setId(int id) {
-                this.id = id;
+            public void setCreateUserId(Object createUserId) {
+                this.createUserId = createUserId;
             }
 
-            public int getType() {
-                return type;
+            public Object getUpdateUserId() {
+                return updateUserId;
             }
 
-            public void setType(int type) {
-                this.type = type;
+            public void setUpdateUserId(Object updateUserId) {
+                this.updateUserId = updateUserId;
             }
         }
     }

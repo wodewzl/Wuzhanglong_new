@@ -24,7 +24,7 @@ public class Constant {
     public static final String UPDATE_PASSWORD = "user/updatePassword/"; //修改密码
     public static final String FIND_IDOLS_BY_PAGE = "user/findIdolsByPage/"; //明星守护列表
     public static final String GUARDIAN_IDOL = "user/guardianIdol/"; //明星守护
-    public static final String FIND_NEWS_COLLECTION_BY_PAGE = "news/findNewsCollectionByPage/"; //话题
+    public static final String FIND_THEME_BY_PAGE = "news/findThemeByPage/"; //话题
     public static final String FIND_NEWS_BY_PAGE = "news/findNewsByPage/"; //资讯
     public static final String NEWS_DETAILS = "news/newsDetails/"; //资讯详情
     public static final String LIKE_NEWS = "news/likeNews/"; //资讯点赞
@@ -33,8 +33,8 @@ public class Constant {
     public static final String FIND_COMMENT_BY_PAGE = "news/findCommentByPage/"; //资讯评论列表
     public static final String SAVE_COMMENT = "news/saveComment/"; //资讯发布评论
     public static final String SAVE_REPLY = "news/saveReply/"; //资讯回复评论
-    public static final String FIND_PAGE = "find/findPage/"; //发现首页
-    public static final String PROPS_LIST = "find/propsList/"; //福利
+    public static final String FIND_RECOMMEND = "find/findRecommend/"; //发现首页
+    public static final String WELFARE_LIST = "find/welfareList/"; //福利
     public static final String MY_HOME_PAGE = "user/myHomePage/"; //我的首页
     public static final String MY_FOLLOWS = "user/myFollows/"; //我的关注
     public static final String MY_FANS = "user/myFans/"; //我的粉丝
@@ -43,9 +43,9 @@ public class Constant {
     public static final String TOPIC_SAVE_COMMENT = "topic/saveComment/"; //饭圈帖子评论
     public static final String TOPIC_SAVE_REPLY = "topic/saveReply/"; //饭圈回复评论
     public static final String TURNS_PICTURES = "home/turnsPictures/"; //首页轮播图
-    public static final String HOME_PAGE = "home/homePage/"; //首页
+    public static final String HOME_RECOMMEND = "home/homeRecommend/"; //首页
     public static final String CUSTOM_SERVICE_LIST = "find/customServiceList/"; //定制服务列表
     public static final String GET_USER_TASK = "task/getUserTask/"; //任务列表
-
+    public static final String FIND_ACTIVITY_BY_PAGE = "news/findActivityByPage/"; //活动
 }
 

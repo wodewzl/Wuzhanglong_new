@@ -4,6 +4,7 @@ package com.maitian.starmily.fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,7 +38,9 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
-public class TabTwoFragment extends BaseFragment implements View.OnClickListener, Serializable, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener, PostCallback, ChildClikCallback {
+import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
+
+public class TabTwoFragment extends BaseFragment implements View.OnClickListener, Serializable, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener, PostCallback, ChildClikCallback, BGAOnRVItemClickListener {
     private LuRecyclerView mRecyclerView;
     private RiceCircleAdapter mAdapter;
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
@@ -130,9 +133,9 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
         if (vo instanceof RiceCircleVO) {
             RiceCircleVO riceCircleVO = (RiceCircleVO) vo;
             if (riceCircleVO.getObj().isHasNextPage()) {
-                mRecyclerView.setNoMore(true);
-            } else {
                 mRecyclerView.setNoMore(false);
+            } else {
+                mRecyclerView.setNoMore(true);
             }
             mAutoSwipeRefreshLayout.setRefreshing(false);
             List<RiceCircleVO.ObjBean.ListBeanXX> list = riceCircleVO.getObj().getList();
@@ -232,6 +235,7 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
         RecyclerViewUtil.initRecyclerViewGridLayoutManager(this.getActivity(), recyclerView, mGuardAdapter, 4, R.dimen.dp_5, R.color.C3, false);
         MyIdolsVO myIdolsVO = AppApplication.getInstance().getMyIdolsVO();
         mGuardAdapter.updateData(myIdolsVO.getObj());
+        mGuardAdapter.setOnRVItemClickListener(this);
         CustomDialog.Builder builder = new CustomDialog.Builder(mActivity);
         mCustomDialog = builder
                 .cancelTouchout(false)
@@ -262,5 +266,25 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
             MyIdolsVO myIdolsVO = AppApplication.getInstance().getMyIdolsVO();
             mGuardAdapter.updateData(myIdolsVO.getObj());
         }
+    }
+
+    @Override
+    public void onRVItemClick(ViewGroup parent, View itemView, int position) {
+        if (mGuardAdapter.getData().size() == 0)
+            return;
+        MyIdolsVO.ObjBean beans = (MyIdolsVO.ObjBean) mGuardAdapter.getItem(position);
+        mIdolId = beans.getId() + "";
+
+        mNameTv.setText(beans.getIdolName());
+        if (!TextUtils.isEmpty(beans.getBackUrl())) {
+            if (beans.getBackUrl().contains("http://")) {
+                Picasso.with(mActivity).load(beans.getBackUrl()).into(mHeadIv);
+            } else {
+                Picasso.with(mActivity).load(Constant.DOMAIN_UR + "/" + beans.getBackUrl()).into(mHeadIv);
+            }
+        }
+        mCustomDialog.dismiss();
+        mAutoSwipeRefreshLayout.autoRefresh();
+
     }
 }

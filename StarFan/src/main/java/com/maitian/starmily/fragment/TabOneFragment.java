@@ -98,7 +98,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         HashMap<String, Object> homeMap = new HashMap<>();
         homeMap.put("pageNum", mCurrentPage + "");
         homeMap.put("pageSize", "10");
-        StartHttpUtils.get(mActivity, this, Constant.HOME_PAGE, homeMap, HomeBean.class);
+        StartHttpUtils.get(mActivity, this, Constant.HOME_RECOMMEND, homeMap, HomeBean.class);
     }
 
     @Override
@@ -223,6 +223,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
-
+        if (mAdapter.getData().size() == 0)
+            return;
     }
 }

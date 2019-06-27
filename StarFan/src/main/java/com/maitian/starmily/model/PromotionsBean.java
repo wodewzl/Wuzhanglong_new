@@ -4,10 +4,11 @@ import com.wuzhanglong.library.mode.BaseVO;
 
 import java.util.List;
 
-public class FindBean extends BaseVO {
+public class PromotionsBean extends BaseVO {
+
 
     /**
-     * obj : {"pageNum":1,"pageSize":10,"size":2,"startRow":1,"endRow":2,"total":2,"pages":1,"list":[{"updateTime":1561025168000,"linkAddress":"http://www.baidu.com","delFlag":0,"type":2,"picturesAddress":"http://img.starmily.com/fe27b69e-b831-45fb-bbb2-da46f66930eb","newsId":111,"eventTitle":"北京天气预报","createTime":1559999075000,"onlineTime":1560002163000,"offlineTime":1560024305000,"id":1},{"updateTime":1561025168000,"linkAddress":"http://www.baidu.com","delFlag":0,"type":2,"picturesAddress":"http://img.starmily.com/fe27b69e-b831-45fb-bbb2-da46f66930eb","newsId":111,"eventTitle":"北京天气预报","createTime":1559999075000,"onlineTime":1560002163000,"offlineTime":1560024305000,"id":1}],"firstPage":1,"prePage":0,"nextPage":0,"lastPage":1,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1]}
+     * obj : {"pageNum":1,"pageSize":10,"size":2,"orderBy":null,"startRow":1,"endRow":2,"total":2,"pages":1,"list":[{"id":1,"createTime":1561015262000,"updateTime":1561566578000,"delFlag":0,"type":2,"linkAddress":"","newsId":3835,"onlineTime":1560960000000,"eventTitle":"星米粒团队","offlineTime":1560960000000,"qiNiuAddress":"http://img.starmily.com/99f91ffb-bca9-45a1-9933-eba69b8c54f0"},{"id":2,"createTime":1561016252000,"updateTime":null,"delFlag":0,"type":2,"linkAddress":"","newsId":3835,"onlineTime":1560960000000,"eventTitle":"星米粒团队","offlineTime":1560960000000,"qiNiuAddress":"http://img.starmily.com/"}],"firstPage":1,"prePage":0,"nextPage":0,"lastPage":1,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1]}
      */
 
     private ObjBean obj;
@@ -25,11 +26,12 @@ public class FindBean extends BaseVO {
          * pageNum : 1
          * pageSize : 10
          * size : 2
+         * orderBy : null
          * startRow : 1
          * endRow : 2
          * total : 2
          * pages : 1
-         * list : [{"updateTime":1561025168000,"linkAddress":"http://www.baidu.com","delFlag":0,"type":2,"picturesAddress":"http://img.starmily.com/fe27b69e-b831-45fb-bbb2-da46f66930eb","newsId":111,"eventTitle":"北京天气预报","createTime":1559999075000,"onlineTime":1560002163000,"offlineTime":1560024305000,"id":1},{"updateTime":1561025168000,"linkAddress":"http://www.baidu.com","delFlag":0,"type":2,"picturesAddress":"http://img.starmily.com/fe27b69e-b831-45fb-bbb2-da46f66930eb","newsId":111,"eventTitle":"北京天气预报","createTime":1559999075000,"onlineTime":1560002163000,"offlineTime":1560024305000,"id":1}]
+         * list : [{"id":1,"createTime":1561015262000,"updateTime":1561566578000,"delFlag":0,"type":2,"linkAddress":"","newsId":3835,"onlineTime":1560960000000,"eventTitle":"星米粒团队","offlineTime":1560960000000,"qiNiuAddress":"http://img.starmily.com/99f91ffb-bca9-45a1-9933-eba69b8c54f0"},{"id":2,"createTime":1561016252000,"updateTime":null,"delFlag":0,"type":2,"linkAddress":"","newsId":3835,"onlineTime":1560960000000,"eventTitle":"星米粒团队","offlineTime":1560960000000,"qiNiuAddress":"http://img.starmily.com/"}]
          * firstPage : 1
          * prePage : 0
          * nextPage : 0
@@ -45,6 +47,7 @@ public class FindBean extends BaseVO {
         private int pageNum;
         private int pageSize;
         private int size;
+        private Object orderBy;
         private int startRow;
         private int endRow;
         private int total;
@@ -83,6 +86,14 @@ public class FindBean extends BaseVO {
 
         public void setSize(int size) {
             this.size = size;
+        }
+
+        public Object getOrderBy() {
+            return orderBy;
+        }
+
+        public void setOrderBy(Object orderBy) {
+            this.orderBy = orderBy;
         }
 
         public int getStartRow() {
@@ -207,30 +218,46 @@ public class FindBean extends BaseVO {
 
         public static class ListBean {
             /**
-             * updateTime : 1561025168000
-             * linkAddress : http://www.baidu.com
+             * id : 1
+             * createTime : 1561015262000
+             * updateTime : 1561566578000
              * delFlag : 0
              * type : 2
-             * picturesAddress : http://img.starmily.com/fe27b69e-b831-45fb-bbb2-da46f66930eb
-             * newsId : 111
-             * eventTitle : 北京天气预报
-             * createTime : 1559999075000
-             * onlineTime : 1560002163000
-             * offlineTime : 1560024305000
-             * id : 1
+             * linkAddress :
+             * newsId : 3835
+             * onlineTime : 1560960000000
+             * eventTitle : 星米粒团队
+             * offlineTime : 1560960000000
+             * qiNiuAddress : http://img.starmily.com/99f91ffb-bca9-45a1-9933-eba69b8c54f0
              */
 
+            private int id;
+            private long createTime;
             private long updateTime;
-            private String linkAddress;
             private int delFlag;
             private int type;
-            private String picturesAddress;
+            private String linkAddress;
             private int newsId;
-            private String eventTitle;
-            private long createTime;
             private long onlineTime;
+            private String eventTitle;
             private long offlineTime;
-            private int id;
+            private String qiNiuAddress;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public long getCreateTime() {
+                return createTime;
+            }
+
+            public void setCreateTime(long createTime) {
+                this.createTime = createTime;
+            }
 
             public long getUpdateTime() {
                 return updateTime;
@@ -238,14 +265,6 @@ public class FindBean extends BaseVO {
 
             public void setUpdateTime(long updateTime) {
                 this.updateTime = updateTime;
-            }
-
-            public String getLinkAddress() {
-                return linkAddress;
-            }
-
-            public void setLinkAddress(String linkAddress) {
-                this.linkAddress = linkAddress;
             }
 
             public int getDelFlag() {
@@ -264,12 +283,12 @@ public class FindBean extends BaseVO {
                 this.type = type;
             }
 
-            public String getPicturesAddress() {
-                return picturesAddress;
+            public String getLinkAddress() {
+                return linkAddress;
             }
 
-            public void setPicturesAddress(String picturesAddress) {
-                this.picturesAddress = picturesAddress;
+            public void setLinkAddress(String linkAddress) {
+                this.linkAddress = linkAddress;
             }
 
             public int getNewsId() {
@@ -280,28 +299,20 @@ public class FindBean extends BaseVO {
                 this.newsId = newsId;
             }
 
-            public String getEventTitle() {
-                return eventTitle;
-            }
-
-            public void setEventTitle(String eventTitle) {
-                this.eventTitle = eventTitle;
-            }
-
-            public long getCreateTime() {
-                return createTime;
-            }
-
-            public void setCreateTime(long createTime) {
-                this.createTime = createTime;
-            }
-
             public long getOnlineTime() {
                 return onlineTime;
             }
 
             public void setOnlineTime(long onlineTime) {
                 this.onlineTime = onlineTime;
+            }
+
+            public String getEventTitle() {
+                return eventTitle;
+            }
+
+            public void setEventTitle(String eventTitle) {
+                this.eventTitle = eventTitle;
             }
 
             public long getOfflineTime() {
@@ -312,12 +323,12 @@ public class FindBean extends BaseVO {
                 this.offlineTime = offlineTime;
             }
 
-            public int getId() {
-                return id;
+            public String getQiNiuAddress() {
+                return qiNiuAddress;
             }
 
-            public void setId(int id) {
-                this.id = id;
+            public void setQiNiuAddress(String qiNiuAddress) {
+                this.qiNiuAddress = qiNiuAddress;
             }
         }
     }

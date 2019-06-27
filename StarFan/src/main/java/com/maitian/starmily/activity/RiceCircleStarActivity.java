@@ -44,7 +44,7 @@ public class RiceCircleStarActivity extends BaseActivity implements BGAOnRVItemC
     private ImageView mDeleteIv;
     @Override
     public void baseSetContentView() {
-        contentInflateView(R.layout.home_promotions_activity);
+        contentInflateView(R.layout.rice_circle_star_activity);
     }
 
     @Override
@@ -143,8 +143,8 @@ public class RiceCircleStarActivity extends BaseActivity implements BGAOnRVItemC
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
-//        if (mAdapter.getData().size() == 0)
-//            return;
+        if (mAdapter.getData().size() == 0)
+            return;
 //
 //        MyMessageVO.DataBean.ListBean vo= (MyMessageVO.DataBean.ListBean) mAdapter.getItem(position);
 //

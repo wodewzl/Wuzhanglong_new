@@ -7,7 +7,7 @@ import java.util.List;
 public class HomeBean extends BaseVO {
 
     /**
-     * obj : {"pageNum":1,"pageSize":10,"size":2,"orderBy":null,"startRow":1,"endRow":2,"total":2,"pages":1,"list":[{"newsId":3835,"adImg":"F3C8BDEF-2726-4DE5-B508-5E3972D0F119","createTime":1558802938000,"responseParam":"{\"newsId\":3835}","id":3837,"title":"星米粒团队test","type":1,"status":0,"url":"https://mp.weixin.qq.com/s/lC72vZxN4jGqkzcLf4j6tw"},{"adImg":"9D752E7C-C267-44F4-8243-53C5D165A776","createTime":1558803131000,"responseParam":"{\"url\":\"https://mp.weixin.qq.com/s/lC72vZxN4jGqkzcLf4j6tw\"}","id":3838,"title":"星米粒外部地址","type":0,"url":"https://mp.weixin.qq.com/s/lC72vZxN4jGqkzcLf4j6tw","status":0}],"firstPage":1,"prePage":0,"nextPage":0,"lastPage":1,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1]}
+     * obj : {"pageNum":1,"pageSize":10,"size":1,"orderBy":null,"startRow":1,"endRow":1,"total":1,"pages":1,"list":[{"count":null,"updateTime":1561566554000,"linkAddress":"http://www.baidu.com","likeCount":null,"delFlag":0,"type":2,"picturesAddress":"http://img.starmily.com/fe27b69e-b831-45fb-bbb2-da46f66930eb","newsId":111,"eventTitle":"北京天气预报","createTime":1559999075000,"commentReplyCount":null,"onlineTime":1560002163000,"offlineTime":1560024305000,"id":1}],"firstPage":1,"prePage":0,"nextPage":0,"lastPage":1,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1]}
      */
 
     private ObjBean obj;
@@ -24,13 +24,13 @@ public class HomeBean extends BaseVO {
         /**
          * pageNum : 1
          * pageSize : 10
-         * size : 2
+         * size : 1
          * orderBy : null
          * startRow : 1
-         * endRow : 2
-         * total : 2
+         * endRow : 1
+         * total : 1
          * pages : 1
-         * list : [{"newsId":3835,"adImg":"F3C8BDEF-2726-4DE5-B508-5E3972D0F119","createTime":1558802938000,"responseParam":"{\"newsId\":3835}","id":3837,"title":"星米粒团队test","type":1,"status":0},{"adImg":"9D752E7C-C267-44F4-8243-53C5D165A776","createTime":1558803131000,"responseParam":"{\"url\":\"https://mp.weixin.qq.com/s/lC72vZxN4jGqkzcLf4j6tw\"}","id":3838,"title":"星米粒外部地址","type":0,"url":"https://mp.weixin.qq.com/s/lC72vZxN4jGqkzcLf4j6tw","status":0}]
+         * list : [{"count":null,"updateTime":1561566554000,"linkAddress":"http://www.baidu.com","likeCount":null,"delFlag":0,"type":2,"picturesAddress":"http://img.starmily.com/fe27b69e-b831-45fb-bbb2-da46f66930eb","newsId":111,"eventTitle":"北京天气预报","createTime":1559999075000,"commentReplyCount":null,"onlineTime":1560002163000,"offlineTime":1560024305000,"id":1}]
          * firstPage : 1
          * prePage : 0
          * nextPage : 0
@@ -217,73 +217,75 @@ public class HomeBean extends BaseVO {
 
         public static class ListBean {
             /**
-             * newsId : 3835
-             * adImg : F3C8BDEF-2726-4DE5-B508-5E3972D0F119
-             * createTime : 1558802938000
-             * responseParam : {"newsId":3835}
-             * id : 3837
-             * title : 星米粒团队test
-             * type : 1
-             * status : 0
-             * url : https://mp.weixin.qq.com/s/lC72vZxN4jGqkzcLf4j6tw
+             * count : null
+             * updateTime : 1561566554000
+             * linkAddress : http://www.baidu.com
+             * likeCount : null
+             * delFlag : 0
+             * type : 2
+             * picturesAddress : http://img.starmily.com/fe27b69e-b831-45fb-bbb2-da46f66930eb
+             * newsId : 111
+             * eventTitle : 北京天气预报
+             * createTime : 1559999075000
+             * commentReplyCount : null
+             * onlineTime : 1560002163000
+             * offlineTime : 1560024305000
+             * id : 1
              */
 
-            private int newsId;
-            private String adImg;
-            private long createTime;
-            private String responseParam;
-            private int id;
-            private String title;
+            private Object count;
+            private long updateTime;
+            private String linkAddress;
+            private Object likeCount;
+            private int delFlag;
             private int type;
-            private int status;
-            private String url;
+            private String picturesAddress;
+            private int newsId;
+            private String eventTitle;
+            private long createTime;
+            private Object commentReplyCount;
+            private long onlineTime;
+            private long offlineTime;
+            private int id;
 
-            public int getNewsId() {
-                return newsId;
+            public Object getCount() {
+                return count;
             }
 
-            public void setNewsId(int newsId) {
-                this.newsId = newsId;
+            public void setCount(Object count) {
+                this.count = count;
             }
 
-            public String getAdImg() {
-                return adImg;
+            public long getUpdateTime() {
+                return updateTime;
             }
 
-            public void setAdImg(String adImg) {
-                this.adImg = adImg;
+            public void setUpdateTime(long updateTime) {
+                this.updateTime = updateTime;
             }
 
-            public long getCreateTime() {
-                return createTime;
+            public String getLinkAddress() {
+                return linkAddress;
             }
 
-            public void setCreateTime(long createTime) {
-                this.createTime = createTime;
+            public void setLinkAddress(String linkAddress) {
+                this.linkAddress = linkAddress;
             }
 
-            public String getResponseParam() {
-                return responseParam;
+            public Object getLikeCount() {
+                return likeCount;
             }
 
-            public void setResponseParam(String responseParam) {
-                this.responseParam = responseParam;
+            public void setLikeCount(Object likeCount) {
+                this.likeCount = likeCount;
             }
 
-            public int getId() {
-                return id;
+            public int getDelFlag() {
+                return delFlag;
             }
 
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public String getTitle() {
-                return title;
-            }
-
-            public void setTitle(String title) {
-                this.title = title;
+            public void setDelFlag(int delFlag) {
+                this.delFlag = delFlag;
             }
 
             public int getType() {
@@ -294,20 +296,68 @@ public class HomeBean extends BaseVO {
                 this.type = type;
             }
 
-            public int getStatus() {
-                return status;
+            public String getPicturesAddress() {
+                return picturesAddress;
             }
 
-            public void setStatus(int status) {
-                this.status = status;
+            public void setPicturesAddress(String picturesAddress) {
+                this.picturesAddress = picturesAddress;
             }
 
-            public String getUrl() {
-                return url;
+            public int getNewsId() {
+                return newsId;
             }
 
-            public void setUrl(String url) {
-                this.url = url;
+            public void setNewsId(int newsId) {
+                this.newsId = newsId;
+            }
+
+            public String getEventTitle() {
+                return eventTitle;
+            }
+
+            public void setEventTitle(String eventTitle) {
+                this.eventTitle = eventTitle;
+            }
+
+            public long getCreateTime() {
+                return createTime;
+            }
+
+            public void setCreateTime(long createTime) {
+                this.createTime = createTime;
+            }
+
+            public Object getCommentReplyCount() {
+                return commentReplyCount;
+            }
+
+            public void setCommentReplyCount(Object commentReplyCount) {
+                this.commentReplyCount = commentReplyCount;
+            }
+
+            public long getOnlineTime() {
+                return onlineTime;
+            }
+
+            public void setOnlineTime(long onlineTime) {
+                this.onlineTime = onlineTime;
+            }
+
+            public long getOfflineTime() {
+                return offlineTime;
+            }
+
+            public void setOfflineTime(long offlineTime) {
+                this.offlineTime = offlineTime;
+            }
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
             }
         }
     }
