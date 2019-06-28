@@ -38,7 +38,7 @@ public class MyPostsActivity extends BaseActivity implements View.OnClickListene
     private boolean isLoadMore = false;
     private boolean isFirst = true;
     private CircleImageView mHeadIv;
-    private TextView mNameTv;
+    private TextView mNameTv,mAttentionTv;
 
     @Override
     public void baseSetContentView() {
@@ -55,6 +55,7 @@ public class MyPostsActivity extends BaseActivity implements View.OnClickListene
         RecyclerViewUtil.initRecyclerViewLinearLayout(this, mRecyclerView, mAdapter, R.dimen.dp_1, R.color.C3, true);
         mHeadIv = getViewById(R.id.head_iv);
         mNameTv = getViewById(R.id.name_tv);
+        mAttentionTv=getViewById(R.id.attention_tv);
     }
 
     @Override
@@ -63,6 +64,7 @@ public class MyPostsActivity extends BaseActivity implements View.OnClickListene
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
 //        mAdapter.setOnRVItemClickListener(this);
         mRecyclerView.setOnLoadMoreListener(this);
+        mAttentionTv.setOnClickListener(this);
     }
 
     @Override
@@ -142,7 +144,14 @@ public class MyPostsActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.attention_tv:
+                attention();
+                break;
+            default:
+                break;
 
+        }
     }
 
     @Override
@@ -172,6 +181,14 @@ public class MyPostsActivity extends BaseActivity implements View.OnClickListene
             map.put("type", "1");
         }
         StartHttpUtils.postCallBack(mActivity, Constant.LIKE_COMMENT, map, BaseVO.class, this);
+    }
+
+
+    public void attention(){
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
+        map.put("followUserId", this.getIntent().getStringExtra("followUserId"));
+        StartHttpUtils.postCallBack(mActivity, Constant.FOLLOW_USER, map, BaseVO.class, this);
     }
 
 

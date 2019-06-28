@@ -41,7 +41,6 @@ public class MyIdolsVO extends BaseVO implements Serializable {
         private String iconUrl;
         private String backUrl;
         private String info;
-        private Object createTime;
 
         public int getId() {
             return id;
@@ -107,13 +106,7 @@ public class MyIdolsVO extends BaseVO implements Serializable {
             this.info = info;
         }
 
-        public Object getCreateTime() {
-            return createTime;
-        }
 
-        public void setCreateTime(Object createTime) {
-            this.createTime = createTime;
-        }
 
         @Override
         public String toString() {

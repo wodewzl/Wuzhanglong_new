@@ -1,6 +1,7 @@
 package com.maitian.starmily.fragment;
 
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -27,11 +28,12 @@ import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGAOnItemChildClickListener;
 
-public class AttentionFragment extends BaseFragment implements View.OnClickListener, PostCallback, Serializable, BGAOnItemChildClickListener {
+public class AttentionFragment extends BaseFragment implements View.OnClickListener, PostCallback, Serializable, BGAOnItemChildClickListener, SwipeRefreshLayout.OnRefreshListener {
     private LuRecyclerView mRecyclerView;
     private AttentionAdapter mAdapter;
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
     private int mType=0;//0我的爱豆1我的粉丝2我的关注
+    private int mCurrentPage = 1;
     @Override
     public void setContentView() {
         contentInflateView(R.layout.attention_fragment);
@@ -50,7 +52,7 @@ public class AttentionFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void bindViewsListener() {
-
+        mAutoSwipeRefreshLayout.setOnRefreshListener(this);
     }
 
 
@@ -89,7 +91,7 @@ public class AttentionFragment extends BaseFragment implements View.OnClickListe
 //        } else {
 //            mAdapter.updateData(list);
 //        }
-
+        mAutoSwipeRefreshLayout.setRefreshing(false);
         AttentionBean attentionBean = (AttentionBean) vo;
         List<AttentionBean.ObjBean> list = attentionBean.getObj();
         mAdapter.updateData(list);
@@ -156,5 +158,11 @@ public class AttentionFragment extends BaseFragment implements View.OnClickListe
             attent(bean.getFollowUserId()+"");
         }
 
+    }
+
+    @Override
+    public void onRefresh() {
+        mCurrentPage = 1;
+        getData();
     }
 }

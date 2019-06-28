@@ -30,8 +30,14 @@ import com.maitian.starmily.view.SpecialTab;
 import com.maitian.starmily.view.SpecialTabRound;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.fragment.BaseFragment;
+import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.mode.EBMessageVO;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -91,6 +97,8 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
                 return mFragmentList.size();
             }
         });
+
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -123,9 +131,10 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
         if (mLocationClient != null)
             mLocationClient.onDestroy();//销毁定位客户端，同时销毁本地定位服务。
+
     }
 
 
@@ -251,5 +260,12 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         mainTab.initialize(drawable, checkedDrawable, text);
 
         return mainTab;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EBMessageVO event) {
+        if ("publish_success".equals(event.getMessage())) {
+            mVpHome.setCurrentItem(1);
+        }
     }
 }

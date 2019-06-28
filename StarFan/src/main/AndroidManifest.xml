@@ -76,6 +76,7 @@
         <activity android:name=".activity.MyBindPhoneActivity" />
         <activity android:name=".activity.MyUpdateInfoActivity" />
         <activity android:name=".activity.MyAboutActivity" />
+        <activity android:name=".activity.WebViewActivity"/>
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
+import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wuzhanglong.library.mode.PayInfoVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.JsonUtil;
@@ -32,6 +34,7 @@ import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 import com.zhy.view.flowlayout.TagView;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -111,7 +114,31 @@ public class TabThreeFragment extends BaseFragment implements OnClickListener, P
                     tv.setText(objBean.getIdolName());
                     return tv;
                 }
+
+                public void onSelected(int position, View view){
+                    TextView tv= (TextView) view;
+                    tv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 22, R.color.colorAccent, R.color.color_FAD6D6));
+                    tv.setTextColor(ContextCompat.getColor(mActivity, R.color.colorAccent));
+                    int myIdlosId = mMyIdlos.getObj().get(position).getId();
+                    if (!mMyIdlosIdList.contains(myIdlosId)) {
+                        mMyIdlosIdList.add(myIdlosId);
+                    }
+                }
+
+                public void unSelected(int position, View view){
+                    TextView tv= (TextView) view;
+                    tv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 22, R.color.C3, R.color.C3));
+                    tv.setTextColor(ContextCompat.getColor(mActivity, R.color.star_gray_title));
+                    int myIdlosId = mMyIdlos.getObj().get(position).getId();
+                    if (mMyIdlosIdList.contains(myIdlosId)) {
+                        mMyIdlosIdList.remove(myIdlosId);
+                    }
+                }
             });
+            MyIdolsVO myIdolsVO = (MyIdolsVO) vo;
+            if (myIdolsVO.getObj().size() > 0)
+                AppApplication.getInstance().saveMyIdolsVO(myIdolsVO);
+
         } else {
             UpTokenVO upTokenVO = (UpTokenVO) vo;
             mToken = upTokenVO.getObj();
@@ -144,7 +171,7 @@ public class TabThreeFragment extends BaseFragment implements OnClickListener, P
 
     @Override
     public void success(BaseVO vo) {
-        System.out.println("=============");
+        EventBus.getDefault().post(new EBMessageVO("publish_success"));
     }
 
 
@@ -231,16 +258,7 @@ public class TabThreeFragment extends BaseFragment implements OnClickListener, P
 
     @Override
     public boolean onTagClick(View view, int position, FlowLayout parent) {
-        TagView tagView = (TagView) view;
-        TextView tv = (TextView) tagView.getChildAt(position);
-        if (tv != null) {
-            tv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 22, R.color.colorAccent, R.color.color_FAD6D6));
-            tv.setTextColor(ContextCompat.getColor(mActivity, R.color.colorAccent));
-            int myIdlosId = mMyIdlos.getObj().get(position).getId();
-            if (!mMyIdlosIdList.contains(myIdlosId)) {
-                mMyIdlosIdList.add(myIdlosId);
-            }
-        }
+
         return false;
     }
 

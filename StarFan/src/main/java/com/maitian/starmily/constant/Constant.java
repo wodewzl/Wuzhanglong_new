@@ -46,6 +46,8 @@ public class Constant {
     public static final String HOME_RECOMMEND = "home/homeRecommend/"; //首页
     public static final String CUSTOM_SERVICE_LIST = "find/customServiceList/"; //定制服务列表
     public static final String GET_USER_TASK = "task/getUserTask/"; //任务列表
+    public static final String GET_TASK_MSG = "task/getTaskMsg/"; //任务提示
     public static final String FIND_ACTIVITY_BY_PAGE = "news/findActivityByPage/"; //活动
+
 }
 

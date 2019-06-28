@@ -16,6 +16,7 @@ public class AttentionBean extends BaseVO {
         this.obj = obj;
     }
 
+
     public static class ObjBean {
         /**
          * followIcon : 38D2D985-C517-4020-846B-9D65E392F6DC
@@ -33,7 +34,7 @@ public class AttentionBean extends BaseVO {
 
         private String followIcon;
         private int followUserId;
-        private int createTime;
+        private long createTime;
         private String nickname;
         private Object icon;
         private int id;
@@ -47,8 +48,9 @@ public class AttentionBean extends BaseVO {
         private String alias;
         private Object groups;
         private String iconUrl;
-        private Object backUrl;
+        private String backUrl;
         private String info;
+
 
         public String getIdolName() {
             return idolName;
@@ -82,11 +84,11 @@ public class AttentionBean extends BaseVO {
             this.iconUrl = iconUrl;
         }
 
-        public Object getBackUrl() {
+        public String getBackUrl() {
             return backUrl;
         }
 
-        public void setBackUrl(Object backUrl) {
+        public void setBackUrl(String backUrl) {
             this.backUrl = backUrl;
         }
 
@@ -114,11 +116,11 @@ public class AttentionBean extends BaseVO {
             this.followUserId = followUserId;
         }
 
-        public int getCreateTime() {
+        public long getCreateTime() {
             return createTime;
         }
 
-        public void setCreateTime(int createTime) {
+        public void setCreateTime(long createTime) {
             this.createTime = createTime;
         }
 
