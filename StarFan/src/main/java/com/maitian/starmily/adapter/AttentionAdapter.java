@@ -37,7 +37,7 @@ public class AttentionAdapter extends RecyclerBaseAdapter {
             helper.setText(R.id.name_tv, bean.getIdolName());
             helper.setBackgroundRes(R.id.status_tv, R.drawable.frame_kongxin_dark_15);
             helper.setText(R.id.status_tv, "已关注");
-            helper.setTextColorRes(R.id.status_tv, R.color.color_858585);
+            helper.setTextColorRes(R.id.status_tv, R.color.C6);
         } else {
             if (!TextUtils.isEmpty(bean.getFollowIcon())){
                 if (bean.getFollowIcon().contains("http://")) {

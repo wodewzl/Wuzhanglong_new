@@ -18,6 +18,7 @@ import com.maitian.starmily.adapter.NewsReplyAdapter;
 import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
 import com.maitian.starmily.model.DiscussReplyBean;
+import com.maitian.starmily.utils.TaskUtil;
 import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.StartHttpUtils;
@@ -273,6 +274,8 @@ public class HomeNewsReplyActivity extends BaseActivity implements SwipeRefreshL
     @Override
     public void success(BaseVO vo) {
         showCustomToast(vo.getMsg());
+        new TaskUtil().taskShow(mActivity,"2");
         getData();
+
     }
 }

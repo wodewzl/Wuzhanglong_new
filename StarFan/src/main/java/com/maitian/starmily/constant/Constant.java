@@ -39,7 +39,7 @@ public class Constant {
     public static final String MY_FOLLOWS = "user/myFollows/"; //我的关注
     public static final String MY_FANS = "user/myFans/"; //我的粉丝
     public static final String FOLLOW_USER = "user/followUser/"; //关注
-    public static final String SIGN = "user/sign/"; //签到
+    public static final String SIGN_IN = "user/signIn/"; //签到
     public static final String TOPIC_SAVE_COMMENT = "topic/saveComment/"; //饭圈帖子评论
     public static final String TOPIC_SAVE_REPLY = "topic/saveReply/"; //饭圈回复评论
     public static final String TURNS_PICTURES = "home/turnsPictures/"; //首页轮播图
@@ -47,6 +47,8 @@ public class Constant {
     public static final String CUSTOM_SERVICE_LIST = "find/customServiceList/"; //定制服务列表
     public static final String GET_USER_TASK = "task/getUserTask/"; //任务列表
     public static final String GET_TASK_MSG = "task/getTaskMsg/"; //任务提示
+    public static final String TASK_REWARD = "task/taskReward/"; //任务奖励领取
+
     public static final String FIND_ACTIVITY_BY_PAGE = "news/findActivityByPage/"; //活动
 
 }

@@ -21,6 +21,7 @@ import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
 import com.maitian.starmily.model.MyIdolsVO;
 import com.maitian.starmily.model.RiceCircleVO;
+import com.maitian.starmily.utils.TaskUtil;
 import com.maitian.starmily.view.CustomDialog;
 import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.fragment.BaseFragment;
@@ -197,6 +198,7 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
     public void success(BaseVO vo) {
         mActivity.showCustomToast(vo.getMsg());
         getData();
+
     }
 
     @Override
@@ -213,6 +215,7 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
         map.put("topicId", topicId);
         map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
         StartHttpUtils.postCallBack(mActivity, Constant.LIKE_TOPIC, map, BaseVO.class, this);
+        new TaskUtil().taskShow(mActivity,"2");
     }
 
     @Override
@@ -226,6 +229,7 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
             map.put("type", "1");
         }
         StartHttpUtils.postCallBack(mActivity, Constant.LIKE_COMMENT, map, BaseVO.class, this);
+        new TaskUtil().taskShow(mActivity,"2");
     }
 
     public void showStarDialog() {

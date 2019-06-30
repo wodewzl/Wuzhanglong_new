@@ -13,8 +13,10 @@ import com.maitian.starmily.R;
 import com.maitian.starmily.adapter.PromotionsAdapter;
 import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
+import com.maitian.starmily.model.FindTopicVO;
 import com.maitian.starmily.model.NewsBean;
 import com.maitian.starmily.model.PromotionsBean;
+import com.maitian.starmily.utils.JumpUtil;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.http.StartHttpUtils;
@@ -100,13 +102,8 @@ public class HomePromotionsActivity extends BaseActivity implements BGAOnRVItemC
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
         if (mAdapter.getData().size() == 0)
             return;
-//
-//        MyMessageVO.DataBean.ListBean vo= (MyMessageVO.DataBean.ListBean) mAdapter.getItem(position);
-//
-//        Bundle bundle = new Bundle();
-//        bundle.putString("url", vo.getDetail_url());
-//        bundle.putString("title", "消息详情");
-//        open(WebViewActivity.class, bundle, 0);
+        PromotionsBean.ObjBean.ListBean bean = (PromotionsBean.ObjBean.ListBean) mAdapter.getItem(position);
+        JumpUtil.jumpActivity(mActivity, bean.getType(), bean.getLinkAddress(),bean.getEventTitle());
     }
 
     @Override

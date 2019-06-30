@@ -2,7 +2,9 @@ package com.maitian.starmily.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.maitian.starmily.R;
@@ -18,6 +20,8 @@ import com.maitian.starmily.model.MyIdolsVO;
 import com.tamic.novate.Novate;
 import com.tamic.novate.Throwable;
 import com.tamic.novate.callback.RxStringCallback;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wuzhanglong.library.activity.BaseLogoActivity;
 import com.wuzhanglong.library.cache.ACache;
 import com.wuzhanglong.library.constant.BaseConstant;
@@ -32,11 +36,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import io.reactivex.functions.Consumer;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 
-public class LogoActivity extends BaseLogoActivity implements EasyPermissions.PermissionCallbacks {
+public class LogoActivity extends BaseLogoActivity  {
     private static final int REQUEST_PERMISSIONS = 1;
     private boolean mFlag = false;
 
@@ -47,13 +52,22 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
 //        initPermissions();
         getAppConfig();
         getMyIdol();
+
+        mLogoImageView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rxPermissions();
+            }
+        }, 3000);
     }
 
 
     @Subscribe
     public void onEventMainThread(EBMessageVO event) {
         if ("guide".equals(event.getMessage())) {
-            reuestPerm();
+
+
+
         }
     }
 
@@ -61,65 +75,6 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        // Forward results to EasyPermissions
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
-    }
-
-    @Override
-    public void onPermissionsGranted(int requestCode, List<String> perms) {
-        Intent intent = new Intent();
-        if (AppApplication.getInstance().getUserInfoVO() != null) {
-            intent.setClass(this, MainActivity.class);
-        } else {
-            intent.setClass(this, LoginActivity.class);
-        }
-        startActivity(intent);
-        this.finish();
-    }
-
-    @Override
-    public void onPermissionsDenied(int requestCode, List<String> perms) {
-        System.out.println("==========>");
-    }
-
-    @AfterPermissionGranted(REQUEST_PERMISSIONS)
-    private void reuestPerm() {
-        String[] perms = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
-        if (EasyPermissions.hasPermissions(this, perms)) {
-            Intent intent = new Intent();
-            if (AppApplication.getInstance().getUserInfoVO() != null) {
-                intent.setClass(this, MainActivity.class);
-            } else {
-                intent.setClass(this, LoginActivity.class);
-            }
-
-
-//            intent.setClass(this, MyBindPhoneActivity.class);
-//            intent.setClass(this, MyLegalizeActivity.class);
-//            intent.setClass(this, MyMessageActivity.class);
-//            intent.setClass(this, MyAboutActivity.class);
-//                        intent.setClass(this, MyAttentionActivity.class);
-//            intent.setClass(this, MyTaskActivity.class);
-//            intent.setClass(this, MyPurseActivity.class);
-//            intent.setClass(this, MyPaurseDetailActivity.class);
-//            intent.setClass(this, MyMemberCentreActivity.class);
-//            intent.setClass(this, MySettiingsActivity.class);
-//            intent.setClass(this, MyUpdatePwdActivity.class);
-//            intent.setClass(this, HomeHitListActivity.class);
-//            intent.setClass(this, HomeNewsActivity.class);
-//            intent.setClass(this, HomePromotionsActivity.class);//主页—活动
-//            intent.setClass(this, RiceCircleStarActivity.class);//明星守护列表
-            startActivity(intent);
-            this.finish();
-        } else {
-            EasyPermissions.requestPermissions(this, "是否申请必要的权限？", REQUEST_PERMISSIONS, perms);
-        }
     }
 
     public void getAppConfig() {
@@ -180,6 +135,31 @@ public class LogoActivity extends BaseLogoActivity implements EasyPermissions.Pe
                             AppApplication.getInstance().saveMyIdolsVO(vo);
                     }
                 });
+    }
+
+
+    public void rxPermissions(){
+        RxPermissions rxPermissions=new RxPermissions(this);
+        rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CALL_PHONE,Manifest.permission.INTERNET).subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) throws Exception {
+                if (aBoolean){
+                    //申请的权限全部允许
+                    Intent intent = new Intent();
+                    if (AppApplication.getInstance().getUserInfoVO() != null) {
+                        intent.setClass(LogoActivity.this, MainActivity.class);
+                    } else {
+                        intent.setClass(LogoActivity.this, LoginActivity.class);
+                    }
+                    startActivity(intent);
+                    LogoActivity.this.finish();
+
+                }else{
+                    //只要有一个权限被拒绝，就会执行
+                    Toast.makeText(LogoActivity.this, "未授权权限，部分功能不能使用", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
 

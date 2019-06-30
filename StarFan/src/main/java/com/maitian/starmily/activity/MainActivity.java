@@ -264,7 +264,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EBMessageVO event) {
-        if ("publish_success".equals(event.getMessage())) {
+        if ("publish_success".equals(event.getMessage())||"task".equals(event.getMessage())) {
             mVpHome.setCurrentItem(1);
         }
     }

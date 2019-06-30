@@ -25,12 +25,14 @@ import com.maitian.starmily.activity.HomeHitListActivity;
 import com.maitian.starmily.activity.HomeNewsActivity;
 import com.maitian.starmily.activity.HomePromotionsActivity;
 import com.maitian.starmily.activity.HomeWelfareActivity;
+import com.maitian.starmily.activity.WebViewActivity;
 import com.maitian.starmily.adapter.HomeAdapter;
 import com.maitian.starmily.constant.Constant;
 import com.maitian.starmily.model.FindTopicVO;
 import com.maitian.starmily.model.HomeBean;
 import com.maitian.starmily.model.RiceCircleVO;
 import com.maitian.starmily.model.TurnsPicturesBean;
+import com.maitian.starmily.utils.JumpUtil;
 import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.ItemDecoration.DividerDecoration;
 import com.wuzhanglong.library.fragment.BaseFragment;
@@ -51,7 +53,7 @@ import java.util.List;
 
 import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 
-public class TabOneFragment extends BaseFragment implements View.OnClickListener, PostCallback, Serializable , BGAOnRVItemClickListener, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
+public class TabOneFragment extends BaseFragment implements View.OnClickListener, PostCallback, Serializable, BGAOnRVItemClickListener, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
     private LuRecyclerView mRecyclerView;
     private HomeAdapter mAdapter;
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
@@ -89,12 +91,10 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
     }
 
-
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
         StartHttpUtils.get(mActivity, this, Constant.TURNS_PICTURES, map, TurnsPicturesBean.class);
-
         HashMap<String, Object> homeMap = new HashMap<>();
         homeMap.put("pageNum", mCurrentPage + "");
         homeMap.put("pageSize", "10");
@@ -104,17 +104,17 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void hasData(BaseVO vo) {
         if (vo instanceof TurnsPicturesBean) {
-            TurnsPicturesBean bean = (TurnsPicturesBean) vo;
+            final TurnsPicturesBean bean = (TurnsPicturesBean) vo;
             mBanner.setImages(bean.getObj());
             mBanner.setImageLoader(new ImageLoader() {
                 @Override
                 public void displayImage(Context context, Object o, ImageView imageView) {
                     imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     TurnsPicturesBean.ObjBean bannerBean = (TurnsPicturesBean.ObjBean) o;
-                    if (!TextUtils.isEmpty(bannerBean.getQiNiuAddress())){
+                    if (!TextUtils.isEmpty(bannerBean.getQiNiuAddress())) {
                         if (bannerBean.getQiNiuAddress().contains("http://")) {
                             Picasso.with(mActivity).load(bannerBean.getQiNiuAddress()).into(imageView);
-                        }else {
+                        } else {
                             Picasso.with(mActivity).load(Constant.DOMAIN_UR + "/" + bannerBean.getQiNiuAddress()).into(imageView);
                         }
                     }
@@ -124,7 +124,11 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
 
                 @Override
                 public void OnBannerClick(int position) {
+                    TurnsPicturesBean.ObjBean bannerBean = bean.getObj().get(position);
                     Bundle bundle = new Bundle();
+                    bundle.putString("url", bannerBean.getLinkAddress());
+                    bundle.putString("title", bannerBean.getDescription());
+                    mActivity.open(WebViewActivity.class, bundle, 0);
                 }
             });
             mBanner.start();
@@ -225,5 +229,8 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
         if (mAdapter.getData().size() == 0)
             return;
+
+        HomeBean.ObjBean.ListBean bean = (HomeBean.ObjBean.ListBean) mAdapter.getItem(position - 1);
+        JumpUtil.jumpActivity(mActivity, bean.getType(), bean.getLinkAddress(), bean.getEventTitle());
     }
 }

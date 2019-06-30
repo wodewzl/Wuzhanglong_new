@@ -8,6 +8,7 @@ import android.widget.EditText;
 import com.maitian.starmily.R;
 import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
+import com.maitian.starmily.utils.TaskUtil;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
@@ -60,6 +61,8 @@ public class PublishDiscussActivity extends BaseActivity implements PostCallback
     @Override
     public void success(BaseVO vo) {
         this.finish();
+
+        new TaskUtil().taskShow(mActivity,"3");
     }
 
     public void commit() {

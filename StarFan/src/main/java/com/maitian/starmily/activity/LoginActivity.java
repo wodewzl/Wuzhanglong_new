@@ -138,15 +138,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             HashMap<String, Object> map = new HashMap<>();
             if (platform == SHARE_MEDIA.WEIXIN) {
                 map.put("loginType", "2");
-//                map.put("openid", openid);
                 map.put("nickname", data.get("name"));
                 map.put("iconUrl", data.get("iconurl"));
                 map.put("wechatNo", data.get("uid"));
                 map.put("accessToken", data.get("access_token"));
 
 
-            } else {
-//                mSuccessType = "7";
+            } else if(platform == SHARE_MEDIA.QQ) {
+                map.put("loginType", "1");
+                map.put("nickname", data.get("name"));
+                map.put("iconUrl", data.get("iconurl"));
+                map.put("wechatNo", data.get("uid"));
+                map.put("accessToken", data.get("access_token"));
             }
             otherLogin(map);
         }

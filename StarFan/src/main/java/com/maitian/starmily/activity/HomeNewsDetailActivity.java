@@ -242,7 +242,7 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
     public void replayLikePost(String id, int likeCount) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("commentId", id);
-        map.put("userId", "4338");
+        map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
         map.put("type", likeCount+"");
         StartHttpUtils.postCallBack(mActivity, Constant.LIKE_COMMENT, map, BaseVO.class, this);
     }

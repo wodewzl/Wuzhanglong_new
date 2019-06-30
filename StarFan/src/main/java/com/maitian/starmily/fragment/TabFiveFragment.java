@@ -17,6 +17,7 @@ import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
 import com.maitian.starmily.model.MyHomeBean;
 import com.maitian.starmily.model.UserInfoVO;
+import com.maitian.starmily.utils.TaskUtil;
 import com.squareup.picasso.Picasso;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -200,7 +201,8 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void success(BaseVO vo) {
-        mActivity.showCustomToast("签到成功");
+//        mActivity.showCustomToast("签到成功");
+      new TaskUtil().taskShow(mActivity,"1");
     }
 
 
@@ -218,6 +220,6 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
     public void sign() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
-        StartHttpUtils.postCallBack(mActivity, Constant.SIGN, map, BaseVO.class, this);
+        StartHttpUtils.postCallBack(mActivity, Constant.SIGN_IN, map, BaseVO.class, this);
     }
 }

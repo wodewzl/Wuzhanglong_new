@@ -12,6 +12,8 @@ import com.maitian.starmily.R;
 import com.maitian.starmily.adapter.FindTopicAdapter;
 import com.maitian.starmily.constant.Constant;
 import com.maitian.starmily.model.FindTopicVO;
+import com.maitian.starmily.model.HomeBean;
+import com.maitian.starmily.utils.JumpUtil;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
@@ -109,5 +111,8 @@ public class FindTopicActivity extends BaseActivity implements BGAOnRVItemClickL
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
         if (mAdapter.getData().size() == 0)
             return;
+
+        FindTopicVO.ObjBean.ListBean bean = (FindTopicVO.ObjBean.ListBean) mAdapter.getItem(position);
+        JumpUtil.jumpActivity(mActivity, bean.getType(), bean.getLinkAddress(),bean.getEventTitle());
     }
 }
