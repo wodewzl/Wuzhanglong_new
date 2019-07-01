@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -19,7 +20,7 @@ import com.wuzhanglong.library.mode.EBMessageVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 
 import org.greenrobot.eventbus.EventBus;
-public abstract class BaseLogoActivity extends Activity implements OnClickListener {
+public abstract class BaseLogoActivity extends FragmentActivity implements OnClickListener {
     public static final String APP_VERSION = "V2.0";
     public ImageView mLogoImageView, mAvdImg;
     public LinearLayout  mTimeRootLayout,mTimeLayout;
@@ -40,17 +41,7 @@ public abstract class BaseLogoActivity extends Activity implements OnClickListen
         initView();
         initLogo();
         bindViewsListener();
-        mLogoImageView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-//                Intent intent = new Intent();
-//                int [] drawableId= new int[]{R.drawable.guide_1,R.drawable.guide_2,R.drawable.guide_3};
-//                intent.putExtra("drawableId",drawableId);
-//                intent.setClass(BaseLogoActivity.this, GuideActivity.class);
-//                BaseLogoActivity.this.startActivity(intent);
-                EventBus.getDefault().post(new EBMessageVO("guide"));
-            }
-        }, 3000);
+
 
     }
 

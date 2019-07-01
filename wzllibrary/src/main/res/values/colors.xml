@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#FA7C20</color>
     <color name="colorPrimaryDark">#FA7C20</color>
-    <color name="colorAccent">#1C68EF</color>
+    <color name="colorAccent">#FF8FA9</color>
     <!--白天主题-->
     <color name="day_backgroup_color">#FFFFFFFF</color>
     <color name="day_one_text_color">#FF000000</color>

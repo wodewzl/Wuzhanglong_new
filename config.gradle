@@ -34,6 +34,7 @@ ext {
             "bga-photopicker"     : "cn.bingoogolapple:bga-photopicker:1.2.6",//九宫格图片选择显示
             "bga-baseadapter"     : "cn.bingoogolapple:bga-baseadapter:1.2.8",//adapter适配器
             "easypermissions"     : "pub.devrel:easypermissions:0.4.0",//动态权限获取
+            "rxpermissions"     : "com.github.tbruyelle:rxpermissions:0.10.2",//动态权限获取
             "circleindicator"     : "me.relex:circleindicator:1.2.2",//viewPager 指示器
             "LRecyclerView"       : "com.github.jdsjlzx:LRecyclerView:1.5.4.3",//上拉刷新，下拉加载更多的recyclerview
             "statusbarutil"       : "com.jaeger.statusbarutil:library:1.4.0",//沉浸式状态栏
@@ -47,7 +48,7 @@ ext {
             "materialratingbar"   : "me.zhanghai.android.materialratingbar:library:1.0.2",//评分组件
             "CompressHelper"      : "com.github.nanchen2251:CompressHelper:1.0.4",//文件压缩
             "PickerView"          : "com.contrarywind:Android-PickerView:3.2.7",//三级菜单如城市选择
-            "sweetalert"          : "cn.pedant.sweetalert:library:1.3",//常用对话框
+            "sweetalert"          : "com.github.f0ris.sweetalert:library:1.5.1",//常用对话框
             "flowlayout"          : "com.hyman:flowlayout-lib:1.1.2",//流布局关键字搜索
             "switch-button"       : "com.github.zcweng:switch-button:0.0.3@aar",//开关
             "scrollablelayoutlib" : "com.github.cpoopc:scrollablelayoutlib:1.0.1",//title悬浮效果

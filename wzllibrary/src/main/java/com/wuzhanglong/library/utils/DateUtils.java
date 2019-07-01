@@ -556,13 +556,19 @@ public class DateUtils {
             return "";
         }
 
-        long time = Long.parseLong(milliseconds) * 1000;
+        long time = Long.parseLong(milliseconds) ;
         Date date = new Date(time);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String format = simpleDateFormat.format(date);
         return format;
     }
 
+    public static String parseDateDayAndHour(long milliseconds) {
+        Date date = new Date(milliseconds);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String format = simpleDateFormat.format(date);
+        return format;
+    }
 
     public static String parseDateDayAndMin(String milliseconds) {
         if (null == milliseconds || milliseconds.equals("暂无") || "".equals(milliseconds)) {

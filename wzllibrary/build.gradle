@@ -33,6 +33,7 @@ dependencies {
     api rootProject.ext.dependencies["avi-loading"]
     api rootProject.ext.dependencies["gson"]
     api rootProject.ext.dependencies["easypermissions"]
+    api rootProject.ext.dependencies["rxpermissions"]
     api rootProject.ext.dependencies["circleindicator"]
     api rootProject.ext.dependencies["LRecyclerView"]
     api rootProject.ext.dependencies["statusbarutil"]
