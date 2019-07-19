@@ -29,7 +29,7 @@
                 android:background="@color/C3">
 
                 <TextView
-                    android:id="@+id/search_iv"
+                    android:id="@+id/search_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"

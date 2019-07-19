@@ -232,6 +232,8 @@ public class StartHttpUtils {
                 BaseVO baseVO = (BaseVO) gson.fromJson(s, className);
                 if (baseVO.getStatusCode() == 200) {
                     postCallback.success(baseVO);
+                }else if(baseVO.getStatusCode() == 1002){
+                    activity.showCustomToast(baseVO.getMsg());
                 }
             }
         });

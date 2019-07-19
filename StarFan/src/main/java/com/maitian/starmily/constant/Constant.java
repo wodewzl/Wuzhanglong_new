@@ -1,9 +1,5 @@
 package com.maitian.starmily.constant;
 
-import org.w3c.dom.Comment;
-
-import java.util.List;
-
 public class Constant {
     public static String DOMAIN_UR = "";//七牛图片的地址
     public static final String TOPIC_LIST = "topic/topicList/"; // 饭圈列表
@@ -42,13 +38,12 @@ public class Constant {
     public static final String SIGN_IN = "user/signIn/"; //签到
     public static final String TOPIC_SAVE_COMMENT = "topic/saveComment/"; //饭圈帖子评论
     public static final String TOPIC_SAVE_REPLY = "topic/saveReply/"; //饭圈回复评论
-    public static final String TURNS_PICTURES = "home/turnsPictures/"; //首页轮播图
+    public static final String TURNS_PICTURES = "home/appTurnsPictures/"; //首页轮播图
     public static final String HOME_RECOMMEND = "home/homeRecommend/"; //首页
     public static final String CUSTOM_SERVICE_LIST = "find/customServiceList/"; //定制服务列表
     public static final String GET_USER_TASK = "task/getUserTask/"; //任务列表
     public static final String GET_TASK_MSG = "task/getTaskMsg/"; //任务提示
     public static final String TASK_REWARD = "task/taskReward/"; //任务奖励领取
-
     public static final String FIND_ACTIVITY_BY_PAGE = "news/findActivityByPage/"; //活动
 
 }

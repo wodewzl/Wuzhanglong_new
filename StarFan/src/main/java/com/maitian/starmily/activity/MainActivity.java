@@ -17,21 +17,15 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.maitian.starmily.R;
-
-import com.maitian.starmily.application.AppApplication;
-import com.maitian.starmily.constant.Constant;
 import com.maitian.starmily.fragment.TabFiveFragment;
 import com.maitian.starmily.fragment.TabFourFragment;
 import com.maitian.starmily.fragment.TabOneFragment;
 import com.maitian.starmily.fragment.TabThreeFragment;
 import com.maitian.starmily.fragment.TabTwoFragment;
-import com.maitian.starmily.model.MyIdolsVO;
 import com.maitian.starmily.view.SpecialTab;
 import com.maitian.starmily.view.SpecialTabRound;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.fragment.BaseFragment;
-import com.wuzhanglong.library.http.BSHttpUtils;
-import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.mode.EBMessageVO;
 
@@ -40,7 +34,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import me.majiajie.pagerbottomtabstrip.NavigationController;
@@ -214,7 +207,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     public void initBottomBar() {
         NavigationController navigationController = mBottomNavigationBar.custom()
                 .addItem(newItem(R.mipmap.home_1, R.mipmap.home_1_select, "首页"))
-                .addItem(newItem(R.mipmap.home_2, R.mipmap.home_2_select, "饭圈"))
+                .addItem(newItem(R.mipmap.home_2, R.mipmap.home_2_select, "星圈"))
                 .addItem(newRoundItem(R.mipmap.home_3, R.mipmap.home_3, ""))
                 .addItem(newItem(R.mipmap.home_4, R.mipmap.home_4_select, "发现"))
                 .addItem(newItem(R.mipmap.home_5, R.mipmap.home_5_select, "我的"))

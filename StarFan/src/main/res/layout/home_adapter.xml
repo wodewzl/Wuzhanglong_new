@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/padding_15_10"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/corners_white"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              style="@style/padding_15_10"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/corners_white"
+              android:orientation="vertical">
 
     <TextView
         android:id="@+id/title_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="我爱我家"
-        android:textSize="14sp" />
+        android:text="我爱我家"/>
 
     <ImageView
         android:id="@+id/pic_iv"
         android:layout_width="match_parent"
         android:layout_height="140dp"
         android:layout_marginTop="10dp"
-      android:scaleType="centerCrop"/>
-
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/content_tv"
@@ -29,6 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="2019-06-12"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorAccent"/>
 
 </LinearLayout>

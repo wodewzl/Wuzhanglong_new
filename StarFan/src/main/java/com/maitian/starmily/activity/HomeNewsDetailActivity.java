@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -16,7 +15,6 @@ import com.maitian.starmily.R;
 import com.maitian.starmily.adapter.NewsDiscussAdapter;
 import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
-import com.maitian.starmily.model.DiscussReplyBean;
 import com.maitian.starmily.model.NewsDetailBeans;
 import com.maitian.starmily.model.NewsDiscussBean;
 import com.wuzhanglong.library.activity.BaseActivity;
@@ -26,6 +24,8 @@ import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.DateUtils;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
+import com.wuzhanglong.library.utils.WebViewPictureUtil;
+import com.wuzhanglong.library.utils.WebviewUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -36,8 +36,8 @@ import java.util.List;
 import cn.bingoogolapple.baseadapter.BGAOnItemChildClickListener;
 
 public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHelper.ScrollableContainer, OnLoadMoreListener,
-        TagFlowLayout.OnTagClickListener, BGAOnItemChildClickListener, PostCallback, View.OnClickListener {
-    private TextView mTitleTv, mTimeTv, mOneDiscussTv, mOneLikeTv, mOneFavourTv, mOrderTv;
+        TagFlowLayout.OnTagClickListener, BGAOnItemChildClickListener, PostCallback, View.OnClickListener, WebViewPictureUtil.JSCallBack {
+    private TextView mTitleTv, mTimeTv, mOneDiscussTv, mOneLikeTv, mOrderTv;
     private WebView mWebView;
     private LuRecyclerView mRecyclerView;
     private NewsDiscussAdapter mAdapter;
@@ -46,6 +46,7 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
     private int mCurrentPage = 1;
     private TagFlowLayout mFlowLayout;
     private NewsDetailBeans mBean;
+
 
     @Override
     public void baseSetContentView() {
@@ -59,13 +60,9 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
         mTitleTv = getViewById(R.id.title_tv);
         mTimeTv = getViewById(R.id.time_tv);
         mWebView = getViewById(R.id.webview);
-        mWebView.setHorizontalScrollBarEnabled(false);//水平不显示
-        mWebView.setVerticalScrollBarEnabled(false); //垂直不显示
-        WebSettings webSettings = mWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setAllowFileAccess(true);
-        webSettings.setBuiltInZoomControls(true);
-
+        WebviewUtil.SetWebview(mWebView);
+        mWebView.getSettings().setDefaultFontSize(12);
+        mWebView.setWebViewClient(new WebViewPictureUtil(this, mWebView, "img", "this.src"));
         mRecyclerView = getViewById(R.id.recycler_view);
         mAdapter = new NewsDiscussAdapter(mRecyclerView);
         RecyclerViewUtil.initRecyclerViewLinearLayout(this, mRecyclerView, mAdapter, R.dimen.dp_1, R.color.C3, false);
@@ -74,7 +71,7 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
         mFlowLayout = getViewById(R.id.flow_layout);
         mOneDiscussTv = getViewById(R.id.one_discuss_tv);
         mOneLikeTv = getViewById(R.id.one_like_tv);
-        mOneFavourTv = getViewById(R.id.one_favor_tv);
+
         mOrderTv = getViewById(R.id.order_tv);
     }
 
@@ -84,7 +81,6 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
         mOneDiscussTv.setOnClickListener(this);
         mOneLikeTv.setOnClickListener(this);
         mBaseOkTv.setOnClickListener(this);
-        mOneFavourTv.setOnClickListener(this);
         mAdapter.setOnItemChildClickListener(this);
         mOrderTv.setOnClickListener(this);
     }
@@ -92,10 +88,9 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
     @Override
     public void getData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("userId", this.getIntent().getStringExtra("userId"));
+        map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
         map.put("newsId", this.getIntent().getStringExtra("newsId"));
         StartHttpUtils.get(mActivity, this, Constant.NEWS_DETAILS, map, NewsDetailBeans.class);
-
         order("0");
     }
 
@@ -130,6 +125,14 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
                     return tv;
                 }
             });
+            if (mBean.getObj().getLikeStatus() == 1) {
+                mOneLikeTv.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.like_press, 0, 0, 0);
+            } else {
+                mOneLikeTv.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.like_normal, 0, 0, 0);
+            }
+
+            mOneDiscussTv.setText(mBean.getObj().getNewsComment().getList().size() + "");
+            mOneLikeTv.setText(this.getIntent().getStringExtra("likeCount"));
 
         } else if (vo instanceof NewsDiscussBean) {
             NewsDiscussBean discussBean = (NewsDiscussBean) vo;
@@ -187,7 +190,7 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
                 Bundle bundleDiscuss = new Bundle();
                 bundleDiscuss.putString("type", "4");
                 bundleDiscuss.putString("commentId", beanX.getCommentId() + "");
-                bundleDiscuss.putString("fromUserId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId()+"");
+                bundleDiscuss.putString("fromUserId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId() + "");
                 bundleDiscuss.putString("toUserId", beanX.getUserId() + "");
                 open(PublishDiscussActivity.class, bundleDiscuss, 0);
                 break;
@@ -207,10 +210,9 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
                 bundle.putString("name", beanX.getNickname());
                 bundle.putString("content", beanX.getReplyMsg());
                 bundle.putLong("time", beanX.getCreateTime());
-                bundle.putString("like_count", beanX.getLikeCount()+ "");
+                bundle.putString("like_count", beanX.getLikeCount() + "");
                 bundle.putString("discuss_count", beanX.getCommentReply() != null ? beanX.getCommentReply().getTotal() + "" : "0");
                 open(HomeNewsReplyActivity.class, bundle, 0);
-
                 break;
             default:
                 break;
@@ -243,7 +245,7 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
         HashMap<String, Object> map = new HashMap<>();
         map.put("commentId", id);
         map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
-        map.put("type", likeCount+"");
+        map.put("type", likeCount + "");
         StartHttpUtils.postCallBack(mActivity, Constant.LIKE_COMMENT, map, BaseVO.class, this);
     }
 
@@ -260,9 +262,9 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
                 likePost(mBean.getObj().getNews().getNewsId() + "");
                 break;
 
-            case R.id.one_favor_tv:
-                favorPost(mBean.getObj().getNews().getNewsId() + "");
-                break;
+//            case R.id.one_favor_tv:
+//                favorPost(mBean.getObj().getNews().getNewsId() + "");
+//                break;
             case R.id.base_ok_tv:
                 break;
             case R.id.order_tv:
@@ -280,4 +282,11 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
 
         }
     }
+
+    @Override
+    public String jsCallBack(int type, String[] array, WebViewPictureUtil.JsObject jsObject) {
+        return null;
+    }
+
+
 }

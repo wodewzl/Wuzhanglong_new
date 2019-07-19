@@ -67,7 +67,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
             mLoginTv.setVisibility(View.GONE);
             UserInfoVO userInfoVO = AppApplication.getInstance().getUserInfoVO();
             mNameTv.setText(userInfoVO.getObj().getNickname());
-            System.out.println("===============>getNikename: "+userInfoVO.getObj().getNickname());
+            mDescTv.setText(userInfoVO.getObj().getSign());
             if (!TextUtils.isEmpty(userInfoVO.getObj().getIconUrl())) {
                 if (userInfoVO.getObj().getIconUrl().contains("http://")) {
                     Picasso.with(mActivity).load(userInfoVO.getObj().getIconUrl()).into(mHeadIv);

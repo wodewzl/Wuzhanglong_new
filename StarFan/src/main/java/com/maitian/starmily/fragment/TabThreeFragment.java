@@ -5,7 +5,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -32,7 +31,6 @@ import com.wuzhanglong.library.utils.JsonUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
-import com.zhy.view.flowlayout.TagView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
@@ -234,7 +232,8 @@ public class TabThreeFragment extends BaseFragment implements OnClickListener, P
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        if(data==null)
+            return;
         if (requestCode == RC_CHOOSE_PHOTO) {
             //是否单选，单选走true 语句，多选走false语句，这么默认false
 //            List<String> selectedPhotos = BGAPhotoPickerActivity.getSelectedPhotos(data);

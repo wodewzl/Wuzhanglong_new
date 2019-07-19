@@ -3,12 +3,11 @@ package com.maitian.starmily.activity;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.maitian.starmily.R;
-import com.maitian.starmily.model.MyTaskBean;
 import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
+import com.maitian.starmily.model.MyTaskBean;
 import com.maitian.starmily.model.TaskShowBean;
 import com.maitian.starmily.utils.TaskUtil;
 import com.maitian.starmily.view.StarmilyToast;
@@ -208,7 +207,7 @@ public class MyTaskActivity extends BaseActivity implements View.OnClickListener
     public void success(BaseVO vo) {
         if (vo instanceof TaskShowBean) {
             TaskShowBean bean = (TaskShowBean) vo;
-            StarmilyToast.showTaskToast(this, bean.getObj().getTaskName(), "", "+"+bean.getObj().getMily() + "迷离");
+            StarmilyToast.showTaskToast(this, bean.getObj().getTaskName(), "", "+"+bean.getObj().getMily() + "米粒");
         } else {
             new TaskUtil().taskShow(mActivity, "1");
         }

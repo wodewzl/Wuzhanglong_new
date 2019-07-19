@@ -70,7 +70,7 @@ public class UserInfoVO extends BaseVO implements Serializable {
         private Object cityName;
         private Object cityCode;
         private Object birthday;
-        private Object sign;
+        private String sign;
         private Object onlineStatus;
         private Object loginTime;
         private Object authType;
@@ -210,11 +210,11 @@ public class UserInfoVO extends BaseVO implements Serializable {
             this.birthday = birthday;
         }
 
-        public Object getSign() {
+        public String getSign() {
             return sign;
         }
 
-        public void setSign(Object sign) {
+        public void setSign(String sign) {
             this.sign = sign;
         }
 

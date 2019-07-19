@@ -2,20 +2,15 @@ package com.maitian.starmily.fragment;
 
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
-import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
@@ -28,9 +23,7 @@ import com.maitian.starmily.activity.HomeWelfareActivity;
 import com.maitian.starmily.activity.WebViewActivity;
 import com.maitian.starmily.adapter.HomeAdapter;
 import com.maitian.starmily.constant.Constant;
-import com.maitian.starmily.model.FindTopicVO;
 import com.maitian.starmily.model.HomeBean;
-import com.maitian.starmily.model.RiceCircleVO;
 import com.maitian.starmily.model.TurnsPicturesBean;
 import com.maitian.starmily.utils.JumpUtil;
 import com.squareup.picasso.Picasso;
@@ -43,7 +36,6 @@ import com.wuzhanglong.library.utils.DividerUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
@@ -127,7 +119,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
                     TurnsPicturesBean.ObjBean bannerBean = bean.getObj().get(position);
                     Bundle bundle = new Bundle();
                     bundle.putString("url", bannerBean.getLinkAddress());
-                    bundle.putString("title", bannerBean.getDescription());
+//                    bundle.putString("title", bannerBean.getDescription());
                     mActivity.open(WebViewActivity.class, bundle, 0);
                 }
             });
@@ -229,7 +221,6 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
         if (mAdapter.getData().size() == 0)
             return;
-
         HomeBean.ObjBean.ListBean bean = (HomeBean.ObjBean.ListBean) mAdapter.getItem(position - 1);
         JumpUtil.jumpActivity(mActivity, bean.getType(), bean.getLinkAddress(), bean.getEventTitle());
     }

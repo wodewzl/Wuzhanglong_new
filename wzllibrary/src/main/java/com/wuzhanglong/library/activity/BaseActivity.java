@@ -234,7 +234,8 @@ public abstract class BaseActivity extends AppCompatActivity implements UpdateCa
 
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public void setSwipeRefreshLayoutColors(SwipeRefreshLayout layout) {
-        layout.setColorSchemeResources(R.color.C7, R.color.C9, R.color.C10);
+//        layout.setColorSchemeResources(R.color.C7, R.color.C9, R.color.C10);
+        layout.setColorSchemeResources(R.color.gradient_start, R.color.gradient_start, R.color.gradient_end);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)

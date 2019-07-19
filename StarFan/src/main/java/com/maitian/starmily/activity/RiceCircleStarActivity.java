@@ -20,6 +20,7 @@ import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
 import com.maitian.starmily.model.MyIdolsVO;
 import com.maitian.starmily.model.StarVO;
+import com.rey.material.widget.TextView;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
@@ -42,6 +43,7 @@ public class RiceCircleStarActivity extends BaseActivity implements BGAOnRVItemC
     private String mKeyword;
     private EditText mSearchEt;
     private ImageView mDeleteIv;
+    private TextView mSearchTv;
     @Override
     public void baseSetContentView() {
         contentInflateView(R.layout.rice_circle_star_activity);
@@ -63,6 +65,7 @@ public class RiceCircleStarActivity extends BaseActivity implements BGAOnRVItemC
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
         mRecyclerView.setLoadMoreEnabled(true);
+        mSearchTv=getViewById(R.id.search_tv);
     }
 
     @Override
@@ -71,6 +74,7 @@ public class RiceCircleStarActivity extends BaseActivity implements BGAOnRVItemC
         mAdapter.setOnRVItemClickListener(this);
         mRecyclerView.setOnLoadMoreListener(this);
         mBaseOkTv.setOnClickListener(this);
+        mSearchTv.setOnClickListener(this);
         mSearchEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -81,7 +85,7 @@ public class RiceCircleStarActivity extends BaseActivity implements BGAOnRVItemC
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!TextUtils.isEmpty(charSequence)) {
                     mDeleteIv.setVisibility(View.VISIBLE);
-                    mKeyword= (String) charSequence;
+                    mKeyword=  charSequence.toString();
                 } else {
                     mDeleteIv.setVisibility(View.GONE);
                     mKeyword="";
@@ -182,7 +186,17 @@ public class RiceCircleStarActivity extends BaseActivity implements BGAOnRVItemC
 
     @Override
     public void onClick(View view) {
-        openActivity(MainActivity.class);
+        switch (view.getId()) {
+            case R.id.base_back_tv:
+                openActivity(MainActivity.class);
+                break;
+            case R.id.search_tv:
+                searchIdos();
+                break;
+            default:
+                break;
+        }
+
     }
 
 
@@ -190,5 +204,14 @@ public class RiceCircleStarActivity extends BaseActivity implements BGAOnRVItemC
         HashMap<String, Object> idolMap = new HashMap<>();
         idolMap.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
         StartHttpUtils.get(mActivity, this, Constant.MY_IDOLS, idolMap, MyIdolsVO.class);
+    }
+
+    public void searchIdos(){
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
+        map.put("pageNum", mCurrentPage + "");
+        map.put("pageSize", "10");
+        map.put("name", mKeyword);
+        StartHttpUtils.get(mActivity, this, Constant.FIND_IDOLS_BY_PAGE, map, StarVO.class);
     }
 }

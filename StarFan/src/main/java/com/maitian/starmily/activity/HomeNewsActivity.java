@@ -98,9 +98,10 @@ public class HomeNewsActivity extends BaseActivity implements BGAOnRVItemClickLi
         if (mAdapter.getData().size() == 0)
             return;
 
-        NewsBean.ObjBean.ListBean bean= (NewsBean.ObjBean.ListBean) mAdapter.getItem(position);
+        NewsBean.ObjBean.ListBean bean = (NewsBean.ObjBean.ListBean) mAdapter.getItem(position);
         Bundle bundle = new Bundle();
-        bundle.putString("newsId", bean.getNewsId()+"");
+        bundle.putString("likeCount", bean.getLikeCount() + "");
+        bundle.putString("newsId", bean.getNewsId() + "");
         open(HomeNewsDetailActivity.class, bundle, 0);
     }
 
@@ -115,6 +116,12 @@ public class HomeNewsActivity extends BaseActivity implements BGAOnRVItemClickLi
     public void onLoadMore() {
         isLoadMore = true;
         mCurrentPage++;
+        getData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getData();
     }
 }

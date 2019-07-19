@@ -247,6 +247,15 @@ public class NewsBean extends BaseVO {
             private int commentReplyCount;
             private String iconUrl;
             private int status;
+            private String contentDesc;
+
+            public String getContentDesc() {
+                return contentDesc;
+            }
+
+            public void setContentDesc(String contentDesc) {
+                this.contentDesc = contentDesc;
+            }
 
             public String getAdImg() {
                 return adImg;

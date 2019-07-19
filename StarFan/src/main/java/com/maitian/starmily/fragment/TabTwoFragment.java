@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.dou361.dialogui.DialogUIUtils;
-import com.dou361.dialogui.bean.BuildBean;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.maitian.starmily.R;
@@ -28,12 +26,9 @@ import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
-import com.wuzhanglong.library.utils.BaseCommonUtils;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
 import com.wuzhanglong.library.utils.WidthHigthUtil;
 import com.wuzhanglong.library.view.AutoSwipeRefreshLayout;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -80,22 +75,22 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
                     Picasso.with(mActivity).load(Constant.DOMAIN_UR + "/" + myIdolsVO.getObj().get(0).getBackUrl()).into(mHeadIv);
                 }
             }
-            if (myIdolsVO.getObj().size() > 1) {
-                if (!TextUtils.isEmpty(myIdolsVO.getObj().get(1).getIconUrl())) {
-                    if (myIdolsVO.getObj().get(1).getBackUrl().contains("http://")) {
-                        Picasso.with(mActivity).load(myIdolsVO.getObj().get(1).getIconUrl()).into(mGuardOneIv);
+            if (myIdolsVO.getObj().size() > 0) {
+                if (!TextUtils.isEmpty(myIdolsVO.getObj().get(0).getIconUrl())) {
+                    if (myIdolsVO.getObj().get(0).getBackUrl().contains("http://")) {
+                        Picasso.with(mActivity).load(myIdolsVO.getObj().get(0).getIconUrl()).into(mGuardOneIv);
                     } else {
-                        Picasso.with(mActivity).load(Constant.DOMAIN_UR + "/" + myIdolsVO.getObj().get(1).getIconUrl()).into(mGuardOneIv);
+                        Picasso.with(mActivity).load(Constant.DOMAIN_UR + "/" + myIdolsVO.getObj().get(0).getIconUrl()).into(mGuardOneIv);
                     }
                 }
                 mGuardOneIv.setVisibility(View.VISIBLE);
             } else {
                 mGuardOneIv.setVisibility(View.GONE);
             }
-            if (myIdolsVO.getObj().size() > 2) {
-                if (!TextUtils.isEmpty(myIdolsVO.getObj().get(2).getIconUrl())) {
-                    if (myIdolsVO.getObj().get(2).getBackUrl().contains("http://")) {
-                        Picasso.with(mActivity).load(myIdolsVO.getObj().get(2).getIconUrl()).into(mGuardTwoIv);
+            if (myIdolsVO.getObj().size() > 1) {
+                if (!TextUtils.isEmpty(myIdolsVO.getObj().get(1).getIconUrl())) {
+                    if (myIdolsVO.getObj().get(1).getBackUrl().contains("http://")) {
+                        Picasso.with(mActivity).load(myIdolsVO.getObj().get(1).getIconUrl()).into(mGuardTwoIv);
                     } else {
                         Picasso.with(mActivity).load(Constant.DOMAIN_UR + "/" + myIdolsVO.getObj().get(2).getIconUrl()).into(mGuardTwoIv);
                     }
