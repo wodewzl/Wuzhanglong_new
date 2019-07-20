@@ -11,8 +11,7 @@ import com.maitian.starmily.adapter.AttentionAdapter;
 import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
 import com.maitian.starmily.model.AttentionBean;
-import com.maitian.starmily.model.FindTopicVO;
-import com.maitian.starmily.model.MyIdolsVO;
+
 import com.wuzhanglong.library.fragment.BaseFragment;
 import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;

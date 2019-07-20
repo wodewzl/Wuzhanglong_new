@@ -71,7 +71,6 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
         mFlowLayout = getViewById(R.id.flow_layout);
         mOneDiscussTv = getViewById(R.id.one_discuss_tv);
         mOneLikeTv = getViewById(R.id.one_like_tv);
-
         mOrderTv = getViewById(R.id.order_tv);
     }
 
