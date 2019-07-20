@@ -164,7 +164,6 @@ public class RiceCircleStarActivity extends BaseActivity implements BGAOnRVItemC
             return;
         MyIdolsVO.ObjBean beans = (MyIdolsVO.ObjBean) mAttentionAdapter.getItem(position);
         defendStar(beans.getId() + "");
-
     }
 
     @Override
