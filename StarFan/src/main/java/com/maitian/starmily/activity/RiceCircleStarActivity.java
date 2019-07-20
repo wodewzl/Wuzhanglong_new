@@ -76,6 +76,7 @@ public class RiceCircleStarActivity extends BaseActivity implements BGAOnRVItemC
         mRecyclerView.setOnLoadMoreListener(this);
         mBaseOkTv.setOnClickListener(this);
         mSearchTv.setOnClickListener(this);
+        mDeleteIv.setOnClickListener(this);
         mSearchEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -84,7 +85,7 @@ public class RiceCircleStarActivity extends BaseActivity implements BGAOnRVItemC
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (!TextUtils.isEmpty(charSequence.toString())) {
+                if (!TextUtils.isEmpty(charSequence)) {
                     mDeleteIv.setVisibility(View.VISIBLE);
                     mKeyword = charSequence.toString();
                 } else {
@@ -190,8 +191,8 @@ public class RiceCircleStarActivity extends BaseActivity implements BGAOnRVItemC
     @Override
     public void success(BaseVO vo) {
         showCustomToast(vo.getMsg());
-        getGuardStar();
-        getData();
+        mKeyword="";
+        mSearchEt.setText("");
     }
 
     @Override
@@ -209,6 +210,11 @@ public class RiceCircleStarActivity extends BaseActivity implements BGAOnRVItemC
                 }
                 searchIdos();
                 break;
+
+                case R.id.delete_iv:
+                    mKeyword="";
+                    mSearchEt.setText("");
+                    break;
             default:
                 break;
         }
