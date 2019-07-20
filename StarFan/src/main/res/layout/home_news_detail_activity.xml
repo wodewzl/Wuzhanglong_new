@@ -11,7 +11,7 @@
     <com.cpoopc.scrollablelayoutlib.ScrollableLayout
         android:id="@+id/scrollable_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginBottom="50dp"
         android:background="@color/C1"
         android:orientation="vertical">
@@ -110,7 +110,8 @@
         <com.github.jdsjlzx.recyclerview.LuRecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:layout_marginTop="1dp"
             />
 

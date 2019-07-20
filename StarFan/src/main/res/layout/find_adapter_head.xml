@@ -123,7 +123,7 @@
                 android:drawableLeft="@mipmap/find_server"
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical"
-                android:text="服务"
+                android:text="应援服务"
                 android:textColor="@color/star_black" />
 
             <TextView

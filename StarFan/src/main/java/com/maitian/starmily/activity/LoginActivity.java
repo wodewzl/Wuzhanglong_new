@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener, PostCallback {
     private ImageView mLoginWeixinIv, mLoginQqIv, mLoginXinLangIv;
-    private TextView mLoginTv, mRegistTv;
+    private TextView mLoginTv, mRegistTv,mTouristModeTv;
 
     @Override
     public void baseSetContentView() {
@@ -38,6 +38,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         mLoginTv = getViewById(R.id.login_tv);
         mRegistTv = getViewById(R.id.regist_tv);
         mLoginXinLangIv = getViewById(R.id.login_xinlang_iv);
+        mTouristModeTv=getViewById(R.id.tourist_mode_tv);
     }
 
     @Override
@@ -47,6 +48,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         mLoginTv.setOnClickListener(this);
         mRegistTv.setOnClickListener(this);
         mLoginXinLangIv.setOnClickListener(this);
+        mTouristModeTv.setOnClickListener(this);
     }
 
     @Override
@@ -88,6 +90,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 break;
             case R.id.regist_tv:
                 openActivity(RegistActivity.class);
+                break;
+            case R.id.tourist_mode_tv:
+//                AppApplication.getInstance().saveUserInfoVO(null);
+//                openActivity(MainActivity.class);
                 break;
             default:
                 break;
@@ -135,10 +141,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 map.put("wechatNo", data.get("uid"));
                 map.put("accessToken", data.get("access_token"));
             } else if (platform == SHARE_MEDIA.QQ) {
-                map.put("loginType", "1");
+                map.put("loginType", "3");
                 map.put("nickname", data.get("name"));
                 map.put("iconUrl", data.get("iconurl"));
-                map.put("wechatNo", data.get("uid"));
+                map.put("qqNo", data.get("uid"));
                 map.put("accessToken", data.get("access_token"));
             }
             otherLogin(map);

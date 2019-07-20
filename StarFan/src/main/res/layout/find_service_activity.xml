@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/C1"
+    android:background="@color/C3"
     tools:context=".activity.FindServiceActivity">
 
     <com.wuzhanglong.library.view.AutoSwipeRefreshLayout
@@ -15,7 +15,6 @@
 
         <com.github.jdsjlzx.recyclerview.LuRecyclerView
             android:id="@+id/recycler_view"
-            style="@style/padding_15_10"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.wuzhanglong.library.view.AutoSwipeRefreshLayout>

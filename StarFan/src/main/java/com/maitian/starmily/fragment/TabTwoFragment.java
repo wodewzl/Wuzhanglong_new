@@ -264,6 +264,8 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
         if (mCustomDialog != null && mCustomDialog.isShowing()) {
             MyIdolsVO myIdolsVO = AppApplication.getInstance().getMyIdolsVO();
             mGuardAdapter.updateData(myIdolsVO.getObj());
+        } else {
+            getData();
         }
     }
 
@@ -284,6 +286,5 @@ public class TabTwoFragment extends BaseFragment implements View.OnClickListener
         }
         mCustomDialog.dismiss();
         mAutoSwipeRefreshLayout.autoRefresh();
-
     }
 }

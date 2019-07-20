@@ -267,6 +267,7 @@ public class MyPostBean extends BaseVO {
                 private int topicId;
                 private long createTime;
                 private String nickname;
+                private String sign;
                 private int likeStatus;
                 private String iconUrl;
                 private TopicCommentBean topicComment;
@@ -341,6 +342,14 @@ public class MyPostBean extends BaseVO {
 
                 public void setCreateTime(long createTime) {
                     this.createTime = createTime;
+                }
+
+                public String getSign() {
+                    return sign;
+                }
+
+                public void setSign(String sign) {
+                    this.sign = sign;
                 }
 
                 public String getNickname() {

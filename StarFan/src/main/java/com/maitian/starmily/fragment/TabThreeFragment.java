@@ -5,6 +5,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -158,6 +159,14 @@ public class TabThreeFragment extends BaseFragment implements OnClickListener, P
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ok_tv:
+                if (TextUtils.isEmpty(mContentEt.getText().toString())) {
+                    mActivity.showCustomToast("请填写内容");
+                    return;
+                }
+                if (mMyIdlosIdList.size() > 0) {
+                    mActivity.showCustomToast("请选择明细");
+                    return;
+                }
                 mActivity.showProgressDialog();
                 uploadeFile();
                 break;

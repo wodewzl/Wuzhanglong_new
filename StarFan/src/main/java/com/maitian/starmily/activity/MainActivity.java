@@ -260,4 +260,10 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
             mVpHome.setCurrentItem(1);
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setTranslanteBar();
+    }
 }

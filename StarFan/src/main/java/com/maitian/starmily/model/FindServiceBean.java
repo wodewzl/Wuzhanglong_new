@@ -7,7 +7,10 @@ import java.util.List;
 public class FindServiceBean extends BaseVO {
 
     /**
-     * obj : {"pageNum":1,"pageSize":10,"size":2,"startRow":1,"endRow":2,"total":2,"pages":1,"list":[{"id":2,"name":"明星台历定制","createUserId":"","createTime":1559186739000,"updateTime":1559186754000},{"id":2,"name":"明星台历定制","createUserId":"","createTime":1559186739000,"updateTime":1559186754000}],"firstPage":1,"prePage":0,"nextPage":0,"lastPage":1,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1]}
+     * obj : {"pageNum":1,"pageSize":10,"size":2,"orderBy":null,"startRow":1,"endRow":2,"total":2,"pages":1,"list":[{"id":3,"name":"相机出租","imgUrl":"DC61D87B-0471-4CA2-816B-451B4FFA0C43","url":null,
+     * "createUserId":null,"updateUserId":null,"createTime":1559186752000,"updateTime":1559186756000},{"id":2,"name":"明星台历定制","imgUrl":"1F8D3A35-CB9D-4E4D-BC1E-61103F68BA55","url":null,
+     * "createUserId":"","updateUserId":null,"createTime":1559186739000,"updateTime":1559186754000}],"firstPage":1,"prePage":0,"nextPage":0,"lastPage":1,"isFirstPage":true,"isLastPage":true,
+     * "hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1]}
      */
 
     private ObjBean obj;
@@ -25,11 +28,13 @@ public class FindServiceBean extends BaseVO {
          * pageNum : 1
          * pageSize : 10
          * size : 2
+         * orderBy : null
          * startRow : 1
          * endRow : 2
          * total : 2
          * pages : 1
-         * list : [{"id":2,"name":"明星台历定制","createUserId":"","createTime":1559186739000,"updateTime":1559186754000},{"id":2,"name":"明星台历定制","createUserId":"","createTime":1559186739000,"updateTime":1559186754000}]
+         * list : [{"id":3,"name":"相机出租","imgUrl":"DC61D87B-0471-4CA2-816B-451B4FFA0C43","url":null,"createUserId":null,"updateUserId":null,"createTime":1559186752000,"updateTime":1559186756000},{
+         * "id":2,"name":"明星台历定制","imgUrl":"1F8D3A35-CB9D-4E4D-BC1E-61103F68BA55","url":null,"createUserId":"","updateUserId":null,"createTime":1559186739000,"updateTime":1559186754000}]
          * firstPage : 1
          * prePage : 0
          * nextPage : 0
@@ -45,6 +50,7 @@ public class FindServiceBean extends BaseVO {
         private int pageNum;
         private int pageSize;
         private int size;
+        private Object orderBy;
         private int startRow;
         private int endRow;
         private int total;
@@ -83,6 +89,14 @@ public class FindServiceBean extends BaseVO {
 
         public void setSize(int size) {
             this.size = size;
+        }
+
+        public Object getOrderBy() {
+            return orderBy;
+        }
+
+        public void setOrderBy(Object orderBy) {
+            this.orderBy = orderBy;
         }
 
         public int getStartRow() {
@@ -207,16 +221,22 @@ public class FindServiceBean extends BaseVO {
 
         public static class ListBean {
             /**
-             * id : 2
-             * name : 明星台历定制
-             * createUserId :
-             * createTime : 1559186739000
-             * updateTime : 1559186754000
+             * id : 3
+             * name : 相机出租
+             * imgUrl : DC61D87B-0471-4CA2-816B-451B4FFA0C43
+             * url : null
+             * createUserId : null
+             * updateUserId : null
+             * createTime : 1559186752000
+             * updateTime : 1559186756000
              */
 
             private int id;
             private String name;
-            private String createUserId;
+            private String imgUrl;
+            private Object url;
+            private Object createUserId;
+            private Object updateUserId;
             private long createTime;
             private long updateTime;
 
@@ -236,12 +256,36 @@ public class FindServiceBean extends BaseVO {
                 this.name = name;
             }
 
-            public String getCreateUserId() {
+            public String getImgUrl() {
+                return imgUrl;
+            }
+
+            public void setImgUrl(String imgUrl) {
+                this.imgUrl = imgUrl;
+            }
+
+            public Object getUrl() {
+                return url;
+            }
+
+            public void setUrl(Object url) {
+                this.url = url;
+            }
+
+            public Object getCreateUserId() {
                 return createUserId;
             }
 
-            public void setCreateUserId(String createUserId) {
+            public void setCreateUserId(Object createUserId) {
                 this.createUserId = createUserId;
+            }
+
+            public Object getUpdateUserId() {
+                return updateUserId;
+            }
+
+            public void setUpdateUserId(Object updateUserId) {
+                this.updateUserId = updateUserId;
             }
 
             public long getCreateTime() {

@@ -58,15 +58,15 @@
             android:text="活动" />
 
         <TextView
-            android:id="@+id/welfare_tv"
+            android:id="@+id/service_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawableTop="@mipmap/fuli"
             android:drawablePadding="5dp"
             android:gravity="center"
-            android:text="福利"
-            android:visibility="gone"/>
+            android:text="应援服务"
+            android:visibility="visible"/>
     </LinearLayout>
 
     <LinearLayout

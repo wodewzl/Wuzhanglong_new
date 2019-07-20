@@ -7,18 +7,13 @@ import android.view.ViewGroup;
 
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
-import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.maitian.starmily.R;
 import com.maitian.starmily.adapter.PromotionsAdapter;
-import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
-import com.maitian.starmily.model.FindTopicVO;
-import com.maitian.starmily.model.NewsBean;
 import com.maitian.starmily.model.PromotionsBean;
 import com.maitian.starmily.utils.JumpUtil;
 import com.wuzhanglong.library.activity.BaseActivity;
-import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.mode.BaseVO;
 import com.wuzhanglong.library.utils.RecyclerViewUtil;
@@ -103,7 +98,7 @@ public class HomePromotionsActivity extends BaseActivity implements BGAOnRVItemC
         if (mAdapter.getData().size() == 0)
             return;
         PromotionsBean.ObjBean.ListBean bean = (PromotionsBean.ObjBean.ListBean) mAdapter.getItem(position);
-        JumpUtil.jumpActivity(mActivity, bean.getType(), bean.getLinkAddress(),bean.getEventTitle());
+        JumpUtil.jumpActivity(mActivity, bean.getType(), bean.getLinkAddress(),bean.getEventTitle(),bean.getNewsId()+"");
     }
 
     @Override
