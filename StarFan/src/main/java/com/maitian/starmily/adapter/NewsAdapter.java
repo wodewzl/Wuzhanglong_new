@@ -48,7 +48,6 @@ public class NewsAdapter extends RecyclerBaseAdapter {
         } else {
             helper.getTextView(R.id.like_count_tv).setCompoundDrawablesWithIntrinsicBounds(R.mipmap.like_normal, 0, 0, 0);
         }
-
         helper.setText(R.id.read_count_tv, bean.getCount() + "");
         if (bean.getTop() == 1) {
             helper.getView(R.id.top_tv).setVisibility(View.VISIBLE);

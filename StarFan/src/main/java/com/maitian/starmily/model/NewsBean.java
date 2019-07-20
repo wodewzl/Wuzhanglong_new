@@ -7,7 +7,10 @@ import java.util.List;
 public class NewsBean extends BaseVO {
 
     /**
-     * obj : {"pageNum":1,"pageSize":10,"size":1,"orderBy":null,"startRow":1,"endRow":1,"total":1,"pages":1,"list":[{"adImg":null,"count":424,"likeCount":3,"title":"星米粒团队test","hot":0,"userName":"大攀","userId":4337,"newsId":3835,"top":1,"createTime":1557106887000,"nickname":"大攀","commentReplyCount":14,"iconUrl":"http://132.232.197.128/group1/M00/00/00/rBsAD1yY4baAfoJJAABLPj-HsHc573.gif","status":0}],"firstPage":1,"prePage":0,"nextPage":0,"lastPage":1,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1]}
+     * obj : {"pageNum":1,"pageSize":10,"size":1,"orderBy":null,"startRow":1,"endRow":1,"total":1,"pages":1,"list":[{"adImg":null,"count":424,"likeCount":3,"title":"星米粒团队test","hot":0,
+     * "userName":"大攀","userId":4337,"newsId":3835,"top":1,"createTime":1557106887000,"nickname":"大攀","commentReplyCount":14,"iconUrl":"http://132.232.197
+     * .128/group1/M00/00/00/rBsAD1yY4baAfoJJAABLPj-HsHc573.gif","status":0}],"firstPage":1,"prePage":0,"nextPage":0,"lastPage":1,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,
+     * "hasNextPage":false,"navigatePages":8,"navigatepageNums":[1]}
      */
 
     private ObjBean obj;
@@ -30,7 +33,8 @@ public class NewsBean extends BaseVO {
          * endRow : 1
          * total : 1
          * pages : 1
-         * list : [{"adImg":null,"count":424,"likeCount":3,"title":"星米粒团队test","hot":0,"userName":"大攀","userId":4337,"newsId":3835,"top":1,"createTime":1557106887000,"nickname":"大攀","commentReplyCount":14,"iconUrl":"http://132.232.197.128/group1/M00/00/00/rBsAD1yY4baAfoJJAABLPj-HsHc573.gif","status":0}]
+         * list : [{"adImg":null,"count":424,"likeCount":3,"title":"星米粒团队test","hot":0,"userName":"大攀","userId":4337,"newsId":3835,"top":1,"createTime":1557106887000,"nickname":"大攀",
+         * "commentReplyCount":14,"iconUrl":"http://132.232.197.128/group1/M00/00/00/rBsAD1yY4baAfoJJAABLPj-HsHc573.gif","status":0}]
          * firstPage : 1
          * prePage : 0
          * nextPage : 0

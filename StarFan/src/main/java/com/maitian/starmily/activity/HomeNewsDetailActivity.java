@@ -111,7 +111,6 @@ public class HomeNewsDetailActivity extends BaseActivity implements ScrollableHe
             mTimeTv.setText(DateUtils.parseDateDay(mBean.getObj().getNews().getCreateTime()));
             mWebView.loadData(mBean.getObj().getNews().getContent(), "text/html", "UTF-8");
             List<NewsDetailBeans.ObjBean.IdolsBean> myIdolsList = mBean.getObj().getIdols();
-
             mFlowLayout.setAdapter(new TagAdapter<NewsDetailBeans.ObjBean.IdolsBean>(myIdolsList) {
                 @Override
                 public View getView(FlowLayout parent, int position, NewsDetailBeans.ObjBean.IdolsBean idolsBean) {

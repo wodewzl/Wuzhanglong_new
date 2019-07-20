@@ -80,7 +80,6 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
         mAdapter.setOnRVItemClickListener(this);
         mRecyclerView.setOnLoadMoreListener(this);
-
     }
 
     @Override

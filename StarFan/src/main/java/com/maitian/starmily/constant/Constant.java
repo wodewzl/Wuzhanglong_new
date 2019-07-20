@@ -45,6 +45,5 @@ public class Constant {
     public static final String GET_TASK_MSG = "task/getTaskMsg/"; //任务提示
     public static final String TASK_REWARD = "task/taskReward/"; //任务奖励领取
     public static final String FIND_ACTIVITY_BY_PAGE = "news/findActivityByPage/"; //活动
-
 }
 

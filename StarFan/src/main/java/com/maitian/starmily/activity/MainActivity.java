@@ -237,7 +237,6 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
     @SuppressLint("ResourceAsColor")
     private BaseTabItem newItem(int drawable, int checkedDrawable, String text) {
-
         SpecialTab mainTab = new SpecialTab(this);
         mainTab.initialize(drawable, checkedDrawable, text);
 //        mainTab.setTextDefaultColor(R.color.C9);
@@ -257,7 +256,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EBMessageVO event) {
-        if ("publish_success".equals(event.getMessage())||"task".equals(event.getMessage())) {
+        if ("publish_success".equals(event.getMessage()) || "task".equals(event.getMessage())) {
             mVpHome.setCurrentItem(1);
         }
     }

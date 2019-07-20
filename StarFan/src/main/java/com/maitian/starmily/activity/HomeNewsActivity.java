@@ -61,7 +61,6 @@ public class HomeNewsActivity extends BaseActivity implements BGAOnRVItemClickLi
         map.put("pageNum", mCurrentPage + "");
         map.put("pageSize", "10");
         StartHttpUtils.get(mActivity, this, Constant.FIND_NEWS_BY_PAGE, map, NewsBean.class);
-
     }
 
     @Override

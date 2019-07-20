@@ -113,8 +113,8 @@ public class TabThreeFragment extends BaseFragment implements OnClickListener, P
                     return tv;
                 }
 
-                public void onSelected(int position, View view){
-                    TextView tv= (TextView) view;
+                public void onSelected(int position, View view) {
+                    TextView tv = (TextView) view;
                     tv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 22, R.color.colorAccent, R.color.color_FAD6D6));
                     tv.setTextColor(ContextCompat.getColor(mActivity, R.color.colorAccent));
                     int myIdlosId = mMyIdlos.getObj().get(position).getId();
@@ -123,8 +123,8 @@ public class TabThreeFragment extends BaseFragment implements OnClickListener, P
                     }
                 }
 
-                public void unSelected(int position, View view){
-                    TextView tv= (TextView) view;
+                public void unSelected(int position, View view) {
+                    TextView tv = (TextView) view;
                     tv.setBackground(BaseCommonUtils.setBackgroundShap(mActivity, 22, R.color.C3, R.color.C3));
                     tv.setTextColor(ContextCompat.getColor(mActivity, R.color.star_gray_title));
                     int myIdlosId = mMyIdlos.getObj().get(position).getId();
@@ -141,7 +141,6 @@ public class TabThreeFragment extends BaseFragment implements OnClickListener, P
             UpTokenVO upTokenVO = (UpTokenVO) vo;
             mToken = upTokenVO.getObj();
         }
-
     }
 
     @Override
@@ -232,7 +231,7 @@ public class TabThreeFragment extends BaseFragment implements OnClickListener, P
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(data==null)
+        if (data == null)
             return;
         if (requestCode == RC_CHOOSE_PHOTO) {
             //是否单选，单选走true 语句，多选走false语句，这么默认false

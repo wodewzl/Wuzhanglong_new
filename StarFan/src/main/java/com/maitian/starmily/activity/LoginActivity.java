@@ -96,10 +96,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void success(BaseVO vo) {
-        UserInfoVO userInfoVO= (UserInfoVO) vo;
-        if(userInfoVO.getObj()!=null){
+        UserInfoVO userInfoVO = (UserInfoVO) vo;
+        if (userInfoVO.getObj() != null) {
             AppApplication.getInstance().saveUserInfoVO(userInfoVO);
-            if(userInfoVO.getObj().getIdolType()==0){
+            if (userInfoVO.getObj().getIdolType() == 0) {
                 openActivity(RiceCircleStarActivity.class);
             }else {
 //                openActivity(MainActivity.class);
@@ -134,9 +134,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 map.put("iconUrl", data.get("iconurl"));
                 map.put("wechatNo", data.get("uid"));
                 map.put("accessToken", data.get("access_token"));
-
-
-            } else if(platform == SHARE_MEDIA.QQ) {
+            } else if (platform == SHARE_MEDIA.QQ) {
                 map.put("loginType", "1");
                 map.put("nickname", data.get("name"));
                 map.put("iconUrl", data.get("iconurl"));

@@ -64,7 +64,6 @@ public class RiceCircleStarActivity extends BaseActivity implements BGAOnRVItemC
         mAdapter = new StarAdapter(mRecyclerView);
         RecyclerViewUtil.initRecyclerViewLinearLayout(this, mRecyclerView, mAdapter, R.dimen.dp_1, R.color.C3, true);
         mAttentionRecyclerView = getViewById(R.id.attention_recycler_view);
-
         mAttentionAdapter = new StarAttentionAdapter(mAttentionRecyclerView);
         RecyclerViewUtil.initRecyclerViewLinearLayoutHorizontal(this, mAttentionRecyclerView, mAttentionAdapter, R.dimen.dp_1, R.color.C3);
 
@@ -199,8 +198,11 @@ public class RiceCircleStarActivity extends BaseActivity implements BGAOnRVItemC
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.base_back_tv:
+            case R.id.base_ok_tv:
                 openActivity(MainActivity.class);
+                break;
+            case R.id.base_back_tv:
+                this.finish();
                 break;
             case R.id.search_tv:
                 if (TextUtils.isEmpty(mKeyword)) {

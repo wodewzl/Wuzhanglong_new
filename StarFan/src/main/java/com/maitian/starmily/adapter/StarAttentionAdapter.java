@@ -32,6 +32,4 @@ public class StarAttentionAdapter extends RecyclerBaseAdapter {
             }
         }
     }
-
-
 }
