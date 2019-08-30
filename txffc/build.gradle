@@ -3,10 +3,16 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         realse {
-            keyAlias 'wzl'
-            keyPassword 'wuzhanglong'
-            storeFile file('../keystore/wodewzl.jks')
-            storePassword 'wuzhanglong'
+//            keyAlias 'wzl'
+//            keyPassword 'wuzhanglong'
+//            storeFile file('../txffc/keystore/starmily.jks')
+//            storePassword 'wuzhanglong'
+
+            storeFile file('../StarFan/keystore/starmily.jks')
+            storePassword 'Maitian@#1213'
+            keyPassword 'Maitian@#1213'
+            keyAlias = 'starmily'
+
         }
     }
 //    compileSdkVersion 26
@@ -35,10 +41,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.realse
+            signingConfig signingConfigs.realse
         }
         debug {
-//            signingConfig signingConfigs.realse
+            signingConfig signingConfigs.realse
         }
     }
 

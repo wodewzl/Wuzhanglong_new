@@ -1,0 +1,4 @@
+            storeFile file('../StarFan/keystore/starmily.jks')
+            storePassword 'Maitian@#1213'
+            keyPassword 'Maitian@#1213'
+            keyAlias = 'starmily'
