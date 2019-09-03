@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1C68EF</color>
+    <color name="colorPrimaryDark">#1C68EF</color>
+    <color name="colorAccent">#1C68EF</color>
+    <color name="FUBColor1">#3F51B5</color>
+    <color name="FUBColor2">#DF3435</color>
+    <color name="FUBColor3">#FC6038</color>
+    <color name="FUBColor4">#ededed</color>
+    <color name="FUBColor5">#ebf6fc</color>
+    <color name="FUBColor6">#ffcc49</color>
+    <color name="FUBColor7">#fd9400</color>
+    <color name="FUBColor8">#3779F2</color>
+    <color name="FUBColor9">#666666</color>
+    <color name="FUBColor10">#EA2526</color>
+    <color name="FUBColor11">#769342</color>
+    <color name="divider">#999</color>
+    <color name="FUBColor12">#E9C067</color>
+    <color name="FUBColor13">#EDF0F3</color>
+    <color name="FUBColor14">#95A9B9</color>
+    <color name="bga_pp_colorPrimary">@color/colorAccent</color>
+    <color name="FUBColor15">#BFBFBF</color>
+</resources>

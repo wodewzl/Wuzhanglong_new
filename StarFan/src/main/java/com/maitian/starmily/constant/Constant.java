@@ -1,6 +1,7 @@
 package com.maitian.starmily.constant;
 
 public class Constant {
+    public static final String SDCARD_CACHE = "com.maitian/starMily/files/"; // 文件sdk缓存
     public static String DOMAIN_UR = "";//七牛图片的地址
     public static final String TOPIC_LIST = "topic/topicList/"; // 饭圈列表
     public static final String USER_TOPIC_LIST = "topic/userTopicList/"; // 某个人帖子
@@ -45,6 +46,8 @@ public class Constant {
     public static final String GET_TASK_MSG = "task/getTaskMsg/"; //任务提示
     public static final String TASK_REWARD = "task/taskReward/"; //任务奖励领取
     public static final String FIND_ACTIVITY_BY_PAGE = "news/findActivityByPage/"; //活动
+    public static final String BOOT_SCREEN = "boot/bootScreen/"; //logo广告
+    public static final String VERSION_INFO = "version/versionInfo/"; //版本升级
 
 }
 

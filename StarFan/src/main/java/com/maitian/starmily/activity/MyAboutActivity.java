@@ -15,7 +15,7 @@ public class MyAboutActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        mBaseTitleTv.setText("关于我们");
     }
 
     @Override

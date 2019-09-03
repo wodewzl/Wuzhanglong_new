@@ -9,13 +9,9 @@ import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.maitian.starmily.R;
 import com.maitian.starmily.adapter.MyPostAdapter;
-import com.maitian.starmily.adapter.PaurseDetailAdapter;
-import com.maitian.starmily.adapter.PostAdapter;
-import com.maitian.starmily.adapter.RiceCircleAdapter;
 import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
 import com.maitian.starmily.model.MyPostBean;
-import com.maitian.starmily.model.RiceCircleVO;
 import com.squareup.picasso.Picasso;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.StartHttpUtils;
@@ -30,7 +26,8 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MyPostsActivity extends BaseActivity implements View.OnClickListener, Serializable, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener, PostCallback, MyPostAdapter.ChildClikCallback {
+public class MyPostsActivity extends BaseActivity implements View.OnClickListener, Serializable, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener, PostCallback,
+        MyPostAdapter.ChildClikCallback {
     private LuRecyclerView mRecyclerView;
     private MyPostAdapter mAdapter;
     private AutoSwipeRefreshLayout mAutoSwipeRefreshLayout;
@@ -38,7 +35,7 @@ public class MyPostsActivity extends BaseActivity implements View.OnClickListene
     private boolean isLoadMore = false;
     private boolean isFirst = true;
     private CircleImageView mHeadIv;
-    private TextView mNameTv,mAttentionTv;
+    private TextView mNameTv, mAttentionTv, mDescTv;
 
     @Override
     public void baseSetContentView() {
@@ -55,7 +52,15 @@ public class MyPostsActivity extends BaseActivity implements View.OnClickListene
         RecyclerViewUtil.initRecyclerViewLinearLayout(this, mRecyclerView, mAdapter, R.dimen.dp_1, R.color.C3, true);
         mHeadIv = getViewById(R.id.head_iv);
         mNameTv = getViewById(R.id.name_tv);
-        mAttentionTv=getViewById(R.id.attention_tv);
+        mAttentionTv = getViewById(R.id.attention_tv);
+        mDescTv = getViewById(R.id.desc_tv);
+
+        if((""+AppApplication.getInstance().getUserInfoVO().getObj().getUserId()).equals(this.getIntent().getStringExtra("followUserId"))){
+            mAttentionTv.setVisibility(View.INVISIBLE);
+        }else {
+            mAttentionTv.setVisibility(View.VISIBLE);
+
+        }
     }
 
     @Override
@@ -105,6 +110,8 @@ public class MyPostsActivity extends BaseActivity implements View.OnClickListene
                     Picasso.with(mActivity).load(Constant.DOMAIN_UR + "/" + myPostBean.getObj().getTopics().getList().get(0).getIconUrl()).into(mHeadIv);
                 }
             }
+
+            mDescTv.setText(myPostBean.getObj().getTopics().getList().get(0).getSign());
             mNameTv.setText(myPostBean.getObj().getTopics().getList().get(0).getNickname());
         }
 
@@ -184,7 +191,7 @@ public class MyPostsActivity extends BaseActivity implements View.OnClickListene
     }
 
 
-    public void attention(){
+    public void attention() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("userId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId());
         map.put("followUserId", this.getIntent().getStringExtra("followUserId"));

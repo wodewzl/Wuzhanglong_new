@@ -1,7 +1,5 @@
 package com.maitian.starmily.activity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -10,9 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.maitian.starmily.R;
-import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
-import com.maitian.starmily.model.UserInfoVO;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
@@ -110,7 +106,7 @@ public class BackPasswordActivity extends BaseActivity implements View.OnClickLi
     public void sendMsgCode() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("phoneNo", mPhoneEt.getText().toString());
-        map.put("type", "2");
+        map.put("type", "3");
         StartHttpUtils.get(mActivity, this, Constant.VERIFY_CODE, map, BaseVO.class);
     }
 

@@ -23,6 +23,7 @@
         android:textColor="@color/star_black"/>
 
     <TextView
+        android:id="@+id/about_tv"
         style="@style/padding_15_10"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -95,6 +96,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/clean_cache_tv"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_weight="1"
@@ -103,6 +105,7 @@
             android:textColor="@color/star_black"/>
 
         <TextView
+            android:id="@+id/cache_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableRight="@mipmap/my_go"

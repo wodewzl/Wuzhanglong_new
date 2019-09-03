@@ -95,7 +95,6 @@ public class MyTaskActivity extends BaseActivity implements View.OnClickListener
         setStatus(mStatus05Tv, list.get(4).getStatus());
         setStatus(mStatus06Tv, list.get(5).getStatus());
         setStatus(mStatus07Tv, list.get(6).getStatus());
-
     }
 
     @Override

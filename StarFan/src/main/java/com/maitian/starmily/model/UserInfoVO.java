@@ -10,7 +10,11 @@ import java.io.Serializable;
 public class UserInfoVO extends BaseVO implements Serializable {
 
     /**
-     * obj : {"userId":4355,"userName":null,"nickname":"宇轩","phoneNo":null,"wechatNo":"oe82L1JIw_qQHv4a_RCAnHRR01rA","qqNo":null,"microblogNo":null,"accessToken":"22_LNwmu6x9WIv3jACqelvS_0zMUOp4AuOmlMQ4aWlAEkXs049MZT27KpO0yStU6UruTrweXj-cb6wtcIv4-PCGJ93kQmPyxREjJHhtFmpBuCM","verifyCode":null,"exp":null,"sex":"1","iconUrl":"http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLSbMtbEEx4LWHQK19JHicAtq3FZqVyU78ibg8bKsFJm5gTTpbFGicibWiaraibL0t8icXRXbfGqFfsb335A/132","address":null,"cityName":null,"cityCode":null,"birthday":null,"sign":null,"onlineStatus":null,"loginTime":null,"authType":null,"status":0,"registrationId":null,"lastloginType":null,"backUrl":null,"loginType":"2","idolType":0,"token":"201eb9ac2b08a26286e5d78a10e4f7ff"}
+     * obj : {"userId":4355,"userName":null,"nickname":"宇轩","phoneNo":null,"wechatNo":"oe82L1JIw_qQHv4a_RCAnHRR01rA","qqNo":null,"microblogNo":null,
+     * "accessToken":"22_LNwmu6x9WIv3jACqelvS_0zMUOp4AuOmlMQ4aWlAEkXs049MZT27KpO0yStU6UruTrweXj-cb6wtcIv4-PCGJ93kQmPyxREjJHhtFmpBuCM","verifyCode":null,"exp":null,"sex":"1",
+     * "iconUrl":"http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLSbMtbEEx4LWHQK19JHicAtq3FZqVyU78ibg8bKsFJm5gTTpbFGicibWiaraibL0t8icXRXbfGqFfsb335A/132","address":null,"cityName":null,
+     * "cityCode":null,"birthday":null,"sign":null,"onlineStatus":null,"loginTime":null,"authType":null,"status":0,"registrationId":null,"lastloginType":null,"backUrl":null,"loginType":"2",
+     * "idolType":0,"token":"201eb9ac2b08a26286e5d78a10e4f7ff"}
      */
 
     private ObjBean obj;

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/padding_15_10"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/C1"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              style="@style/padding_15_10"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/C1"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,20 +20,20 @@
             android:layout_centerHorizontal="true"
             android:src="@drawable/user_icon_def"
             app:civ_border_color="@color/C1"
-            app:civ_border_width="2dp" />
+            app:civ_border_width="2dp"/>
 
         <TextView
             android:id="@+id/title_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="dddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:singleLine="true"
+            android:layout_weight="1"
             android:ellipsize="end"
+            android:singleLine="true"
+            android:text="dddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
             android:textColor="@color/colorAccent"
-           />
+            />
 
         <TextView
             android:id="@+id/time_tv"
@@ -42,18 +42,19 @@
             android:layout_marginRight="10dp"
             android:text="12分钟钱"
             android:textColor="@color/star_gray"
-            android:textSize="10sp" />
+            android:textSize="10sp"/>
 
         <TextView
             android:id="@+id/hot_tv"
             android:layout_width="32dp"
             android:layout_height="13dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/news_jing_hua_bg"
             android:gravity="center"
             android:text="精华"
             android:textColor="@color/color_FFC91C"
-            android:textSize="10sp"
-            android:layout_marginRight="10dp"/>
+            android:textSize="10sp"/>
+
         <TextView
             android:id="@+id/top_tv"
             android:layout_width="32dp"
@@ -79,10 +80,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:maxLines="2"
         android:ellipsize="end"
+        android:maxLines="2"
         android:text="wood的劳动力大军链接发来放假啊两地分居啊"
-        android:textColor="@color/star_gray_title" />
+        android:textColor="@color/star_gray_title"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -99,7 +100,7 @@
             android:gravity="center"
             android:text="222"
             android:textColor="@color/colorAccent"
-            android:textSize="10sp" />
+            android:textSize="10sp"/>
 
         <TextView
             android:id="@+id/replay_count_tv"
@@ -111,13 +112,13 @@
             android:gravity="center"
             android:text="222"
             android:textColor="@color/colorAccent"
-            android:textSize="10sp" />
+            android:textSize="10sp"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:visibility="invisible" />
+            android:visibility="invisible"/>
 
 
         <TextView
@@ -130,7 +131,7 @@
             android:gravity="center"
             android:text="222"
             android:textColor="@color/colorAccent"
-            android:textSize="10sp" />
+            android:textSize="10sp"/>
     </LinearLayout>
 
 

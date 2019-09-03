@@ -8,31 +8,22 @@ import android.widget.TextView;
 import com.maitian.starmily.R;
 import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
-import com.maitian.starmily.fragment.TabFiveFragment;
-import com.maitian.starmily.fragment.TabFourFragment;
-import com.maitian.starmily.fragment.TabOneFragment;
-import com.maitian.starmily.fragment.TabThreeFragment;
-import com.maitian.starmily.fragment.TabTwoFragment;
 import com.maitian.starmily.model.UserInfoVO;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.wuzhanglong.library.activity.BaseActivity;
-import com.wuzhanglong.library.fragment.BaseFragment;
-import com.wuzhanglong.library.http.BSHttpUtils;
 import com.wuzhanglong.library.http.StartHttpUtils;
 import com.wuzhanglong.library.interfaces.PostCallback;
 import com.wuzhanglong.library.mode.BaseVO;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener, PostCallback {
     private ImageView mLoginWeixinIv, mLoginQqIv, mLoginXinLangIv;
-    private TextView mLoginTv, mRegistTv;
+    private TextView mLoginTv, mRegistTv,mTouristModeTv;
 
     @Override
     public void baseSetContentView() {
@@ -47,6 +38,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         mLoginTv = getViewById(R.id.login_tv);
         mRegistTv = getViewById(R.id.regist_tv);
         mLoginXinLangIv = getViewById(R.id.login_xinlang_iv);
+        mTouristModeTv=getViewById(R.id.tourist_mode_tv);
     }
 
     @Override
@@ -56,6 +48,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         mLoginTv.setOnClickListener(this);
         mRegistTv.setOnClickListener(this);
         mLoginXinLangIv.setOnClickListener(this);
+        mTouristModeTv.setOnClickListener(this);
     }
 
     @Override
@@ -98,6 +91,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             case R.id.regist_tv:
                 openActivity(RegistActivity.class);
                 break;
+            case R.id.tourist_mode_tv:
+//                AppApplication.getInstance().saveUserInfoVO(null);
+//                openActivity(MainActivity.class);
+                break;
             default:
                 break;
         }
@@ -105,13 +102,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void success(BaseVO vo) {
-        UserInfoVO userInfoVO= (UserInfoVO) vo;
-        if(userInfoVO.getObj()!=null){
+        UserInfoVO userInfoVO = (UserInfoVO) vo;
+        if (userInfoVO.getObj() != null) {
             AppApplication.getInstance().saveUserInfoVO(userInfoVO);
-            if(userInfoVO.getObj().getIdolType()==0){
+            if (userInfoVO.getObj().getIdolType() == 0) {
                 openActivity(RiceCircleStarActivity.class);
             }else {
-                openActivity(MainActivity.class);
+//                openActivity(MainActivity.class);
+                openActivity(RiceCircleStarActivity.class);
             }
             this.finish();
         }
@@ -142,13 +140,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 map.put("iconUrl", data.get("iconurl"));
                 map.put("wechatNo", data.get("uid"));
                 map.put("accessToken", data.get("access_token"));
-
-
-            } else if(platform == SHARE_MEDIA.QQ) {
-                map.put("loginType", "1");
+            } else if (platform == SHARE_MEDIA.QQ) {
+                map.put("loginType", "3");
                 map.put("nickname", data.get("name"));
                 map.put("iconUrl", data.get("iconurl"));
-                map.put("wechatNo", data.get("uid"));
+                map.put("qqNo", data.get("uid"));
                 map.put("accessToken", data.get("access_token"));
             }
             otherLogin(map);

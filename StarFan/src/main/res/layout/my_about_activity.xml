@@ -22,14 +22,29 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:background="@color/colorAccent"/>
+            android:src="@mipmap/ic_launcher"/>
 
         <TextView
-
             style="@style/padding_left_18_right_18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我真是房价就是鹿鼎记鹿鼎记鹿鼎记的理解奥兰多都拉进来的煎熬了房间按附件奥利弗杰拉德放假啊了解"
+            android:text="        星米粒隶属于深圳麦田娱乐有限公司，是一款粉丝追星应援的手机应用，致力于打造粉丝追星交流的垂直社区。"
+            android:textColor="@color/star_black"/>
+
+        <TextView
+            style="@style/padding_left_18_right_18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="        星米粒与多家经纪公司、电视台、电影电视公司及媒体平台达成合作，为粉丝提供偶像认证和粉丝福利！"
+            android:textColor="@color/star_black"/>
+
+        <TextView
+            style="@style/padding_left_18_right_18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="        这里有最新最全的娱乐资讯，有新鲜搞笑的娱乐八卦；这里有丰富的粉丝福利，签名照、见面会、演唱会门票、录制名额；这里有人气榜单、偶像应援、家人互动，将你的偶像安利给全世界！同时，星米粒以应援服务为核心，提供专业的应援解决方案，集成了中国、韩国、美国等海外各地的资源，能高效的实现广告投放、公益项目、剧组应援、媒体公关等应援需求。星米粒Starmily，粉丝追星family！与你一起守护Ta！"
             android:textColor="@color/star_black"/>
 
         <TextView
@@ -60,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/name_tv"
-                android:text="18602727134"
+                android:text="15712110240"
                 android:textColor="@color/star_gray"
                 android:textSize="10sp"/>
         </LinearLayout>
@@ -83,65 +98,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/name_tv"
-                android:text="944908457@qq.com"
+                android:text="bd@starmily.com"
                 android:textColor="@color/star_gray"
                 android:textSize="10sp"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="bottom">
 
         <TextView
-            style="@style/padding_left_18_right_18"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:gravity="center_vertical"
-            android:text="关注我们"
-            android:textColor="@color/star_gray_title"/>
-
-        <LinearLayout
-            style="@style/padding_left_18_right_18"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:background="@color/C1"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="工作邮箱"
-                />
-
-            <TextView
-                android:id="@+id/tv_04"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/name_tv"
-                android:text="944908457@qq.com"
-                android:textColor="@color/star_gray"
-                android:textSize="10sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/padding_left_18_right_18"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:background="@color/C1"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="工作邮箱"
-                />
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/name_tv"
-                android:text="944908457@qq.com"
-                android:textColor="@color/star_gray"
-                android:textSize="10sp"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Copyright © 2019 StarMily . All rights reserved."
+            android:textColor="@color/star_gray_title"
+            android:layout_gravity="center"
+            android:textSize="10sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="深圳麦田娱乐有限公司 版权所有"
+            android:textColor="@color/star_gray_title"
+            android:layout_gravity="center"
+            android:textSize="10sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"/>
         </LinearLayout>
     </LinearLayout>
 

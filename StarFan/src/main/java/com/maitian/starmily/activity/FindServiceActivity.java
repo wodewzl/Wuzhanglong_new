@@ -37,13 +37,13 @@ public class FindServiceActivity extends BaseActivity implements BGAOnRVItemClic
 
     @Override
     public void initView() {
-        mBaseTitleTv.setText("服务中心");
+        mBaseTitleTv.setText("应援服务");
         mAutoSwipeRefreshLayout = getViewById(R.id.swipe_refresh_layout);
         mActivity.setSwipeRefreshLayoutColors(mAutoSwipeRefreshLayout);
         mRecyclerView = getViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         mAdapter = new FindServiceAdapter(mRecyclerView);
-        RecyclerViewUtil.initRecyclerViewLinearLayout(this, mRecyclerView, mAdapter, R.dimen.dp_10, R.color.C1, true);
+        RecyclerViewUtil.initRecyclerViewLinearLayout(this, mRecyclerView, mAdapter, R.dimen.dp_10, R.color.C3, true);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
     }
 

@@ -12,7 +12,6 @@ import com.maitian.starmily.R;
 import com.maitian.starmily.adapter.FindTopicAdapter;
 import com.maitian.starmily.constant.Constant;
 import com.maitian.starmily.model.FindTopicVO;
-import com.maitian.starmily.model.HomeBean;
 import com.maitian.starmily.utils.JumpUtil;
 import com.wuzhanglong.library.activity.BaseActivity;
 import com.wuzhanglong.library.http.StartHttpUtils;
@@ -113,6 +112,6 @@ public class FindTopicActivity extends BaseActivity implements BGAOnRVItemClickL
             return;
 
         FindTopicVO.ObjBean.ListBean bean = (FindTopicVO.ObjBean.ListBean) mAdapter.getItem(position);
-        JumpUtil.jumpActivity(mActivity, bean.getType(), bean.getLinkAddress(),bean.getEventTitle());
+        JumpUtil.jumpActivity(mActivity, bean.getType(), bean.getLinkAddress(),bean.getEventTitle(),bean.getNewsId()+"");
     }
 }

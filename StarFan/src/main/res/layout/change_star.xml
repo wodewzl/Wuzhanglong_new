@@ -37,7 +37,7 @@
         android:id="@+id/close_iv"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@mipmap/delete_img"
+        android:src="@mipmap/delete_img_write"
         android:layout_marginTop="44dp"
         android:layout_gravity="center_horizontal"/>
 

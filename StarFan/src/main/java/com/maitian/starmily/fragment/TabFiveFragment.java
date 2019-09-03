@@ -17,7 +17,6 @@ import com.maitian.starmily.application.AppApplication;
 import com.maitian.starmily.constant.Constant;
 import com.maitian.starmily.model.MyHomeBean;
 import com.maitian.starmily.model.UserInfoVO;
-import com.maitian.starmily.utils.TaskUtil;
 import com.squareup.picasso.Picasso;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -71,7 +70,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
             if (!TextUtils.isEmpty(userInfoVO.getObj().getIconUrl())) {
                 if (userInfoVO.getObj().getIconUrl().contains("http://")) {
                     Picasso.with(mActivity).load(userInfoVO.getObj().getIconUrl()).into(mHeadIv);
-                }else {
+                } else {
                     Picasso.with(mActivity).load(userInfoVO.getObj().getIconUrl()).into(mHeadIv);
                     Picasso.with(mActivity).load(Constant.DOMAIN_UR + "/" + userInfoVO.getObj().getIconUrl()).into(mHeadIv);
                 }
@@ -122,7 +121,7 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        Bundle bundle=new Bundle();
+        Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.item_01_tv:
                 mActivity.openActivity(MyAttentionActivity.class);
@@ -137,8 +136,8 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
                 mActivity.openActivity(MyMemberCentreActivity.class);
                 break;
             case R.id.item_05_tv:
-                bundle.putString("followUserId",AppApplication.getInstance().getUserInfoVO().getObj().getUserId()+"");
-                mActivity.open(MyPostsActivity.class,bundle,0);
+                bundle.putString("followUserId", AppApplication.getInstance().getUserInfoVO().getObj().getUserId() + "");
+                mActivity.open(MyPostsActivity.class, bundle, 0);
                 break;
             case R.id.item_06_tv:
                 mActivity.openActivity(MySettiingsActivity.class);
@@ -151,7 +150,6 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
                 break;
             default:
                 break;
-
         }
     }
 
@@ -201,8 +199,8 @@ public class TabFiveFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void success(BaseVO vo) {
-//        mActivity.showCustomToast("签到成功");
-      new TaskUtil().taskShow(mActivity,"1");
+        mActivity.showCustomToast("签到成功");
+//      new TaskUtil().taskShow(mActivity,"1");
     }
 
 

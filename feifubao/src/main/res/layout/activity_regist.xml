@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wuzhanglong.library.view.ReboundScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:fadingEdge="none"
+    android:orientation="vertical"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/C3"
+        android:orientation="vertical"
+        tools:context="com.wzl.feifubao.activity.RegistActivity">
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/C1"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:text="输入您的邮箱帐号" />
+
+        <EditText
+            android:id="@+id/et_01"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/C1"
+            android:drawablePadding="5dp"
+            android:hint="请输入邮箱"
+            android:paddingLeft="15dp"
+            android:textColorHint="@color/C6"
+            android:textSize="@dimen/sp_13" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:text="接收到的邮箱验证码" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/C1"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_02"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="@color/C1"
+                android:digits="0123456789"
+                android:drawablePadding="5dp"
+                android:hint="请输入验证码"
+                android:inputType="number"
+                android:maxLength="11"
+                android:paddingLeft="15dp"
+                android:textColorHint="@color/C6"
+                android:textSize="@dimen/sp_13" />
+
+            <TextView
+                android:id="@+id/code_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:paddingTop="2dp"
+                android:text="获取验证码"
+                android:textColor="@color/C1" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:text="输入密码" />
+
+        <EditText
+            android:id="@+id/et_03"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/C1"
+            android:drawablePadding="5dp"
+            android:hint="请输入密码（6-8位）"
+            android:inputType="textPassword"
+            android:paddingLeft="15dp"
+            android:textColorHint="@color/C6"
+            android:textSize="@dimen/sp_13" />
+
+        <EditText
+            android:id="@+id/et_04"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/C1"
+
+            android:drawablePadding="5dp"
+            android:hint="确认密码"
+            android:inputType="textPassword"
+            android:paddingLeft="15dp"
+            android:textColorHint="@color/C6"
+            android:textSize="@dimen/sp_13" />
+
+        <TextView
+            android:id="@+id/ok_tv"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="确  定"
+            android:textColor="@color/C1"
+            android:textSize="15sp" />
+    </LinearLayout>
+</com.wuzhanglong.library.view.ReboundScrollView>

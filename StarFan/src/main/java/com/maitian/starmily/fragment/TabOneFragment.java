@@ -15,11 +15,11 @@ import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.maitian.starmily.R;
+import com.maitian.starmily.activity.FindServiceActivity;
 import com.maitian.starmily.activity.FindTopicActivity;
 import com.maitian.starmily.activity.HomeHitListActivity;
 import com.maitian.starmily.activity.HomeNewsActivity;
 import com.maitian.starmily.activity.HomePromotionsActivity;
-import com.maitian.starmily.activity.HomeWelfareActivity;
 import com.maitian.starmily.activity.WebViewActivity;
 import com.maitian.starmily.adapter.HomeAdapter;
 import com.maitian.starmily.constant.Constant;
@@ -80,7 +80,6 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         mAutoSwipeRefreshLayout.setOnRefreshListener(this);
         mAdapter.setOnRVItemClickListener(this);
         mRecyclerView.setOnLoadMoreListener(this);
-
     }
 
     @Override
@@ -166,8 +165,8 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
             case R.id.promotions_tv:
                 mActivity.openActivity(HomePromotionsActivity.class);
                 break;
-            case R.id.welfare_tv:
-                mActivity.openActivity(HomeWelfareActivity.class);
+            case R.id.service_tv:
+                mActivity.openActivity(FindServiceActivity.class);
                 break;
             case R.id.rank_layout:
                 mActivity.openActivity(HomeHitListActivity.class);
@@ -197,7 +196,7 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         view.findViewById(R.id.topic_tv).setOnClickListener(this);
         view.findViewById(R.id.news_tv).setOnClickListener(this);
         view.findViewById(R.id.promotions_tv).setOnClickListener(this);
-        view.findViewById(R.id.welfare_tv).setOnClickListener(this);
+        view.findViewById(R.id.service_tv).setOnClickListener(this);
         mBanner = view.findViewById(R.id.banner);
         mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         return view;
@@ -222,6 +221,6 @@ public class TabOneFragment extends BaseFragment implements View.OnClickListener
         if (mAdapter.getData().size() == 0)
             return;
         HomeBean.ObjBean.ListBean bean = (HomeBean.ObjBean.ListBean) mAdapter.getItem(position - 1);
-        JumpUtil.jumpActivity(mActivity, bean.getType(), bean.getLinkAddress(), bean.getEventTitle());
+        JumpUtil.jumpActivity(mActivity, bean.getType(), bean.getLinkAddress(), bean.getEventTitle(),bean.getNewsId()+"");
     }
 }

@@ -81,7 +81,8 @@
             android:background="@color/colorAccent"
             android:gravity="center"
             android:text="私信"
-            android:textColor="@color/C1" />
+            android:textColor="@color/C1"
+            android:visibility="invisible"/>
     </RelativeLayout>
 
     <com.wuzhanglong.library.view.AutoSwipeRefreshLayout
